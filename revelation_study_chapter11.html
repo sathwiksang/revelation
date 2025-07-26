@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 11</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;  /* Increased from 720px */
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;  /* Increased from 1.6 */
+            color: var(--text-primary);
+            background-color: #f0f0f0;  /* Slightly darker than content */
+            font-size: 18px;  /* Base font size for better readability */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter11Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="window.location.href='revelation_study_chapter1.html#chapters'">← Chapters</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 11</h1>
+                <p>In-Depth Study of Revelation Chapter 11</p>
+            </div>
+            <div class="content-body" id="chapter11Content">
+                <!-- Content from In-Depth Study of Revelation Chapter 11.pdf starts here -->
+                <h2>Context:</h2>
+                <p>
+                    Revelation 11 continues the Apostle John's vision of the "things which shall be hereafter" (Rev. 4:1).
+                    Most futurist interpreters including Plymouth Brethren theologians understand chapters 4-19 to
+                    describe the future Great Tribulation period, after the Church has been raptured (caught up to heaven)
+                    <sup>1</sup>. In this view, God's prophetic focus has shifted back to Israel and the nations for the final seven years
+                    before Christ's return, often identified with the 70th week of Daniel (Daniel 9:27). Chapter 11 specifically
+                    introduces two key prophetic events: the measuring of a temple in Jerusalem and the ministry of God's Two
+                    Witnesses, culminating in the sounding of the Seventh Trumpet. We will examine the chapter verse by
+                    verse, highlighting doctrinal significance, parallel Scriptures, and practical applications for personal faith.
+                </p>
+
+                <h2>Verses 1-2: Measuring the Temple and the Holy City</h2>
+                <p>
+                    "Then I was given a reed like a measuring rod. And the angel stood, saying, 'Rise and measure the
+                    temple of God, the altar, and those who worship there. But leave out the court which is outside the
+                    temple, and do not measure it, for it has been given to the Gentiles. And they will tread the holy city
+                    underfoot for forty-two months." (Rev. 11:1-2, NKJV)
+                </p>
+                <p>
+                    John is instructed to measure the temple in his vision. In Scripture, when God "measures" something, it
+                    often signifies His ownership, evaluation, or protection of it <sup>2 3</sup>. Here the act of measuring implies God
+                    is marking out a place and a people in Jerusalem as belonging to Him, even during the Tribulation. This
+                    temple is understood as a future rebuilt temple in Jerusalem during the last days <sup>4</sup>. The scene "clearly
+                    involves Jerusalem and the future temple in the last days" <sup>4</sup>, indicating that by this point in prophecy,
+                    Israel has been restored to their land and is again central in God's plan (cf. Romans 11:25-27).
+                </p>
+                <p>
+                    John measures "the temple of God, and the altar, and those who worship there", suggesting that God
+                    acknowledges a faithful remnant of Jewish worshipers in the Tribulation temple <sup>3</sup>. However, John is
+                    told not to measure the outer court, "for it has been given to the Gentiles." In other words, while God
+                    recognizes the inner worship (true believers faithful to Him), the outer court (the external religious system
+                    or the city at large) is dominated by Gentile nations. Jesus foretold that "Jerusalem will be trampled by Gentiles
+                    until the times of the Gentiles are fulfilled" (Luke 21:24). Revelation 11:2 picks up that theme: "the holy city
+                    [Jerusalem] shall they [Gentiles tread under foot forty and two months." According to many premillennial
+                    expositors, this 42-month period corresponds to the final three-and-a-half years of the Tribulation (often
+                    called "the Great Tribulation") <sup>5</sup>. It is "the last three and a half years of the final seven that compose
+                    Daniel's seventieth week" - a period of intense trouble for Jerusalem until Gentile domination is broken at
+                    Christ's Second Coming <sup>6</sup>. During that 31½ years ("forty-two months"), Jerusalem will be largely under the
+                    sway of Gentile powers and the forces of the Antichrist, even as God works to purify and redeem Israel.
+                </p>
+                <p>
+                    Notably, John's measuring of the temple parallels other biblical visions of measuring God's special places:
+                    e.g. Ezekiel measuring the millennial temple (Ezk. 40:3-5) and an angel measuring the New Jerusalem (Rev.
+                    21:15-16). Similarly, Zechariah saw a man measuring the city of Jerusalem as a sign that God would restore
+                    it: "Jerusalem shall be inhabited as towns without walls... For I... will be a wall of fire all around her, and I will be
+                    the glory in her midst" (Zech. 2:4-5) <sup>7</sup>. The command to measure in Revelation 11 thus signals God's intent
+                    to restore and protect a believing people in Jerusalem, even though the city will be partly overrun by
+                    unbelievers for a time <sup>3</sup>.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    Even in times of judgment, God knows "those who
+                    worship there" - He knows His true worshipers. Just as the measuring reed marked out those who belonged
+                    to God, we are encouraged to be found as true worshipers whom God "marks" as His own. In perilous
+                    times, God will preserve His faithful remnant.
+                </p>
+
+                <h2>Verses 3-6: The Two Witnesses and Their Prophetic Ministry</h2>
+                <p>
+                    "And I will give power to my two witnesses, and they will prophesy one thousand two hundred and
+                    sixty days, clothed in sackcloth." (Rev. 11:3)
+                </p>
+                <p>
+                    After mentioning the 42 months of Gentile trampling, verse 3 introduces God's response in that same era:
+                    "My two witnesses" who prophesy for 1260 days. 1260 days is 3½ years, the same length as 42 months
+                    (using biblical 30-day months). Many interpreters see these two time spans as referring to the same 312-
+                    year period, described first from the perspective of Gentile oppression (42 months) and then from the
+                    perspective of God's concurrent witness (1260 days) <sup>8 9</sup>. Others, like Plymouth Brethren author H.A.
+                    Ironside, have suggested that the 1260 days may cover the first half of the seven-year end times period,
+                    during which the witnesses preach, and the 42 months the last half during which Jerusalem is fully
+                    trampled by Antichrist's forces <sup>10 11</sup>. In either case, 3½ years is a dominant prophetic timeframe
+                    (appearing also in Daniel 7:25, Dan. 12:7, Rev. 12:6, Rev. 13:5), indicating that God has set a fixed, limited
+                    period for both the Tribulation's horrors and His special witnesses' ministry.
+                </p>
+                <p>
+                    These "two witnesses" are vested with power and clothed in sackcloth, the traditional garb of repentance
+                    and mourning. They are God's prophetic agents, preaching repentance and warning of judgment during the
+                    Tribulation. The text calls them "the two olive trees and the two lampstands standing before the God of the
+                    earth" (Rev. 11:4). This is a direct reference to Zechariah's vision of a golden lampstand fed by two olive
+                    trees, which symbolized anointed servants of God (specifically Joshua the high priest and Zerubbabel the
+                    governor in Zech. 4:2-14). Just as those two men were "sons of oil" empowering Israel's post-exilic
+                    restoration, the Revelation 11 witnesses are Spirit-empowered lights in a dark time. They have a priestly
+                    aspect (worshiping at the altar) and a prophetic aspect (proclaiming God's word), providing a complete
+                    testimony to God's truth <sup>12</sup>. The number two itself is significant: under God's Law, "by the mouth of two or
+                    three witnesses every word shall be established" (2 Cor. 13:1, cf. Deut. 19:15). Thus "two" represents an
+                    adequate, divinely required testimony to the truth <sup>13</sup>. Some teachers believe this could mean more than
+                    two individuals are collectively represented, since two is the minimum for valid testimony <sup>14 13</sup> Plymouth
+                    Brethren expositors caution that Revelation's style is symbolic, so "to make it two [people] literally" might miss
+                    the larger representative principle <sup>14</sup>. In other words, the "two witnesses" may not be only two lone
+                    men, but could signify a faithful remnant of Israel (aligned in priestly and prophetic witness) whom God
+                    empowers to testify. However, other scholars take the text more literally and expect two specific prophets
+                    will arise. Traditionally, suggestions for their identity are Moses and Elijah based on the nature of their
+                    miracles - or Enoch and Elijah - based on the fact that Enoch and Elijah never died (see Gen. 5:24, 2 Kings
+                    2:11) and could return to face death as these witnesses do. The text itself does not name them, but it
+                    strongly evokes the ministries of Elijah and Moses. Verse 6 says the witnesses "have power to shut heaven,
+                    so that no rain falls in the days of their prophecy; and they have power over waters to turn them to blood, and to
+                    strike the earth with all plagues, as often as they desire." This mirrors Elijah's miracle of sealing the heavens
+                    from rain (1 Kings 17:1 which lasted 3½ years, Jas. 5:17) and Moses' miracles of turning water to blood
+                    and calling down plagues on Egypt (Exodus 7-12). Indeed, their ministry is explicitly "in the power and spirit
+                    of Elijah and Moses," whether one views them as those very men returned or as others who minister in a
+                    similar prophetic anointing <sup>15 16</sup>.
+                </p>
+                <p>
+                    Importantly, these witnesses minister in a period when formal "royalty" in Israel is still absent (Christ's
+                    Kingdom not yet established) but they provide sufficient testimony to God's truth during Israel's
+                    apostasy <sup>17</sup>. They prophesy "clothed in sackcloth", indicating their message is one of repentance and
+                    sorrow over sin. Just as John the Baptist (a type of Elijah) preached repentance to prepare for Christ's first
+                    coming, these prophets call Israel to repentance in anticipation of Christ's second coming and "the
+                    restitution of all things" promised by God (Acts 3:19-21) <sup>10 18</sup>. We are told God Himself empowers them: "I
+                    will give power to my two witnesses... and if anyone wants to harm them, fire proceeds from their mouth and
+                    devours their enemies" (11:3,5). They are supernaturally protected and enabled. Like many prophets of old,
+                    they can invoke divine judgments to authenticate their message - much as Elijah called down fire (2 Kings
+                    1:10-12) and Moses's words brought plagues. In fact, "if anyone desires to hurt them, he must be killed in this
+                    manner" (11:5), showing that no enemy can stop these witnesses until their mission is complete <sup>19 20</sup>.
+                    This echoes the principle seen in Jesus' ministry ("His hour had not yet come," John 7:30) - God's servants
+                    are "immortal until their work is done." As William Kelly observes, "They are preserved in spite of the Beast,
+                    until their work is done; but directly their testimony is concluded, the Beast is allowed to overcome them. It is just
+                    as it was with the Lord... There was all possible willingness to destroy them long before, but somehow it could not
+                    be done" <sup>21</sup>.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The mission of the Two Witnesses reminds us that God always has His faithful
+                    messengers even in the darkest times. They serve as a model of courageous witness. Like them, we are
+                    called to be "olive trees" and "lampstands" - empowered by the Holy Spirit to shine forth God's light in a
+                    corrupt world. Their example encourages us to speak truth boldly and call people to repentance, depending
+                    on God's power rather than our own. Moreover, their story teaches that God will protect us until we finish
+                    the work He has for us (cf. Psalm 91:1-7). We need not fear the opposition of the world, for nothing can
+                    snatch us out of God's hand while our assignment continues. Our duty is to be faithful witnesses; the
+                    results, and the duration of our service, are in God's sovereign hands.
+                </p>
+
+                <h2>Verses 7-10: The Death of the Witnesses and the World's Reaction</h2>
+                <p>
+                    "When they finish their testimony, the beast that ascends out of the bottomless pit will make war
+                    against them, overcome them, and kill them. (8) And their dead bodies will lie in the street of the
+                    great city which spiritually is called Sodom and Egypt, where also our Lord was crucified. (9) Then
+                    those from the peoples, tribes, tongues, and nations will see their dead bodies three-and-a-half
+                    days, and not allow their dead bodies to be put into graves. (10) And those who dwell on the earth
+                    will rejoice over them, make merry, and send gifts to one another, because these two prophets
+                    tormented those who dwell on the earth." (Rev. 11:7-10)
+                </p>
+                <p>
+                    After 1260 days of powerful preaching, "when they finish their testimony," God's protective restraint is
+                    lifted and "the Beast" emerges as the instrument of their martyrdom. This is the first time Revelation
+                    explicitly mentions "the beast", who is later described in detail in Revelation 13. He is said to "ascend out of
+                    the bottomless pit" (the Abyss), indicating he is empowered by demonic, hellish forces. This Beast is
+                    understood in premillennial theology to be the future Antichrist or final world tyrant, often identified
+                    with the "man of sin" or "lawless one" in 2 Thessalonians 2:3-8. More specifically, Plymouth Brethren
+                    expositors see him as the head of the revived Roman Empire (a federation of 10 nations), the very one
+                    who demands worship of himself and persecutes the saints <sup>22</sup>. Ironside describes this Beast as "the vile
+                    head of the coming revived Roman Empire, or western federation of nations, who will not tolerate any worship but
+                    that which is offered to himself" <sup>22</sup>. It is he who finally "makes war against [the witnesses], overcomes them and
+                    kills them." This fulfills the hint given earlier in Revelation 11: the world will seemingly triumph over God's
+                    witnesses - but only when God permits and their work is done.
+                </p>
+                <p>
+                    The great city in which they are killed is identified pointedly as Jerusalem - "where also our Lord was crucified"
+                    (v.8). But spiritually, John says, this city is called "Sodom" and "Egypt." In other words, Jerusalem in that
+                    future time will be so morally corrupt ("Sodom") and spiritually in bondage ("Egypt") that those names are
+                    fitting metaphors <sup>23</sup>. What a tragic description of the holy city! Once the center of God's covenant people,
+                    Jerusalem at the end of the age will largely align with the Antichrist, even to the point of celebrating the
+                    death of God's prophets. Just as the Old Testament prophets likened Jerusalem to Sodom for its sins (Isaiah
+                    1:9-10, Ezekiel 16:46, cf. Luke 17:28-30), here she has reached the lowest point of apostasy. Yet we should
+                    remember, a faithful remnant in Jerusalem is still worshiping God (as implied by those measured in
+                    the temple) but the city as a whole has turned to wickedness. Because of this apostasy, Jerusalem will
+                    undergo severe judgment and purification in the Tribulation (Zechariah 13:8-9).
+                </p>
+                <p>
+                    Verse 9 shows that the Witnesses' humiliation is made public and international: people from all tribes and
+                    nations gaze on their corpses for three and a half days. In the ancient world it might have been hard to
+                    imagine how "all peoples" would see an event in one city, but today one can easily envision global news
+                    coverage broadcasting their dead bodies. The wicked gloat by not allowing them a decent burial - a sign of
+                    utmost contempt (cf. Psalm 79:2-3). Instead, the world treats this as a macabre celebration. "Those who
+                    dwell on the earth" - a phrase Revelation uses for the unbelieving world - "rejoice over them and make
+                    merry, and send gifts to one another" (11:10). It's like an anti-Christmas: the world exchanges gifts in glee
+                    because the prophets of God who had tormented their conscience with truth are silenced <sup>24</sup>. This
+                    chilling scene has been called by some commentators "the Devil's Christmas", as earth's inhabitants throw a
+                    blasphemous party over the death of God's servants <sup>25</sup>. They celebrate because, as the text says, "these two
+                    prophets tormented those who dwell on the earth." Indeed, the convicting message and drought and plagues
+                    the witnesses brought were unbearable to those hardened in sin. Now, with the witnesses gone, the world
+                    mistakenly feels triumph and relief. Ironside vividly describes "the whole apostate world - Christendom and
+                    Judaism alike - congratulating one another that there is no longer any voice raised to call in question their wicked
+                    ways" <sup>24</sup>. It is a striking illustration of what Jesus said in John 3:19-20 that the world loves darkness and
+                    hates the light, and will rejoice when a light is extinguished.
+                </p>
+                <p>
+                    From a human perspective, this looks like total defeat for God's cause. The final gospel preachers on earth
+                    are dead, evil appears victorious, and unbelievers are throwing a festival. But this "triumph" of evil is
+                    extremely short-lived - only 3½ days.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The death of the two witnesses and the world's
+                    reaction remind us that the people of God may face intense hatred and ridicule. There are times when it
+                    seems evil has won and truth has fallen in the streets. Yet we are reminded not to judge by immediate
+                    appearances. The world that rejoices in iniquity and persecutes the righteous is heaping judgment upon
+                    itself (Matthew 5:10-12). As believers, we shouldn't be surprised by opposition - Jesus told His disciples, "the
+                    world will rejoice" when you weep and lament, but "your sorrow will be turned to joy" (John 16:20). When we
+                    encounter hostility for Christ's sake, we can take heart knowing that God's vindication will come in His time.
+                    The world's "party" at the church's expense will not last forever. Our calling is to remain faithful even unto
+                    death (Rev. 2:10), trusting that God will ultimately turn our apparent defeats into victories.
+                </p>
+
+                <h2>Verses 11-14: The Resurrection of the Witnesses and Aftermath</h2>
+                <p>
+                    "Now after the three-and-a-half days the breath of life from God entered them, and they stood on
+                    their feet, and great fear fell on those who saw them. (12) And they heard a loud voice from heaven
+                    saying to them, 'Come up here.' And they ascended to heaven in a cloud, and their enemies saw
+                    them. (13) In the same hour there was a great earthquake, and a tenth of the city fell. In the
+                    earthquake seven thousand people were killed, and the rest were afraid and gave glory to the God
+                    of heaven. (14) The second woe is past. Behold, the third woe is coming quickly." (Rev. 11:11-14)
+                </p>
+                <p>
+                    Just when the world's celebration is in full swing, God intervenes directly. After 3½ days of lying dead, the
+                    two witnesses are suddenly resurrected: "the breath of life from God entered them, and they stood on their
+                    feet." One can imagine the camera crews and crowds around these dead prophets - when without warning,
+                    they revive! This evokes the Old Testament language of resurrection, such as Ezekiel's vision of dry bones
+                    coming to life by God's breath (Ezk. 37:10). It is a public vindication of God's servants. The gloating of the
+                    wicked turns to sheer terror: "great fear fell on those who saw them." Indeed, the jubilant party is abruptly cut
+                    short as the world witnesses God's power to give life.
+                </p>
+                <p>
+                    Then a voice from heaven summons the witnesses: "Come up here." In the sight of their enemies, the two
+                    prophets ascend to heaven in a cloud. This parallels our Lord Jesus' ascension in a cloud (Acts 1:9) - with
+                    the key difference that Jesus' ascension was seen only by His followers, whereas these witnesses ascend
+                    in full view of their enemies <sup>26 27</sup>. Thus God provides an undeniable sign to onlookers: He is the author of
+                    life and these messengers were truly His. Some interpreters even liken this event to a sort of mini-rapture
+                    or foretaste of the "first resurrection", as these faithful martyrs are caught up to heaven in triumph <sup>26</sup>. It
+                    demonstrates that "precious in the sight of the Lord is the death of His saints" (Psalm 116:15) He will raise
+                    them in honor.
+                </p>
+                <p>
+                    Immediately following their rapture, "in that same hour," a great earthquake strikes the city (Jerusalem). A
+                    tenth of the city collapses and 7,000 people are killed. The number seven thousand is striking - it reverses
+                    Elijah's day, when 7,000 in Israel had not bowed to Baal (1 Kings 19:18); here, perhaps 7,000 notable persons
+                    are slain for their rebellion <sup>28</sup>. The earthquake is a direct act of divine judgment, punctuating the
+                    witnesses' ascension. The survivors in Jerusalem respond with shock and a form of reverence: "the rest were
+                    afraid and gave glory to the God of heaven." This is a notable statement it is the first time during the
+                    Tribulation that we read of people giving glory to God <sup>29</sup>. Throughout Revelation, wicked men usually
+                    blaspheme God in response to plagues (e.g. Rev. 16:9-11). Here at least, some acknowledge God's hand. The
+                    phrase "God of heaven" (used also in Rev. 16:11) implies they recognize the true God far above their idols.
+                    Some expositors hold that this "giving glory" is merely a terrified acknowledgment of God's power, not a
+                    genuine repentance unto salvation <sup>29</sup>. The text doesn't explicitly say these people repented or turned to
+                    Christ only that they were awestruck and gave glory to God in that moment. It's possible this could lead
+                    some to repentance, but at minimum it shows the remaining Jews in Jerusalem realize God has acted
+                    (perhaps preparing some hearts to believe later). God is referred to as "the God of heaven" here, whereas in
+                    verse 4 He was called "the Lord of the earth." The distinction may suggest that the onlookers fearfully honor
+                    God's power at a distance ("He is God in heaven"), yet have not yet submitted to His reign on earth <sup>30</sup>. In
+                    any case, the resurrection of the witnesses and the accompanying judgment serve as a final warning to
+                    Israel and the world.
+                </p>
+                <p>
+                    Verse 14 concludes the section: "the second woe is past. Behold, the third woe is coming quickly." The "second
+                    woe" refers to the sixth trumpet judgment (Rev. 9:13-21) together with this interlude of chapter 10 and 11.
+                    With the events of the witnesses now finished, that woe is done. The "third woe" will be the seventh and
+                    final trumpet that is about to sound <sup>31</sup>. We are being signaled that the climactic moment is imminent.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The dramatic resurrection and ascension of the witnesses after 3½ days teaches us
+                    God has the final word. Just when evil seems to triumph, God can suddenly turn defeat into victory. For
+                    believers, this is a great encouragement - our hope is in the resurrection power of God. We may be "struck
+                    down, but not destroyed" (2 Cor. 4:9). The world may rejoice at the church's setbacks, but God will raise His
+                    people up in due time. The fear that fell on the onlookers is a preview of that awe all mankind will face when
+                    God openly intervenes. It challenges us personally: will we give glory to the God of heaven now, in
+                    repentance and faith, or only tremble later under compulsion? How much better to glorify God willingly
+                    today by believing His word, than to only acknowledge Him in fearful crisis! For the faithful, the witnesses'
+                    story is a reminder that our labor in the Lord is not in vain even if the world scorns us, God is able to
+                    vindicate and reward His servants, even beyond the grave.
+                </p>
+
+                <h2>Verses 15-18: The Seventh Trumpet - Christ's Kingdom Proclaimed</h2>
+                <p>
+                    "Then the seventh angel sounded: And there were loud voices in heaven, saying, 'The kingdoms of
+                    this world have become the kingdoms of our Lord and of His Christ, and He shall reign forever and
+                    ever!' (16) *And the twenty-four elders who sat before God on their thrones fell on their
+                    faces and worshiped God, (17) saying: 'We give You thanks, O Lord God Almighty, the
+                    One who is and who was and who is to come, because You have taken Your great power
+                    and reigned. (18) The nations were angry, and Your wrath has come, and the time of the
+                    dead, that they should be judged, and that You should reward Your servants the prophets
+                    and the saints, and those who fear Your name, small and great, and should destroy those
+                    who destroy the earth*." (Rev. 11:15-18, NKJV)
+                </p>
+                <p>
+                    Finally, the long-anticipated Seventh Trumpet is blown. Recall that the seven trumpets were introduced
+                    back in Revelation 8; the first six trumpets brought various plagues and woes upon the earth. The seventh
+                    trumpet is the climactic one - it is associated with the third "woe" (Rev. 11:14) but also with the triumph of
+                    God's kingdom. When it sounds, John hears loud voices in heaven heralding the outcome of God's plan: "The
+                    kingdom of the world has become the kingdom of our Lord and of His Christ, and He shall reign forever and
+                    ever!" <sup>32</sup>. This is a proleptic proclamation - it announces the assured triumph of God even before all the
+                    details have been carried out. In essence, heaven is rejoicing that the time has come for God to decisively
+                    take back authority over the world from the usurping powers of evil. What a statement of victory! All the
+                    worldly kingdoms are hereby declared under the rule of God and His Anointed One (Christ/Messiah). This
+                    fufills the promise of Psalm 2: "Why do the nations rage...? I have set My King on My holy hill of Zion... Ask of Me
+                    and I will give You the nations for Your inheritance" <sup>33</sup>. It also echoes Daniel 7:14 where the Son of Man
+                    receives "dominion, and glory, and a kingdom, that all peoples, nations, and languages should serve Him."
+                </p>
+                <p>
+                    Heaven's declaration in verse 15 uses the singular: "the kingdom of the world" (Greek: <em>basileia tou kosmou</em>)
+                    <sup>34</sup>, implying that all earthly power will be consolidated and handed over to one rightful ruler - the Lord
+                    God and His Christ. God the Father ("our Lord" as Jehovah, the covenant God) and His Messiah ("His
+                    Christ") share in this reign, for Christ "must reign till He has put all enemies under His feet" (1 Cor. 15:25). The
+                    reign will ultimately be forever and ever, spanning the 1000-year millennial kingdom and then the eternal
+                    state. At this trumpet sound, the heavenly host knows the end of the age has essentially arrived <sup>35</sup> the
+                    mystery of God's waiting is finished and He is claiming His kingship openly (cf. Rev. 10:7). Thus begins the
+                    transition from the present evil age to the future kingdom of Christ.
+                </p>
+                <p>
+                    Upon hearing this, the twenty-four elders - whom we first met in Revelation 4 (symbolizing the redeemed
+                    worshipers in heaven, likely representing the completed Church and/or Old & New Testament saints) - fall
+                    on their faces and worship God (11:16). They burst into a hymn of thanksgiving (11:17-18). Notably, they
+                    address God as "Lord God Almighty, the One who is and who was" - but they omit "who is to come" (found
+                    back in Rev. 1:8 and 4:8). Why? Because in their praise God "has come" in this vision - the future is now
+                    present <sup>36</sup>. They celebrate that the Almighty has taken His great power and begun to reign. What a
+                    pivotal moment! For so long, God has allowed human history to run its course under the dominion of
+                    Gentile empires (the "times of the Gentiles," Luke 21:24) and under the "god of this world" (2 Cor. 4:4,
+                    referring to Satan). But now at last, God asserts His royal prerogative openly. The elders give thanks that the
+                    eternal God has assumed His rightful kingship over the world (compare Revelation 19:6, "The Lord God
+                    omnipotent reigns!").
+                </p>
+                <p>
+                    In verse 18, the elders' song acknowledges two simultaneous truths: the rebellion of the nations, and the
+                    righteous judgment of God. "The nations were angry, and Your wrath has come." This parallels Psalm 2 again:
+                    "The nations rage... and the kings plot against the Lord and His Anointed," yet God responds in wrath and sore
+                    displeasure (Ps. 2:1,5) <sup>33</sup>. Humanity's anger and Satan's last woe now meet the infinitely greater wrath of
+                    God. The time has arrived "for the dead to be judged, and for the reward of Your servants..." <sup>37 38</sup>. This
+                    summary statement spans the whole scope of end-time judgment and reward:
+                </p>
+                <ul>
+                    <li>
+                        "The time of the dead, that they should be judged" - ultimately, this points to the final judgment
+                        of the wicked dead (fulfilled after the millennium at the Great White Throne, Rev. 20:11-15). All who
+                        defied God will face Him as Judge. No one will escape account for their deeds. God's full reckoning
+                        has come <sup>39 40</sup>.
+                    </li>
+                    <li>
+                        "And that You should reward Your servants the prophets and the saints, and those who fear
+                        Your name, small and great" - this speaks of the reward for all of God's people. "Prophets" and
+                        "saints" and God-fearers include every believer - from renowned prophets and apostles to the
+                        simplest faithful soul - "small and great." Jesus promised He would come "and My reward is with Me,
+                        to give to every one according to his work" (Rev. 22:12). Now that moment is at hand. This likely alludes
+                        to the Judgment Seat of Christ for believers (Rom. 14:10, 2 Cor. 5:10) and the inauguration of the
+                        kingdom where saints will receive varying roles or "rewards" (Matt. 25:21, 23) <sup>41 42</sup>. (In a
+                        premillennial timeline, the rewarding of Church-age saints occurs earlier at the rapture, but here the
+                        focus may be on rewarding the Tribulation saints and Old Testament faithful at Christ's return - see
+                        Daniel 12:1-3).
+                    </li>
+                    <li>
+                        "And should destroy those who destroy the earth." - God will destroy the destroyers. The
+                        "destroyers of the earth" refers to the corrupt, unrepentant rebels who have ruined God's creation
+                        morally (and perhaps ecologically as well) through sin, violence, and idolatry. All the tyrants,
+                        Antichrist and his followers, the persecutors of the innocent - their day of reckoning has come. God
+                        will remove from the earth those who would continue to defile it <sup>40</sup>. This is a fitting closure: the
+                        time of patient grace is over; now justice will be served to those who ravaged the world.
+                    </li>
+                </ul>
+                <p>
+                    Thus, the seventh trumpet encapsulates the ultimate victory of God's kingdom. As William Kelly noted,
+                    "The seventh trumpet brings us down to the close in a general way... It is not merely power in general conferred in
+                    heaven, but 'the world-kingdom of our Lord and of His Christ has come'... Here, it will be observed, the end of the
+                    age is supposed to be now arrived" <sup>32 35</sup>. In fact, the seventh trumpet is so climactic that it "completes the
+                    mystery of God" (Rev. 10:7) - it's heaven's summary that God's plan of the ages is now being fulfilled. The
+                    details of how Christ takes possession (the bowl judgments, Armageddon, etc.) will follow in later chapters,
+                    but the outcome is already announced here.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The sounding of the seventh trumpet and the proclamation of Christ's kingdom is a
+                    reminder that all of history is moving toward the reign of God. In our personal lives, this should inspire
+                    hope and perseverance. No matter how chaotic or evil the world seems now, we know the final chapter: "He
+                    shall reign forever and ever." When we pray "Thy kingdom come" (Matt. 6:10), we are aligning with this very
+                    moment when God's will is done on earth as it is in heaven. The seventh trumpet assures us that God will
+                    reward the faithfulness of His people even the smallest act done for His name will not be forgotten
+                    (Mark 9:41). It also warns us that persistent rebellion will be judged God will "destroy" the unrepentant
+                    destroyers of His world. For us, the call is to fear His name (revere and trust Him) now, so that we will be
+                    among "His servants" who are rewarded, not among His enemies who perish. This vision of the coming
+                    Kingdom motivates us to live a godly life in anticipation. As 2 Peter 3:13-14 says, "We, according to His
+                    promise, look for new heavens and a new earth in which righteousness dwells. Therefore... be diligent to be found
+                    by Him in peace, spotless and blameless." Knowing the King will soon take up His power encourages us to be
+                    faithful and not lose heart in present struggles. Our God reigns
+                    Hallelujah!
+                    and will reign openly
+                    forever.
+                </p>
+
+                <h2>Verse 19: The Temple of God Opened in Heaven (The Ark of His
+                    Covenant)</h2>
+                <p>
+                    "Then the temple of God was opened in heaven, and the ark of His covenant was seen in His
+                    temple. And there were lightnings, noises, thunderings, an earthquake, and great hail." (Rev.
+                    11:19)
+                </p>
+                <p>
+                    This final verse of chapter 11 serves as a transition into the next series of visions (chapters 12-14). John's
+                    attention shifts back to heaven, where the true Temple of God is opened. Recall that the Tabernacle/
+                    Temple on earth was patterned after the heavenly reality (Hebrews 8:5). Now John sees the Ark of the
+                    Covenant visible in God's heavenly temple. The Ark of the Covenant was the golden chest in the Holy of
+                    Holies, representing God's throne and His covenant presence among Israel (Exodus 25:21-22). Its
+                    appearance here is highly symbolic. In the Old Testament, the Ark went before Israel in battle and signified
+                    God remembering His covenant promises. Seeing the Ark in heaven at this juncture suggests that God is
+                    about to act in faithfulness to His covenant with His people Israel <sup>43</sup>. In fact, chapters 12-14 will
+                    introduce the key players of the end times, including Israel (symbolically portrayed as a woman) and the
+                    Satanic beasts. So the Ark here may indicate that God has not forgotten His ancient covenant - He is moving
+                    to fulfill all promises to Abraham's descendants, even as the final judgments unfold.
+                </p>
+                <p>
+                    However, the scene is accompanied by dramatic phenomena: "lightnings, noises, thunderings, an earthquake,
+                    and great hail." These mirror the manifestations of God's judgment and majesty seen elsewhere (cf. Rev. 8:5,
+                    16:18-21). It tells us that the revelation of the Ark is not for mercy now, but for judgment - the "day of
+                    vengeance" has come. One commentator notes: "The temple of God is opened in heaven, the ark of His
+                    covenant is seen which refers to Israel - but judgment characterizes it now; judgments of all kinds (lightnings,
+                    earthquake, hail) ensue" <sup>43</sup>. In other words, God is revealing the Ark (a sign of His covenant faithfulness to
+                    redeem Israel), yet simultaneously unleashing the climactic judgments against a rebellious world. Both
+                    mercy and wrath proceed from His throne. The "great hail" is especially a hallmark of divine judgment (cf.
+                    Exodus 9:23-26, Joshua 10:11); Revelation 16:21 will describe the plague of huge hailstones during the final
+                    bowl judgment. Thus, Rev. 11:19 is like a thunderclap announcing: pay attention - God's sanctuary is open and
+                    the final drama is about to commence.
+                </p>
+                <p>
+                    From a literary perspective, many expositors (including Brethren teachers like Ironside and Kelly) view 11:19
+                    as belonging thematically with chapter 12 <sup>36 44</sup>. Chapter 12 will immediately present the vision of the
+                    woman, child, and dragon - symbolic of Israel, Messiah, and Satan - which indeed is linked to the Ark of the
+                    covenant (God's promise to Israel) and the heavenly temple. In any case, as chapter 11 closes, heaven
+                    reveals that God's presence and covenant are central to what happens next. Earth is about to witness
+                    both the rage of Satan and the wrath of God, but over it all is the sovereignty of the Ark's Lord.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The glimpse of the Ark of the Covenant in heaven reassures us that God never
+                    forgets His promises. The Ark was the symbol of God's faithfulness - it contained the stone tablets of the
+                    Law, signifying God's word and covenant. Likewise, we can trust that every promise of God is secure and will
+                    be fulfilled in His timing. For Israel, this vision is a guarantee of their ultimate restoration when Christ
+                    returns to establish His kingdom. For us, it's a reminder of God's faithfulness to all His people: "He
+                    remembers His covenant forever" (Psalm 111:5). Even when thunder, earthquakes, and hail (symbolic of trials
+                    or divine discipline) shake our lives, we can look to the "ark of the covenant" - the unshakeable promises
+                    of God in Christ. Hebrews 6:19 says God's promise is "an anchor of the soul, both sure and steadfast." Indeed,
+                    in Revelation 11 we see an abundance of turmoil and judgment, yet concluding with the Ark implies that
+                    God's covenant love stands firm amid the storm. We should therefore take refuge in His faithfulness and
+                    live as people of the covenant, knowing that "He who promised is faithful" (Heb. 10:23).
+                </p>
+
+                <h2>Conclusion:</h2>
+                <p>
+                    Revelation chapter 11 is a theologically rich and dramatic portion of Scripture. It bridges the
+                    trumpet judgments and the coming conflict between the dragon and the Lamb's forces. In this chapter, we
+                    see God's sovereignty on display: He marks out His temple and worshipers; He empowers His witnesses for
+                    a time, allowing them to be slain but then raising them in triumph; He brings the rebellious nations to the
+                    brink of doom, only to declare the ultimate victory of His Christ. For the student of prophecy, Revelation 11
+                    affirms key doctrines of eschatology held by many evangelicals and Plymouth Brethren teachers - such as
+                    God's ongoing plan for Israel (the temple, the 70th week), the reality of a future Antichrist (the Beast), the
+                    literal 3½ year periods of tribulation, and the premillennial coming of Christ's Kingdom <sup>5 45</sup>. For personal
+                    faith, this chapter offers both warning and encouragement. It warns that God's judgment is sure
+                    the
+                    world that rejoices in sin will face the wrath of a holy God. It also encourages that God cares for His own
+                    He will remember His people, empower their witness, limit their persecution, and reward their faithfulness
+                    in the end.
+                </p>
+                <p>
+                    As we reflect on Revelation 11, we should be moved to worship like the elders, saying, "We give You thanks,
+                    O Lord God Almighty... because You have taken Your great power and reigned" <sup>37</sup>. The vision of God's ultimate
+                    triumph should strengthen our hearts in present difficulties. We can draw several personal lessons: remain
+                    zealous in witness (like the two prophets), remain separate from the apostasy of the world (unlike
+                    Jerusalem's masses who align with the Beast), remain confident in God's protection and timing, and
+                    remain hopeful as we anticipate Christ's reign. Revelation 11 assures us that no matter how deep the night,
+                    the morning of God's Kingdom is coming. The kingdoms of this world will indeed become the kingdom of
+                    our Lord - and He shall reign forever and ever! Amen. <sup>33 40</sup>
+                </p>
+
+                <h2>Sources:</h2>
+                <ul>
+                    <li>
+                        Ironside, H.A. Lectures on the Book of Revelation. (1920). Commentary on Revelation 11 <sup>3 22 46</sup>.
+                    </li>
+                    <li>
+                        Kelly, William. Lectures on Revelation. (1870s). Remarks on Revelation 11 <sup>14 32 35</sup>.
+                    </li>
+                    <li>
+                        Darby, John N. Synopsis of the Books of the Bible. (1870). Synopsis on Revelation 11 <sup>8 47</sup>.
+                    </li>
+                    <li>
+                        The Holy Bible, New King James Version (NKJV), for scriptural quotations.
+                    </li>
+                </ul>
+                <ol>
+                    <li>
+                        <sup>1</sup>
+                        <sup>13</sup>
+                        <sup>14</sup>
+                        <sup>16</sup>
+                        <sup>20</sup>
+                        <sup>21</sup>
+                        <sup>28</sup>
+                        <sup>32</sup>
+                        <sup>34</sup>
+                        <sup>35</sup>
+                        <sup>37</sup>
+                        <sup>38</sup>
+                        <sup>41</sup>
+                        <sup>42</sup>
+                        <sup>44</sup> Revelation 11:1-18-William Kelly (#77555) - Bible
+                        Truth Library
+                        <br>
+                        <a href="https://bibletruthpublishers.com/revelation-11-1-18/william-kelly-wk/lectures-introductory-to-the-bible/la77555" target="_blank">https://bibletruthpublishers.com/revelation-11-1-18/william-kelly-wk/lectures-introductory-to-the-bible/la77555</a>
+                    </li>
+                    <li>
+                        <sup>2</sup>
+                        <sup>3</sup>
+                        <sup>4</sup>
+                        <sup>5</sup>
+                        <sup>6</sup>
+                        <sup>7</sup>
+                        <sup>10</sup>
+                        <sup>11</sup>
+                        <sup>15</sup>
+                        <sup>18</sup>
+                        <sup>19</sup>
+                        <sup>22</sup>
+                        <sup>23</sup>
+                        <sup>24</sup>
+                        <sup>26</sup>
+                        <sup>29</sup>
+                        <sup>31</sup>
+                        <sup>36</sup>
+                        <sup>46</sup> Chapter Eleven Two Witnesses And The
+                        Seventh Trumpet | Plymouth Brethren Writings
+                        <br>
+                        <a href="https://plymouthbrethren.org/article/5720" target="_blank">https://plymouthbrethren.org/article/5720</a>
+                    </li>
+                    <li>
+                        <sup>8</sup>
+                        <sup>9</sup>
+                        <sup>12</sup>
+                        <sup>17</sup>
+                        <sup>27</sup>
+                        <sup>30</sup>
+                        <sup>33</sup>
+                        <sup>39</sup>
+                        <sup>40</sup>
+                        <sup>43</sup>
+                        <sup>45</sup>
+                        <sup>47</sup> Revelation 11 Darby's Bible Synopsis
+                        <br>
+                        <a href="https://biblehub.com/commentaries/darby/revelation/11.htm" target="_blank">https://biblehub.com/commentaries/darby/revelation/11.htm</a>
+                    </li>
+                    <li>
+                        <sup>25</sup> Revelation Commentaries | Precept Austin
+                        <br>
+                        <a href="https://www.preceptaustin.org/revelation_commentaries" target="_blank">https://www.preceptaustin.org/revelation_commentaries</a>
+                    </li>
+                </ol>
+                <!-- Content from In-Depth Study of Revelation Chapter 11.pdf ends here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        function hideAllPages() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+        }
+        function showChapter11() {
+            hideAllPages();
+            document.getElementById('chapter11Page').style.display = 'block';
+            window.location.hash = 'chapter11';
+            initProgressBar();
+        }
+        function initProgressBar() {
+            window.removeEventListener('scroll', updateProgressBar);
+            window.addEventListener('scroll', updateProgressBar);
+            updateProgressBar();
+        }
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            if (docHeight > 0) {
+                scrollPercent = (scrollTop / docHeight) * 100;
+            }
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash === '#chapter11') {
+                showChapter11();
+            } else {
+                // If no hash, redirect to main index or chapters page
+                window.location.href = 'revelation_study_chapter1.html#chapters';
+            }
+        });
+    </script>
+</body>
+</html>
