@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;  /* Increased from 720px */
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;  /* Increased from 1.6 */
+            color: var(--text-primary);
+            background-color: #f0f0f0;  /* Slightly darker than content */
+            font-size: 18px;  /* Base font size for better readability */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter10Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="window.location.href='revelation_study_chapter1.html#chapters'">← Chapters</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 10</h1>
+                <p>In-Depth Study of Revelation Chapter 10</p>
+            </div>
+            <div class="content-body" id="chapter10Content">
+                <!-- Content from In-Depth Study of Revelation Chapter 10.pdf starts here -->
+                <h2>Introduction and Context</h2>
+                <p>
+                    Revelation 10 is a parenthetical interlude between the sixth and seventh trumpet judgments during the
+                    Tribulation period. Before the seventh trumpet sounds (which will usher in the final stages of God's
+                    plan), John is shown a dramatic vision that reinforces God's ultimate authority and the certainty of His
+                    coming kingdom <sup>2 3</sup>. In this chapter, a "mighty angel" descends with a little open scroll, seven
+                    thunders resound, an oath is sworn that there will be no more delay, and John is instructed to eat the scroll
+                    and then continue prophesying. Each verse of Revelation 10 is rich with prophetic symbolism, doctrinal
+                    significance, and personal application. This study will examine verse by verse, drawing on insights from
+                    Scripture and from classic Plymouth Brethren expositors (and like-minded theologians) known for their
+                    dispensational, futurist interpretation of prophecy (e.g. John N. Darby, William Kelly, H.A. Ironside, Walter
+                    Scott). We will explore parallel biblical passages and consider both doctrinal truths and practical lessons for
+                    spiritual life.
+                </p>
+                <p>
+                    (Before diving in, recall that Revelation chapters 4-19 describe the future Tribulation after the Church age,
+                    according to futurist theology. The Church is not explicitly seen on earth in these chapters; instead, God's focus
+                    turns to Israel and the judgment of the unbelieving world. Chapter 10, in particular, prepares for the final trumpet
+                    by highlighting God's sovereignty and the bittersweet nature of prophecy.)
+                </p>
+
+                <h2>Revelation 10:1 - The Descent of the Mighty Angel</h2>
+                <p>
+                    "Then I saw another mighty angel coming down from heaven, clothed with a cloud, and a rainbow
+                    was on his head, his face was like the sun, and his feet like pillars of fire." John describes an awe-
+                    inspiring angelic figure. Many Bible scholars (especially among Brethren interpreters) understand this
+                    "mighty angel" to be a symbolic appearance of Christ Himself in angelic form <sup>4 5</sup>. Several details in
+                    verse 1 support this view:
+                </p>
+                <ul>
+                    <li>
+                        Clothed with a Cloud: In Scripture, the cloud often signifies the divine presence and glory of God.
+                        For example, the Lord led Israel by a pillar of cloud (Exodus 13:21) and descended in a cloud upon
+                        the Tabernacle (Exodus 40:34-38). The cloud was "the well-known badge of Jehovah's presence" <sup>6</sup>.
+                        Seeing this mighty angel wrapped in a cloud indicates that God's presence accompanies him,
+                        pointing to a divine or Christological identity. (At the Transfiguration, a bright cloud signaled God's
+                        presence and made Peter, James, and John afraid as they entered it - cf. Luke 9:34. Likewise, here the
+                        cloud signifies God with the angel.)
+                    </li>
+                    <li>
+                        Rainbow on His Head: The rainbow recalls God's covenant of mercy with creation after the Flood
+                        (Genesis 9:13-16). In Revelation, a rainbow also appears around God's throne (Revelation 4:3) as a
+                        token of His faithfulness and grace. The rainbow adorning this angel's head is "the pledge of God's
+                        unchanging covenant with creation" <sup>7</sup>. This suggests that even amid coming judgment, God's mercy
+                        and promises remain in view. Some see this as Christ coming "to confirm the covenant made with
+                        Noah", since the rainbow was that covenant's sign <sup>8</sup>.
+                    </li>
+                    <li>
+                        Face Like the Sun: A face shining like the sun denotes brilliant glory and authority. In Matthew
+                        17:2, at the Transfiguration, Jesus' face "shone like the sun." Similarly, when John first saw the risen
+                        Christ in Revelation 1:16, "His countenance was like the sun shining in its strength." This angel bearing
+                        that same radiance strongly implies it is Christ manifested in glory. No mere created angel is
+                        described with such splendor.
+                    </li>
+                    <li>
+                        Feet Like Pillars of Fire: Fire in Scripture often represents judgment and purifying holiness (e.g.
+                        Hebrews 12:29). Pillars convey stability and strength. The angel's feet being fiery pillars suggests
+                        that steadfast judgment is coming. As one expositor notes, this combines the firmness of pillars
+                        with the consuming judgment of fire <sup>10</sup>. Christ in Revelation 1:15 had feet like refined bronze,
+                        glowing from a furnace again a picture of trampling judgment. Here, the fiery pillars indicate that
+                        the Lord is ready to firmly judge sin in preparation for His kingdom.
+                    </li>
+                </ul>
+                <p>
+                    Each element of the angel's description carries Old Testament echoes and divine attributes. Who exactly is
+                    this "mighty angel"? Plymouth Brethren scholar H.A. Ironside writes, "The mighty angel can surely be no
+                    other than that same glorious angel of the covenant...our Lord Jesus Christ, clothed with the sign of divine
+                    majesty" <sup>11 5</sup>. William Kelly likewise concludes "it was no mere creature, but the Creator Himself, who took
+                    the form of an angel" <sup>4</sup>. It seems Christ is appearing in a symbolic angelic form (much as God appeared
+                    as the "Angel of the Lord" in the Old Testament - cf. Exodus 23:20-21).
+                </p>
+                <p>
+                    Why in angelic form? Possibly because at this point in Revelation, Jesus is presenting Himself as the
+                    Messenger of God's impending kingdom. During the trumpet judgments, the church (Christ's direct
+                    representatives) is not seen on earth, and God's people Israel are largely wayward, so the Lord appears
+                    indirectly. Kelly suggests that Christ "retreats," as it were, to an angelic role here because His people had
+                    mixed into the world such that He would not publicly own them at that moment <sup>12 13</sup>. In other words,
+                    Christ comes discreetly as a royal messenger, announcing His claim to the whole earth, rather than
+                     openly as the Lamb or Son of Man (titles used when identifying closely with His redeemed people). This
+                    emphasizes that He is about to take possession of the world, even if the world in rebellion does not
+                    recognize Him.
+                </p>
+
+                <h3>Personal Application (v.1):</h3>
+                <p>
+                    This vision of Christ's glory reminds us of His supreme authority and presence
+                    even in judgment. Jesus is "clothed" in the cloud of God's glory do we acknowledge His presence and
+                    leadership in our lives? The rainbow over Him comforts us that even in wrath, God remembers mercy
+                    (Habakkuk 3:2). His face shining like the sun calls us to walk in His light (1 John 1:7), and His fiery feet warn
+                    us that our holy Lord will judge sin urging us to pursue purity and reverence. Worshipping Christ in His
+                    majesty, we gain confidence that our King is coming to right every wrong.
+                </p>
+
+                <h2>Revelation 10:2 - The Little Open Book in His Hand</h2>
+                <p>
+                    "He had a little book open in his hand. And he set his right foot on the sea and his left foot on the
+                    land." In the angel's hand John sees a "little book" (or scroll) that is already open, not sealed. This little
+                    scroll is a key object in chapter 10. It likely represents a portion of God's prophetic revelation specifically
+                    pertaining to what will soon take place. Many commentators contrast it with the larger sealed scroll in
+                    Revelation 5 that only the Lamb (Christ) could open. That sealed scroll contained the comprehensive
+                    judgments of God leading to the kingdom, which Christ has been opening seal by seal. Here, by contrast,
+                    the smaller open scroll suggests a revealed message-perhaps a specific prophecy now to be delivered
+                    plainly.
+                </p>
+                <p>
+                    John Darby explains that this "little open book" is "part of well-known prophecy, now brought to a direct issue
+                    on known ground" <sup>14</sup>. In other words, it could contain prophecies focusing on God's plan for Israel and the
+                    nations in the final days, truths already foreshadowed in Scripture (hence "well-known"). The fact that it is
+                    open means its contents are ready to be disclosed and are not as mysterious as the previously sealed
+                    judgments. Indeed, immediately after John eats this little book, he must prophesy further (v.11), and
+                    Revelation 11 will reveal specific, openly identifiable events (such as the measuring of the temple, the
+                    ministry of the two witnesses, etc.). William Kelly notes the change at this point: "It is not a sealed book that
+                    we have, but an open one: and it is also emphatically a little book... All becomes quite plain... no longer the more
+                    secret or enigmatical appearances of earlier visions, but [now] an obvious manifestation that God is acting on the
+                    Jews" <sup>15 16</sup>. Thus, the little book likely contains the prophetic detail of the next phase of God's plan
+                    (especially as it relates to Israel and the final conflict) - essentially the revelations of chapters 11-14.
+                </p>
+                <p>
+                    Next, the angel plants his feet astride sea and land one foot on the sea, one on the earth (land). This
+                    posture vividly depicts absolute authority over the entire world. In biblical symbolism, the "sea" often
+                    represents the restless nations or Gentile world, and the "earth/land" can represent the more ordered
+                    society or even the land of Israel <sup>17</sup>. By standing on both, this mighty messenger claims dominion over all
+                    realms of human habitation. This is a symbolic act of taking possession on behalf of God: Christ is laying
+                    claim to every territory of the world (compare Deuteronomy 11:24, Joshua 1:3, where placing one's foot
+                    denotes ownership). Indeed, Darby writes, "Christ comes down and affirms His right to all below; puts His right
+                    foot on the sea, the left on the earth" <sup>18</sup>. No part of the earth is outside His jurisdiction. This is a comfort to
+                    believers: despite the chaos among nations (the raging "sea," cf. Isaiah 17:12) and even in lands that once
+                    knew truth ("earth"), Jesus is rightful Lord of all and will soon assert that right openly.
+                </p>
+
+                <h3>Personal Application (v.2):</h3>
+                <p>
+                    The open scroll reminds us that God's Word is meant to be taken in and
+                    proclaimed (as John will do). We too have God's revealed Word in our hands are we devouring it and
+                    sharing its message? The Lord's stance over sea and land challenges us: do we acknowledge Christ's
+                    lordship over the whole earth and over every aspect of our personal lives? He claims every "territory" of
+                    our heart. There is no corner of creation or our life about which Jesus cannot rightfully say, "Mine!"
+                    Surrendering to His authority brings peace, knowing the world's destiny is firmly in His grasp (Matthew
+                    28:18).
+                </p>
+
+                <h2>Revelation 10:3 - The Seven Thunders Utter Their Voices</h2>
+                <p>
+                    "[The angel] cried with a loud voice, as when a lion roars. When he cried out, seven thunders uttered
+                    their voices." Once the mighty angel has descended and taken his stance, he shouts aloud. His voice is
+                    compared to a lion's roar, conveying tremendous power and kingly authority (the lion being king of beasts,
+                    and also recalling Christ as the "Lion of the tribe of Judah," Revelation 5:5). The roar suggests a summons or
+                    pronouncement. In Amos 3:8 the prophet says, "The lion has roared-who will not fear? The Lord God has
+                    spoken-who can but prophesy?" Indeed, Amos 3:7-8 also teaches that God reveals His secret to His prophets
+                    and that a lion's roar indicates something momentous (which parallels this scene <sup>19</sup>). Here the lion-like cry
+                    of the angel indicates God about to act and serves to get everyone's attention in heaven and earth.
+                </p>
+                <p>
+                    In answer to the angel's cry, seven thunders speak forth. Thunder is often associated with the voice of God
+                    in judgment. "The LORD thundered from heaven; the voice of the Most High resounded" (Psalm 18:13). John
+                    hears not just one thunderclap, but seven distinct thundering voices communicating a message. The
+                    number seven in Revelation signifies fullness or completion, so these "seven thunders" likely represent the
+                    complete, perfect voice of God's judgment. They respond to the angel's roar, perhaps as the very voice of
+                    the Father answering the Son. As one commentary notes, "Thunder in the Old Testament was constantly the
+                    expression of God's authority in the way of judgment" <sup>20</sup>. This suggests that what the thunders utter is divine
+                    revelation-a further pronouncement of coming judgment or mystery from God.
+                </p>
+                <p>
+                    We are not told the content of the thunder-voices here, but their dramatic appearance signals that heaven
+                    is not silent at this point. God is giving a message in thunderous form. Some have likened the roar and
+                    thunders to the call-and-response of Christ and the Father: the angel (Christ) cries out, and seven
+                    thunders (God's voice) answer in a peal of majestic authority <sup>3</sup>. The scene underscores that all of creation
+                    (land, sea, and sky) is resounding with anticipation of God's final actions.
+                </p>
+
+                <h3>Personal Application (v.3):</h3>
+                <p>
+                    The roaring voice teaches us about the authority of God's Word. When God
+                    speaks, even in thunder, are we listening? Psalm 29 describes "the God of glory thunders" and calls on us to
+                    reverence His voice. Like a lion's roar, God's voice can instill healthy fear and awe. We should cultivate a
+                    heart that trembles at His Word (Isaiah 66:2). Moreover, just as thunder follows lightning, God's warnings of
+                    judgment will surely be followed by action. This should sober us and also embolden us to speak God's
+                    truth boldly (in reflection of the angel's lion-like boldness), knowing the authority is not ours but the Lord's.
+                </p>
+
+                <h2>Revelation 10:4 - The Sealed Message of the Thunders</h2>
+                <p>
+                    "Now when the seven thunders uttered their voices, I was about to write; but I heard a voice from
+                    heaven saying to me, 'Seal up the things which the seven thunders uttered, and do not write them.' "
+                    Uniquely in the book of Revelation, John is forbidden to disclose what he just heard. He had been faithfully
+                    recording all his visions up to now, but as he moves to write the thunderous message, a heavenly voice
+                    interrupts: "Seal up what was said, and do not write it down." This is a striking divine directive to keep
+                    something secret.
+                </p>
+                <p>
+                    We learn here that not every revelation is meant for us to know immediately. The "seven thunders"
+                    message is the one part of Revelation that remains sealed. The command to seal it up echoes passages like
+                    Daniel 12:4, where Daniel was told to "shut up the words and seal the book until the time of the end." It
+                    suggests that the thunder utterance was either too profound or terrifying for John to record, or simply
+                    not intended for the Church's knowledge at this time. As one source notes, "The content of the message is
+                    never revealed in Scripture, so we can't speculate on it. The seven thunders are the only words in Revelation that
+                    are sealed" <sup>21</sup>. We can infer the thunders spoke of coming judgments or mysteries beyond what's already
+                    revealed perhaps details of God's wrath or the fate of specific enemies but ultimately God chose to
+                    withhold that information.
+                </p>
+                <p>
+                    It's important to observe John's obedience and humility. He does not insist on telling us what he heard; he
+                    submits to God's command to keep it secret. This reminds us of Deuteronomy 29:29: "The secret things
+                    belong to the LORD our God, but those things which are revealed belong to us and to our children forever." Here,
+                    God explicitly creates a "secret thing" within an otherwise revealing book. This prevents prideful knowledge
+                    we are reminded that God alone has full understanding of His plans. There may be aspects of the end-
+                    times or God's judgments that will remain hidden until they happen.
+                </p>
+                <p>
+                    Brethren expositors counsel against futile speculation. William Kelly writes that John "was not to
+                    communicate the details" of what the thunders said <sup>20</sup>. The prohibition itself tells us that we must be
+                    content not knowing everything. Any attempt to "fill in" what the seven thunders uttered is outside the
+                    bounds of Scripture. The point is that God has mysteries we are not yet privy to, even in prophecy. This
+                    should cultivate in us a reverent trust. Notably, once the thunders are sealed, the narrative moves on -
+                    indicating that what is revealed next (the oath and the little book) is sufficient for our understanding of
+                    God's program.
+                </p>
+
+                <h3>Personal Application (v.4):</h3>
+                <p>
+                    "Seal it up... do not write it." We learn an important spiritual lesson: accept God's
+                    hidden counsels. There are times God says, "No, you don't need to know this right now." Our response
+                    should be faith, not frustration. We can apply this by refraining from excessive speculation about things
+                    Scripture is silent or cryptic about (whether prophecy details or personal "why" questions in life). Instead,
+                    focus on what has been revealed and obey that. Also, John's restraint is an example of obedience over
+                    curiosity. In our era of information, we are tempted to chase secret knowledge, but God values our trust
+                    more than our having every answer. Trusting God with the unknown brings peace. When faced with mysteries
+                    (in prophecy or personal trials), recall that God's wisdom is perfect and His secrecy is for our good. What He
+                    has revealed - the gospel, His promises - is enough to live by.
+                </p>
+
+                <h2>Revelation 10:5-7 - The Angel's Oath: "No More Delay"</h2>
+                <p>
+                    "The angel whom I saw standing on the sea and on the land raised up his hand to heaven and swore by
+                    Him who lives forever and ever, who created heaven and the things that are in it, the earth... and the
+                    sea... that there should be delay no longer (that there should be time no longer), but in the days of the
+                    sounding of the seventh angel, when he is about to sound, the mystery of God would be finished, as He
+                    declared to His servants the prophets."
+                </p>
+                <p>
+                    Here the mighty angel (Christ) performs a solemn act: He lifts his hand to heaven and takes an oath in
+                    God's Name. Lifting the hand toward heaven to swear an oath is a gesture seen elsewhere in Scripture (for
+                    example, the angelic figure in Daniel 12:7 raises both hands to heaven and swears by the eternal God
+                    regarding the end of "time, times, and half a time"). Jesus, the faithful witness, now swears by God the
+                    eternal Creator that a definitive moment has arrived: "There will be no more delay!" (Many translations
+                    render "time no longer" as "no more delay" or "no more waiting.") This oath emphasizes two things: the
+                    imminence of God's final intervention and the certainty of the fulfillment of "the mystery of God."
+                </p>
+                <ol>
+                    <li>
+                        "There should be time no longer" - No More Delay: This phrase does not mean time itself ends
+                        and eternity begins immediately (eternity proper only begins after the Millennium and final
+                        judgment Revelation 20-21). Rather, it means that the period of waiting or delay is over <sup>22 23</sup>.
+                        Ever since Christ's ascension, believers have waited for Him to take up His power and reign, while
+                        God has "patiently endured" mankind's rebellion. But now the delay has run out. The angel's oath
+                        signals that the "day of the Lord" is about to commence God's direct intervention in judgment
+                        will no longer be postponed <sup>24</sup>. William Kelly elaborates: "God would no longer allow time to run on
+                        before He interfered with the course of this world... The Lord intimates here that ere long there is to be a
+                        close put to the present delay" <sup>25 26</sup>. Humanity's allotted time to oppose God (often called "man's
+                        day") is expiring; God's day of reckoning is at hand. This solemn announcement would assure
+                        suffering saints that divine justice is imminent. For us today, it's a reminder that though God's
+                        judgment seems delayed, He has fixed a day when it will come (Acts 17:31). The age of grace will not
+                        extend indefinitely - eventually, the final events will unfold right on schedule.
+                    </li>
+                    <li>
+                        "In the days of the seventh angel... the mystery of God would be finished": The seventh trumpet
+                        (to be sounded in 11:15) is said to complete "the mystery of God" as declared to the prophets.
+                        What is this "mystery of God"? In context, it refers to the grand scheme of God finally bringing His
+                        hidden plan to fruition, specifically His plan to conquer evil and establish His kingdom openly.
+                        Throughout history (and even now), God's tolerance of evil and suffering has been a mystery to the
+                        righteous. Why do the wicked prosper? Why does God delay justice? Why are His people persecuted?
+                        This unresolved situation is "mysterious" because God's ultimate purposes in allowing evil have not
+                        yet been fully revealed. All that will change when the seventh trumpet sounds - signaling the final
+                        outpouring of wrath and the coming of Christ's kingdom (Rev 11:15-18). Then the long-standing
+                        "mystery" of God's tolerance of evil will be resolved by His decisive action to judge sin and Satan.
+                        Kelly interprets "the mystery of God" as "the secret of His allowing Satan to have his own way, and man
+                        too... the wonder of evil prospering and of good being trodden underfoot", which God has permitted for
+                        a time <sup>27</sup>. But "it is soon coming to an end," for God "will put a stop to the present delay" and "is about
+                        to touch all that is contrary to Himself" <sup>28 29</sup>. In short, God's plan to deal with evil (long foretold to
+                        His servants the prophets in passages about the Day of the Lord, Messiah's reign, etc.) will finally be
+                        completed.
+                    </li>
+                </ol>
+                <p>
+                    The phrase "as He announced to His servants the prophets" is significant. It assures us that God's finishing of
+                    this mystery is the very culmination of all prophetic Scripture. Old Testament prophets spoke of a
+                    coming kingdom of righteousness, when God would vindicate His people and judge the wicked (e.g. Isaiah
+                    11, Zechariah 14, Daniel 2:44). They didn't see all the church-age details, but they declared that God would
+                    act in the end. That long-awaited resolution is now at hand. Darby notes, "All things are drawing to a final
+                    issue. In the sounding of the seventh trumpet the mystery of God would be closed - His direct power come" <sup>30</sup>.
+                    Indeed, Revelation 11:15 will proclaim, "The kingdoms of this world have become the kingdom of our Lord and
+                    of His Christ." Thus, the oath in chapter 10 points to that imminent moment.
+                </p>
+                <p>
+                    It's worth mentioning that "mystery" in biblical use means a secret plan or truth of God that was previously
+                    hidden but finally revealed to believers. Here, the "mystery of God" isn't the church (as in Eph 3) or the
+                    gospel per se, but rather God's mysterious permissiveness of evil and delay in taking power - which will
+                    be resolved by Christ's reign. Once Jesus begins to reign openly, that "mystery" is finished because the
+                    answer will be clear: God allowed evil only until the appointed time of judgment, and then He conquers it. This
+                    provides a theological assurance: God has not forgotten justice; He has appointed a day to end the
+                    seeming triumph of evil <sup>27 29</sup>.
+                </p>
+                <p>
+                    The fact the angel swears by the eternal Creator adds weight: it invokes God's unchanging nature and
+                    absolute sovereignty. The Creator who made all things will now claim His creation back from usurpers. The
+                    oath guarantees the truth of these declarations. It reminds us of Hebrews 6:17-18, where God swears an
+                    oath so that by two unchangeable things (His promise and His oath) we have strong encouragement. Here,
+                    Christ's oath guarantees to His people that God's final intervention is irrevocably set - no more delay.
+                </p>
+
+                <h3>Personal Application (vv.5-7):</h3>
+                <p>
+                    The oath "no more delay" is both sobering and encouraging. On one hand, it
+                    warns us that God's patience has limits. The era of grace and longsuffering will give way to judgment - a
+                    call for sinners to repent now while God tarries (2 Peter 3:9). We should not presume upon endless time. On
+                    the other hand, for suffering saints, "no more delay" is a promise that God will not forget us or allow
+                    injustice forever. If you are weary of evil's prevalence or personal trials, take heart: God has marked a day
+                    when He will act decisively. "The mystery of God" being finished means any confusion we have now about His
+                    ways will be answered when we see His plan completed. Thus, we can trust God's timing. He has declared
+                    the end from the beginning through the prophets; not a single word will fail. When life seems unfair or God
+                    seems quiet, remember this scene Christ Himself guarantees that God's plan is on schedule and His
+                    kingdom will come. Let that hope purify us (1 John 3:3) and give us endurance. Our role is to faithfully
+                    witness and wait, knowing the Creator's oath stands: He will set things right.
+                </p>
+
+                <h2>Revelation 10:8-9 - John Eats the Little Book</h2>
+                <p>
+                    "Then the voice which I heard from heaven spoke to me again and said, 'Go, take the little book
+                    which is open in the hand of the angel...' So I went to the angel and said to him, 'Give me the little
+                    book.' And he said to me, 'Take and eat it; and it will make your stomach bitter, but it will be as sweet
+                    as honey in your mouth.'" At this point, the focus shifts back to John's personal interaction with the vision.
+                    The voice from heaven (likely the same that told him to seal the thunders) now gives John a further
+                    instruction: he must approach the mighty angel and take the open scroll from His hand. This is unusual
+                    - the seer is now becoming an actor in the vision.
+                </p>
+                <p>
+                    John obediently goes and asks for the little book. The angel (Christ) tells him to eat the scroll, and warns
+                    that it will have a dual effect: sweet in the mouth, but bitter in the stomach. This symbolic act directly
+                    parallels the experience of the prophet Ezekiel. In Ezekiel 2:8-3:3, God gave Ezekiel a scroll of lamentations
+                    to eat; it tasted sweet as honey, yet its message was one of woe for Israel. John, steeped in Scripture, would
+                    surely recognize that parallel. By eating the scroll, John is internalizing God's message taking the
+                    prophecy into his own being so that he can then utter it forth (just as Ezekiel was told to speak God's
+                    words after eating the scroll). It signifies that the prophecy isn't just external information; it must be
+                    personally ingested and digested by God's prophet. "Your words were found, and I ate them" (Jeremiah 15:16)
+                    captures this idea of fully appropriating God's Word.
+                </p>
+                <p>
+                    Why the sweet and bitter contrast? This is explained in the next verse when John does eat it. But the
+                    angel's warning already teaches us that the message of this little book (and prophecy in general) has mixed
+                    qualities: it contains the sweet hope of God's coming victory, and the bitter reality of judgment and woe
+                    that accompany it. The gospel and God's promises are sweet to believers, but the judgment of the
+                    unrepentant (and the suffering that precedes the kingdom) is a bitter prospect.
+                </p>
+                <p>
+                    Notably, John does not hesitate - he takes the scroll as told. This shows his willingness to receive whatever
+                    word God has, even if it brings personal discomfort. In every generation, God looks for servants who will
+                    "eat" His Word wholeheartedly, even when it convicts or brings sorrow.
+                </p>
+                <p>
+                    Brethren commentators emphasize that prophetic truth tastes sweet as we first receive the grand vision of
+                    God's triumph, but can turn bitter as we digest its implications. Ironside remarks, "There is no sweeter portion
+                    in all Scripture than that which God has revealed concerning the manifestation of His Son. Prophetic truth is
+                    generally sweet... to the mind, it may be very interesting, and in this sense the book is sweet. But as great divine
+                    principles enter your heart, and you realize more and more the call to strangership in this Satan-controlled world,
+                    the truth becomes bitter indeed" <sup>31</sup>. In other words, understanding prophecy excites us with hope, but it also
+                    sobers us when we realize it means greater conflict with the world and the inevitable outpouring of God's
+                    wrath on the lost. We need both effects. As Ironside adds, "We need the bitter as well as the sweet" <sup>32</sup> - for
+                    the bitter truths (judgment, self-denial, persecution) purify our lives and drive us to obedience.
+                </p>
+
+                <h3>Personal Application (vv.8-9):</h3>
+                <p>
+                    John's action challenges us: are we approaching God to take His Word, and
+                    "eating" it making it part of us? Scripture study is not merely to taste for enjoyment, but to ingest fully,
+                    even the parts that are hard to swallow. "Man shall not live by bread alone, but by every word of God" (Luke
+                    4:4). Embrace all of God's Word, not only the pleasant promises but also the bitter truths about sin,
+                    judgment, and discipleship. Digesting Scripture may sometimes make our stomach bitter - for instance,
+                    when the Word convicts us of sin or calls us to sacrifice, or when we weep for those who will face judgment.
+                    But that bitterness is meant for our good, to produce sincerity and compassion. Don't shy away from it. At
+                    the same time, savor the sweetness of God's Word - His love, the glory to come, the victory of Christ. A
+                    mature believer takes in both honey and herbs from God's table. Like John, we must receive before we can
+                    give: only by filling ourselves with God's message can we effectively speak for God to others.
+                </p>
+
+                <h2>Revelation 10:10 - A Bittersweet Experience</h2>
+                <p>
+                    "Then I took the little book out of the angel's hand and ate it, and it was as sweet as honey in my
+                    mouth. But when I had eaten it, my stomach became bitter." John follows through and experiences
+                    exactly what was foretold. As he chews on the scroll (symbolically), its initial taste is deliciously sweet
+                    - like honey. Indeed, God's Word often is compared to honey (Psalm 119:103: "How sweet are Your
+                    words to my taste, sweeter than honey to my mouth!"). The sweetness here likely represents the joy and
+                    delight in the prophetic revelations he is receiving. Think of it: John is privileged to glimpse the
+                    triumphant finale of God's plan the defeat of evil, Christ's reign, the vindication of the saints. That is truly
+                    sweet and encouraging news! For John, who has seen so much horror in the seals and trumpets, the
+                    thought of God's kingdom coming must be exhilarating.
+                </p>
+                <p>
+                    Yet, once swallowed, the scroll turns John's stomach bitter. This signifies the sorrowful, heavy aspects of
+                    the prophecy. What John has eaten includes severe judgments (as we'll see in chapters 11-16: more
+                    plagues, the slaying of God's witnesses, the Antichrist's rage, etc.) and the reality that many will suffer and
+                    die under God's wrath. The bitterness could also be John's personal grief in having to announce woe and
+                    lamentation, much as prophets like Jeremiah felt heartsick over the doom they had to pronounce (Jeremiah
+                    wept over Jerusalem's fall even as he obeyed God in prophesying it).
+                </p>
+                <p>
+                    William Kelly poignantly describes John's reaction: "When he has eaten [the book], in his mouth [it is] sweet as
+                    honey; but when he ponders its contents, and digests its results, how bitter within! So it is and will be. When we see
+                    how God will accomplish all, it must be pain to think what is reserved for man" <sup>33</sup>. In other words, seeing God's
+                    victory is sweet, but realizing the judgments and sorrow that lead up to that victory brings an ache. Any
+                    godly person finds no pleasure in the death of the wicked (Ezekiel 33:11); even though we desire Jesus to
+                    reign, we don't gloat over the destruction of God's enemies. John's bitter stomach reflects that mix of
+                    emotions - joy in God's will, yet compassion and sadness at the cost. Similarly, believers today rejoice that
+                    Christ will return, but we also feel anguish for lost souls and for the calamities that will befall the earth first.
+                    True prophetic understanding will produce both hope and heartbreak.
+                </p>
+                <p>
+                    Another layer of "bitterness" could be personal cost. As Ironside noted, embracing prophetic truth can make
+                    one a stranger in this world - that can be bitter to our natural desires <sup>32</sup>. The more John absorbed God's
+                    message, the more he would be burdened with it. This is the prophet's burden: to carry the weight of a
+                    hard message. John must have felt the weight in his gut.
+                </p>
+
+                <h3>Personal Application (v.10):</h3>
+                <p>
+                    Our walk with God often involves bittersweet experiences. When we receive
+                    God's Word or His plans for us, there is sweetness - the goodness of God, the thrill of His promises. But as
+                    we "digest" His will, there might be bitterness - trials to endure, tough truths to accept, or sorrow for those
+                    who reject the gospel. Don't be surprised by this duality. The Christian life is described as "sorrowful, yet
+                    always rejoicing" (2 Corinthians 6:10). For example, sharing the gospel is sweet (it's good news!), but seeing
+                    someone reject it is bitter. Serving Christ is joyful, but "through many tribulations we enter the kingdom" (Acts
+                    14:22). Embrace both sides: let the sweetness of God's Word strengthen you, and let the bitterness make
+                    you compassionate and earnest. If we only want the sweet and avoid the bitter, we'll have a shallow
+                    discipleship. But if we accept the bitter with the sweet, God will mature us. Also, the bitterness in John's
+                    stomach eventually would pass - suggesting that the pains we endure in God's service are temporary, but
+                    the sweetness of His victory is eternal. Keep the aftertaste of hope in mind even as you swallow hard truths.
+                </p>
+
+                <h2>Revelation 10:11 - Commission to "Prophesy Again"</h2>
+                <p>
+                    "And he said to me, 'You must prophesy again about many peoples, nations, tongues, and kings.'" The
+                    final verse of the chapter contains a renewed commissioning for John. After ingesting the scroll, John is
+                    told that his prophetic work is not done he "must prophesy again." This implies that the revelations he's
+                    received (symbolized by eating the scroll) are to be communicated onward. The scope of this prophecy is
+                    global: it concerns "many peoples, nations, languages, and kings." In other words, the message John has is
+                    not just for Israel or the church, but for the whole world. It will affect every level of society, from common
+                    peoples to rulers.
+                </p>
+                <p>
+                    Practically, this plays out as John writing the rest of the Apocalypse (chapters 11-22), which indeed includes
+                    prophecy about nations (e.g. the Gentiles trampling the holy city, 11:2), global events (the beast's empire,
+                    Armageddon), and kings (the kings of the earth in league with Babylon, etc.). Thus, "prophesy again" could
+                    be referring to the contents of Revelation yet to come in the vision. It's as if God is saying: "John, there is still
+                    more to record - you will announce my judgments and plans that span the whole earth." Despite being an old
+                    man in exile, John is assured that his ministry isn't over until he delivers the full counsel of God given to him.
+                </p>
+                <p>
+                    From a theological perspective, this verse also underscores that Revelation's message is universal. The
+                    gospel of the kingdom will be a witness to all nations (Matthew 24:14); likewise John's prophecy addresses all
+                    humanity, calling every people and power to heed God's Word. The inclusion of "kings" shows that even the
+                    mightiest rulers are not above God's prophetic declarations - they will be held to account in these end-time
+                    events. Tradition says that after receiving Revelation on Patmos, John was freed and returned to Ephesus,
+                    where he indeed would have "prophesied" or taught these truths to many until his death. In any case, the
+                    vision given to him has indeed gone out to many peoples and nations through the book of Revelation itself.
+                </p>
+                <p>
+                    Another way to read "prophesy again" is that John's role as a prophet was ongoing - he wasn't just a passive
+                    scribe. God reaffirms him as an active prophet to the nations, much like an Old Testament prophet who,
+                    scroll in stomach, must go speak to the world. John here is somewhat standing in for the church's witness
+                    as well. Even though the church isn't mentioned in these chapters, the truth John records is meant for the
+                    church to proclaim to the world now. We inherit John's commission in a sense whenever we testify of the
+                    prophetic truths in Scripture.
+                </p>
+
+                <h3>Personal Application (v.11):</h3>
+                <p>
+                    "You must prophesy again..." reminds us that God's servants are called to
+                    perseverance and faithfulness in declaring His Word. John might have thought his work was nearly done,
+                    but God had more for him to do and at possibly 90+ years of age! This shows us we're never "retired"
+                    from God's service until He calls us home. If you're alive, God still has a purpose and message for you to
+                    share. Be willing to "go again" and speak for Him, even if you've labored long already.
+                </p>
+                <p>
+                    Also, consider the scope: many peoples, nations, languages, and kings. This echoes the Great Commission
+                    (Matthew 28:19) to go to all nations, and Revelation 14:6 where an angel has an "everlasting gospel to
+                    preach to those who dwell on the earth-to every nation, tribe, language, and people." For us, while we are
+                    not "prophets" in the apostolic sense, we carry God's prophetic Word (the Bible) to the world. We should
+                    have a heart for all peoples to
+                    hear God's truth. The inclusion of "kings" means even the powerful need to
+                    hear God's warning and call
+                    we shouldn't shy from speaking truth to power when given the chance.
+                    Ultimately, God wants His Word
+                    delivered far and wide. Let's be faithful messengers.
+                </p>
+                <p>
+                    This verse can also personally encourage anyone who feels their ministry or usefulness may be over due to
+                    setbacks: God can say "you must ... again." Maybe you preached before and stopped, or served and then
+                    were sidelined God can have you prophesy again, serve again, hope again. As long as "today" is called
+                    today, He has work for you in His global plan.
+                </p>
+
+                <h2>Conclusion and Reflections</h2>
+                <p>
+                    Revelation 10 is a brief but pivotal chapter in the flow of prophecy. In this vision, we see Christ's authority
+                    straddling earth and sea, His imminent claim to the world, and the assurance that God's mysterious plan of
+                    permitting evil is about to reach its climax. For the believer, this is deeply comforting: Jesus will assert His
+                    rightful ownership of creation and fulfill every prophetic promise declared to the prophets of old <sup>34</sup>.
+                    History is not spiraling out of control; it's moving toward the moment when delay is over and the kingdom
+                    of our God arrives.
+                </p>
+                <p>
+                    We also learn that not every divine secret is ours to know just yet - and that's okay. The sealed thunders
+                    teach humility and trust. We live by faith, not by having all mysteries unveiled. What has been revealed is
+                    sufficient to guide us, and what is concealed we leave in God's hands.
+                </p>
+                <p>
+                    John's eating of the scroll provides a vivid picture of how we must receive and respond to God's Word. The
+                    prophecy is bittersweet just as the Christian life can be. We rejoice in our Lord's victory and sweet
+                    promises, but we also carry a burden for the lost and face the bitter realities of living for Christ in a fallen
+                    world. This tension keeps us both hopeful and humble. As one writer put it, John's experience shows that
+                    "every soul who has walked in the truth...has finally found the blessedness of obedience" despite any bitterness
+                    along the way <sup>35</sup>. Obedience to God's Word, whether sweet or bitter, yields lasting reward.
+                </p>
+                <p>
+                    Lastly, the renewed commission to "prophesy again" challenges the Church as a whole. We have a
+                    prophetic voice to this world - not in the sense of new revelations, but by proclaiming the sure Word of
+                    Scripture, including the gospel and the warnings of Revelation. The scope of John's commission - to peoples,
+                    nations, languages, and kings - mirrors the evangelistic mission we have now. We're heralds of the coming
+                    King, calling all to repent and believe, and informing the world of what God has said about the future.
+                </p>
+                <p>
+                    In summary, Revelation 10 deepens our theological understanding that Christ is in control of the end-
+                    times timeline. It assures us that God's delays are not denials; they have a set limit. It reminds us that
+                    prophecy involves both sweet hope and bitter judgment, both of which we must embrace. And it
+                    motivates us to take God's Word to heart and then to the world. Like John, let us bow before the mighty
+                    Christ, digest His message fully, and then boldly speak forth His truth in these last days, with compassion
+                    and conviction.
+                </p>
+
+                <h2>Sources:</h2>
+                <ul>
+                    <li>
+                        This study has drawn on insights from Plymouth Brethren authors and similar dispensational
+                        teachers who have written extensively on Revelation. In particular, the verse-by-verse observations were
+                        enriched by the works of William Kelly <sup>4 27</sup>, John N. Darby <sup>3</sup>, H.A. Ironside <sup>5 31</sup>, and others in
+                        that theological tradition, who emphasize a literal, futurist interpretation and the distinction between Israel
+                        and the Church in prophecy. These teachers highlight the glory of Christ in Revelation 10 and the
+                        imminence of His kingdom, resonating with the historic faith that Jesus Christ is "Lord of lords and King of
+                        kings" who will soon take up His great power and reign. May we personally take these truths to heart and
+                        live in readiness for that day.
+                    </li>
+                </ul>
+                <ol>
+                    <li>
+                        <sup>1</sup>
+                        <sup>2</sup>
+                        <sup>3</sup>
+                        <sup>6</sup>
+                        <sup>5</sup>
+                        <sup>12</sup>
+                        <sup>20</sup>
+                        <sup>25</sup>
+                        <sup>26</sup>
+                        <sup>27</sup>
+                        <sup>33</sup>
+                        <sup>31</sup>
+                        <sup>32</sup> Chapters Available - Revelation - Scott's Commentary on Revelation - Bible Commentaries -
+                        StudyLight.org
+                        <br>
+                        <a href="https://www.studylight.org/commentaries/eng/sor/revelation.html" target="_blank">https://www.studylight.org/commentaries/eng/sor/revelation.html</a>
+                    </li>
+                    <li>
+                        <sup>2</sup>
+                        <sup>5</sup>
+                        <sup>8</sup>
+                        <sup>11</sup>
+                        <sup>31</sup>
+                        <sup>32</sup>
+                        <sup>35</sup> Revelation 10 - Ironside's Notes on Selected Books - Bible Commentaries -
+                        StudyLight.org
+                        <br>
+                        <a href="https://www.studylight.org/commentaries/eng/isn/revelation-10.html" target="_blank">https://www.studylight.org/commentaries/eng/isn/revelation-10.html</a>
+                    </li>
+                    <li>
+                        <sup>3</sup>
+                        <sup>14</sup>
+                        <sup>18</sup>
+                        <sup>30</sup>
+                        <sup>34</sup> Revelation 10 Bible Commentary - John Darby's Synopsis | Christianity.com
+                        <br>
+                        <a href="https://www.christianity.com/bible/commentary/john-darby/revelation/10" target="_blank">https://www.christianity.com/bible/commentary/john-darby/revelation/10</a>
+                    </li>
+                    <li>
+                        <sup>4</sup>
+                        <sup>6</sup>
+                        <sup>7</sup>
+                        <sup>9</sup>
+                        <sup>10</sup>
+                        <sup>12</sup>
+                        <sup>13</sup>
+                        <sup>15</sup>
+                        <sup>16</sup>
+                        <sup>17</sup>
+                        <sup>19</sup>
+                        <sup>20</sup>
+                        <sup>22</sup>
+                        <sup>23</sup>
+                        <sup>24</sup>
+                        <sup>25</sup>
+                        <sup>26</sup>
+                        <sup>27</sup>
+                        <sup>28</sup>
+                        <sup>29</sup>
+                        <sup>33</sup> Revelation 10 | Plymouth
+                        Brethren Writings
+                        <br>
+                        <a href="https://plymouthbrethren.org/article/3622" target="_blank">https://plymouthbrethren.org/article/3622</a>
+                    </li>
+                    <li>
+                        <sup>21</sup> What do the seven thunders in Revelation 10:1-7 mean? | GotQuestions.org
+                        <br>
+                        <a href="https://www.gotquestions.org/seven-thunders.html" target="_blank">https://www.gotquestions.org/seven-thunders.html</a>
+                    </li>
+                </ol>
+                <!-- Content from In-Depth Study of Revelation Chapter 10.pdf ends here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        function hideAllPages() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+        }
+        function showChapter10() {
+            hideAllPages();
+            document.getElementById('chapter10Page').style.display = 'block';
+            window.location.hash = 'chapter10';
+            initProgressBar();
+        }
+        function initProgressBar() {
+            window.removeEventListener('scroll', updateProgressBar);
+            window.addEventListener('scroll', updateProgressBar);
+            updateProgressBar();
+        }
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            if (docHeight > 0) {
+                scrollPercent = (scrollTop / docHeight) * 100;
+            }
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash === '#chapter10') {
+                showChapter10();
+            } else {
+                // If no hash, redirect to main index or chapters page
+                window.location.href = 'revelation_study_chapter1.html#chapters';
+            }
+        });
+    </script>
+</body>
+</html>
