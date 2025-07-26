@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;  /* Increased from 720px */
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;  /* Increased from 1.6 */
+            color: var(--text-primary);
+            background-color: #f0f0f0;  /* Slightly darker than content */
+            font-size: 18px;  /* Base font size for better readability */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter4Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="window.location.href='revelation_study_chapter1.html#chapters'">← Chapters</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 4</h1>
+                <p>Personal Study on Revelation 4</p>
+            </div>
+            <div class="content-body" id="chapter4Content">
+                <!-- Content from Personal Study on Revelation 4.pdf starts here -->
+                <h2>Revelation 4:1 - A Door Open in Heaven</h2>
+                <p>
+                    After finishing the letters to the seven churches (Revelation 2-3), the Apostle John's vision dramatically shifts
+                    from an earthly perspective to a heavenly one. He writes: "After these things I looked, and behold, a door
+                    standing open in heaven" (4:1a). This marks the start of the "things which shall take place after this" (cf.
+                    Rev. 1:19) a new prophetic section beyond the present church age <sup>1 2</sup>. Many conservative theologians
+                    (including Plymouth Brethren writers) see in this a dispensational transition: the era of the Church on earth
+                    has concluded, and now John is shown events of the future from a heavenly vantage point <sup>3 4</sup>. In fact,
+                    John Nelson Darby notes that from this point on, "the church... is neither recognized nor presented on earth...
+                    John, leaving the things which are,' is introduced into heaven to see 'the things which are to come " <sup>5</sup>.
+                </p>
+                <p>
+                    John then hears "the first voice which I heard... like a trumpet speaking with me, saying, 'Come up here, and I will
+                    show you things which must take place after this" (4:1b). The voice "like a trumpet" is the same powerful
+                    voice John heard in Chapter 1 (the voice of Christ) now calling him upward <sup>6</sup>. The trumpet-like clarity
+                    suggests a authoritative summons (cf. Rev. 1:10). Some expositors even see a foreshadowing here of the
+                    rapture the church's calling up to heaven - since the sequence moves from the Church age (chapters 2-3)
+                    to a heavenly scene (chapter 4) with the church notably absent on earth <sup>7 8</sup>. While Revelation 4:1 is not
+                    an explicit rapture text, it does typologically resemble it: John is taken up at the sound of a trumpet, just as
+                    believers anticipate being "caught up... in the clouds" at the trumpet of God (1 Thess. 4:16-17, cf. 1 Cor. 15:52)
+                    <sup>9 7</sup>. At the very least, the timing is suggestive - many interpreters note that the word "church" (so
+                    frequent in chapters 2-3) does not appear again until Revelation 22, implying the Church as a body is no
+                    longer on earth during the Tribulation scenes <sup>7</sup>.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    John's open door into heaven reminds us that God invites His people into His
+                    presence. We are called to "come up" in a spiritual sense to "set our minds on things above" (Col. 3:2) and
+                    gain God's perspective especially when earthly circumstances are overwhelming. Just as John received
+                    revelation "in the Spirit," we too need the Holy Spirit to illuminate God's Word and character to us (1 Cor.
+                    2:9-10). And though we yet remain on earth, the day is coming when Christ will call believers into His
+                    presence. This motivates us to live in readiness, listening for His voice "like a trumpet" that one day will say,
+                    "Come up here!"
+                </p>
+
+                <h2>Revelation 4:2-3 - The Throne of God in Heaven</h2>
+                <p>
+                    John is immediately transported by the Spirit into a heavenly vision: "Immediately I was in the Spirit; and
+                    behold, a throne set in heaven, and One sat on the throne" (4:2). The throne is the central feature - it
+                    represents the sovereign rule of God over the universe. John, like prophets Isaiah and Ezekiel before him, is
+                    given a glimpse of God's majestic throne room (cf. Isa. 6:1; Ezek. 1:26). Despite earthly turmoil (John himself
+                    was exiled on Patmos), the ultimate reality is that God is enthroned in heaven, completely in control
+                    <sup>10 11</sup>. This is a critical truth for Christian theology: God's sovereignty and majesty are depicted vividly
+                    here.
+                </p>
+                <p>
+                    John refrains from anthropomorphic description of God; instead he describes the radiant appearance of
+                    the One on the throne: "He who sat there was like a jasper and a sardius stone in appearance" (4:3a). These
+                    precious gems convey brilliant colors and light. Jasper in Revelation is described as crystal-clear (Rev. 21:11)
+                    - perhaps like a diamond radiating pure light <sup>12</sup>. Sardius (carnelian) is a deep red stone, like a ruby <sup>12</sup>.
+                    Together, the sparkling white light of jasper and the fiery red of sardius present a vision of dazzling glory
+                    and holy intensity emanating from God. Some see in the jasper God's spotless purity and light, and in the
+                    sardius His righteous wrath or the blood of redemption. Interestingly, these two stones were the first and
+                    last gems on Israel's high priestly breastplate (representing the 12 tribes) <sup>13 14</sup>. In Exodus 28, jasper
+                    stood for Reuben (Jacob's firstborn) and sardius for Benjamin (the last born) <sup>15</sup>. This suggests that God on
+                    the throne is presented in covenant relationship to all His people - from first to last <sup>14</sup>. In fact, the names
+                    of those tribes are meaningful: Reuben means "Behold, a son" and Benjamin "Son of my right hand" <sup>14</sup>. It's
+                    a beautiful reminder that the one on the throne is God the Father and also God the Son ("the Son at the
+                    right hand"), perfectly representing His people (in Christ, the true First and Last Son) <sup>14</sup>. While
+                    interpretations vary, the key point is the overwhelming preciousness and glory of God's appearance - "a
+                    general expression of the glory of God" as one commentator notes <sup>16</sup>. John saw no form, only
+                    unapproachable light (cf. 1 Tim. 6:16).
+                </p>
+                <p>
+                    Encircling the throne, John sees "a rainbow around the throne, in appearance like an emerald" (4:3b). This is not
+                    a half-rainbow arch as seen from earth, but a full rainbow encircling the throne indicating the
+                    completeness of God's mercy and faithfulness. The predominant color is emerald-green, giving a soothing
+                    verdant hue around the throne's radiance <sup>17 18</sup>. In Scripture, the rainbow is a sign of God's covenant
+                    mercy - first given to Noah as the promise that God would not again destroy all life by a flood (Gen. 9:13-
+                    16). Here, before any end-times judgments unfold, God's throne is surrounded by that reminder of mercy.
+                    Brethren expositors point out that the rainbow appears "round about the throne in heaven," an unusual place
+                    for it, to signal that even in wrath God remembers mercy <sup>19 20</sup>. As William Kelly observes, "the rainbow
+                    was the witness that God had not forgotten His ancient word... The rainbow is the sign of mercy... in the midst of
+                    all that bright glory, God [is] purposely putting man in mind of His pledge" <sup>19 20</sup>. In other words, the rainbow
+                    around God's throne assures us that His judgments will never violate His promises or mercy.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    What a comfort to know that God's throne - the seat of absolute power - is
+                    encircled by a symbol of grace. Our God is both holy and merciful. He shines in uncompromising purity
+                    (jasper) and justice (sardius), yet He surrounds Himself with covenant love (rainbow). When we, like John,
+                    "look up" and behold God's sovereignty, we should be reassured that "mercy triumphs over judgment" (James
+                    2:13). In our personal lives, no matter how severe our trials or how weighty God's discipline might feel, we
+                    can trust that His faithfulness and mercy will ultimately prevail (Habakkuk 3:2). He never forgets His
+                    promises to us. This vision invites us to respond in awe to worship the splendor of His holiness (Psalm
+                    29:2) and also to rest in the green hue of His grace, knowing that the Almighty who governs all creation
+                    is also our covenant-keeping God.
+                </p>
+
+                <h2>Revelation 4:4 - The Twenty-Four Elders</h2>
+                <p>
+                    John's attention next goes to others seated around the throne: "Around the throne were twenty-four thrones,
+                    and on the thrones I saw twenty-four elders sitting, clothed in white robes; and they had crowns of gold on their
+                    heads" (4:4). These 24 elders are a subject of rich theological discussion. They are clearly exalted beings
+                    given their thrones and crowns, and they are engaged in worship of God. Who are they?
+                </p>
+                <p>
+                    Plymouth Brethren theology (along with many evangelical commentators) identifies the 24 elders as a
+                    representative symbol of the redeemed people of God in heaven, especially the glorified Church. Several
+                    clues support this:
+                </p>
+                <ul>
+                    <li>
+                        White robes in Revelation typically are the attire of the redeemed saints, symbolizing Christ's
+                        imputed righteousness and priestly purity (cf. Rev. 3:5, "clothed in white garments" promised to
+                        overcomers; Rev. 19:8). Here the elders wear white raiment, consistent with believers who have been
+                        cleansed by Christ.
+                    </li>
+                    <li>
+                        Crowns of gold on their heads indicate victor's rewards. The Greek word for crown here is <em>stephanos</em>,
+                        the wreath awarded to those who overcome or win a race <sup>21</sup>. This is the same type of crown
+                        promised to faithful believers (e.g. "Be faithful until death, and I will give you the crown of life," Rev.
+                        2:10; see also 2 Tim. 4:8, James 1:12). These elders already have their crowns, suggesting they've
+                        received reward for victory <sup>22</sup>. Angels in Scripture are never said to wear victor's crowns of gold nor
+                        sit on thrones ruling with God - but believers are (cf. Rev. 3:21, 2 Tim. 2:12). This timing implies that
+                        the judgment for reward (the Bema seat for the Church) has taken place, which in a dispensational
+                        timeline fits a pre-tribulation rapture (the Church taken to heaven and rewarded before the
+                        Tribulation on earth begins) <sup>23 24</sup>.
+                    </li>
+                    <li>
+                        The term "elders" (Greek <em>presbyteroi</em>) in the Bible most often refers to human representatives of
+                        God's people (elders of Israel, or elders in the church). It would be unusual to apply this term to
+                        angels. These elders in heaven behave as worshiping leaders and also interact with John (see Rev. 5:5,
+                        one elder explains a vision to John). This personal interaction is more fitting for glorified saints than
+                        for angels, who are rarely called "elders." As scholar Henry Alford noted, their white robes and
+                        crowns mark them as redeemed overcomers, "representatives of the Church, as generally
+                        understood" <sup>25</sup>.
+                    </li>
+                    <li>
+                        The number 24 appears to be symbolic of a complete, representative body of priests. In ancient
+                        Israel, King David divided the priesthood into 24 courses or orders so that the whole priesthood was
+                        represented by 24 chief priests (1 Chronicles 24:4-19). Though thousands of priests served, only 24
+                        were on duty at any one time, standing for all. In the same way, the twenty-four elders around
+                        God's throne represent the entirety of God's redeemed people (a "kingdom of priests")
+                        worshiping Him <sup>26 27</sup>. As John Walvoord explains, "when these priests met together, even though
+                        there were only twenty-four, they represented the whole priesthood and at the same time the whole
+                        nation" <sup>26</sup>. Likewise, the 24 elders can be seen as a heavenly council symbolizing all the saints.
+                        Notably, John Nelson Darby suggested "the number 24 represents twice 12. One might perhaps see
+                        here the twelve patriarchs and the twelve apostles - the saints in the two dispensations" <sup>28</sup>. In other
+                        words, 24 may combine Old Testament believers (twelve tribes/fathers of Israel) and New
+                        Testament believers (twelve apostles and the church), uniting all redeemed in worship around
+                        God's throne.
+                    </li>
+                </ul>
+                <p>
+                    It should be mentioned that a minority of interpreters take the 24 elders to be an order of angelic beings.
+                    They point out that these elders never explicitly say they were redeemed (depending on the manuscript of
+                    Rev. 5:9, they speak of God redeeming "people" rather than "us"). However, the overwhelming contextual
+                    evidence favors them being glorified humans rather than angels <sup>29 30</sup>. William Kelly confidently
+                    writes, "They are clearly saints, and they are seen in heaven, around the great central throne before the world's
+                    judgment begins" <sup>27</sup>. He notes their white raiment "answers to their priestly" dignity and their golden
+                    crowns to their kingly dignity, just as believers are made "kings and priests" to God (Rev. 1:6, 5:10) <sup>27</sup>.
+                    Moreover, their complete number being present in heaven at this point signals that all the Church's
+                    members are gathered something that occurs only after the rapture and resurrection, "before the
+                    millennial reign begins" <sup>31 32</sup>. Indeed, Kelly argues that Revelation 4 shows all the members of Christ
+                    together and glorified, since no part of the Church remains on earth once this scene unfolds <sup>33 34</sup>.
+                </p>
+                <p>
+                    In sum, we can conclude the 24 elders represent the collective people of God (the glorified Church,
+                    likely joined by Old Testament saints) in heaven, enthroned and honored, but still awaiting Christ's final
+                    victory. They sit on lesser thrones around God's throne, in fulfillment of Jesus' promise that His people "will
+                    sit with Me on My throne" (Rev. 3:21) and "reign on the earth" (Rev. 5:10). At this stage they are a royal
+                    priesthood in heaven - crowned as kings, dressed as priests - worshiping God and observing as His plans
+                    unfold <sup>8 35</sup>.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    If we rightly see ourselves in these 24 elders, what an encouragement and challenge
+                    it is! God's people are destined not for wrath but for worship and reward in God's presence (1 Thess. 5:9).
+                    Our future is secure: we will exchange the trials of earth for thrones in heaven, by God's grace. Meditating
+                    on this should inspire hope and perseverance. Notice that the elders are sitting a posture of rest and
+                    honor - indicating the work and warfare of their earthly lives is over. One day we, too, will enter into rest
+                    (Heb. 4:9-10) and be invited to sit at the King's table (Luke 22:29-30). Yet, the crowns on their heads
+                    remind us that how we live now matters for eternity. These crowns of gold are rewards given to
+                    overcomers. Our present faithfulness, endurance, and service to Christ will be acknowledged in heaven (2
+                    Cor. 5:10). Thus, we are motivated to "hold fast what you have, that no one may take your crown" (Rev. 3:11). At
+                    the same time, as we'll see in verse 10, those crowns ultimately become instruments of worship - we will
+                    gladly cast them at Jesus' feet. This humbles us: every honor we receive will be by His grace alone. So even
+                    now, let's serve God as both kings and priests - exercising the royal dominion of a holy life and offering
+                    priestly sacrifices of praise (1 Pet. 2:9) - all for the glory of the One who sits on the throne.
+                </p>
+
+                <h2>Revelation 4:5 - Lightning, Thunder, and the Seven Spirits of God</h2>
+                <p>
+                    John's gaze returns to the throne itself: "And from the throne proceeded lightnings, thunderings, and voices"
+                    (4:5a). This awe-inspiring spectacle of storm imagery flashes of lightning and peals of thunder - recalls
+                    several Old Testament theophanies. When God descended on Mount Sinai, "there were thunderings and
+                    lightnings" and the mountain quaked as God's voice sounded like a trumpet (Exodus 19:16-19). Throughout
+                    Revelation, lightning and thunder emanating from God's throne signify His majestic power and
+                    impending judgment (see also Rev. 8:5, 11:19, 16:18). Here it creates a sense of holy fear and anticipation.
+                    J.N. Darby comments that the "lightnings, the thunderings, the voices, are God's power in judgment and in
+                    ruling, as in Sinai" <sup>36</sup>. In other words, God's throne is about to unleash righteous judgments on the sinful
+                    world (the Tribulation to come in chapters 6-18), and the storm signals are already rumbling from His seat
+                    of authority. For believers, thunder and lightning at God's throne also remind us of His unapproachable
+                    holiness (Psalm 97:2-3) and the seriousness of His decrees. There is nothing casual about approaching this
+                    God - it must be with reverence and the covering of Christ's righteousness.
+                </p>
+                <p>
+                    John then notices: "Seven lamps of fire were burning before the throne, which are the seven Spirits of God" (4:5b).
+                    These seven fiery lamps blazing before God likely correspond to the seven-branched lampstand in the
+                    earthly temple, now seen in its heavenly reality. We are told plainly this represents "the seven Spirits of God,"
+                    a phrase used earlier (Rev. 1:4, 3:1) to denote the Holy Spirit in His fullness and perfection (seven being the
+                    number of completeness). The Holy Spirit is often symbolized by fire (Acts 2:3-4). Here, before the throne,
+                    the Spirit is present in a form of burning lamps, indicating His illuminating power and purifying judgment
+                    proceeding from God. One commentator notes, "The seven lamps of fire are the manifestation of God in
+                    leading, enlightening, and blessing; it is the guiding power of the Holy Ghost with the elements of strength and
+                    wisdom" <sup>37</sup>. Indeed, the Holy Spirit is all-knowing (all eyes) and all-powerful, often depicted with seven
+                    eyes or lamps (cf. Zechariah 4:2, 10 where a seven-lamped candlestick represents God's Spirit). Isaiah 11:2
+                    describes the Spirit of the LORD with a sevenfold fullness (the Spirit of wisdom, understanding, counsel,
+                    might, knowledge, fear of the Lord, etc.), which could correspond to His wholeness here.
+                </p>
+                <p>
+                    It is significant that all three Persons of the Trinity appear in this throne-room scene: God the Father on the
+                    throne, the Holy Spirit before the throne, and (in chapter 5) the Son of God (the Lamb) approaching the
+                    throne to take the scroll. Thus Revelation 4-5 together give a profoundly Trinitarian picture of God's
+                    sovereign rule and redemptive plan.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    Lightning and thunder from God's throne remind us that our God is a consuming
+                    fire (Heb. 12:29). We should worship Him with "reverence and godly fear" (Heb. 12:28). When we pray "Thy will
+                    be done on earth as it is in heaven," it's sobering to recall the sheer power and holiness that upholds His
+                    throne. At the same time, the presence of the seven lamps of the Spirit is an encouragement: God has
+                    given us His Spirit to guide and enlighten us now. The same Holy Spirit burning in holiness before God's
+                    throne is "burning" within the Church on earth, empowering us to be light in the world. Do we yield to the
+                    Spirit's enlightening work? He is the "Spirit of truth" who guides us into all truth (John 16:13). Just as those
+                    lamps burn constantly before God, we are called to keep our lamps burning and not quench the Spirit (1
+                    Thess. 5:19). Finally, knowing the Spirit is present in heaven and earth assures us that nothing escapes
+                    God's sight - He sees and will judge rightly. Let's therefore walk in the Spirit, with lives transparent before
+                    the Lord, so that His fiery light purges our sin now rather than later (1 John 1:7).
+                </p>
+
+                <h2>Revelation 4:6 - The Sea of Glass and Four Living Creatures</h2>
+                <p>
+                    John then observes a striking feature before the throne: "Before the throne there was a sea of glass, like
+                    crystal" (4:6a). In front of God's throne stretches what appears to be a vast, glassy sea perfectly still and
+                    clear as crystal. The imagery calls to mind the "bronze sea" (the large basin of water) in Solomon's Temple
+                    (1 Kings 7:23-26), which was used for the priests' ceremonial washings. In the heavenly temple, however,
+                    the sea is solid and glass-like, suggesting that the need for cleansing is finished purity is fixed and
+                    unchanging. John Darby explains that this sea of glass "corresponds with the brazen sea of the tabernacle and
+                    of the temple, where... it is no more water - that is to say, a mere way of cleansing, as on the earth... The sea of
+                    glass is a purity that has become solid, having taken the character of a permanent state" <sup>38</sup>. In other words, the
+                    holiness of God's presence has set everything before Him in a state of crystal-clear purity. No impurity can
+                    exist in this realm; the redeemed and even the environment around God's throne are completely sanctified.
+                    Later in Revelation, this sea of glass is mingled with fire and is the place where victorious saints stand and
+                    praise God (Rev. 15:2), further reinforcing that it represents the established holiness and calm
+                    transcendence of God's rule. It might also symbolize God's Word or judgments, transparent and firm.
+                    Importantly, unlike the restless, tossing sea often used as a symbol for chaos or nations in turmoil (Isa.
+                    57:20, Rev. 13:1), this heavenly "sea" is calm and clear - absolute peace and purity reign in God's
+                    presence.
+                </p>
+                <p>
+                    Next, John describes four astounding creatures in God's throne room: "And in the midst of the throne, and
+                    around the throne, were four living creatures full of eyes in front and in back" (4:6b). These are sometimes called
+                    the "four living beings" or "living creatures" (Greek <em>zoa</em>, meaning living ones). They are a special order of
+                    angelic beings closely associated with God's throne and government. John says they are "in the midst" of the
+                    throne and "around" it, which likely means they stand immediately surrounding the throne (perhaps one on
+                    each side), or even that they support the platform of the throne (cf. Ezekiel 1:22-26, where the living
+                    cherubim form a sort of chariot-throne for God's glory). They are covered with eyes front and back,
+                    symbolizing penetrating insight and knowledge. Nothing escapes their notice; they are ever watchful. This
+                    imagery echoes the cherubim in the vision of Ezekiel: Ezekiel saw four living creatures by God's throne, with
+                    many eyes (in Ezek. 10:12 even their wheels and bodies were full of eyes), showing their awareness and the
+                    all-seeing providence of God. The abundance of eyes implies that God's judgment is completely informed -
+                    He sees everything (Proverbs 15:3).
+                </p>
+                <p>
+                    Who or what are these four living creatures? Comparing Scripture with Scripture, they strongly resemble
+                    the cherubim (and seraphim) that are attendants of God's throne. In Ezekiel 1 and 10, the prophet saw four
+                    cherubim with four faces and multiple wings, accompanying God's glory. In Isaiah 6, Isaiah saw seraphim
+                    around God's throne, each with six wings, crying "Holy, holy, holy." The creatures John sees appear to be a
+                    combination of these traits (as verse 8 will show: they have six wings like seraphim, yet faces like the
+                    cherubim). Thus, most interpreters agree they are angelic throne guardians, exalted in rank, devoted to
+                    worship and executing God's commands. They guard God's holiness and proclaim His praise continuously.
+                </p>
+                <p>
+                    It's noteworthy that Darby suggests the living creatures here can also be viewed symbolically as
+                    representing the attributes of God in creation and providence he calls them the "supporters of the
+                    throne" who display God's principles of action <sup>39 40</sup>. He notes, for example, how in Ezekiel each living
+                    creature had all four faces, showing the fullness of divine agency, whereas in Revelation the four faces are
+                    separated into four creatures, emphasizing each aspect individually <sup>39</sup>. While they are real beings, they
+                    embody aspects of God's rule: His majesty, strength, intelligence, and sovereign swiftness (as we'll see next
+                    verse) <sup>39</sup>. In essence, they reflect the creation's praise of the Creator all nature (wild beasts,
+                    domesticated beasts, humankind, and flying creatures) represented in these figures, giving honor to God
+                    on the throne <sup>39</sup>.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The sea of glass teaches us that holiness and peace pervade God's presence. Today,
+                    we live in a turbulent world, but when we draw near to God, we find a "peace that passes
+                    understanding" (Phil. 4:7) a foretaste of that crystal sea. It challenges us to pursue holiness ("wash our
+                    robes" in Christ's blood now - Rev. 7:14) so that we will stand on that glassy sea someday without shame.
+                    The four living creatures remind us that all creation is meant to glorify God (Psalm 148). Each of their
+                    forms points to something admirable: the nobility of the lion, the strength of the ox, the wisdom of humans,
+                    the soaring excellence of the eagle. Mankind, animals, all living things were made for God's pleasure (Rev.
+                    4:11) how much more should we, who are made in God's image, live all-seeing (full of eyes) in discerning
+                    God's will and offering Him constant worship? Also, knowing that these powerful, wise angelic beings exist
+                    to serve God's purposes gives us confidence. Hebrews 1:14 says angels are "ministering spirits sent forth to
+                    minister for those who will inherit salvation." The throne-attendants are on our side under God's command.
+                    We can take comfort that God's providential "eyes" are always on our situation, and His angelic servants
+                    encamp around those who fear Him (Psalm 34:7). Let's join creation and the angels in fulfilling our highest
+                    purpose: to be ever near God's throne, watching and praising Him.
+                </p>
+
+                <h2>Revelation 4:7-8 - The Four Faces and Ceaseless Worship</h2>
+                <p>
+                    John now itemizes the distinctive features of each of the four living creatures: "The first living creature was
+                    like a lion, the second living creature like a calf [ox], the third living creature had a face like a man, and the fourth
+                    living creature was like a flying eagle" (4:7). These correspond exactly to the four faces that Ezekiel saw on the
+                    cherubim (Ezekiel 1:10) - but in Ezekiel's vision each cherub had all four faces, whereas John sees the faces
+                    distributed one per creature. The traditional understanding is that they represent four domains of created
+                    life and also speak of aspects of God's character or the Messiah's role:
+                </p>
+                <ul>
+                    <li>
+                        The Lion - often called the king of beasts - symbolizes majestic strength and kingly authority <sup>41</sup>.
+                        It represents wild creatures and suggests rulership, courage, and power. Notably, Jesus is called "the
+                        Lion of the tribe of Judah" (Rev. 5:5). This face points to God's majesty and Christ's kingship.
+                    </li>
+                    <li>
+                        The Calf or Ox - the ox (calf here means a young bull) is a beast of burden and sacrifice,
+                        symbolizing servitude, patience, and strength <sup>42</sup>. The ox was a chief domesticated animal used in
+                        plowing and temple sacrifices. This face evokes the idea of diligent service and the provision of God.
+                        It reminds us of Christ as the faithful servant and also the sacrifice for sins.
+                    </li>
+                    <li>
+                        The Man - the human face obviously represents intelligence, rationality, and relational aspects of
+                        God's creation <sup>42</sup>. Humanity is made in God's image with mind and reason. This face emphasizes
+                        God's wisdom and the personal nature of His rule. It can also point to Christ's humanity - the Son of
+                        Man.
+                    </li>
+                    <li>
+                        The Eagle - king of the birds - signifies swiftness, vision, and heavenly soaring <sup>43</sup>. Eagles were
+                        seen as powerful and swift to execute (Job 9:26, Deut. 28:49). They also fly high, symbolizing
+                        transcendence. This face highlights God's omnipresence and quick execution of judgment or
+                        deliverance from on high. It also recalls aspects of Christ's divinity (as the one from heaven).
+                    </li>
+                </ul>
+                <p>
+                    Early Christian writers also connected these four creatures to the four Gospels' portrayal of Christ - for
+                    example: Matthew presents Christ as the Lion-like King, Mark as the Ox-like Servant, Luke as the Human
+                    Son of Man, and John as the Eagle-like Son of God soaring in divine heights. Whether or not John had that in
+                    mind, it's a fascinating parallel that all of Scripture and creation point to the multifaceted glory of God
+                    in Christ. In the throne room, these four beings together reflect the fullness of God's created order and His
+                    attributes. As Darby puts it succinctly, "It is always God in the creation" that they signify <sup>43</sup>.
+                </p>
+                <p>
+                    Moving from their appearance to their action, John continues: "The four living creatures, each having six
+                    wings, were full of eyes around and within. And they do not rest day or night, saying: 'Holy, holy, holy, Lord God
+                    Almighty, Who was and is and is to come!" (4:8). The six wings link them to Isaiah's seraphim (Isa. 6:2), which
+                    had six wings and cried "Holy, holy, holy." The combination of features confirms these creatures function as
+                    the highest order of worshipful beings in God's presence. They are covered with eyes all around and
+                    within, emphasizing again their awareness and perhaps that even their inner being is full of understanding
+                    nothing is blind or dark in them; they are filled with the light of God's knowledge.
+                </p>
+                <p>
+                    Crucially, their activity is unceasing praise. "They do not rest day or night" an expression of continual
+                    worship - as they proclaim God's holiness and eternal nature. "Holy, holy, holy" - the threefold repetition -
+                    underscores the infinite holiness of God, just as in Isaiah 6: "Holy, holy, holy is the Lord of hosts". Many see in
+                    the thrice-holy an allusion to the Trinity (One Holy for each Person), or simply the superlative degree of
+                    holiness (the Hebrew way of saying "Most Holy" is to repeat it three times). In any case, God's holiness is
+                    His utter set-apartness, moral perfection, and transcendence above all creation. The living creatures never
+                    tire of lifting up this defining attribute of God. They call Him "Lord God Almighty", a title stressing God's
+                    omnipotence (<em>Pantokrator</em> in Greek - the One who holds all power and rules all). And they extol Him as the
+                    One "Who was and is and is to come" - declaring God's eternal existence, past, present and future. This
+                    echoes the divine name from Revelation 1:8 and God's self-revelation as "I AM". God is the Eternal Now,
+                    unlimited by time, "from everlasting to everlasting" (Psalm 90:2).
+                </p>
+                <p>
+                    Notably, Darby observes that in this scene we hear "all the names of God, save the one in which the church is
+                    concerned that of Father" <sup>44</sup>. The living creatures address God with titles by which He was known in
+                    various ages: Lord (Master of all), God (the divine Creator), Almighty (Shaddai, as known to Abraham), and
+                    the Eternal One. What's absent is "Father," because here God is revealed in His relationship to creation and
+                    judgment, rather than in His specific relationship to redeemed children (the fatherhood of God toward the
+                    Church). The focus is on God's character as holy ruler of the universe, which is acknowledged in every
+                    dispensation <sup>44</sup>. The living beings ascribe glory (the radiance of His greatness), honor (the esteem due
+                    His name), and thanks to God continuously (cf. Rev. 4:9). This is pure adoration - worship for who God is in
+                    Himself.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    The tireless worship of these living creatures poses a heart-searching challenge: Do
+                    we have such a high view of God's holiness? They cease not, while we often grow weary. In prayer and song,
+                    how frequently do we linger on God's attributes, especially His holiness? Meditating on the thrice-holy God
+                    should produce deep reverence and humility in us. Remember, Jesus taught us to begin prayer with
+                    "Hallowed be Thy name" - essentially joining the cry of "Holy, Holy, Holy." Let's cultivate a worshipful life that,
+                    even if not verbally $24/7$ has an attitude of continual praise ("pray without ceasing" 1 Thess. 5:17). We
+                    learn that true worship centers on God's nature: His holiness, omnipotence, and eternal existence.
+                    Perhaps we can emulate the living creatures by incorporating these praises into our daily devotion:
+                    declaring "Lord, You are holy, almighty, and eternal - worthy of all my praise." Furthermore, the fact that they
+                    have eyes "around and within" while worshiping teaches us that worship should be both external and
+                    internal - not just going through motions, but full of insight and sincerity from within. Finally, consider the
+                    serenity of these creatures: they are utterly at rest in proclaiming God's holiness; it is their constant
+                    occupation and joy. Similarly, our souls find their true rest and purpose in worshiping God. We will be
+                    most fulfilled and alive when we are caught up in the vision of God's beauty, joining the eternal song.
+                </p>
+
+                <h2>Revelation 4:9-11 - Elders Worship the Creator</h2>
+                <p>
+                    John then witnesses a beautiful interaction between the living creatures and the 24 elders: "Whenever the
+                    living creatures give glory and honor and thanks to Him who sits on the throne, who lives forever and ever, the
+                    twenty-four elders fall down before Him who sits on the throne and worship Him who lives forever and ever, and
+                    cast their crowns before the throne" (4:9-10). Here we see heaven's worship in concert. The four living beings
+                    initiate praise (as described in verse 8), and whenever they do so, the elders respond in worship. There is a
+                    responsive liturgy in heaven: angelic beings cry "Holy!" and the redeemed prostrate themselves in
+                    agreement. The elders fall down a posture of absolute reverence and submission and they cast their
+                    crowns before God's throne. This casting of crowns signifies that they attribute every bit of honor or reward
+                    they have back to God. They are essentially saying, "Lord, all that we have achieved, any victory (symbolized
+                    by these crowns), belongs to You alone!" It's an act of surrender and recognition that God is the source of
+                    all their authority and achievement. As King David prayed, "For all things come from You, and of Your own we
+                    have given You" (1 Chronicles 29:14). These elders, who are kings and priests, do not strut with their golden
+                    crowns in pride; instead, they joyfully relinquish them in God's presence, showing that "Not unto us, O Lord,
+                    not unto us, but to Your name give glory" (Psalm 115:1).
+                </p>
+                <p>
+                    This scene also suggests continual humility even in glory. If these elders represent us, it teaches that even
+                    in heaven our posture will not be self-exaltation for having "made it," but eternal gratitude and worship to
+                    the One who brought us there. Whatever honor we have, we'll gladly give back to Jesus. In fact, the only reason
+                    we will have crowns is so we have something to cast at His feet in love and adoration. This encourages us
+                    now on earth to live with humility and worship, knowing all that we are and have is from God (1 Cor. 4:7).
+                </p>
+                <p>
+                    Finally, in verse 11 we hear the actual song of the elders as they worship: "You are worthy, O Lord, to receive
+                    glory and honor and power; for You created all things, and by Your will they exist and were created." This
+                    doxology exalts God as the worthy Creator of all. The word "worthy" (<em>axios</em> in Greek) implies that it is
+                    fitting, deserved, and right for God to receive all praise. He alone is inherently deserving of glory, honor,
+                    and power (power here meaning rightful rule or dominion) from His creation. Why? "For You created all
+                    things." He is the ultimate source of everything that exists - from the mightiest angel to the smallest atom.
+                    All things owe their existence to God's creative act (Genesis 1:1, John 1:3). Moreover, "by Your will they exist
+                    and were created." This means not only did God create all things in the past, but by His ongoing will and
+                    pleasure everything continues to exist <sup>45</sup>. In Him, all things hold together (Colossians 1:16-17). Every
+                    heartbeat, every breath, every star in the sky is sustained each moment by God's sovereign will. Some
+                    translations render this as "for Your pleasure they are and were created," indicating that all creation
+                    ultimately serves God's purpose and delight. We were made to please God and bring Him glory (Isaiah
+                    43:7). What a fundamental truth of theology: God as Creator is the foundation of His worthiness to be
+                    worshiped. In a world that increasingly denies or forgets the Creator, heaven's inhabitants proclaim it
+                    without ceasing - reminding us that "It is He who has made us, and not we ourselves" (Psalm 100:3).
+                </p>
+                <p>
+                    Brethren expositors point out that in chapter 4, the praise is directed to God as Creator and sovereign
+                    King. In chapter 5, the praise will include Redeemer (as the Lamb is praised for redemption). But first and
+                    foremost, God is lauded for creating all things - this establishes His ultimate ownership and right to judge
+                    and rule the world <sup>46 47</sup>. As William Kelly notes, here "the church... worships God as the Creator. It is
+                    important to apprehend this... God's throne [is] the center of government... about to intervene in the government
+                    of the earth" <sup>48</sup>. Recognizing God as Creator undergirds every other doctrine; it is because He made us that
+                    He can save us, rule us, and even remake us in the new creation.
+                </p>
+
+                <h3>Personal Application:</h3>
+                <p>
+                    This final verse brings home a deep challenge: Do I acknowledge God's ultimate
+                    worthiness in my daily life? The elders declare God's worth ("You are worthy, O Lord") - worship at its heart
+                    is declaring the worth of God above all else. Reflect on the fact that every breath you take is by God's will.
+                    You and I exist because He wanted us to exist. We continue to live moment by moment "in Him" (Acts 17:28).
+                    That means our lives are not our own; they are God's possession. If all things are created for His pleasure,
+                    then our purpose is to bring joy to God's heart. How can we do that? By living in obedience, faith, and
+                    worship. "The Lord takes pleasure in those who fear Him" (Psalm 147:11). Conversely, knowing we were made
+                    by and for God, we should avoid the great sin of living as if we are autonomous or for our own glory.
+                    Romans 1:20-21 indicts the world because, although God's role as Creator is evident, people neither glorify
+                    Him as God nor give thanks. Let's be the opposite: a people who constantly thank and glorify our Creator.
+                    When you step outside and see a tree, a mountain, or the stars, say with the 24 elders: "My God made that,
+                    and all creation shows His power!" (Psalm 19:1). Let creation prompt you to worship, not be complacent.
+                </p>
+                <p>
+                    Also, consider the profound rest and identity this truth gives us. If I exist by God's will, then I have
+                    meaning and worth - I'm not an accident. And my highest fulfillment will be to do what I was created for: to
+                    please God. This might change how we prioritize our lives. Is my goal aligned with God's pleasure or just
+                    my own? The elders in heaven have no doubt - their entire being is focused on God's delight and glory. In
+                    eternity, we will fully live out Isaiah 43:7 ("created for My glory" says the Lord). We don't have to wait until
+                    heaven to start; even now, "whatever you do, do all to the glory of God" (1 Cor. 10:31).
+                </p>
+                <p>
+                    Finally, picture yourself in this scene: casting your crowns before Him. What crowns (achievements, talents,
+                    treasures) can you lay at Jesus' feet today as a token that He alone is worthy? Perhaps it's the crown of
+                    personal ambition or pride - surrender it and say, "Lord, use my life for Your honor." Perhaps it's offering
+                    the reward of your labors giving your time, resources, praise back to Him in worship. The hymn "Holy,
+                    Holy, Holy" aptly says: "All the saints adore Thee, casting down their golden crowns around the glassy sea." That
+                    will be our joy for eternity - endless adoration of our Creator and Redeemer. Let's live now in light of that
+                    destiny, echoing even in our personal devotions the heavenly chorus: "You are worthy, O Lord!"
+                </p>
+
+                <h2>Sources:</h2>
+                <ul>
+                    <li>
+                        J.N. Darby, Notes on Revelation, explaining the shift at Revelation 4 to future events and the
+                        symbolism of the throne room <sup>5 49 50</sup>.
+                    </li>
+                    <li>
+                        William Kelly, Lectures on Revelation, on the 24 elders as representing the complete heavenly
+                        priesthood (the glorified saints) and the significance of the rainbow and living creatures <sup>27 19</sup>.
+                    </li>
+                    <li>
+                        John Walvoord, The Revelation of Jesus Christ (1966), on the identity of the elders, the imagery of
+                        jasper/sardius stones and the worship of God as Creator <sup>26 12</sup>.
+                    </li>
+                    <li>
+                        Scripture (NKJV unless noted): Revelation 4:1-11; cross-references from Genesis, Exodus, Isaiah,
+                        Ezekiel, 1 Chronicles, Psalms, Gospels, Epistles as noted throughout for parallel imagery and
+                        doctrinal reinforcement.
+                    </li>
+                    <li>
+                        Plymouth Brethren and dispensational insights compiled from Bible TruthLibrary and
+                        Plymouth Brethren.org archives <sup>32</sup>, affirming the pre-tribulational heavenly scene of Revelation
+                        4 and its theological implications for the Church.
+                    </li>
+                </ul>
+                <ol>
+                    <li>
+                        <sup>1</sup>
+                        <sup>5</sup>
+                        <sup>28</sup>
+                        <sup>36</sup>
+                        <sup>37</sup>
+                        <sup>38</sup>
+                        <sup>39</sup>
+                        <sup>40</sup>
+                        <sup>41</sup>
+                        <sup>42</sup>
+                        <sup>43</sup>
+                        <sup>44</sup>
+                        <sup>46</sup>
+                        <sup>47</sup>
+                        <sup>48</sup>
+                        <sup>49</sup>
+                        <sup>50</sup> Notes on Revelation 4-5 - John Nelson
+                        Darby (#62260) - Bible Truth Library
+                        <br>
+                        <a href="https://bibletruthpublishers.com/notes-on-revelation-4-5/john-nelson-darby-jnd/collected-writings-of-j-n-darby-prophetic-2/lac62260-lub-15230-13" target="_blank">https://bibletruthpublishers.com/notes-on-revelation-4-5/john-nelson-darby-jnd/collected-writings-of-j-n-darby-prophetic-2/lac62260-lub-15230-13</a>
+                    </li>
+                    <li>
+                        <sup>2</sup>
+                        <sup>6</sup>
+                        <sup>8</sup>
+                        <sup>19</sup>
+                        <sup>20</sup>
+                        <sup>24</sup>
+                        <sup>27</sup>
+                        <sup>31</sup>
+                        <sup>32</sup>
+                        <sup>33</sup>
+                        <sup>34</sup>
+                        <sup>35</sup> Lectures on Revelation 4 - William Kelly (#65586) - Bible Truth
+                        Library
+                        <br>
+                        <a href="https://bibletruthpublishers.com/lectures-on-revelation-4/william-kelly-wk/bible-treasury-volume-2/la65586" target="_blank">https://bibletruthpublishers.com/lectures-on-revelation-4/william-kelly-wk/bible-treasury-volume-2/la65586</a>
+                    </li>
+                    <li>
+                        <sup>7</sup>
+                        <sup>9</sup>
+                        <sup>10</sup>
+                        <sup>11</sup>
+                        <sup>12</sup>
+                        <sup>13</sup>
+                        <sup>14</sup>
+                        <sup>15</sup>
+                        <sup>16</sup>
+                        <sup>17</sup>
+                        <sup>18</sup>
+                        <sup>21</sup>
+                        <sup>22</sup>
+                        <sup>23</sup>
+                        <sup>25</sup>
+                        <sup>26</sup>
+                        <sup>29</sup>
+                        <sup>30</sup> 4. The Church In Heaven | Walvoord.com
+                        <br>
+                        <a href="https://walvoord.com/article/262" target="_blank">https://walvoord.com/article/262</a>
+                    </li>
+                    <li>
+                        <sup>45</sup> Appendix II | Plymouth Brethren Writings
+                        <br>
+                        <a href="https://plymouthbrethren.org/article/10472" target="_blank">https://plymouthbrethren.org/article/10472</a>
+                    </li>
+                </ol>
+                <!-- Content from Personal Study on Revelation 4.pdf ends here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        function hideAllPages() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+        }
+        function showChapter4() {
+            hideAllPages();
+            document.getElementById('chapter4Page').style.display = 'block';
+            window.location.hash = 'chapter4';
+            initProgressBar();
+        }
+        function initProgressBar() {
+            window.removeEventListener('scroll', updateProgressBar);
+            window.addEventListener('scroll', updateProgressBar);
+            updateProgressBar();
+        }
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            if (docHeight > 0) {
+                scrollPercent = (scrollTop / docHeight) * 100;
+            }
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash === '#chapter4') {
+                showChapter4();
+            } else {
+                // If no hash, redirect to main index or chapters page
+                window.location.href = 'revelation_study_chapter1.html#chapters';
+            }
+        });
+    </script>
+</body>
+</html>

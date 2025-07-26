@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;  /* Increased from 720px */
+        }
+
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;  /* Increased from 1.6 */
+            color: var(--text-primary);
+            background-color: #f0f0f0;  /* Slightly darker than content */
+            font-size: 18px;  /* Base font size for better readability */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Page Display Control */
+        .page {
+            display: none; /* Hidden by default */
+        }
+
+        /* Index Page Styles */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background-color: transparent;
+            color: white;
+            text-decoration: none;
+            border: 2px solid var(--accent-color);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Chapters Page Styles */
+        .chapters-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .chapters-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .chapters-header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .chapter-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-number {
+            font-size: 3rem;
+            color: var(--accent-color);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .chapter-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Chapter Content Page Styles */
+        .content-container {
+            max-width: var(--reading-width);
+            margin: 0 auto;
+            padding: 4rem 3rem;
+            /* ADD THESE: */
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+
+        .content-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .content-header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .content-body {
+            font-size: 1.125rem;  /* This will be 20.25px with 18px base */
+            line-height: 1.9;  /* More line height for comfort */
+            color: #2c2c2c;  /* Slightly softer than pure black */
+            letter-spacing: 0.01em;  /* Slight letter spacing */
+            word-spacing: 0.05em;  /* Better word spacing */
+            /* ADD THESE: */
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+
+        .content-body p {
+            margin-bottom: 1.75rem;  /* More space between paragraphs */
+            text-align: justify;  /* Change back to justify */
+            text-justify: inter-word;  /* Better word spacing */
+            text-indent: 1.5em;  /* First line indent for book-like feel */
+            /* ADD THESE: */
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 {
+            font-size: 2.2rem;  /* Slightly larger */
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;  /* More space above */
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+
+        .content-body h3 {
+            font-size: 1.7rem;  /* Slightly larger */
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;  /* More space */
+            color: var(--text-primary);
+        }
+
+        .content-body ul {
+            list-style-type: disc;
+            margin: 1.5rem 0 2rem 3rem;  /* More spacing */
+            line-height: 1.8;
+        }
+
+        .content-body ol {
+            list-style-type: decimal;
+            margin: 1.5rem 0 2rem 3rem;  /* More spacing */
+            line-height: 1.8;
+        }
+
+        .content-body li {
+            margin-bottom: 0.75rem;  /* More space between items */
+        }
+
+        .verse-number {
+            color: var(--accent-color);
+            font-weight: 600;  /* Not too bold */
+            margin-right: 0.5rem;  /* More space */
+            font-size: 0.95em;  /* Slightly smaller */
+        }
+
+        .navigation {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navigation {
+                top: 1rem;
+                left: 1rem;
+            }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;  /* No indent on first paragraph of sections */
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;  /* Slightly lighter for quoted text */
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;  /* Even wider on large screens */
+            }
+            
+            .content-body {
+                font-size: 1.2rem;  /* Larger text on big screens */
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;  /* Slightly smaller base on mobile */
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;  /* Remove indent on mobile */
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+
+        /* Image Placeholder Styling */
+        .image-placeholder {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Chapters Page -->
+    <div id="chaptersPage" class="page">
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="showIndex()">← Home</a>
+        </div>
+        
+        <div class="chapters-container">
+            <div class="chapters-header">
+                <h1>Chapters</h1>
+                <p>Select a chapter to begin your study</p>
+            </div>
+            
+            <div class="chapters-grid">
+                <div class="chapter-card" onclick="showChapter(1)">
+                    <div class="chapter-number">01</div>
+                    <h2 class="chapter-title">In-Depth Study and Commentary</h2>
+                    <p class="chapter-description">The majestic opening to the Bible's final book, unveiling Jesus Christ in His risen glory</p>
+                </div>
+                
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter2.html#chapter2'">
+                    <div class="chapter-number">02</div>
+                    <h2 class="chapter-title">Letters to the Seven Churches</h2>
+                    <p class="chapter-description">Ephesus, Smyrna, Pergamos, and Thyatira</p>
+                </div>
+                
+                <!-- Chapter 3 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter3.html#chapter3'">
+                    <div class="chapter-number">03</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">Letters to Sardis, Philadelphia, and Laodicea</p>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter4.html#chapter4'">
+                    <div class="chapter-number">04</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Throne Room of Heaven</p>
+                </div>
+
+                <!-- Chapter 5 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter5.html#chapter5'">
+                    <div class="chapter-number">05</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Worthy Lamb and the Scroll</p>
+                </div>
+
+                <!-- Chapter 6 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter6.html#chapter6'">
+                    <div class="chapter-number">06</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Six Seals Opened</p>
+                </div>
+
+                <!-- Chapter 7 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter7.html#chapter7'">
+                    <div class="chapter-number">07</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The 144,000 and the Great Multitude</p>
+                </div>
+
+                <!-- Chapter 8 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter8.html#chapter8'">
+                    <div class="chapter-number">08</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Seventh Seal and the First Four Trumpets</p>
+                </div>
+
+                <!-- Chapter 9 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter9.html#chapter9'">
+                    <div class="chapter-number">09</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Fifth and Sixth Trumpets</p>
+                </div>
+
+                <!-- Chapter 10 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter10.html#chapter10'">
+                    <div class="chapter-number">10</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Angel and the Little Book</p>
+                </div>
+
+                <!-- Chapter 11 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter11.html#chapter11'">
+                    <div class="chapter-number">11</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Two Witnesses and the Seventh Trumpet</p>
+                </div>
+
+                <!-- Chapter 12 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter12.html#chapter12'">
+                    <div class="chapter-number">12</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Woman, the Child, and the Dragon</p>
+                </div>
+
+                <!-- Chapter 13 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter13.html#chapter13'">
+                    <div class="chapter-number">13</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Beast from the Sea and the Beast from the Earth</p>
+                </div>
+
+                <!-- Chapter 14 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter14.html#chapter14'">
+                    <div class="chapter-number">14</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Lamb and the 144,000; The Three Angels</p>
+                </div>
+
+                <!-- Chapter 15 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter15.html#chapter15'">
+                    <div class="chapter-number">15</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Seven Angels with Seven Plagues</p>
+                </div>
+
+                <!-- Chapter 16 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter16.html#chapter16'">
+                    <div class="chapter-number">16</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Seven Bowls of God's Wrath</p>
+                </div>
+
+                <!-- Chapter 17 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter17.html#chapter17'">
+                    <div class="chapter-number">17</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">Mystery Babylon the Great</p>
+                </div>
+
+                <!-- Chapter 18 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter18.html#chapter18'">
+                    <div class="chapter-number">18</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Fall of Babylon</p>
+                </div>
+
+                <!-- Chapter 19 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter19.html#chapter19'">
+                    <div class="chapter-number">19</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Marriage Supper and Christ's Return</p>
+                </div>
+
+                <!-- Chapter 20 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter20.html#chapter20'">
+                    <div class="chapter-number">20</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The Millennium and the Great White Throne</p>
+                </div>
+
+                <!-- Chapter 21 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter21.html#chapter21'">
+                    <div class="chapter-number">21</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The New Heaven and New Earth</p>
+                </div>
+
+                <!-- Chapter 22 -->
+                <div class="chapter-card" onclick="window.location.href='revelation_study_chapter22.html#chapter22'">
+                    <div class="chapter-number">22</div>
+                    <h2 class="chapter-title">Coming Soon</h2>
+                    <p class="chapter-description">The River of Life and Final Words</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 1 Content Page -->
+    <div id="chapter1Page" class="page" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="showChapters()">← Chapters</a>
+        </div>
+        
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 1</h1>
+                <p>In-Depth Study and Commentary</p>
+            </div>
+            
+            <div class="content-body" id="chapterContent">
+                <h2>Introduction</h2>
+                <p>
+                    Revelation chapter 1 is the majestic opening to the Bible's final book, unveiling Jesus Christ in His risen glory
+                    and setting the stage for God's prophetic program. The book's title, "The Revelation of Jesus Christ" (Rev.
+                    1:1), translates the Greek <em>apokalupsis</em>, meaning an unveiling or disclosure. Far from being a sealed mystery, it
+                    is a disclosure by Jesus Christ about Jesus Christ - His person, His future triumph, and "the things which
+                    must shortly come to pass." The apostle John, writing around A.D. 95 from exile on Patmos, serves as the
+                    inspired witness to this vision (Rev. 1:9). Plymouth Brethren theologians (such as J.N. Darby and William
+                    Kelly) and dispensational commentators approach Revelation with a literal yet spiritually perceptive
+                    hermeneutic, recognizing its orderly structure (Rev. 1:19) and distinguishing God's plan for the church from
+                    His future dealings with Israel and the nations. Chapter 1 thus functions as a prologue and foundation for
+                    the entire prophecy - revealing who Jesus is in glory, how the message comes (from God to Christ through
+                    an angel to John), and why it matters (it carries promised blessing and vital truth for all Christ's servants).
+                    In this study, we will proceed verse by verse, drawing on biblical cross-references and insights especially
+                    from Brethren/dispensational teachers (e.g. J.N. Darby, William Kelly, C.H. Mackintosh, John Walvoord). We
+                    will explore the theology of each verse, examine key Greek terms, highlight Christological revelations, and
+                    suggest doctrinal and practical applications.
+                </p>
+                <p>
+                    The overarching themes include the supremacy of Christ (His deity, authority, and roles as Prophet, Priest,
+                    and King), the nature of divine revelation (God's initiative in making known His plans and the use of
+                    symbols/"signs"), the status of the Church (as a kingdom of priests under Christ's care), and the
+                    imminence of His return. Woven throughout are rich echoes of Old Testament prophecy and parallel
+                    scriptures that shed light on Revelation's meaning. As we begin, we heed the special promise of verse 3:
+                    "Blessed is he who reads and those who hear the words of this prophecy, and keep those things which are written
+                    in it; for the time is at hand." This is a book meant to impact how we live instilling hope, holiness, and
+                    worship as much as how we understand God's plan. With hearts open, let's enter into John's vision of the
+                    glorified Christ in Revelation chapter 1.
+                </p>
+
+                <h2>Verse-by-Verse Commentary</h2>
+
+                <h3>Revelation 1:1-3 - Prologue: The Unveiling and Its Blessing</h3>
+                <p>
+                    <span class="verse-number">Verse 1:</span> "The Revelation of Jesus Christ, which God gave Him to show His servants-things which must shortly
+                    take place. And He sent and signified it by His angel to His servant John." - Right from the start, we learn the
+                    source and chain of this revelation. God the Father is the ultimate source - He "gave" this unveiling to the
+                    Son. Jesus Christ, in turn, shares it with "His servants" (all believers) by sending an angelic messenger to
+                    communicate with John. This mediated delivery is significant. Unlike Christ's personal teachings to His
+                    disciples in the Gospels, here the glorified Christ employs an angel as a go-between, much as Old
+                    Testament prophets often received visions via angels (cf. Daniel 8:15-16). William Kelly notes that this points
+                    to the book's character: Jesus is presented not so much in intimate Father-Son communion as in an official
+                    role akin to a servant receiving instruction<sup>1 2</sup>. In fact, the very phrase "revelation... which God gave Him"
+                    echoes Jesus' own words about His voluntary limitation in the incarnation (Mark 13:32) - here we see Christ
+                    as the exalted Son of Man who, having humbled Himself as a servant, now reveals God's plans for the future
+                    <sup>3</sup>.
+                </p>
+                <p>
+                    John emphasizes that Jesus "sent and signified [the revelation] by His angel" to him. The word "signified"
+                    (Greek <em>esēmanen</em>) means to communicate by signs or symbols <sup>4</sup>. This alerts us that much of Revelation's
+                    message is conveyed through vivid imagery and symbolism. Jesus "signified" the prophecy - in other words,
+                    He made it known through visionary signs. Throughout the book, we will encounter symbolic language
+                    (beasts, lampstands, stars, etc.), which are interpreted either by the text itself (as in 1:20) or by comparison
+                    with Scripture's broader prophetic imagery. Yet, the symbols depict real persons and events; as a general
+                    principle of dispensational interpretation, Revelation "says what it means and means what it says" when
+                    understood in its normal sense <sup>5</sup>. God intends to reveal truth, not obscure it. The purpose of this
+                    revelation is "to show His servants things which must shortly come to pass." The phrase "must shortly take
+                    place" echoes the urgency of prophecy - from heaven's vantage, the time until fulfillment is always near. The
+                    events foretold (especially from chapter 4 onward) are imminent once their appointed season arrives, and
+                    the Lord wants His people to be prepared.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 2:</span> John identifies himself as the one "who bore witness to the word of God, and to the testimony of Jesus
+                    Christ, to all things that he saw." Here we see John's role as a faithful witness (<em>martys</em> in Greek) to everything
+                    he experienced in these visions. He is careful to insist that this book is not his own invention but the very
+                    word of God and the testimony of Jesus. In fact, the structure of this verse suggests that "the word of God" and
+                    "the testimony of Jesus" are essentially defined by "all things that he saw." The NASB renders it, "John...
+                    testified to the word of God and to the testimony of Jesus Christ, even to all that he saw," indicating that
+                    John's recorded visions constitute this God-given testimony of Jesus. What an astounding claim - that
+                    the visions in Revelation are the very testimony of Jesus Christ to us! No wonder William Kelly warns against
+                    "slighting" or neglecting these visions, since the Lord Himself here characterizes them as His own
+                    authoritative word and witness <sup>7</sup>. The chain of communication thus runs: God the Father -> Christ ->
+                    angel -> John -> Christ's servants (the churches). John's duty was to bear witness (the same term used of
+                    the apostles' eyewitness testimony of Christ in the Gospel) to everything he saw. Christianity is founded on
+                    reliable testimony of what God has revealed and done in history; Revelation continues that pattern by giving
+                    us a trustworthy vision of what God will do in the future.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 3:</span> "Blessed is he who reads and those who hear the words of this prophecy, and keep those things which
+                    are written in it; for the time is near." - A special beatitude is pronounced on those who engage with this
+                    prophetic message. In the first-century church, one person would typically read the Scripture scroll aloud
+                    while the congregation listened ("he who reads" and "those who hear"). Both the reader and the hearers
+                    are called "blessed" (<em>makarios</em> - happy, favored by God), provided they also "keep" what is written - that is,
+                    take it to heart and obey its implications. This opening blessing (the first of seven beatitudes in Revelation)
+                    refutes the notion that prophecy is impractical or unimportant for believers. Far from being an esoteric
+                    code to ignore, Revelation carries immense practical value: it inspires hope, holiness, and a heavenly
+                    perspective for those who keep its words. Indeed, God strategically bookends Revelation with this
+                    encouragement - here at the start and again in the final chapter: "Blessed is he who keeps the words of the
+                    prophecy of this book" (Rev. 22:7) <sup>8</sup>. As William Kelly observes, the Lord's "prescient eye" knew many would
+                    discount or avoid this book, so He solemnly commended it to us with a double blessing. To treat
+                    Revelation as too difficult or irrelevant is not only a mistake but a subtle unbelief; God wants His children to
+                    study and treasure it.
+                </p>
+                <p>
+                    Why is engaging with Revelation so beneficial? The verse gives the reason: "for the time is near." The
+                    prophetic events are imminent - from God's standpoint the next great phase of His plan could unfold at any
+                    moment. This sense of nearness (cf. Rom. 13:12, "the night is far spent, the day is at hand") means the truths
+                    of Revelation should continually influence us. If Christ's return and the climax of history are "at hand," it
+                    ought to galvanize us to holy living and urgent witness (see 2 Peter 3:11-12). Prophecy is never given to
+                    promote idle speculation, but to encourage obedience and endurance. John Walvoord notes that
+                    prophecy, rightly understood, is essential to appreciating the fullness of Christ's glory and plan; to ignore it
+                    is to miss vital truth that God has graciously made known <sup>10</sup>. In sum, verses 1-3 teach us that Revelation
+                    originates from God, is transmitted faithfully to the Church, and promises blessing to those who humbly
+                    receive its message. The stage is now set for John to relay the content of his vision, beginning with a
+                    greeting from the triune God and a breathtaking vision of Christ Himself.
+                </p>
+
+                <h3>Revelation 1:4-6 - Greetings from the Triune God and Doxology of Redemption</h3>
+                <p>
+                    <span class="verse-number">Verse 4:</span> "John, to the seven churches which are in Asia: Grace to you and peace from Him who is and who was
+                    and who is to come, and from the seven Spirits who are before His throne, and from Jesus Christ, the faithful
+                    witness, the firstborn from the dead, and the ruler of the kings of the earth." - John addresses the book as a
+                    letter to seven churches in Asia (the Roman province of Asia, in what is now western Turkey). These seven
+                    specific assemblies - named in verse 11 are literal, historical churches of John's day, but they are also
+                    representative of the complete Church in various conditions. (Seven is a biblical number of completeness;
+                    the fact that there were other churches in Asia suggests these seven were chosen to symbolize broader
+                    types of churches or eras. Many dispensational teachers see in Revelation 2-3 a prophetic panorama of
+                    Church history, though the primary intent is to exhort all churches in all times.) John opens with the familiar
+                    apostolic greeting "Grace to you and peace," extending God's unmerited favor and spiritual wellbeing to
+                    the readers. Strikingly, the greeting is triune - it comes from three sources, corresponding to Father, Spirit,
+                    and Son, but described in Revelation's own unique terminology:
+                </p>
+                <ul>
+                    <li>
+                        "Him who is, and who was, and who is to come" - This phrase describes God's eternal existence.
+                        It echoes God's Old Testament name YHWH ("I AM") and phrases like Exodus 3:14 or Psalm 90:2
+                        ("from everlasting to everlasting, You are God"). It portrays God as the One who is (the ever-present I
+                        AM), who was (the eternal one of ages past), and who is to come (He is forever the same and will be
+                        present in the future to bring His plans to pass). Many take this as a reference to God the Father in
+                        particular, since Jesus and the Spirit are named separately. In fact, Revelation 1:8 uses the same
+                        wording and adds "the Almighty" - a title often applied to God the Father. Darby observes that here
+                        God is described "not in His character of Father in the midst of His family, but rather in the Jewish form -
+                        Jehovah on His throne", reflecting that Revelation focuses on God's sovereign rulership over history <sup>11</sup>.
+                        He is the Eternal One, transcending time yet about to act in time ("to come") through the return of
+                        Christ.
+                    </li>
+                    <li>
+                        "The seven Spirits who are before His throne" This unusual phrase is understood by most
+                        Brethren expositors to refer to the Holy Spirit in the fullness of His power and attributes. The
+                        number seven, denoting perfection, suggests the sevenfold perfection of the one Spirit (compare the
+                        sevenfold description of the Spirit of the Lord in Isaiah 11:2). The Holy Spirit is symbolically depicted
+                        as seven lamps of fire in Revelation 4:5 and as the Lamb's seven eyes in Revelation 5:6, again
+                        indicating His all-seeing completeness. William Kelly explains that the Spirit is presented here "not in
+                        His unity, but in the diversity of His perfection" in other words, the Spirit in all the fullness of His
+                        manifold powers <sup>12</sup>. Positioned "before the throne," the Spirit is ready to execute God's judgment
+                        and illumination in the earth. (Some commentators have alternatively seen the "seven spirits" as a
+                        class of high angels, but the context of a trinitarian greeting flanked by God and Jesus Christ
+                        strongly favors understanding this as the Holy Spirit in His sevenfold plenitude <sup>13</sup>.)
+                    </li>
+                    <li>
+                        "Jesus Christ, the faithful witness, the firstborn from the dead, and the ruler of the kings of
+                        the earth." - Third in this divine greeting is God the Son, Jesus Christ, described with a threefold
+                        title that encapsulates His work in redemption and His offices of Prophet, Priest, and King. John may
+                        place Jesus last in this greeting because he is about to expand on Christ's work with a doxology.
+                        Notice the descending order: the greeting comes from the Eternal Father, the sevenfold Spirit, and
+                        finally Jesus Christ in His redemptive achievement. Let's consider each title of Christ:
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        "The Faithful Witness" - Jesus is the perfect witness (<em>martys</em>) of God. In His first coming, He fully
+                        revealed the Father (John 1:18) and testified to the truth (John 18:37). He could say, "He who has
+                        seen Me has seen the Father" (John 14:9). Unlike the flawed or partial witnesses of previous
+                        prophets, Christ is the faithful and true witness (Rev. 3:14), embodying God's truth without fail
+                        (Isaiah 55:4 calls Messiah "a witness to the peoples"). He proved faithful even unto death, bearing
+                        witness before Pilate of His kingly identity and mission (1 Timothy 6:13, John 18:37). As a prophet,
+                        Jesus spoke only what the Father gave Him, and He never shrank from declaring the whole counsel
+                        of God. Because of His faithful testimony, we can fully trust His words in this book the entire
+                        Revelation is the testimony of Jesus (verse 2).
+                    </li>
+                    <li>
+                        "The Firstborn from the Dead" - Here <em>prototokos</em> ("firstborn") denotes preeminence and priority.
+                        Jesus was the first to rise from the dead in an immortal, never-to-die-again body, paving the way
+                        for the resurrection of all believers. He is "the firstfruits of those who have fallen asleep" (1
+                        Corinthians 15:20) His emergence from the tomb guarantees the future harvest. Others (like
+                        Lazarus) were restored to life before Jesus, but eventually died again; Christ alone is the firstborn out
+                        of death into glorified life <sup>14</sup>. This title also signifies His supremacy: "the firstborn over all creation...
+                        the firstborn from the dead, that in all things He may have preeminence" (Colossians 1:15, 18). By virtue
+                        of His resurrection, Jesus has a status of highest honor among all who will be raised. Notably,
+                        "firstborn" implies others will be born from the dead after Him indeed, Revelation later speaks of
+                        "the first resurrection" for the righteous (Rev. 20:5-6). As firstborn, Christ is the head of a new
+                        humanity, giving eternal life to His people. His resurrection also affirms His priestly work was
+                        successful - He conquered sin and death, and now lives forever to intercede (Hebrews 7:25).
+                    </li>
+                    <li>
+                        "The Ruler of the Kings of the Earth" - This third title points to the future: Jesus is the rightful King
+                        of kings and will one day rule over all earthly rulers. During His earthly ministry, Christ did not reign
+                        as a king; and even now, though He has all authority in heaven and earth (Matt. 28:18), the world's
+                        governments still largely rebel against Him. But Revelation anticipates the day when "the kingdom of
+                        this world has become the kingdom of our Lord and of His Christ" (Rev. 11:15). Psalm 89:27 prophesied
+                        of the Messiah, "I will make Him My firstborn, the highest of the kings of the earth." Although Jesus
+                        already has the right to reign, He will assume His role as actual "Prince" or sovereign over all earthly
+                        kings at His second coming (Rev. 19:16). John Walvoord notes that Christ's status as ruler is, in
+                        timing, yet future - to be fulfilled after His victory over the beast and the armies of the world at His
+                        return <sup>15</sup>. In the present age, Jesus is head of the Church and King in heaven, but the manifestation of
+                        His kingly dominion on earth awaits the Millennial Kingdom. Darby remarks that "He has not yet taken
+                        this last power" of openly ruling the nations <sup>16</sup>, but Revelation will show Him doing so. Thus, these
+                        three titles span past (faithful prophetic witness in His first coming), present (risen from the dead,
+                        the living head of the redeemed), and future (coming King over all).
+                    </li>
+                </ul>
+                <p>
+                    After identifying Jesus with these grand titles, the text now pauses as John (and the churches) cannot contain
+                    their praise. The greeting from Father, Spirit, and Son overflows into an immediate doxology, as John shifts
+                    from description to adoration of Christ:
+                </p>
+                <p>
+                    <span class="verse-number">Verses 5b-6:</span> "To Him who loved us and washed us from our sins in His own blood, and has made us kings and
+                    priests to His God and Father, to Him be glory and dominion forever and ever. Amen." - This beautiful outburst of
+                    praise is the believers' response to the mention of Jesus Christ. John moves from speaking about Jesus to
+                    speaking to Him in worship. Notably, he shifts to the past tense: Jesus loved us and washed (or freed) us
+                    from our sins by His blood. In calling Jesus "the faithful witness...firstborn...ruler," John was referencing what
+                    Christ is in God's redemptive plan. But the moment he brings Christ to mind, John's heart (representing the
+                    Church) answers with what Christ means to us personally <sup>17 18</sup>. As J.N. Darby highlights, even though
+                    Revelation's focus is Christ's official glory, "the church knows Him as He is for itself" <sup>19</sup>. Thus the doxology
+                    celebrates the gospel and its results for believers:
+                </p>
+                <ul>
+                    <li>
+                        "Him who loved us" - Believers praise Jesus first for His love. Some manuscripts read "loves us"
+                        (present tense), which would emphasize that His love is ongoing <sup>20</sup>. But even in past tense, the idea
+                        is that Christ proved His love definitively at the cross. "Greater love has no one than this, than to lay
+                        down one's life for his friends" (John 15:13). He loved us unto death. It is deeply personal - "loved us."
+                        We who are sinners and utterly unworthy have been eternally loved by the Son of God (Galatians
+                        2:20, Ephesians 5:2). This is the wellspring of every other blessing.
+                    </li>
+                    <li>
+                        "and washed us from our sins in His own blood" - The Greek word for "washed" (<em>lusanti</em>/loosed in
+                        some texts) indicates that by His sacrificial death Jesus freed us or cleansed us from sin's penalty
+                        <sup>21</sup>. Our sins defiled and enslaved us, but Jesus' blood shed at Calvary has released us from guilt
+                        and cleansed us whiter than snow (1 John 1:7, Revelation 7:14). The phrase "in His own blood"
+                        highlights the personal cost: our deliverance from sin required nothing less than the blood of the
+                        Lamb (1 Peter 1:18-19). We are reminded of how priestly and sacrificial Christ's work is as the
+                        great High Priest, He offered Himself to purge our sins (Hebrews 1:3). Darby eloquently notes that
+                        the instant the Church is conscious of Christ's grace, the only fitting response is unhesitating praise: "Unto
+                        Him that loved us... be glory and dominion forever!" <sup>22</sup>. Indeed, our hearts should immediately echo
+                        this doxology whenever we recall that we are forgiven at such a price.
+                    </li>
+                    <li>
+                        "and hath made us kings and priests unto His God and Father" - Not only are we cleansed, we are
+                        elevated. Christ's redemption has a purpose beyond rescue He has brought us into a royal and
+                        priestly status before God. This harks back to God's intention for Israel in Exodus 19:6 ("a kingdom of
+                        priests") and finds fulfillment in the Church (1 Peter 2:9 calls believers "a royal priesthood"). In Christ,
+                        every believer is granted the privilege of a priest - free access into God's presence to offer spiritual
+                        worship and the honor of a king sharing in Christ's royal inheritance and authority. We are
+                        spiritually enthroned with Christ in heavenly places even now (Ephesians 2:6), and in the future we
+                        will reign with Him (2 Timothy 2:12, Revelation 5:10). Darby emphasizes the astounding love of Christ
+                        that shares His own honors with us: "It is the character of Christ's love that all which He takes from the
+                        Father in glory and blessing, as man, He gives to us... If He is a King and a Priest, He has made us kings
+                        and priests along with Him. He puts us into His own place. This is perfect love." <sup>23</sup>. How incredible
+                        Jesus doesn't hold us at a distance; He lifts us into His own privileged position as children and heirs
+                        of God (Romans 8:17). Even now, we can intercede and worship as priests, and represent God's
+                        kingdom on earth; in the coming Millennium, we will exercise delegated rulership under Christ
+                        (Revelation 20:6). This truth was precious to the Plymouth Brethren, who taught the priesthood of
+                        all believers (no clergy/laity divide) and the certainty that even the simplest believer will share in
+                        Christ's reign by grace alone <sup>24</sup>.
+                    </li>
+                </ul>
+                <p>
+                    After recounting these blessings - loved, loosed from sins, and lifted to a royal priesthood - John seals
+                    his praise with: "to Him be glory and dominion forever and ever. Amen." All credit and honor for our salvation
+                    goes to Jesus. Glory (<em>doxa</em>) is the adoration and praise that His excellence deserves, and dominion (<em>kratos</em>)
+                    is the power and rule that rightfully belongs to Him. For eternity we will ascribe glory and might to the
+                    Lamb who was slain (Revelation 5:12-13). The double affirmation "Ever and ever. Amen." reminds us that this
+                    worship is unending and that we wholeheartedly agree (amen = "so be it!"). It's worth noting that this
+                    doxology is directed to Jesus Christ another testimony to His deity. Only God is to receive "glory and
+                    dominion forever" (1 Peter 5:11), yet it is ascribed to the Redeemer here, reinforcing that Jesus shares the
+                    honor due to God. In summary, verses 5-6 give us a powerful Christ-centered gospel summary
+                    embedded in a prophetic book: Jesus loved us, died for us, cleansed us, and exalted us therefore He is
+                    worthy of all worship. This doxology also shows the proper response of the Church to prophecy: before we
+                    even get into future events, our hearts are centered on the person and work of Christ. All prophecy is
+                    meant to lead us to worship and adore Him more.
+                </p>
+
+                <h3>Revelation 1:7 - Behold, He Comes with Clouds</h3>
+                <p>
+                    <span class="verse-number">Verse 7:</span> "Behold, He is coming with clouds, and every eye will see Him, even they who pierced Him. And all the
+                    tribes of the earth will mourn because of Him. Even so, Amen." - With verse 7, John's doxology gives way to a
+                    solemn prophetic declaration about Christ's Second Coming. This verse serves as a thematic summary of
+                    what Revelation ultimately points toward: the visible, glorious return of Jesus Christ to earth to judge and to
+                    reign. The word "Behold" grabs our attention - this is the great event on the horizon of history. Several key
+                    elements are stated:
+                </p>
+                <ul>
+                    <li>
+                        "He is coming with the clouds" - The imagery of coming with clouds signifies divine glory and
+                        majesty. Clouds often accompany God's manifest presence (Exodus 13:21, Daniel 7:13, Matthew
+                        17:5). Specifically, this phrasing echoes Daniel 7:13 where one "like a Son of Man" comes "with the
+                        clouds of heaven" to receive a kingdom. Jesus applied that prophecy to Himself, telling the high priest,
+                        "You will see the Son of Man sitting at the right hand of Power, and coming with the clouds of heaven"
+                        (Mark 14:62). At Jesus' ascension, He was taken up in a cloud and angels announced He would "come
+                        in like manner" (Acts 1:9-11). Thus "coming with clouds" indicates Christ's public, glorious return.
+                        Unlike the rapture of the Church (described in 1 Thessalonians 4:16-17) where believers are caught
+                        up to meet the Lord in the air (with clouds involved as the Church goes up to Him), here the picture is
+                        Christ coming down to the earth with clouds accompanying Him. Brethren expositors point out
+                        that when Jesus comes for His Church (the blessed hope of believers), Scripture does not describe
+                        Him as coming "with clouds" in the same way - that term is reserved for His coming in judgment
+                        and glory to the world <sup>25</sup>. "When the Lord comes to receive us, He is not said to come with the clouds...
+                        But here He is manifested for judgment of the world," notes William Kelly <sup>25</sup>. In other words,
+                        Revelation 1:7 is not about the secret rapture, but the open revelation of Christ to all humanity at
+                        the end of the Tribulation (often called the "Second Advent" proper). This is confirmed by the next
+                        phrases.
+                    </li>
+                    <li>
+                        "Every eye will see Him" - Christ's return will be universally visible. Far from a hidden event, it will
+                        be witnessed by "every eye." Jesus said in Matthew 24:27, "as the lightning comes from the east and
+                        flashes to the west, so also will the coming of the Son of Man be." And in Matthew 24:30, "Then all the
+                        tribes of the earth will see the Son of Man coming on the clouds of heaven with power and great glory."
+                        There will be no doubt when He comes in glory - it will be a global, public revelation of the King. This
+                        contradicts any notion that Christ "returned" secretly or metaphorically. It will be a literal event
+                        perceivable by all people alive at that time.
+                    </li>
+                    <li>
+                        "Even they who pierced Him" - This is a direct reference to the Jewish people, particularly those
+                        responsible for Jesus' crucifixion. The wording comes from Zechariah 12:10: "They will look on Me
+                        whom they pierced; and they will mourn for Him as one mourns for an only son." In Zechariah, God
+                        speaks of the house of David and inhabitants of Jerusalem in the end times, when a spirit of grace
+                        leads them to recognize the Messiah whom they pierced and to weep in repentance. John 19:37 also
+                        quotes that prophecy in reference to Christ's crucifixion ("They shall look on Him whom they pierced").
+                        So "they who pierced Him" indicates the Jewish nation, especially in its past rejection of Christ. When
+                        Jesus returns, the remnant of Israel will finally recognize Jesus as their Messiah and mourn in true
+                        repentance (see Zech. 12:10-14, also Romans 11:26-27). Thus, Revelation 1:7 shows that Christ's
+                        coming has a distinct impact on Israel: a fulfillment of covenant promises as well as a solemn
+                        confrontation of their earlier unbelief. It's remarkable that the glorified Christ still identifies with the
+                        wounds of being "pierced" - a reminder that the risen Lord forever bears the marks of His sacrifice
+                        (cf. John 20:27, Rev. 5:6).
+                    </li>
+                    <li>
+                        "And all the tribes of the earth will wail (mourn) because of Him." Not only Israel, but all
+                        peoples will mourn at Christ's coming. This alludes again to Jesus' words in Matthew 24:30: "Then all
+                        the tribes of the earth will mourn". The term for earth can also be translated land, but in parallel with
+                        Matthew and the broad "every eye," it means all nations/gentiles. Why will they mourn? For the
+                        unbelieving world, it will be the mourning of terror and regret, as they see the wrath of the Lamb
+                        (Rev. 6:15-17) and realize the truth of the One they have rejected. For the believing remnant, it will
+                        include mourning in repentance and relief, as they welcome the Deliverer. Either way, Christ's coming
+                        will be a deeply emotional, sobering event for all humanity no one will be neutral. The word
+                        "wail" (<em>κόπτω</em>) can imply beating one's breast in anguish. How solemn that the return of the rightful
+                        King will find the world largely unprepared and in opposition, resulting in great lamentation as He
+                        appears in holy power.
+                    </li>
+                </ul>
+                <p>
+                    John punctuates this prophecy with "Even so, Amen." This dual affirmation (combining the Greek <em>nai</em> = "yes,
+                    even so" and the Hebrew <em>amen</em> = "so be it, truly") underlines the certainty of Christ's coming. John, and by
+                    extension the Church, longs for and agrees with this promise. "Amen" in Scripture often carries a note of
+                    faithful hope - we want this to happen and we trust it will. The "Even so" (or "Yea") is like saying: "Yes, Lord, let
+                    it be!" Thus, the church loves His appearing (2 Timothy 4:8), even though the world will mourn. Believers
+                    anticipate Christ's return not as a terror but as vindication and joy, since we belong to Him. This verse
+                    encapsulates a key tension: the blessed hope for the saints is at the same time the dreadful reality for the
+                    rebellious world. Darby commented that verse 7 represents "the knowledge which the church possesses with
+                    reference to the world," distinct from the church's own delight in Christ <sup>26</sup>. In other words, we know Christ's
+                    coming in judgment is approaching for the world, even as our hearts are occupied with Christ's love for us
+                    (verses 5-6).
+                </p>
+                <p>
+                    From a dispensational perspective, Revelation 1:7 foreshadows the climactic events to be detailed later
+                    (especially in Revelation 19:11-21). It clearly aligns with the Second Advent at the close of the Tribulation,
+                    when Jesus returns with the clouds and every eye (including surviving Israel) will see Him. This is distinct from
+                    the rapture of the Church which is described elsewhere (John 14:3, 1 Thess. 4:16-17) and is implied in
+                    Revelation by the fact that the Church is not mentioned on earth during chapters 4-18. Classic
+                    dispensational teaching holds that by the time of Revelation 19's visible return, the Church will already be
+                    with Christ (having been caught up before the Tribulation). Thus, Revelation 1:7 is the public "appearing" of
+                    Christ with His saints, whereas we still await the any-moment "catching away" of believers. Kelly notes that
+                    the phrase "with the clouds" here indicates the aspect of Christ's coming in judgment on the world (especially
+                    Israel), whereas when He comes for us, we meet Him in the air (in clouds) rather than Him coming with clouds to
+                    the earth <sup>27</sup>. Nevertheless, John includes this prophecy at the outset to remind all readers that the story
+                    ends with Jesus visibly triumphant over all opposition. However dark the visions may become, the end is
+                    sure: Behold, He comes! Our response is both "Amen!" and an echo of the book's final prayer: "Even so, come,
+                    Lord Jesus!"
+                </p>
+
+                <h3>Revelation 1:8 - The Alpha and Omega, the Almighty</h3>
+                <p>
+                    <span class="verse-number">Verse 8:</span> "I am the Alpha and the Omega, the Beginning and the End,' says the Lord, 'who is and who was and
+                    who is to come, the Almighty." - Here we have a powerful declaration from God Himself, affirming His
+                    eternal nature and sovereign omnipotence. It functions as a divine signature on the truths just uttered.
+                    There is a textual question of who is speaking: some red-letter editions attribute this verse to Christ, while
+                    many commentators believe it is God the Father speaking (since "Lord" with "Almighty" is often used of the
+                    Father). In any case, the titles given apply fully to God and equally to Christ. Let's unpack the titles:
+                </p>
+                <ul>
+                    <li>
+                        "I am the Alpha and the Omega" Alpha and Omega are the first and last letters of the Greek
+                        alphabet. God is essentially saying "I am A to Z," the beginning and the end of all things. All
+                        knowledge, all existence, starts and finishes with Him. This title occurs also in Revelation 21:6 and
+                        22:13 (in 22:13, clearly referring to Jesus). It conveys absolute eternality and completeness. There
+                        is nothing outside of God's knowledge or control; He spans the whole range of reality. William Kelly
+                        notes that this name is especially fitting in Revelation, the closing book of Scripture, as God seals the
+                        canon by reminding us that He is the first word and the last word on everything <sup>28</sup>. In Isaiah 44:6
+                        God similarly states, "I am the First and I am the Last; besides Me there is no God." So this title
+                        underscores the unique Godhood of the Lord - He is before all and after all. For Jesus to later claim
+                        the same title (Rev. 22:13) is a strong testimony to His deity.
+                    </li>
+                    <li>
+                        "the Beginning and the End" Some manuscripts include this phrase here (as KJV does); it
+                        reiterates in plain terms what Alpha and Omega mean. God is the Beginner (source/originator) of all
+                        things and the Consummator of all things. History is bookended by His purposes nothing is
+                        random or outside His plan. All things find their ultimate meaning in Him (Romans 11:36, "of Him and
+                        through Him and to Him are all things").
+                    </li>
+                    <li>
+                        "says the Lord, who is and who was and who is to come" - This picks up the self-description of
+                        God from verse 4. "The Lord" here (the best Greek texts read "Lord God") is the translation of YHWH
+                        (Jehovah) in the OT sense the eternal, self-existent One. By repeating "who is, who was, who is to
+                        come," God emphasizes again His timeless, unchanging nature. In Him there is no past or future; all
+                        times are present. And specifically, He "is to come" in the sense that He is ever-living and ever-acting -
+                        He will soon come onto the stage of history in the Day of the Lord. Some see an allusion to the
+                        divine name from Exodus 3:14 ("I AM that I AM" carries a sense of timeless being). In a world of
+                        change and flux, God's nature is constant across all ages. He was God in the beginning, is God now,
+                        and will be the same God in the coming age. Such an eternal Being can surely bring the prophesied
+                        plan to completion.
+                    </li>
+                    <li>
+                        "the Almighty." - The verse ends with this formidable title: in Greek <em>ho Pantokrator</em>, meaning "the
+                        One who holds all sway," "the all-ruling One." It stresses God's omnipotence and sovereignty. In
+                        the Old Testament (Septuagint), <em>Pantokratör</em> often translates the Hebrew YHWH Sabaoth ("LORD of
+                        Hosts"). In Revelation, "Almighty" is used frequently (nine times, e.g. Rev. 4:8, 19:6) to exalt God as
+                        the supreme power over the cataclysmic events that will unfold. No matter how chaotic the
+                        judgments seem, He is the Almighty orchestrating justice and salvation. It is a comfort to the faithful
+                        and a warning to the rebel: "Our God is in the heavens; He does whatever He pleases" (Psalm 115:3).
+                        When Jesus is seen later as "KING OF KINGS AND LORD OF LORDS" (Rev. 19:16), that too reflects His
+                        omnipotence, showing that Father and Son share this almighty power.
+                    </li>
+                </ul>
+                <p>
+                    This verse (Rev. 1:8) can be viewed as God's own confirmation of the prophecy. It's as if God signs His
+                    name: "I am the Alpha and Omega... the Almighty", guaranteeing that what has been promised (Christ's return
+                    with judgment and blessing) will surely be fulfilled by His infinite power. Some commentators think it is
+                    Christ speaking here, since similar words appear on Christ's lips in Revelation 22:13 and since He
+                    immediately calls Himself "the First and the Last" in verse 17. If so, it is a plain proclamation of Christ's deity
+                    - He unabashedly uses titles belonging to Jehovah. In fact, in Revelation 22:13 Jesus says, "I am the Alpha and
+                    the Omega, the Beginning and the End, the First and the Last," and earlier in 22:12, "I am coming quickly." This
+                    reinforces the truth that Jesus Christ is fully God, co-equal with the Father. Theologically, whether spoken
+                    by Father or Son, Revelation 1:8 reminds us that the God of the Bible is eternal, sovereign, and
+                    omnipotent, and thus fully able to execute all that Revelation will unveil. For suffering first-century
+                    believers (and us today), what an assurance: Our God is the Almighty, the Beginning and End - nothing can
+                    thwart Him.
+                </p>
+
+                <h3>Revelation 1:9-11 - John on Patmos and the Commission to Write</h3>
+                <p>
+                    <span class="verse-number">Verse 9:</span> "I, John, both your brother and companion in the tribulation and kingdom and patience of Jesus Christ,
+                    was on the island that is called Patmos for the word of God and for the testimony of Jesus Christ." - John now
+                    introduces himself more personally to his readers. He doesn't use his apostolic title; instead he identifies as
+                    "your brother and companion", highlighting fellowship and shared experience with his fellow believers.
+                    There are three things he specifically shares with them: tribulation, kingdom, and patience (endurance)
+                    in Jesus. This triad captures the reality of the Christian life in this age:
+                </p>
+                <ul>
+                    <li>
+                        Tribulation in Jesus: John and the churches were partners in <em>thlipsis</em> - pressure, affliction, persecution.
+                        The late first century saw waves of persecution against Christians (tradition says John was exiled
+                        under Emperor Domitian). John humbly says, "I'm suffering too, just as you are." Every true Christian,
+                        in varying measure, will have tribulation in this world (John 16:33, "In the world you will have
+                        tribulation'). It is "tribulation... of Jesus" in the sense that it is endured for loyalty to Christ and in
+                        union with Him (Philippians 1:29). The term "the tribulation" here doesn't refer to the eschatological
+                        Great Tribulation, but to the general distress believers face.
+                    </li>
+                    <li>
+                        Kingdom in Jesus: Despite trials, John also shares in the kingdom of Jesus. This refers to Christ's
+                        spiritual kingdom currently reigning in the hearts of believers (Colossians 1:13) and their loyalty to
+                        His kingly rule. We are subjects of King Jesus even as we live in a hostile world. There is likely also a
+                        forward look we share the hope of the coming Kingdom which Jesus will establish. The early
+                        Christians saw themselves as part of Christ's kingdom community already, though the full
+                        manifestation of the Kingdom lies ahead. Thus, "in Jesus" we have a foot in two worlds: experiencing
+                        tribulation now, yet spiritually seated in a kingdom that cannot be shaken.
+                    </li>
+                    <li>
+                        Patience (Endurance) in Jesus: Because of the tension of suffering now and waiting for the
+                        kingdom, believers need patient endurance. John is a companion in the steadfast perseverance that
+                        is found in Jesus. Union with Christ empowers believers to endure trials and hold fast. The Greek
+                        <em>hypomonë</em> implies courageous, hopeful endurance, not passive resignation. It's the perseverance
+                        inspired by knowing our labor and suffering are not in vain in the Lord. So John essentially says: We
+                        suffer together, we serve the same King, and we endure with the same hope in Jesus. What an
+                        encouragement for the seven churches, some of whom (like Smyrna and Pergamos) were under
+                        severe persecution!
+                    </li>
+                </ul>
+                <p>
+                    John then mentions his circumstances: he "was on the island called Patmos for the word of God and for the
+                    testimony of Jesus Christ." Patmos is a small rocky island in the Aegean Sea (southwest of Ephesus). The
+                    Romans used it as a place of exile for prisoners. John indicates he is on Patmos because of the gospel ("the
+                    word of God and testimony of Jesus"). In other words, it's because he faithfully preached Christ that he has
+                    been banished to this remote isle. Early church writers (Irenaeus, Eusebius) confirm that John was exiled to
+                    Patmos during a persecution (around AD 95). Instead of despairing, John continued to be "in the Spirit" and
+                    receive the greatest revelation of Jesus yet! It's a reminder that the world might bind or isolate God's
+                    servants, but "the word of God is not chained" (2 Tim. 2:9). The Lord often brings heavenly revelation to
+                    those in earthly chains (e.g. Daniel in Babylon, Paul in prison writing epistles, etc.).
+                </p>
+                <p>
+                    <span class="verse-number">Verse 10:</span> "I was in the Spirit on the Lord's Day, and I heard behind me a loud voice, as of a trumpet, saying..." -
+                    Here the scene dramatically shifts to John's visionary experience. John says he "came to be in the Spirit"
+                    (literal Greek), indicating a state of spiritual trance or vision under the Holy Spirit's control. This phrase "in
+                    the Spirit" occurs four times in Revelation (1:10, 4:2, 17:3, 21:10) at the start of major visions. It means the
+                    Holy Spirit so filled and transported John that his ordinary senses were suspended and he was enabled to
+                    see what normally cannot be seen (the heavenly realm and future events). This was not a dream while
+                    asleep; he was conscious but in an ecstatic vision. He is careful to say his vision is Spirit-given, not
+                    imagination.
+                </p>
+                <p>
+                    He also specifies when it happened: "on the Lord's Day." This phrase in Greek is <em>en të Kuriakē hēmera</em>.
+                    Almost all early Christian writers and virtually all modern scholars interpret this as Sunday, the first day of
+                    the week, which by the end of the first century was commonly called "the Lord's Day" (the day
+                    commemorating Christ's resurrection). It's the same phrasing Paul uses for "the Lord's Supper" (1 Cor. 11:20,
+                    <em>kuriakon deipnon</em>, meaning the supper belonging to the Lord). So "the Lord's Day" is the day belonging to the
+                    Lord, i.e. the day especially set apart for Him - Sunday, the Christian day of worship and fellowship <sup>29</sup>. John
+                    likely was worshiping or meditating on that day when this experience occurred. (This is not to be confused
+                    with "the Day of the Lord," the eschatological period of judgment. The Greek term here is an adjective
+                    <em>kuriakos</em>, not the phrase <em>hēmera Kyriou</em> used for the Day of the Lord <sup>29</sup>. Brethren writers have been clear to
+                    distinguish: "The Lord's day is not at all the same thing as the day of the Lord" <sup>29</sup>. The Lord's Day is the weekly
+                    new-creation day of worship, celebrating Christ's resurrection on the first day, in contrast to the Jewish
+                    sabbath which was the last day <sup>30</sup>. Early Christians like John began their week with the Lord's Day to honor
+                    Christ's rising, and we see him still keeping that practice even in exile.)
+                </p>
+                <p>
+                    So, on a particular Sunday, John is in the Spirit, and he hears something "behind [him]" - "a loud voice, as of a
+                    trumpet." The voice is commanding, clear, and startling like a trumpet blast (similar to how Israel heard
+                    God's voice as a trumpet on Sinai, Exodus 19:16, or how Paul describes the Lord's shout at the rapture with
+                    the trumpet of God, 1 Thess. 4:16). Trumpets in Scripture often announce a divine summons or revelation.
+                    Here it gets John's attention immediately.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 11:</span> "[I heard a loud voice...] saying, 'I am the Alpha and the Omega, the First and the Last,' and, 'What you
+                    see, write in a book and send it to the seven churches which are in Asia: to Ephesus, to Smyrna, to Pergamos, to
+                    Thyatira, to Sardis, to Philadelphia, and to Laodicea." - The content of the loud voice is given. (Note: some
+                    manuscripts omit the opening clause "I am the Alpha and Omega, the First and the Last" here, as it
+                    was already stated in verse 8 <sup>31</sup>. But the similar phrase "I am the First and the Last" definitely
+                    appears in verse 17 spoken by Christ.) The main point is the voice's command: "What you see, write in a
+                    book and send it to the seven churches." This is John's commission to write down the visions he is about
+                    to receive and circulate them as a single "book" or scroll to the seven named churches of Asia. This
+                    shows that Revelation is intended for the Church - for real congregations - and by extension for all believers
+                    (since seven symbolizes completeness, and each letter in chapters 2-3 is said to be for "the churches" plural, not
+                    just one). In essence, Jesus is ordering John to document the vision for the benefit of His Church. This is similar
+                    to Old Testament prophets who were told to write down what they saw (e.g. Habakkuk 2:2).
+                </p>
+                <p>
+                    The seven churches are listed in a rough geographic order a messenger would travel: starting at Ephesus
+                    (the major port city), then north to Smyrna, further north to Pergamos (Pergamum), then south-east to
+                    Thyatira, continuing south-east to Sardis, further east/southeast to Philadelphia, and finally to Laodicea
+                    (which was inland). These cities formed a sort of circuit in the province. Each of these churches will receive
+                    specific messages in chapters 2-3. By naming them here, the Lord makes clear who the initial recipients are.
+                </p>
+                <p>
+                    It's worth noting the mix of conditions these churches were in from the loveless orthodoxy at Ephesus to
+                    the persecuted purity at Smyrna, from the compromised Pergamos and corrupt Thyatira to the dying
+                    Sardis, the faithful Philadelphia, and the lukewarm Laodicea. They represent a cross-section of the Church.
+                    And all needed this vision of Christ. John is to send the entire book (not just individual letters) to all seven.
+                    This implies each church (and all believers since) should read not only their letter but the whole prophecy.
+                </p>
+                <p>
+                    The authoritative voice that commissions John is clearly Christ's (as the following verses confirm when John
+                    turns and sees the Son of Man speaking). The command to write indicates that the Revelation is inspired
+                    Scripture meant to be shared, not a private epiphany. Christ wants His Church enlightened about both its
+                    present condition (hence the letters) and future events. From a dispensational viewpoint, one can see
+                    Revelation 1:19 (coming shortly) as Christ's outline for this writing, covering past vision, present church age,
+                    and future prophecy.
+                </p>
+                <p>
+                    Before moving on, reflect on John's posture: he hears the Lord behind him as a trumpet-like voice. Often,
+                    God must get our attention and cause us to "turn" from our current focus to receive a fresh vision of Christ.
+                    John was likely praying or meditating; the sudden voice shows divine interruption. When God speaks, our
+                    job is to listen and obey - John is told to write what he sees. He will act as a prophet-scribe, delivering God's
+                    message intact to the churches. This underscores the obedience of the prophet and the grace of God in
+                    communicating. Christianity is a religion of a written revelation; Jesus here deliberately creates Scripture
+                    (the book of Revelation) through John for the edification of all generations of believers.
+                </p>
+
+                <h3>Revelation 1:12-16 - Vision of the Glorious Son of Man</h3>
+                <p>
+                    <span class="verse-number">Verse 12:</span> "Then I turned to see the voice that spoke with me. And having turned I saw seven golden
+                    lampstands..." - As John hears the trumpet-like voice, he turns around to identify the speaker. What he sees
+                    first, however, is not the person but seven golden lampstands (or candle-stands). These turn out to be
+                    highly significant: in verse 20, Jesus Himself explains, "the seven lampstands which you saw are the seven
+                    churches." In the tabernacle/temple of Israel there was a single lampstand with seven lamps (Exodus
+                    25:31-37), symbolizing Israel's calling to be a light. Here, by contrast, John sees separate lampstands -
+                    seven individual stands - representing each church. Together, they form a sort of menorah of the Church
+                    universal, but each local church is a light-bearer in its locale. The lampstand imagery teaches that the
+                    Church's role is to give light in this dark world (Philippians 2:15). We have no light of our own; we hold up
+                    the light of God's truth through the oil of the Spirit. These lampstands are "golden" - precious and of high
+                    value in God's sight. Despite flaws later pointed out, the churches belong to Christ and are treasure to Him
+                    (He purchased the Church with His own blood, Acts 20:28). The plural lampstands also suggest that each
+                    church is distinct - God doesn't see an amorphous mass, but individual congregations each accountable for
+                    their light. The vision of seven lampstands immediately signals that the context of Christ's appearing here is
+                    in relation to His churches on earth (not yet His judgment of the world, which in Daniel 7, for example, is
+                    set in heaven's court). He is walking among the churches, tending them. This is an image of Christ's
+                    presence with and surveillance of His people (compare Matthew 18:20; also in 2:1 Christ says He "walks in
+                    the midst of the seven golden lampstands"). It's a comforting and sobering thought: our Lord is in the midst
+                    whenever we gather, observing our light.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 13:</span> "...and in the midst of the seven lampstands One like the Son of Man, clothed with a garment down to
+                    the feet and girded about the chest with a golden band." - John now sees the Person who was speaking: "One
+                    like a Son of Man" standing among the lampstands. "Son of Man" is a messianic title Jesus often used for
+                    Himself, rooted in Daniel 7:13 where the Son of Man comes with the clouds to receive dominion. By saying
+                    "One like the Son of Man," John alludes to Daniel's vision yet clearly identifies this figure as Jesus (who used
+                    that title in life, e.g. Mark 14:62). It emphasizes Christ's human form even in glory He appears as a man,
+                    the same Jesus who ascended. But the phrase also implies majesty, for in Daniel 7 the Son of Man is a
+                    heavenly figure. So John beholds Jesus in a glorified state, yet still recognizable as the Son of Man. This
+                    fulfills Jesus' own promise that some would see "the Son of Man...coming in His kingdom" (Matthew 16:28) -
+                    an anticipation here of His kingly glory.
+                </p>
+                <p>
+                    Christ's position is "in the midst" of the lampstands - indicating His centrality and constant presence in the
+                    Church. He promised, "I am with you always" (Matt. 28:20). He tends the lamps like the high priest would trim
+                    and refill the temple lamps daily. This speaks of His role as our High Priest, caring for the testimony of each
+                    church, correcting and encouraging as needed in chapters 2-3.
+                </p>
+                <p>
+                    John then describes His appearance, starting with clothing: "clothed with a garment down to the feet and
+                    girded about the chest with a golden band." The long robe reaching the feet (<em>podērēs</em>) and the golden sash
+                    around the chest are highly significant. They indicate dignity, authority, and priestly/judicial function. In
+                    the Old Testament, high priests wore a full-length robe (Exodus 28:4) and were girded with a sash (though
+                    typically the high priest's sash was multicolored linen with gold). Here the sash is all gold, around the chest
+                    (not the waist). This attire reminds us of the priest-judge in the Old Testament: for example, the priestly
+                    figure in Ezekiel 9:2 wore a linen garment; the angelic being in Daniel 10:5 wore linen with a belt of gold.
+                    Jesus is seen as the ultimate Priest who also is Judge. Kelly notes that the long garment "indicates not
+                    activity of work, but rather dignified priestly judgment." The fact that the golden band is around His
+                    chest (upper body) rather than the waist likely signifies that His work of atonement is finished (a worker
+                    would gird the waist for labor; Christ's priestly sacrifice work is done, so now He wears the sash over His
+                    heart in a position of honor) <sup>32</sup>. The gold symbolizes divine righteousness and glory. Christ is clothed in
+                    the absolute righteousness of God as He judges and tends the churches <sup>32</sup>. In summary, His clothing
+                    shows Him to be the High Priest-King in the midst of the sanctuary (the Church). Yet, as Kelly observes, we
+                    see "no mitre" (no priestly hat) and "still less... a crown" on His head <sup>33</sup> meaning He is not portrayed here
+                    interceding (mitre would signify atonement ministry) nor reigning in open glory (diadem crown), but
+                    inspecting and judging His house. This is a vision of Christ the holy Inspector of His Church - acting with
+                    priestly care and discerning judgment.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 14:</span> "His head and hair were white like wool, as white as snow, and His eyes like a flame of fire." - Now John
+                    describes Christ's head, hair, and eyes:
+                </p>
+                <ul>
+                    <li>
+                        His head and hair are dazzling white, like wool or snow. This immediately calls to mind the Ancient of
+                        Days in Daniel 7:9: "the hair of His head was like pure wool." By using the same imagery, the vision is
+                        unmistakably attributing to Christ the qualities of the Eternal God (Ancient of Days). White hair in
+                        Scripture can symbolize wisdom, dignity, and purity. Here, "white as snow" stresses absolute purity
+                        and holiness. It likely also signifies Christ's eternity (white hair being a symbol of venerable age
+                        though Christ is ageless, it conveys the idea of eternal existence). Darby and Kelly both see the white
+                        hair as indicating "fullness of divine wisdom" appropriated to the Son of Man <sup>33</sup>. Thus, Jesus
+                        possesses all the wisdom of the Ancient of Days; nothing escapes His notice or understanding.
+                        Unlike human elders whose white hair shows aging, here it shows the everlasting, holy wisdom of
+                        Christ. The fact that attributes of the "Ancient of Days" (God) are applied to "the Son of Man"
+                        underscores Christ's deity: He is God the Son, one with the Father.
+                    </li>
+                    <li>
+                        His eyes are "like a flame of fire." Fire in his eyes suggests piercing, penetrating vision that sees all
+                        and burns through dross. Hebrews 4:13 says "all things are naked and open to the eyes of Him to whom
+                        we must give account." Jesus' gaze misses nothing in His churches; He searches the minds and hearts
+                        (as He later says in Rev. 2:23). The flame also implies purifying judgment - His look can refine or
+                        consume. When Christ looked at Peter after the denial, it broke Peter's heart to repentance; when He
+                        eyes the churches, His approval or rebuke will be perfectly discerning. In Daniel 10:6, the heavenly
+                        man's eyes were "like torches of fire," a similar idea. For believers, the flame is refining (1 Peter 1:7);
+                        for the unrepentant, it is consuming (Rev. 19:12 pictures Christ's eyes as fire when coming to judge
+                        the beast). So, Christ's fiery eyes mean omniscient insight and righteous intent. We will see this
+                        description repeated in Revelation 2:18 and 19:12, always in contexts of judgment or war.
+                    </li>
+                </ul>
+                <p>
+                    <span class="verse-number">Verse 15:</span> "His feet were like fine brass, as if refined in a furnace, and His voice as the sound of many waters." -
+                    Now His feet and voice:
+                </p>
+                <ul>
+                    <li>
+                        His feet are compared to "fine brass" (or bronze) glowing as in a furnace. Brass (bronze) in Scripture
+                        is often associated with judgment and sacrifice (e.g. the bronze altar in the Tabernacle where sin was
+                        judged by sacrifice, Exodus 27:1-4). The fact that His feet which contact the ground are fiery
+                        bronze suggests that He stands firmly in judgment against sin and impurity. Bronze refined in a
+                        furnace is brilliant and strong. This may indicate Christ's stability and purity in executing
+                        judgment. He is treading out judgment (feet often symbolize walking or conquest cf. "the
+                        winepress of the fierceness of wrath" trodden in Rev. 19:15). Also, refined bronze reflects an image -
+                        perhaps implying that Christ's feet gleam with His glory as He moves among the lampstands. In
+                        Daniel 10:6, the being's feet were "like polished bronze." So again, there's an echo of Daniel's vision.
+                        Nothing unrighteous clings to His path; everything base is burned away, leaving only a brilliant
+                        foundation. Practically, as Christ walks among the churches, His holy footsteps test and purify the
+                        ground. He can trample down evil (Malachi 4:3). For the believer, the Lord's bronze-like feet are
+                        beautiful if we are walking in the light; but if not, they are strong to correct.
+                    </li>
+                    <li>
+                        His voice is "as the sound of many waters." If the initial voice (v.10) was like a trumpet commanding
+                        attention, here the ongoing voice is compared to rushing waters think of a mighty waterfall or
+                        surf roaring. "Many waters" signifies power, majesty, and a voice that overwhelms all other sound.
+                        Ezekiel 43:2 has a similar description: "His voice is like the sound of many waters" when God's glory
+                        came to the Temple. The voice of Jesus here is the voice of God Almighty. It's not a gentle whisper
+                        but a thundering, cascading sound that demands absolute attention. In the Gospels, Jesus' voice on
+                        earth was strong yet physically ordinary; in glory, the full authority of the Godhead resonates when
+                        He speaks. "Many waters" also implies a voice that is multilayered and far-reaching, perhaps
+                        symbolizing that when Christ speaks, it's like the combined force of truth, like a chorus of mighty
+                        waves an awe-inspiring authority. In Revelation 14:2 and 19:6, heavenly worship and multitudes
+                        are also described as many waters; here it's one Person whose voice carries that weight. For us, this
+                        reminds that Christ's word is commanding and powerful (Psalm 29:3-4, "the God of glory
+                        thunders... the voice of the Lord is powerful, full of majesty"). When He addresses His church (as He
+                        will in chapters 2-3), we must heed - His is the voice of ultimate authority.
+                    </li>
+                </ul>
+                <p>
+                    <span class="verse-number">Verse 16:</span> "He had in His right hand seven stars, out of His mouth went a sharp two-edged sword, and His
+                    countenance was like the sun shining in its strength." - Three more features complete the portrait:
+                </p>
+                <ul>
+                    <li>
+                        Seven stars in His right hand: In the vision, Jesus is holding seven stars in His right hand (the hand
+                        of skill and strength). According to verse 20, "the seven stars are the angels of the seven churches."
+                        These "angels" have been interpreted variously: likely they are the messengers or leaders of the
+                        seven churches, essentially representing each church. (The Greek <em>angelos</em> means "messenger." Some
+                        think they might be guardian angels of churches, but it seems Jesus' messages are directed to
+                        human representatives responsible for the church's response.) In the context of chapters 2-3, it
+                        appears the "angel" of each church is the one addressed - which could be the lead elder/pastor or
+                        simply personifying the spirit of the church. In any case, the key point is Jesus holds them in His
+                        right hand. This signifies authority and protection. He holds the churches' leadership and destiny
+                        securely. No church's fate is ultimately in human hands but in His hand. Being in His right hand also
+                        implies accountability those stars belong to Him and shine at His disposal. They are stars,
+                        indicating that the churches (or their messengers) are meant to shine as lights (Phil. 2:15, Daniel
+                        12:3). The right hand holding them comforts us that Christ upholds His Church; it also warns leaders
+                        that they are answerable to Christ directly. Notably, in 2:1 He says "He who holds the seven stars in His
+                        right hand..." as a credential to Ephesus, reminding that their ministers are under His control. We'll
+                        explore "angels" more when looking at the letters, but the presence of stars in His hand reveals that
+                        Christ intimately governs and guards His church's representatives. What a blessing: "No one can
+                        pluck them out of My hand" (John 10:28 applies spiritually, though there to individual believers, here
+                        to churches).
+                    </li>
+                    <li>
+                        A sharp two-edged sword out of His mouth: This imagery is arresting - a sword proceeding from
+                        the Lord's mouth. It is not a literal sword clenched in teeth; it signifies the power of His Word. In
+                        Scripture, God's word is often likened to a sword: "the word of God is living and powerful, and sharper
+                        than any two-edged sword" (Hebrews 4:12); the "sword of the Spirit" is the "word of God" (Eph. 6:17).
+                        Jesus will later be depicted in Revelation 19:15 with "a sharp sword coming out of His mouth" with
+                        which He strikes the nations. Thus, the sword from His mouth represents Christ's judicial word of
+                        truth, which cuts both ways - it can save or condemn, penetrate and separate truth from falsehood.
+                        It is two-edged: it offers grace and judgment, it discerns thoughts and motives. Here in chapter 1, it
+                        emphasizes that when Jesus speaks, His word carries absolute authority to judge. He will, for
+                        instance, threaten to fight the Nicolaitans "with the sword of My mouth" (Rev. 2:16). The fact that the
+                        sword is coming from His mouth shows that Christ conquers by His word (cf. 2 Thess. 2:8, "He will
+                        slay [the Lawless One] with the breath of His mouth"). In creation, He spoke and it was done; in
+                        judgment, He speaks and it is accomplished. For believers, this sword purifies (John 15:3) and
+                        defends; for enemies, it destroys. It also highlights that our Lord's primary weapon is truth itself.
+                        Darby wrote that Christ in Revelation is not called the Word of God in the same sense as John's
+                        Gospel (the revealer of grace), but in the sense of the executing Word of judgment <sup>34</sup> and we
+                        see that here. When He addresses each church, His commendations and rebukes carry this cutting
+                        precision.
+                    </li>
+                    <li>
+                        His countenance like the sun shining in its strength: Finally, John attempts to convey the overall
+                        glory radiating from Christ's person - His face (countenance) was blindingly bright like the midday
+                        sun. This parallels the Transfiguration, when "His face shone like the sun" (Matthew 17:2) and also
+                        John's experience of seeing Jesus' glory then. The sun is the brightest object we know; saying Christ's
+                        face shines like the sun in full strength means He is radiating divine glory that is overwhelming to
+                        human eyes. In Malachi 4:2, Messiah is called "the Sun of Righteousness" who will arise. Saul of Tarsus
+                        experienced something similar on the Damascus road: he saw a light from heaven, "brighter than the
+                        sun," and it was the appearance of Jesus (Acts 26:13). So this description assures us that Jesus is
+                        glorified, victorious, and exalted. The face is the person's identity - here Christ's identity is the
+                        glorious Son of God, full of light unapproachable (1 Tim. 6:16). To the churches trudging along in a
+                        dark world, seeing their Lord's face as a blazing sun would remind them that all darkness will be
+                        dispelled and that Jesus possesses the very glory of God. For John, this brilliance must have been
+                        both beautiful and terrifying - beautiful because it's the glory of his beloved Lord, terrifying because
+                        it underscores how holy and powerful Jesus is now revealed to be.
+                    </li>
+                </ul>
+                <p>
+                    To sum up the vision: John beholds Jesus Christ in priestly, kingly glory, manifesting divine attributes
+                    (white hair of wisdom, eyes of omniscience, feet of judgment, voice of authority, face of blinding glory). Yet
+                    He stands among the churches, indicating His active involvement with His people. This is Jesus as He is
+                    now - not merely the humble Rabbi of Galilee, but the risen Lord, "the First and the Last" (as He will call
+                    Himself), worthy of worship and wielding all authority in heaven and earth. Such a vision would have deeply
+                    encouraged the persecuted believers: their Savior is indescribably mighty and holy, and He is present with
+                    them. At the same time, it would have convicted them of any impurity or compromise, knowing His eyes are
+                    as fire. For us today, this vision should expand our view of Christ. We often think of Him in terms of the
+                    Gospels (which is good), but Revelation 1 shows us the exalted Christ who is in the midst of His Church
+                    right now, assessing and sustaining us. This vision also sets the stage for the letters to the seven
+                    churches: each letter will draw one or more elements from this vision to address the church's need (e.g. to
+                    Ephesus He is the one with stars and lampstands, to Smyrna He is the First and Last who was dead and
+                    came to life, etc.). Thus, the character of Christ revealed here is the answer to the churches' conditions. Truly,
+                    all we need is found in who Jesus is.
+                </p>
+
+                <div class="image-placeholder">
+                    <p>
+                        [Image: Nineteenth-century engraving by Julius Schnorr von Carolsfeld depicting John's vision of Christ among
+                        the seven lampstands (Revelation 1:12-17). In this artwork, the glorified Lord is portrayed with the symbols John
+                        describes - holding seven stars, clothed in a long robe with a golden sash, and radiating divine light - while John
+                        falls at His feet as though dead.]
+                    </p>
+                </div>
+
+                <h3>Revelation 1:17-18 - "Fear Not - I Am the Living One"</h3>
+                <p>
+                    <span class="verse-number">Verse 17:</span> "And when I saw Him, I fell at His feet as dead. But He laid His right hand on me, saying to me, 'Do not
+                    be afraid; I am the First and the Last."" - The overwhelming impact of the vision causes John to collapse in
+                    awe. Though John had leaned on Jesus' breast at the Last Supper, now the sight of Jesus' unveiled majesty is
+                    too much for mortal strength. "I fell at His feet as though dead" parallels the reactions of prophets like
+                    Daniel, who lost all strength when seeing a heavenly being (Daniel 10:8-9, "no strength remained in me... I
+                    was in a deep sleep on my face'). Similarly Ezekiel (Ezek. 1:28) fell on his face at the vision of God's glory. This
+                    teaches us that even the beloved apostle cannot stand before the unveiled glory of Christ - flesh and blood
+                    cannot inherit the kingdom without glorification. It underscores Christ's awesome holiness. John's
+                    collapse is not from fright of judgment (John knows Jesus loves him), but from sheer dread and wonder at
+                    the transcendent glory. It's a reflex of worship and human frailty in the presence of God.
+                </p>
+                <p>
+                    What happens next is deeply comforting: Jesus "laid His right hand on me". The same right hand that held
+                    the stars now tenderly touches John. This is a gesture of comfort and strengthening. We recall Jesus did
+                    the same at the Transfiguration - the disciples fell on their faces greatly afraid, and Jesus came and touched
+                    them, saying "Arise, do not be afraid" (Matthew 17:6-7). Our Lord is full of compassion. He doesn't leave John
+                    incapacitated; He personally revives him. The touch conveys love and the impartation of strength (cf. Daniel
+                    10:10, where a hand touched Daniel to set him on his hands and knees, and eventually strengthened him).
+                </p>
+                <p>
+                    Then Jesus speaks perhaps the most needed words: "Do not be afraid." Literally, "Fear not." This command
+                    (present imperative with a negative) means "Stop being afraid." Christ does not want John paralyzed in terror.
+                    Yes, He is the glorious Lord, but He is also the gracious Savior. For those who belong to Him, His message is
+                    consistently "Fear not!" (Luke 5:10, "Do not be afraid," to Simon; Matthew 14:27, "It is I, do not be afraid,"
+                    when walking on water; etc.). The holiness of Christ should awe us, but not drive us from Him if we are
+                    His redeemed. He wants us near, not collapsed in a faint.
+                </p>
+                <p>
+                    To allay John's fear, Jesus immediately identifies Himself: "I am the First and the Last." This title, echoing the
+                    Father's words in verse 8 and Isaiah's declarations, affirms Christ's deity and sovereignty over time <sup>35</sup>. As
+                    "the First and the Last," He encompasses all of history and existence. There is nothing outside His control. For
+                    John, hearing this title from the gentle voice of his Lord would trigger recognition: this is the same Jesus he
+                    has known, now revealing Himself as the eternal God. It also reassures John - the One who holds history in
+                    His hand is communicating with him, so all is well. Interestingly, this title is applied by Christ to Himself also
+                    in Revelation 2:8 (to Smyrna) and 22:13. It's equivalent to Alpha and Omega, but perhaps a more personal
+                    way of saying it. "First and Last" in Isaiah 44:6 was "I am the First and I am the Last; besides Me there is no God."
+                    Thus Jesus is making an absolute claim of Godhead, yet using it to comfort John: essentially, "There's no need
+                    to fear - I am the eternal one, the very God, and I am on your side." If Christ is the first and last, nothing can
+                    threaten His purpose for John or the Church.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 18:</span> "I am He who lives, and was dead, and behold, I am alive forevermore. Amen. And I have the keys of
+                    Hades and of Death." - Jesus continues His self-disclosure with more explicit gospel truth. "I am He who lives"
+                    (or "the Living One") "and was dead, and behold, I am alive forevermore!" This is a succinct proclamation
+                    of Christ's death and resurrection. Literally: "I became dead, and behold, I am alive unto the ages of ages."
+                    Here, the glorified Christ reminds John of His victory over death: Yes, I died on that cross, but look! I am now
+                    alive forever, never to die again. The word "behold" adds emphasis - it's astonishing, marvelous: Jesus died,
+                    yet He lives eternally. For John, who stood at the cross and saw Jesus' lifeless body taken down, this is the
+                    triumphant affirmation of the resurrection power he already believed but now sees in full glory.
+                </p>
+                <p>
+                    Jesus calls Himself "the Living One" (<em>ho zōn</em>). This is a divine title - in Revelation 4:9 the Father is called "Him
+                    who lives forever and ever." In fact, in Greek it's <em>ton zõnta eis tous aiõnas tōn aiõnōn</em> - "the one living unto the
+                    ages of ages," which is exactly what Jesus says here about Himself <sup>35</sup>. It highlights that Christ shares the
+                    Father's eternal life. But additionally, He "became dead" - unique to the Son's experience in the Godhead is
+                    that He actually tasted death for us. By stating both, Jesus is saying: I am the eternally Living One who entered
+                    into death and came out victorious. This is the ultimate credential - no mere man can say this.
+                </p>
+                <p>
+                    The phrase "alive forevermore" (<em>eis tous aiõnas tōn aiõnōn</em>) literally "unto the ages of the ages" - an idiom for
+                    eternity. Christ's resurrection is not like Lazarus' resuscitation; it is eternal life in a glorified state. He will
+                    never die again (Romans 6:9). Death has no claim on Him now. This guarantees that our life in Him is
+                    secure. It also qualifies Jesus uniquely to carry out all the end-times judgment and reward - He lives forever
+                    to execute God's plan.
+                </p>
+                <p>
+                    Jesus punctuates this declaration with "Amen." Some translations omit it as possibly being John's interjection,
+                    but likely Jesus Himself says "Amen" a solemn affirmation, "Truly!" It's as if He signs and seals the
+                    statement: "I am alive forevermore - Amen!" This double certainty is immensely reassuring: the foundation
+                    of our faith is the forever-living Christ.
+                </p>
+                <p>
+                    Finally, Jesus states, "And I have the keys of Hades and of Death." Keys symbolize authority and control. The
+                    pair "Hades and Death" is often a hendiadys for the power of death and the grave. "Death" claims the body,
+                    and "Hades" (the realm of the dead) claims the soul (in the Jewish conception). Jesus having the keys means
+                    He has full authority over death and the place of the departed. He can open and none shut, shut and
+                    none open (compare His words about keys in Rev. 3:7). Practically, this means Jesus decides who dies when,
+                    and who is released from death. He has conquered death, so now death is subject to Him. In Revelation
+                    20:1, an angel is given a key to the Abyss; but here Christ Himself holds the master-keys of Death and
+                    Hades. Later in Rev. 20:14, Death and Hades are thrown into the lake of fire - Jesus will ultimately eliminate
+                    these enemies. For persecuted Christians, this truth is gold: even if a believer is killed, Christ holds the keys
+                    to bring them up again (resurrection). He can turn the lock of Hades and free the souls in His timing (the
+                    "first resurrection"). Conversely, He can lock up Death - meaning He can protect and sustain His people
+                    according to His will (as in Rev. 3:10, maybe keeping some from martyrdom).
+                </p>
+                <p>
+                    In a gospel sense, Christ having the keys of Hades also reflects that He determines who goes to heaven or
+                    hell - He is the judge (John 5:22). But specifically, keys of Death and Hades underscore His victory over the
+                    grave. As Peter preached, "God raised Him up, loosing the pangs of death, because it was not possible for Him
+                    to be held by it" (Acts 2:24). Now Christ holds death's captivity captive. Satan once had the power of death
+                    (Heb. 2:14) in terms of causing it through sin, but Christ has wrested that power by atoning for sin and
+                    rising.
+                </p>
+                <p>
+                    Thus, verses 17-18 are the gospel assurance: We serve the living, victorious Jesus. We need not fear,
+                    because our Lord is the eternal God (First and Last) who died for us and rose again, and now holds all
+                    power over our greatest foes (sin, death, hades). This personal encouragement to John is also for all
+                    believers. It's reminiscent of Christ's words in Revelation 2:10, "Do not fear any of those things which you are
+                    about to suffer... Be faithful until death, and I will give you the crown of life." Why can He promise that? Because
+                    He holds the keys of death - He can grant life beyond death.
+                </p>
+                <p>
+                    We should pause to worship: The combination of transcendence and tenderness in this scene is astounding.
+                    The glorified Christ, blazing like the sun, stoops to comfort a prostrate servant with a touch and words of
+                    grace. This is Jesus - infinitely exalted, yet intimately compassionate. The One who "upholds all things by the
+                    word of His power" (Heb. 1:3) also says, "Fear not." Such a Savior is worthy of all trust. If He triumphed over
+                    death, we can face even martyrdom or any lesser trial with confidence. The "keys" are in nail-pierced hands
+                    that will never drop them or use them unjustly. Hallelujah!
+                </p>
+
+                <h3>Revelation 1:19-20 - Write the Seen, the Present, and the Future (The Divine Outline)</h3>
+                <p>
+                    <span class="verse-number">Verse 19:</span> "Write the things which you have seen, and the things which are, and the things which will take place
+                    after this." - Jesus here reiterates and expands the commission to write given in verse 11, now providing a
+                    three-part outline of the book's contents. This is a crucial verse for understanding Revelation's structure,
+                    especially in dispensational teaching. Christ instructs John to write:
+                </p>
+                <ol>
+                    <li>
+                        "The things which you have seen" - This refers to the vision John has just seen in chapter 1: the
+                        vision of the glorified Christ among the lampstands. It is in the past tense relative to the writing
+                        John has already witnessed it by the time he writes. So "the things you have seen" = Chapter 1 (the
+                        vision of Christ that opens the book).
+                    </li>
+                    <li>
+                        "The things which are" This refers to the present state of things in John's time namely the
+                        condition of the churches in Asia and, by extension, the entire Church age. These are the things
+                        currently in existence (the Church on earth in its testimony). Hence, "the things which are" =
+                        Chapters 2-3, the letters to the seven churches, which depict the spiritual state of the churches at
+                        that time (and, prophetically, the whole Church era). John was living in "the things which are" as he
+                        wrote, and we continue in that segment until the rapture.
+                    </li>
+                    <li>
+                        "The things which will take place after this" - Literally "after these things" (Greek <em>meta tauta</em>). This
+                        points to future events after the church age. It corresponds to Chapters 4-22, which describe the
+                        heavenly scene after the churches (chap. 4-5), the Tribulation judgments (chap. 6-18), the Second
+                        Coming and Millennium (chap. 19-20), and the eternal state (chap. 21-22). Notably, Revelation 4:1
+                        uses the phrase "<em>meta tauta</em>" ("after these things"), marking the transition to future prophecy. So
+                        Jesus Himself divides Revelation into these three chronological sections: past (the vision John just
+                        saw), present (the churches), and future (the end-times events) <sup>36</sup>.
+                    </li>
+                </ol>
+                <p>
+                    This verse is often cited to argue for a futurist, dispensational reading of Revelation: Chapters 4-22 largely
+                    concern future events after the church age. Indeed, Jesus' outline suggests a timeline where "the things which
+                    are" (the era of the seven churches) is distinct from the "after these" (what comes following, i.e. the
+                    Tribulation and beyond). Classic dispensationalism interprets that "after these (church things)" the Church is
+                    no longer on earth (implying the rapture occurs) and God's program resumes with Israel and the nations in
+                    the 70th week of Daniel. The phrase "after this" in Greek appears again in 4:1 twice, strongly linking to this
+                    outline. Scholarly notes confirm this division <sup>37</sup>.
+                </p>
+                <p>
+                    In any case, Revelation clearly moves from letters addressing current churches (ch. 2-3) to prophetic visions of
+                    heaven and the future (ch. 4 onward). John is commanded to write it all down. This divine table of contents
+                    assures us that Revelation is meant to be understood in a linear sense and that John didn't just write
+                    randomly; he followed this inspired pattern.
+                </p>
+                <p>
+                    <span class="verse-number">Verse 20:</span> "The mystery of the seven stars which you saw in My right hand, and the seven golden lampstands: The
+                    seven stars are the angels of the seven churches, and the seven lampstands which you saw are the seven
+                    churches." - In this final verse of the chapter, Jesus kindly interprets two of the key symbols from the
+                    vision for John (and us). This is labeled a "mystery"** meaning a sacred secret now revealed. Christ
+                    doesn't always explain every symbol in Revelation, but when He does, we should take note and not
+                    allegorize differently.
+                </p>
+                <ul>
+                    <li>
+                        The seven stars the angels of the seven churches. As discussed earlier, these "angels" are
+                        understood as the messengers or leaders of the churches. The term "angel" in Revelation normally
+                        means a heavenly angel, but it seems odd that a letter would be written to an angelic being
+                        (especially one that might be rebuked, as in some letters). Most likely, "angel" here is metaphorical
+                        for the human representative possibly the lead elder or a courier who would deliver the letter.
+                        Some suggest it could even mean the prevailing spirit of the church (personification). Regardless,
+                        each star = one church's representative. Thus, Jesus holds the leadership (or identity) of each
+                        church in His hand, signifying control and care. The fact He calls it a "mystery" suggests that
+                        understanding that stars symbolize leaders was not immediately obvious, but now revealed - which
+                        sets a precedent: much of Revelation's imagery will similarly have meanings rooted in Scripture that
+                        the Spirit can reveal.
+                    </li>
+                    <li>
+                        The seven lampstands = the seven churches. This one is more straightforward: each lampstand
+                        John saw corresponds to one of the seven churches named. So the Church is symbolized as a
+                        lampstand a light-bearer. There is a lampstand for Ephesus, one for Smyrna, etc., making seven.
+                        This tells us a church's purpose is to shine the light of Christ (Matt. 5:14-16). If it fails, as we'll see
+                        with some, the lampstand can be removed (Rev. 2:5).
+                    </li>
+                </ul>
+                <p>
+                    By explicitly identifying the stars and lampstands, Jesus ensures John (and we) focus on the church context of
+                    this vision: it's about churches (lampstands) and their responsible agents (stars). This whole first vision,
+                    then, is Christ inspecting His churches and holding their fates. The term "mystery" might also hint that these
+                    seven churches collectively carry a mystery as many believe, they form a prophetic picture of the entire
+                    Church age from the apostolic era to the end times. That indeed was a hidden truth now being unveiled
+                    (though one must not press beyond what Scripture confirms). But consider: the number seven and the
+                    nature of Revelation to reveal "what is and what shall be" suggests a pattern. Many dispensational teachers
+                    (Scofield, Walvoord, etc.) have seen in the sequence Ephesus Laodicea a chronological development of
+                    church history <sup>37</sup>. If so, "mystery" fits well - it was a secret that these historical churches' issues also map
+                    onto eras (Ephesus apostolic era, Smyrna persecuted 2nd-3rd century, Pergamos = imperial/state
+                    church, Thyatira medieval papal age, Sardis = Reformation/post-Reformation, Philadelphia = revival/
+                    missions era, Laodicea = end-times lukewarm Christendom). Plymouth Brethren expositors like William Kelly
+                    and F.W. Grant taught this view in the 19th century. However, even aside from that, "mystery" underscores
+                    that God has deeper purposes in choosing seven particular churches.
+                </p>
+                <p>
+                    Thus Revelation 1 closes with Jesus Christ firmly in charge of His churches communicating with them,
+                    revealing Himself to them, and interpreting the symbols that concern them. The stage is set for chapters 2-
+                    3, where each church receives a tailored message from the Lord of the lampstands. The fact that Christ
+                    ends chapter 1 by explaining the symbols shows His desire for the Church to understand what He's doing.
+                    He doesn't want us in the dark about our identity (lampstands) or our leadership accountability (stars).
+                </p>
+                <p>
+                    In summary, chapter 1 has given us: the introduction of how this prophecy came (vv.1-3), the destination
+                    and doxology (vv.4-7), a declaration of God's eternal nature (v.8), John's setting and commission (vv.9-11), a
+                    glorious vision of Christ among the churches (vv.12-16), Christ's comforting self-revelation (vv.17-18), and a
+                    divine outline and symbol interpretation (vv.19-20). It's an incredibly rich chapter that establishes Jesus
+                    Christ as the exalted Priest-King and Prophet, about to address His Church and then unfold the future.
+                    Practically, it calls us to listen to Jesus ("hear what the Spirit says to the churches") and to regain an awesome
+                    vision of who our Lord is right now.
+                </p>
+                <p>
+                    Before moving to theological reflections, one final note: The presence of Trinitarian motifs in chapter 1 is
+                    strong. We saw the Father (the One who is, was, is to come), the Spirit (seven Spirits), and Jesus Christ all
+                    involved in greeting (vv.4-5). We see Christ identifying in terms used for Jehovah. We see the Spirit enabling
+                    John. This reminds us that Revelation, though full of end-times drama, is fundamentally a revelation of God
+                    - Father, Son, and Holy Spirit working to consummate the plan of redemption. Chapter 1 especially
+                    highlights Jesus, but always in relation to His Father and the Spirit's inspiration. Theologically, it affirms key
+                    doctrines: inspiration of Scripture (Christ directly tells John to write), the Trinity, Christ's deity and humanity
+                    (Son of Man yet First and Last), His atonement (freed us by blood), resurrection, ascension, and second
+                    coming. It's a treasure trove of doctrine anchoring the spectacular prophecies that will follow.
+                </p>
+                <p>
+                    Having examined each verse, let's step back and draw out the major theological and doctrinal insights from
+                    this chapter, and then consider personal applications for our lives.
+                </p>
+
+                <h2>Theological and Doctrinal Insights from Revelation 1</h2>
+                <p>
+                    Revelation 1 is not only a narrative of John's vision; it overflows with rich theology that undergirds the entire
+                    book and indeed the Christian faith. From a Plymouth Brethren and dispensational perspective, several key
+                    doctrinal themes emerge:
+                </p>
+                <ul>
+                    <li>
+                        The Supremacy and Glory of Jesus Christ: Above all, Revelation 1 unveils who Jesus is in exalted
+                        reality. We see His deity - He shares titles with Jehovah ("Alpha and Omega," "First and Last,"
+                        "Almighty" <sup>35</sup>) and radiates the Shekinah glory (face like the sun). We also see His humanity - He
+                        appears as the Son of Man, the same Jesus who was dead and now lives forever. This chapter
+                        presents Christ as the fulfillment of Old Testament Messianic hopes (the Son of Man of Daniel 7; the
+                        pierced One of Zechariah 12; the First and Last of Isaiah). He is portrayed in three great offices:
+                        <ul>
+                            <li>Prophet: "the Faithful Witness" who perfectly reveals God's truth <sup>14</sup>.</li>
+                            <li>
+                                Priest: seen in priestly robe tending the lampstands, the One who "washed us from our sins in His
+                                blood" and intercedes for us. Yet notably, His attire (no mitre, girdle on chest) suggests He is
+                                functioning as a Priest-Judge now, evaluating His people <sup>33</sup>.
+                            </li>
+                            <li>King: "ruler of the kings of the earth" (in waiting) and the one with dominion and glory. He's the
+                                coming King with keys of authority.
+                            </li>
+                        </ul>
+                        The Brethren writers loved to dwell on Christ's glories. J.N. Darby emphasized that Jesus is presented in
+                        Revelation 1 in three characters - "the Faithful Witness, the First-begotten from the dead, and the Prince of the
+                        kings of the earth" noting that the last title is still future <sup>16</sup>. This matches the dispensational
+                        understanding of Christ's current position (faithful witness in His first coming, now risen as firstborn, and
+                        future reigning King <sup>15</sup>). Christ's person is further exalted by the doxology in verses 5-6, which ascribes to
+                        Him eternal glory and dominion - worship due only to God. Thus, the chapter leaves no doubt: Jesus Christ is
+                        fully God and fully Man, the center of all Revelation. Any interpretation of the book must keep His supremacy
+                        in focus. Practically, this means our eschatology is Christ-centered, not event-centered; it's "the Revelation
+                        of Jesus Christ," not just the revelation of end-time events.
+                    </li>
+                    <li>
+                        The Nature of Divine Revelation: The chapter's opening verses give us a theology of how God
+                        communicates. Revelation is shown to be initiated by God ("which God gave to Him [Christ]"),
+                        mediated often through angels, and delivered to human prophets (John) who faithfully write it down
+                        as Scripture. This aligns with Hebrews 1:1-2-God spoke in various ways through prophets, and
+                        supremely through His Son. Interestingly, Revelation 1:1 shows the Father giving prophecy to the
+                        Son - implying that even in glory, the Son in His mediatorial role receives revelation to show His
+                        servants. This touches on the economy within the Trinity during the Church age. Also, the use of
+                        an angel to signify the visions shows continuity with Old Testament apocalyptic patterns (like Daniel,
+                        Zechariah). It suggests a return to a more Jewish-prophetic style of communication, which
+                        Brethren authors like William Kelly linked to the fact that Revelation deals with God's judgments on
+                        earth (hence a more distant, servant relationship imagery rather than sons) <sup>1 38</sup>.
+                    </li>
+                </ul>
+                <p>
+                    Furthermore, Revelation 1:2's emphasis that what John saw is "the word of God and the testimony of Jesus"
+                    underscores the inspiration and authority of Revelation. It carries the weight of God's own word - a point
+                    Plymouth Brethren strongly upheld against any who would relegate prophecy to speculation. The blessing
+                    of verse 3 theologically implies that Scripture is meant to be understood and obeyed ("keep those things
+                    written"). It contradicts the notion that prophecy is a sealed mystery. In fact, at the end, John is told "Do not
+                    seal the words of the prophecy" (Rev. 22:10). This openness of revelation is a hallmark of dispensational
+                    teaching - that the Bible's prophetic portions are intended for the edification of the Church, not just abstract
+                    symbols for academics. The chapter thus advocates a literal-grammatical-historical hermeneutic: John
+                    saw real visions; they mean definite things (with explanation given for symbols like stars and lampstands).
+                    As GotQuestions summarizes, "The book of Revelation is understandable... The key is to interpret it as literally as
+                    possible" <sup>5</sup>. Symbols are interpreted by Scripture (as in v.20), not by wild imagination. This gives us
+                    confidence in studying prophecy - it's not a code to crack via human cleverness, but a message to humbly
+                    receive via Scripture comparing with Scripture and dependence on the Spirit.
+                </p>
+                <ul>
+                    <li>
+                        The Church's Role and Identity: Revelation 1 provides a profound picture of what the Church is in
+                        God's eyes. The churches are depicted as lampstands - light-bearers in a dark world. This aligns
+                        with the teaching that the Church is the "light of the world" insofar as we reflect Christ's light
+                        (Matthew 5:14, Philippians 2:15). It also connects to the Old Testament type of the lampstand in the
+                        Tabernacle, which had to be kept burning by priestly care. Here Christ is the High Priest keeping the
+                        lamps burning, which implies that apart from His presence and work, the churches cannot shine.
+                        The Brethren stressed the presence of Christ in the midst of the gathered saints (Matthew 18:20 was
+                        a key verse for them). Revelation 1 shows exactly that - Christ walking among the churches. It's a
+                        comforting doctrine of Christ's immanence with His people. We are not left to fend for ourselves;
+                        our Lord is actively moving among us by His Spirit. However, it's also sobering: the Lord evaluates
+                        and, if needed, removes lampstands (Rev. 2:5). So the Church must stay dependent on and obedient
+                        to Christ to keep its testimony.
+                    </li>
+                </ul>
+                <p>
+                    Additionally, believers are called "a kingdom and priests" in verse 6. This touches on ecclesiology and our
+                    spiritual privileges. Plymouth Brethren writers like Darby loved this truth that Christ "has made us kings and
+                    priests to God", meaning we all have direct access to God (priesthood) and a royal inheritance <sup>23</sup>. There is
+                    no separate priestly caste in the Church; Christ's blood has qualified all saints to enter God's presence (Heb.
+                    10:19-22). This undergirds the Brethren practice of no clergy and open worship since all brethren are
+                    priests. It also means we are co-heirs with Christ in His kingly glory, though the full exercise of our reign
+                    awaits the future (2 Tim. 2:12, Rev. 20:6). Walvoord noted that our status as a kingdom of priests is already
+                    real, but the full manifestation of this royal priesthood will be in the future kingdom <sup>39</sup>. This aligns with
+                    dispensationalism's "already/not yet" view of the kingdom: we are spiritually in Christ's kingdom now ("the
+                    kingdom...of Jesus Christ" as John said in v.9), but the literal reign on earth is coming. So Revelation 1
+                    reinforces the doctrine of the priesthood of believers and the coming millennial kingdom in which
+                    believers share.
+                </p>
+                <ul>
+                    <li>
+                        Christ's Work of Redemption: The doxology in verse 5-6 encapsulates key soteriological truths:
+                        Jesus loved us, redeemed us by His blood, and exalted us to be kings and priests. This echoes
+                        New Testament teaching on Christ's atonement (Rev. 1:5 is one of the few places in Revelation
+                        explicitly referencing the cross, the others being 5:9 and 7:14). It firmly declares that salvation is
+                        through Christ's blood - a point Brethren like C.H. Mackintosh would emphasize, against any trend
+                        that downplays substitutionary atonement. "Washed us from our sins in His own blood" <sup>21</sup> is a
+                        beautiful statement of justification and cleansing. It shows salvation is accomplished (past tense: He
+                        loosed/washed us - it's done), and it's personal ("our sins" - He dealt with the very sins that separated
+                        us). It also hints at particular love (He loved us especially as His people). These verses connect Christ's
+                        love to the cross - a vital doctrine: "Unto Him that loved us and washed us... in His blood" ties love and
+                        sacrifice inextricably. The chapter thereby upholds the classic gospel the Brethren preached - we are
+                        sinners washed in the blood of the Lamb, now made a worshiping priestly company by grace alone.
+                    </li>
+                </ul>
+                <p>
+                    Moreover, Christ's resurrection is strongly affirmed: "the firstborn from the dead" and "alive forevermore"
+                    attest to the bodily resurrection and immortality of Christ. Dispensationalists hold strongly to literal
+                    resurrection as a future hope (the "first resurrection" for believers). Here we see its foundation in Christ's
+                    own rising. His resurrection also is tied to His ongoing ministry: "He ever lives" (Heb. 7:25) to intercede and to
+                    shepherd the churches (He can say "I am He who lives"). And because He lives, we shall live also (John
+                    14:19).
+                </p>
+                <ul>
+                    <li>
+                        Eschatology and Dispensational Perspective: Revelation 1 sets out an eschatological roadmap in
+                        seed form:
+                        <ul>
+                            <li>
+                                Verse 7 gives a preview of the Second Coming of Christ in glory (seen by every eye, mourned by the
+                                nations) - clearly a yet-future event fulfilling OT prophecy <sup>25</sup>. This verse is pure premillennial
+                                expectation: Christ will come visibly to earth to judge and then reign (implied by being ruler of kings,
+                                etc.). It counters any amillennial idea that Christ's "coming" is just spiritual or that the world will
+                                gradually be won without a cataclysmic advent. It also distinguishes that event from the Rapture.
+                                Brethren theology (Darby, Kelly) consistently distinguished the rapture (Christ coming for His Church,
+                                a signless imminent event) and the second advent (Christ coming in power to the world) <sup>27</sup>. Kelly's
+                                commentary explicitly notes that Revelation 1:7 is not describing the rapture but the coming with
+                                clouds to judge, and he contrasts it with the believer's heavenly hope <sup>27</sup>. Darby too wrote of the
+                                church's hope being Christ's coming as Bridegroom, versus Israel's expectation of the Son of Man
+                                coming in judgment <sup>40 27</sup>. Thus Revelation 1 indirectly supports the pre-tribulational rapture
+                                concept by differentiating these aspects of His coming. The Church's joyous response "Even so,
+                                Amen" shows we love His appearing (2 Tim. 4:8) while the world wails - meaning our perspective is
+                                different; likely because we will be coming with Him at that point (Rev. 19:14).
+                            </li>
+                            <li>
+                                Verse 19 gives what dispensationalists see as the outline of Revelation (and indeed of God's
+                                dispensational plan): the present Church age ("things which are") will be followed by "after these
+                                things" - the tribulation events and kingdom. The absence of any mention of the Church on earth in
+                                Revelation 4-18 fits with the belief that the Church age "things which are" conclude with the rapture,
+                                and then God resumes His dealings with Israel and the world (the 70th week of Daniel). The Precept
+                                commentary concisely states this outline and notes that chapters 4-18 deal with judgments not for
+                                the church, as by then the church will have been removed via rapture <sup>41</sup>. Plymouth Brethren like
+                                Darby were pioneers of this pre-tribulation rapture teaching, and though Revelation 1:19 doesn't
+                                explicitly mention the rapture, it implies an epochal shift after the church period. John being caught
+                                up to heaven in 4:1 is often seen as a type of the rapture. In any case, Revelation 1 affirms a futurist
+                                approach - the bulk of the book (chapters 4 onward) was future from John's view (and still largely is
+                                future to us, as of 2025).
+                            </li>
+                            <li>
+                                The mention of "kingdom" (v.9) along with Christ's title "ruler of kings of earth" and the allusion to
+                                coming with clouds to rule indicates a coming earthly kingdom. Dispensationalists see Revelation
+                                20's 1000-year reign as the literal fulfillment of Christ's kingly rule over the earth, with His saints
+                                reigning with Him. Chapter 1 primes us for that by calling Him prince of kings now (in title) who will
+                                take up that role then. It also hints that believers' royal status will be manifest then (we are made
+                                kings now, but we "reign on earth" in Rev. 5:10 future).
+                            </li>
+                            <li>
+                                The imminence of Christ's coming is suggested by phrases like "shortly take place" (v.1) and "the
+                                time is near" (v.3). Brethren writers understood "shortly" not as a fixed soonness from human
+                                perspective, but as "when it happens, it will be sudden" and that nothing else needs to occur first.
+                                John Walvoord and others often taught the doctrine of imminence - that Christ could come for His
+                                Church at any time <sup>42</sup>. Revelation 1:3's "time is at hand" bolsters living in expectation. As Kelly
+                                pointed out, this should spur holy living and urgency, not date-setting <sup>43 10</sup>. The repeated refrain
+                                "I come quickly" later in Revelation underscores this. So our theology from chapter 1 is a Church
+                                living in light of Christ's any-moment return (for us) and eventual unveiling (to the world). It's a very
+                                hopeful and motivating eschatology.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Christ's Present Ministry: A dispensational insight here is how Christ is seen between His
+                        ascension and return - in the midst of churches, as Priest-Judge. This aligns with the idea that after
+                        finishing His work of sacrifice and ascended on high, Jesus is now occupied with interceding for and
+                        purifying His Church (Eph. 5:26-27). Revelation 1 shows Him actively inspecting churches'
+                        candlesticks, commending and correcting through the letters. Plymouth Brethren often emphasized
+                        experiential sanctification - Christ working to make His own practically holy. Here we see that in vivid
+                        picture: eyes of fire purging dross, feet of brass stamping out iniquity in His house (judgment begins
+                        at God's house, 1 Peter 4:17). The seven-fold Spirit by the throne also implies the Holy Spirit's
+                        fullness being sent into the churches (Rev. 5:6 says the Lamb has seven eyes/Spirits sent into all the
+                        earth). So we have Christ as head of the Church sending the Spirit to empower and illuminate
+                        (Zechariah 4's lampstand and oil may be in view). In essence, our doctrine of the Church Age is that
+                        Christ is present by His Spirit, walking among us, trimming our lamps (often through trials or the
+                        Word's convicting "sword"), desiring our light to shine brightly until He comes. This chapter gives
+                        perhaps the clearest New Testament picture of the Lord's ongoing relationship to the Church
+                        post-ascension - complementing Ephesians' teaching of Christ as Head and we as body/temple. Here
+                        it's Christ as High Priest and we as lampstands. Both analogies show dependence: a body is dead
+                        without its head, a lampstand is dark without the high priest's oil and flame.
+                    </li>
+                </ul>
+                <p>
+                    In summary, Revelation 1 richly reinforces doctrines dear to dispensational Brethren: the absolute deity and
+                    lordship of Christ, His finished work and continual priestly care, the priesthood of believers, the authority of
+                    Scripture, the distinct path of the Church and Israel in prophecy (implied in the outline), the imminent
+                    return of Christ for His own and His future public return to reign, and the call to steadfast holiness and
+                    witness in the meantime.
+                </p>
+                <p>
+                    To quote J.N. Darby in reflection: "It is most important for the children of God to apprehend their position
+                    aright... Christ is there. The presence of Christ blots out every other thing... We are entitled to be set there [in the
+                    joy of what He's made us]" <sup>44 45</sup>. Revelation 1 sets us "there" in the view of Christ glorified and our
+                    standing in Him - so we can proceed through the book with confidence and worship.
+                </p>
+
+                <h2>Personal Application and Spiritual Lessons</h2>
+                <p>
+                    Revelation chapter 1 is not only theology and prophecy; it also provides numerous practical and
+                    devotional lessons for believers. Here are some key application points for our spiritual growth:
+                </p>
+                <ul>
+                    <li>
+                        Renew Your Vision of Christ's Glory: John's experience teaches us to seek a greater vision of Jesus
+                        in our own lives. We may not see Him with physical eyes now, but through Scripture we can meditate
+                        on His majesty. When we truly grasp Jesus as He is holy, almighty, loving, triumphant - it puts all
+                        our problems and fears in perspective. Like John, we may be overwhelmed at first, but Jesus then
+                        says "Fear not." We should regularly remind ourselves that our Savior today is the exalted Son of
+                        God, not a mere historical teacher. This inspires deeper worship ("to Him be glory and dominion
+                        forever" should be the cry of our hearts daily) and deeper reverence in how we live before Him.
+                        Have we perhaps had too small a view of Christ? Let Revelation 1 enlarge your vision, leading you to
+                        fall at His feet in surrender and rise at His touch in confidence.
+                    </li>
+                    <li>
+                        Rest in Christ's Love and Finished Work: Verse 5's declaration that Jesus loved us and washed us
+                        from our sins in His own blood is immensely personal. In times of doubt or guilt, recall that Christ's
+                        love for you is proven at the cross you are cleansed and accepted. Darby noted that the moment
+                        the Church hears Christ's name in grace, the response is instantaneous praise <sup>22</sup>. This means
+                        practically, we should preach the gospel to our own hearts often: I am greatly loved by Jesus; He has
+                        freed me from my sins. This gives peace and kills self-condemnation. It also reminds us that we are no
+                        longer slaves to sin we can live in the freedom Christ obtained. Additionally, knowing we have
+                        been made kings and priests encourages us to live up to that calling: approach God boldly in prayer
+                        and praise (since you are a priest to Him), and exercise godly influence (as part of a royal priesthood)
+                        by representing Christ in this world. Don't live as a spiritual pauper when Christ has made you royalty
+                        and a member of God's inner court!
+                    </li>
+                    <li>
+                        Be Faithful in Suffering and Witness: John identifies as our brother and companion in
+                        tribulation. The early believers endured much for Jesus' sake - and John was exiled for "the word of
+                        God and testimony of Jesus." This challenges us to endure hardship for Christ with patience. If you
+                        face ridicule, persecution, or trials, remember you're in good company with John and the saints. Lean
+                        on "the patience of Jesus" (v.9) - His endurance inspires ours. Also, John was still "in the Spirit" on the
+                        Lord's Day despite exile; so remain spiritually fervent even when circumstances are hard. We see
+                        that God can give great revelations in the midst of great trials your suffering can become a
+                        context for deeper fellowship with Christ. Furthermore, Jesus is called the Faithful Witness and John
+                        bore witness too; we are likewise called to be faithful witnesses of Jesus. Do not fear to share the
+                        testimony of Jesus, even if it costs you. Christ's blazing eyes see and His right hand upholds you as
+                        you stand for truth.
+                    </li>
+                    <li>
+                        Draw Comfort from Christ's Presence and Power: Jesus walking among the lampstands means He
+                        is with us always. You are never alone in serving God. Your church is not ultimately your
+                        responsibility to keep alive Christ Himself tends the flame. When discouraged about the state of
+                        the church or your own spiritual life, take heart that Jesus cares more about His lampstands than we
+                        do. He holds the "stars" - meaning He is in control of leadership and outcomes. This doesn't breed
+                        passivity in us, but trust. We labor, but the Lord of the Church gives the increase and can revive a
+                        dying lamp. Also, the depiction of Jesus holding the keys of Death and Hades is deeply comforting:
+                        Jesus has conquered the grave. Therefore, we need not live in the fear of death (Heb. 2:14-15).
+                        Whether in a pandemic or persecution, we can say, "My times are in His hand." Even if we die, He
+                        holds the keys to unlock our grave in resurrection. This hope should infuse us with courage to face
+                        life's uncertainties.
+                    </li>
+                    <li>
+                        Heed God's Word and the Spirit's Voice: Revelation begins with a blessing on those who read, hear,
+                        and keep God's prophetic word. This is a call for obedient attentiveness to Scripture. Do we make
+                        time to read His word regularly not just Revelation, but all of it? And not just read, but keep it -
+                        meaning to treasure it and put it into practice? Ask the Lord to give you that promised blessing by
+                        stirring a love for His Word. Also, John had to "turn to see" when the Lord spoke implying a
+                        reorientation. We too must sometimes turn aside from distractions to truly hear the Spirit (like
+                        Moses turned aside to the burning bush). Are we tuned to the "loud voice" of God through His Word,
+                        or are we so surrounded by noise that we miss His message? Prioritize times of quiet where you can
+                        be "in the Spirit" - yielded and listening. Every Lord's Day (and every day) we can seek to be "in the
+                        Spirit," inviting Him to reveal Christ to us more.
+                    </li>
+                    <li>
+                        Embrace "Fear Not" Living: Jesus' first words to John after the vision were "Do not be afraid." Fear is
+                        a common human response to the unknown or the holy. But Christ assures us based on who He is:
+                        the First and Last, the Living One. We can live fearlessly because our Lord is sovereign over time
+                        (First/Last) and triumphant over death. This means: do not fear the future - Jesus is already there; do
+                        not fear Satan or evil - Jesus is alive forevermore, having broken their power; do not fear that you'll
+                        lose salvation - He holds the keys, your destiny is secure in His hand. Whenever anxiety or fear creep
+                        in (about world events, personal trials, death itself), recall Jesus saying "Fear not... I died and behold I
+                        live forever!" Quell fears with worship of the One who is greater than all we fear. As an exercise, you
+                        might list your fears and then write next to them Revelation 1 truths that answer those fears (e.g.,
+                        fear of loneliness - answered by Christ in our midst; fear of death - answered by Christ's
+                        resurrection; fear of failure in witness - answered by Christ's eyes and presence, etc.).
+                    </li>
+                    <li>
+                        Maintain Your First Love and Lampstand: Although chapter 2's letters address it directly, even
+                        chapter 1 implies that our purpose is to shine for Christ (lampstands). To do that effectively, we
+                        must stay close to our light source Jesus through love and obedience. The churches will be
+                        commended or rebuked based on their faithfulness. We should pre-emptively ask: How does Jesus see
+                        my life and my church? His eyes like fire can purify us now if we invite Him. Self-examination under
+                        Christ's gaze is healthy: "Search me, O Lord." Keep the wick of your devotion trimmed (repent of sin,
+                        renew prayer) and the oil of the Spirit full (yield daily to the Spirit's control), so your lamp burns
+                        brightly. Revelation 1 shows us Jesus' intense concern for the testimony of each church - we should
+                        share that concern. Be proactive in encouraging your local church to remain true to doctrine ("word
+                        of God") and vibrant in "testimony of Jesus." And remember that a lampstand's job is not to draw
+                        attention to itself, but to hold up the light - so make sure your life is pointing people to Jesus, the
+                        Light of the world, not to yourself or your denomination.
+                    </li>
+                </ul>
+                <p>
+                    In essence, personal application of Revelation 1 leads us to adore Christ more, trust Him more, listen to
+                    Him more, and represent Him better. It assures us of His love and power, yet challenges us to greater
+                    faithfulness. The Plymouth Brethren were known for both devotion and diligent obedience to Scripture -
+                    exactly the blend encouraged here: John, the beloved worshiper, falls at Jesus' feet; and John, the obedient
+                    servant, rises to "write what he's told." May we likewise live lives of worshipful obedience as we await our
+                    Lord's return.
+                </p>
+
+                <h2>Conclusion: Revelation 1 in the Grand Story of Redemption</h2>
+                <p>
+                    Revelation chapter 1 serves as a fitting gateway to the entire book and indeed to the climax of God's
+                    redemptive plan. The chapter's portrayal of the glorified Christ and the state of the churches provides a
+                    theological foundation upon which the rest of Revelation builds:
+                </p>
+                <ul>
+                    <li>
+                        It firmly establishes Jesus Christ as the central figure of all that follows. Before we learn about
+                        seals, trumpets, beasts, or Babylon, we learn that Christ is supreme over His Church and history.
+                        He is the Author and Finisher ("Alpha and Omega") of the story. The subsequent visions of judgment
+                        and salvation flow from the authority of this same Jesus. In Revelation 5, for instance, the Lamb's
+                        worthiness to open the scroll of destiny is already anticipated by Revelation 1's declaration of His
+                        death and resurrection victory <sup>15</sup>. Thus, chapter 1 aligns our perspective: Revelation is "the
+                        testimony of Jesus" from start to finish.
+                    </li>
+                    <li>
+                        It connects past, present, and future in God's plan. Jesus who "was dead" (past) is "alive" now
+                        (present) and coming "with clouds" (future). John is told to write what he has seen (past vision), the
+                        things which are (the present Church age), and what will take place after (future tribulation and
+                        kingdom) <sup>36</sup>. This divine outline gives us confidence that history is coherent and purposeful under
+                        God's hand. The Church age ("things which are") is an integral part of the plan, but not the end of
+                        the story - there are "after these things" when God will fulfill Israel's promises and judge the world.
+                        Dispensational theology highlights this flow of dispensations, and Revelation 1:19 is a key proof that
+                        the present age has an "afterward." The chapter thus stands at the crossroads of redemptive history,
+                        bridging the apostolic era (John being the last apostle) and the prophetic future.
+                    </li>
+                    <li>
+                        It emphasizes that eschatology is Christological and doxological. Revelation 1 ends with John
+                        utterly focused on Jesus hearing His interpretation of the mystery. The proper response to
+                        prophecy is not mere curiosity or fear, but worship and obedience. John already models worship ("to
+                        Him be glory... amen") and obedience ("write what he's told"). This sets the tone: the whole book of
+                        Revelation is meant to exalt God and Christ (notice how many doxologies and hymns appear in later
+                        chapters) and to encourage the saints to obey ("blessed are those who keep what is written").
+                        Chapter 1's glimpse of heaven's viewpoint (with Christ among lampstands) reminds us that the
+                        spiritual realm and church's condition are central, even as worldly empires rage. It's a
+                        backstage tour of reality: Christ in glory, Church on earth under His gaze - which will soon contrast with
+                        Antichrist in power, world in chaos in later chapters. Ultimately, Revelation ends as it began - with
+                        Jesus asserting, "I am the Alpha and Omega... I am coming quickly," and John responding, "Amen.
+                        Even so, come, Lord Jesus!" The doxology of chapter 1 is answered by the final prayer of chapter 22.
+                        This shows the consistency: from start to finish, Revelation inspires yearning for Christ's return and
+                        trust in His sovereignty.
+                    </li>
+                    <li>
+                        It underscores the holiness and accountability of the Church in the light of the imminent
+                        consummation. By seeing Christ with eyes of fire examining the churches before the judgments of
+                        the world unfold, we learn that God's household is judged first (1 Peter 4:17). The letters in chapters 2-
+                        3 will continue that theme, purifying the Church in expectation of His coming. Thus, chapter 1
+                        contributes to an oft overlooked aspect of eschatology: the Church's present moral preparation for the
+                        end. We are to be a bright lampstand now so that we might be spotless and ready when the
+                        Bridegroom comes. As William Kelly noted, prophecy should not make us speculators but should
+                        lead to self-judgment and Christ-centered hope <sup>46 47</sup>. The vision of Christ in chapter 1 is precisely
+                        to produce that effect to make Ephesus remember its first love, or Laodicea to realize its
+                        lukewarmness. By extension, it calls us in the 21st century to examine our spiritual state in view of
+                        Jesus' majesty and His soon return.
+                    </li>
+                </ul>
+                <p>
+                    In the broader theological themes of Revelation, chapter 1 introduces Christ as Judge (priestly judge of
+                    churches and eventually the world), as Redeemer (who freed us by His blood), and as King (destined ruler
+                    of nations). These three roles correspond to the three main sections of Revelation: Christ the Judge in the
+                    Tribulation, Christ the Redeemer-Lamb in salvation scenes, and Christ the King in the Millennium/New
+                    Creation. We see seeds of each in chapter 1. It's like the program overture that hints at all the musical
+                    themes to come.
+                </p>
+                <p>
+                    Eschatologically, Revelation 1 assures us that no matter how frightening the apocalyptic imagery will
+                    become, Jesus is in control. The Almighty is speaking and holding the keys. This was a huge comfort to the
+                    early church facing Caesar's persecutions; and it remains our comfort as we face an increasingly turbulent
+                    and anti-Christian world. The same Jesus who walks among us now will be the one to break the seals of judgment
+                    and then wipe away our tears. Knowing the end (chapters 19-22) is glorious, we persevere in the present
+                    (chapters 2-3) because we have seen the One who guarantees it (chapter 1).
+                </p>
+                <p>
+                    In conclusion, Revelation chapter 1 invites us into an intimate encounter with the risen Christ and
+                    commissions us to live in the light of His supremacy. It blends lofty doctrine with living hope. For personal
+                    devotion, it encourages us that Jesus knows and cares about our little church and even our individual tears
+                    (since His eyes see and His hand touches). For theological enrichment, it challenges us to align our
+                    understanding of God's plan with the biblical revelation to be "Bereans" who value prophecy and see its
+                    place in exalting Christ. For the Church collectively, it's a call to rekindle our lamp, holding fast to <em>sola
+                    Scriptura</em> (as John exemplified obediently writing God's word) and <em>solus Christus</em> - glorifying Christ alone.
+                </p>
+                <p>
+                    As we go forth, may we carry the vision of Revelation 1 in our hearts: Jesus Christ, the Faithful Witness,
+                    Firstborn from the dead, and Coming King, loves us and is with us. He says to each of us, "Fear not...I am alive
+                    forevermore!" With such a Lord, we can face tomorrow and eternity with confidence. And with the aged
+                    apostle we respond in worship: "To Him be glory and dominion forever and ever. Amen." <sup>17</sup>
+                </p>
+
+                <h2>Sources:</h2>
+                <ul>
+                    <li>The Holy Bible, Revelation 1:1-20 (NKJV, ESV) - Scripture passage.</li>
+                    <li>J.N. Darby, "Christ, the Faithful Witness" (Collected Writings) - on Rev. 1:1-5, especially insight on the
+                        greeting and church's response <sup>48 22 23</sup>.</li>
+                    <li>J.N. Darby, "Our Relations to Christ" - on Rev. 1:4-7, emphasizing believers' privileges and response <sup>18 23</sup>.</li>
+                    <li>William Kelly, Lectures on the Revelation - detailed commentary on Revelation 1, notably the servant
+                        character of Revelation 1 <sup>49</sup>, the "Lord's Day" meaning <sup>29</sup>, the vision of Christ among the
+                        lampstands <sup>32 33</sup>, and the outline of Rev. 1:19 <sup>36</sup>.</li>
+                    <li>John F. Walvoord, The Revelation of Jesus Christ (1966) - remarks on Christ's titles (faithful witness, etc.)
+                        <sup>14 15</sup> and on believers' priestly kingdom now and future <sup>39</sup>.</li>
+                    <li>Precept Austin (quoting GotQuestions), Revelation 1 Commentary - confirmatory outline of Rev.1:19
+                        and dispensational overview of chapters <sup>36 41</sup>.</li>
+                    <li>Victorian Web (illus. from Die Bibel in Bildern) - engraving of Revelation 1 vision for visual reference.</li>
+                </ul>
+                <p>
+                    <sup>1 2 3 4 6 7 8 9 10 25 27 28 29 30 31 32 33 34 38 40 43 46 47 49</sup> Revelation 1-3.
+                    <br>https://www.stempublishing.com/authors/kelly/2Newtest/REV_PT1.html
+                </p>
+                <p>
+                    <sup>5 36 37 41 42</sup> Revelation 1 Commentary | Precept Austin
+                    <br>https://www.preceptaustin.org/revelation-1-commentary
+                </p>
+                <p>
+                    <sup>11 12 16 17 22 26 44 45 48</sup> Christ, the Faithful Witness
+                    <br>https://www.stempublishing.com/authors/darby/PRACTICE/16025E.html
+                </p>
+                <p>
+                    <sup>13 14 15 20 21 35 39</sup> 1. Introduction: The Things Which Thou Hast Seen | Walvoord.com
+                    <br>https://walvoord.com/article/259
+                </p>
+                <p>
+                    <sup>18 19 23 24</sup> Our Relations to Christ
+                    <br>https://www.stempublishing.com/authors/darby/PRACTICE/16053E.html
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 2 Content Page (template for new file) -->
+    <div id="chapter2Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="showChapters()">← Chapters</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 2</h1>
+                <p>Letters to the Seven Churches</p>
+            </div>
+            <div class="content-body" id="chapter2Content">
+                <!-- Add your chapter 2 content here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showIndex() {
+            window.location.href = 'revelation-study-site.html';
+        }
+
+        function showChapters() {
+            hideAllPages();
+            document.getElementById('chaptersPage').style.display = 'block';
+            window.location.hash = 'chapters'; // ADD THIS
+        }
+
+        function showChapter(chapterNum) {
+            if (chapterNum === 1) {
+                hideAllPages();
+                document.getElementById('chapter1Page').style.display = 'block';
+                window.location.hash = 'chapter1'; // ADD THIS
+                initProgressBar();
+            }
+        }
+
+        function hideAllPages() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+        }
+
+        // Progress Bar
+        function initProgressBar() {
+            // Remove existing scroll listener to prevent multiple bindings if initProgressBar is called again
+            window.removeEventListener('scroll', updateProgressBar);
+            window.addEventListener('scroll', updateProgressBar);
+            updateProgressBar(); // Call once to set initial state
+        }
+
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            if (docHeight > 0) { // Avoid division by zero if content is shorter than viewport
+                scrollPercent = (scrollTop / docHeight) * 100;
+            }
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        }
+
+        // Smooth Scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling to all links
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // ADD THIS:
+            // Check URL hash to show correct page
+            if (window.location.hash === '#chapters') {
+                showChapters();
+            } else if (window.location.hash === '#chapter1') {
+                showChapter(1);
+            } else {
+                // If no hash, redirect to main index
+                window.location.href = 'revelation-study-site.html';
+            }
+        });
+    </script>
+</body>
+</html>
