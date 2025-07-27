@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 19</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background-color: #f0f0f0;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+
+        /* Image Placeholder Styling */
+        .image-placeholder {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Styles for Sources and References */
+        .sources-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 0;
+            margin-top: 1.5rem;
+        }
+
+        .sources-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .sources-list a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .sources-list a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter19Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="window.location.href='revelation_study_chapter1.html#chapters'">← Chapters</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 19</h1>
+                <p>Triumph of Christ and Two Great Suppers</p>
+            </div>
+            <div class="content-body" id="chapter19Content">
+                <h3>Revelation 19:1-5 - Heavenly Rejoicing Over Babylon's Fall</h3>
+                <p>
+                    After the catastrophic judgment of "Babylon" in chapter 18, John's vision shifts to a scene of exuberant
+                    praise in heaven. He hears <span class="verse-number">"a loud voice of a great multitude in heaven"</span> crying out, <span class="verse-number">"Hallelujah! Salvation and
+                    glory and power belong to our God"</span> (19:1). This is the first of four thunderous "Hallelujahs" in Revelation 19,
+                    a term meaning "Praise the Lord," used here to celebrate God's righteous victory. The multitude proclaims
+                    that God's judgments are <span class="verse-number">"true and righteous,"</span> for He has judged the great harlot who corrupted the earth
+                    and avenged the blood of His servants shed by her (19:2) <sup>1</sup>. This explicitly shows heaven's perspective on
+                    Babylon's fall: it is an act of just retribution that vindicates the martyrs. Renowned Brethren teacher John N.
+                    Darby identified this corrupt harlot with the apostate religious system centered at Rome, whose overthrow
+                    brings unparalleled joy in heaven <sup>1</sup>. There is <span class="verse-number">"no celebration of joy like this in the Revelation,"</span> Darby notes,
+                    because the chief false <span class="verse-number">"church"</span> that dishonored Christ is finally removed <sup>2 3</sup>. For the heavenly hosts
+                    and the faithful, this is a moment of profound relief and triumph.
+                </p>
+                <p>
+                    John then sees the twenty-four elders and the four living creatures (introduced in Revelation 4) fall down
+                    in worship of God on His throne, saying <span class="verse-number">"Amen! Hallelujah!"</span> (19:4). These elders have symbolized the
+                    redeemed people of God in heaven, a priestly worshiping company <sup>4</sup>. Notably, this is the last appearance
+                    of the 24 elders in Revelation – after this point the symbol changes to the Bride of the Lamb taking
+                    prominence <sup>4</sup>. As H.A. Ironside observes, once the false harlot church is judged and removed, the true
+                    Church appears in her rightful role as Christ's bride, and the elders (as a symbol) are no longer seen <sup>4</sup>. In
+                    their final act they worship God for displaying His righteous governance over the earth <sup>5</sup>. A voice from the
+                    throne then calls, <span class="verse-number">"Praise our God, all you His servants and those who fear Him, both small and great!"</span> (19:5).
+                    This command from the throne itself – possibly the voice of an angel or even Christ – invites all God's
+                    servants to join in the praise. It underscores that every servant of God, of whatever status, should rejoice
+                    in His just judgments.
+                </p>
+                <p>
+                    Personal Application: The rejoicing in heaven over Babylon's demise teaches us to praise God for the
+                    triumph of His justice. While judgment may seem severe, it is ultimately an occasion of joy for the
+                    righteous because it means the end of evil and the vindication of God's holiness. Ironside challenges
+                    believers to <span class="verse-number">"learn to judge, not only the unclean system [Babylon]... but every tendency in ourselves to
+                    partake of its spirit"</span> <sup>6</sup>. In other words, we should examine our own hearts to ensure we are not
+                    compromised by the corrupt values of "Babylon" - pride, false religion, materialism, or persecution of God's
+                    truth. Just as heaven exults when Babylon falls, we too should long for the removal of all such corruption,
+                    beginning with personal repentance. We can echo the heavenly Hallelujahs whenever we see God's truth
+                    victoriously exposing and judging evil, trusting that God's judgments are true and righteous (Psalm
+                    58:10-11). This scene also reminds us that no matter how powerful evil seems (Babylon was great on earth),
+                    God will decisively overthrow it in His timing, and His servants will eternally rejoice at His victory.
+                </p>
+
+                <h3>Revelation 19:6-10 - The Marriage of the Lamb and the Bride Made
+                    Ready</h3>
+                <p>
+                    Next John hears what he describes as <span class="verse-number">"the voice of a great multitude, like the roar of many waters and like
+                    mighty peals of thunder"</span> shouting praise (19:6). They cry, <span class="verse-number">"Hallelujah! For the Lord our God, the Almighty, reigns"</span>
+                    (19:6). This is a proclamation that the reign of God has come in power – a preview of the Kingdom about
+                    to be established. God's sovereign rule was always a reality, but now the time has arrived to openly manifest
+                    His kingship over the earth by the Messiah's triumph. The heavenly chorus calls everyone to <span class="verse-number">"rejoice and be
+                    glad and give Him glory, for the marriage of the Lamb has come, and His wife has made herself ready"</span> (19:7).
+                    This introduces one of the most beautiful themes in Revelation: the marriage of the Lamb, Jesus Christ, to
+                    His Bride.
+                </p>
+                <p>
+                    Who is this Bride of the Lamb? According to Plymouth Brethren expositors and most evangelical scholars,
+                    the Bride represents the Church – the collective body of believers in Jesus from the current age of grace
+                    <sup>7 8</sup>. Throughout the New Testament, the Church is described as an engaged bride waiting for Christ,
+                    the heavenly Bridegroom. Paul wrote, <span class="verse-number">"I betrothed you to one husband, to present you as a pure virgin to
+                    Christ"</span> (2 Corinthians 11:2), and Ephesians 5:25-27,32 compares the loving marriage relationship to Christ
+                    and the Church, explicitly calling it <span class="verse-number">"a great mystery"</span> of Christ and His Bride. This concept fits here: now that
+                    the Church is gathered in heaven, the long-awaited wedding can take place. Importantly, Ironside and
+                    others note a distinction in Scripture between this Bride (the Church) and Israel as an entity. In the Old
+                    Testament, Israel was often depicted as the unfaithful wife of Jehovah (e.g. Hosea 2:2, Jeremiah 3:20,
+                    Ezekiel 16:32), whom God will restore and accept again in the future kingdom. But the Church is the virgin
+                    Bride of Christ (the Lamb). <span class="verse-number">"It seems very plain,"</span> Ironside writes, <span class="verse-number">"that the marriage supper of the Lamb
+                    takes place in Heaven... and this is certainly the Church, which He has called out of the world"</span> <sup>8</sup>. Israel, by
+                    contrast, will enjoy a restored relationship with God on earth (see Isaiah 54:5-8), but the Church uniquely is
+                    the heavenly Bride of Christ. This distinction was a hallmark of Brethren theology – seeing different
+                    roles for Israel and the Church in prophecy - and it helps make sense of the symbolism. The marriage of the
+                    Lamb in heaven (before Christ's return) implies the Church has been taken up to heaven prior to this event.
+                    In fact, William Kelly points out that this scene is <span class="verse-number">"in heaven, not the Lord Jesus meeting His saints in the air."</span>
+                    The saints are already in glory, having been caught up earlier, since <span class="verse-number">"a few verses later we see heaven opened
+                    and Christ comes out with His saints following Him."</span> Therefore the Church must have been taken to heaven
+                    beforehand (as in a pre-tribulation rapture) in order to be present at this marriage celebration <sup>10 11</sup>.
+                </p>
+                <p>
+                    In verse 8 John describes the Bride's radiant attire: <span class="verse-number">"And to her it was granted to be arrayed in fine linen, clean
+                    and bright, for the fine linen is the righteous acts of the saints."</span> The clothing imagery is rich in meaning. <span class="verse-number">"Fine
+                    linen"</span> denotes pure, rich fabric, appropriate for a royal wedding. Here it symbolizes the righteous deeds
+                    of God's people. The original Greek word is plural ("righteousnesses" or "righteous acts"), indicating it is
+                    not Christ's imputed righteousness to us (our justification) in view, but the actual outworking of
+                    righteousness by us through His grace <sup>12</sup>. In other words, these linen garments represent the rewards of
+                    faithfulness - the beautiful result of the saints' Spirit-led works. Earlier in Revelation, the Lord told the
+                    church in Sardis that <span class="verse-number">"they will walk with Me in white, for they are worthy"</span> and <span class="verse-number">"he who overcomes shall be
+                    clothed in white garments"</span> (Rev 3:4-5). Now we see the fulfillment: the Bride has made herself ready by a life
+                    of faith and obedience, and Christ has purified her. Of course, even our best works are by God's grace; yet
+                    He graciously rewards and remembers our labor in the Lord (Hebrews 6:10). Ironside emphasizes that this
+                    fine linen bridal gown is being woven now, in our earthly lives: <span class="verse-number">"Everything that is really done for Christ is
+                    something added to that bridal chest... The wedding garments are to be prepared here on earth"</span> <sup>13 14</sup>.
+                    This does not imply a works-based salvation - the Bride is already redeemed by the Lamb's blood - but it
+                    shows how we live now matters for eternity. Our perseverance in good works, empowered by the Holy
+                    Spirit, will adorn us in splendor to Christ's glory. It's a solemn and encouraging thought that the <span class="verse-number">"righteous
+                    acts"</span> done in Christ's name are eternally remembered as part of the beauty of His Church <sup>15</sup>. (Compare 1
+                    Corinthians 3:12-15, which describes believers' works tested by fire for reward.)
+                </p>
+                <p>
+                    Verse 9 shifts the scene slightly: <span class="verse-number">"Then the angel said to me, 'Write: Blessed are those who are invited to the
+                    marriage supper of the Lamb.""</span> This pronouncement introduces guests at the wedding feast. The <span class="verse-number">"marriage
+                    supper"</span> in ancient custom would be the celebratory banquet following the wedding ceremony - here it likely
+                    corresponds to the joyful celebration in heaven when Christ and His Church are united, just before
+                    returning to earth to reign. Who are the <span class="verse-number">"invited"</span> ones, distinct from the Bride? Ironside understands
+                    these to be <span class="verse-number">"the friends of the Bridegroom"</span> - in other words, the redeemed of other eras who are not part
+                    of the Church <sup>16</sup>. This would include the Old Testament saints (like Abraham, Moses, David, etc., who were
+                    faithful to God before Christ's incarnation) and possibly those saved during the future tribulation period
+                    who were martyred or died for their faith <sup>16</sup>. They all will share in the <span class="verse-number">"joy of that day"</span> as honored guests,
+                    even though the central focus is on Christ and His Church united. (John the Baptist similarly called himself
+                    a <span class="verse-number">"friend of the Bridegroom"</span> who rejoices in the Bridegroom's voice - John 3:29.) Some interpreters, like J.N.
+                    Darby, suggest we need not overly distinguish the guests as a separate class, seeing this simply as a poetic
+                    way to include all the saved in the celebration <sup>17</sup>. But it does appear that the Lamb's Bride is one
+                    particular company (the Church), and other believers still rejoice at the wedding as part of <span class="verse-number">"the family of
+                    God"</span> across ages. Regardless, <span class="verse-number">"Blessed"</span> indeed are all who partake in this glorious supper! The angel
+                    affirms, <span class="verse-number">"These are the true sayings of God,"</span> underscoring the certainty and importance of this promise (19:9).
+                </p>
+                <p>
+                    Overwhelmed by the grandeur of this revelation, John fell at the angel's feet to worship him (19:10). The
+                    angel quickly corrects John: <span class="verse-number">"See that you do not do that! I am your fellow servant, and of your brethren who
+                    have the testimony of Jesus. Worship God!"</span> (19:10). This is a crucial reminder that only God is worthy of
+                    worship. Even a mighty angel is but a servant of God, like us. (John was perhaps momentarily confused or
+                    overcome, indicating how glorious these things appeared – if the messenger was so awe-inspiring, how
+                    much more the One who sent him!) The angel's rebuke highlights that no created being - not angels,
+                    saints, nor any church authority - should be adored or worshipped (see Colossians 2:18). In the final
+                    phrase, the angel adds, <span class="verse-number">"For the testimony of Jesus is the spirit of prophecy."</span> This means that the true spirit
+                    and purpose of all prophecy is to bear witness to Jesus <sup>18</sup>. All these visions John sees, all prophetic
+                    scriptures, ultimately point to Christ's person and work. The angel, as a <span class="verse-number">"fellow servant,"</span> is essentially
+                    saying: <span class="verse-number">"I am just testifying of Jesus like you - direct all honor to Him."</span> In Christian theology, this underscores
+                    that prophecy is not for satisfying curiosity or elevating prophets, but to reveal Christ's glory and plan.
+                    Notably, John is corrected again for attempting to worship an angel in Revelation 22:8-9 with a nearly
+                    identical response, reinforcing the lesson.
+                </p>
+                <p>
+                    Personal Application: This section is rich with encouragement for believers. The picture of the marriage of
+                    the Lamb tells us that Jesus deeply loves His people as a groom rejoicing over his bride (Isaiah 62:5,
+                    Ephesians 5:25). Our destiny is not merely to survive or be judged, but to enter into the joy of an eternal
+                    union with Christ. Meditating on this <span class="verse-number">"wedding day"</span> inspires us to greater purity, devotion, and love now.
+                    Just as a bride prepares for her wedding, we are called to make ourselves ready - not by our own strength,
+                    but by yielding to God's sanctifying work in us (2 Corinthians 7:1, Revelation 19:8). Every act of faithfulness –
+                    loving others, serving the Lord, holding fast to truth – is like adding fine linen to our bridal gown <sup>13</sup>. This
+                    gives our daily choices eternal significance. Moreover, knowing we are invited to the Lamb's banquet
+                    motivates us to invite others (through evangelism) to come to Jesus, so they too can share in the blessing.
+                </p>
+                <p>
+                    We also learn an important lesson in true worship from John's misstep. If a great apostle like John could
+                    momentarily falter and direct awe to the wrong place, we too must guard our hearts. Let us never idolize
+                    God's messengers, no matter how gifted or glorious, whether angelic or human. All prophecy, spiritual gifts,
+                    and church ministries exist to testify of Jesus, not to draw attention to themselves <sup>19</sup>. In our personal
+                    study and application of prophecy, we should always ask: <span class="verse-number">"How does this reveal Christ and lead me to worship
+                    God?"</span> If any teaching or experience leads us to exalt a human leader, an angel, or even a particular church
+                    above Christ, we've missed <span class="verse-number">"the spirit of prophecy."</span> The angel's directive is clear and eternally relevant:
+                    <span class="verse-number">"Worship God!"</span>. In practical terms, this means keeping Christ central in our devotion and doctrine, and
+                    joyfully submitting to Him as our coming Bridegroom King.
+                </p>
+
+                <h3>Revelation 19:11-16 - The Second Coming of Christ in Power and
+                    Glory</h3>
+                <p>
+                    At verse 11, the scene dramatically shifts: <span class="verse-number">"Then I saw heaven opened, and behold, a white horse. He who sat on
+                    him was called Faithful and True, and in righteousness He judges and makes war."</span> This is the long-awaited
+                    appearing of Jesus Christ as a mighty warrior-king at His Second Coming. Earlier in Revelation, heaven
+                    opened to give John visions (Rev 4:1) - but now heaven opens for the King Himself to ride forth. During
+                    Christ's first coming, the heavens opened and the Spirit descended on Him (Matt 3:16), and later Stephen
+                    saw heaven opened to receive Christ's martyr (Acts 7:56). In stark contrast, here heaven opens for Jesus to
+                    come out as <span class="verse-number">"King of kings"</span> to assert His rule <sup>20</sup>. The white horse symbolizes victorious conquest (in ancient
+                    Roman triumphs, generals rode white horses). This immediately reminds us of Revelation 6:2, where a rider
+                    on a white horse appeared at the first seal – but that was a deceiver (often interpreted as the Antichrist)
+                    imitating Christ's imagery. Now the true Christ comes, not from earth but from heaven, ensuring no
+                    confusion with any <span class="verse-number">"false Christ"</span> <sup>21</sup>. As Ironside notes, <span class="verse-number">"The rider [in Rev 6] did not come from heaven... that
+                    one was of the earth, doomed to fail. The rider here does come from heaven and His plans will never
+                    miscarry"</span> <sup>21</sup>. This is one safeguard for believers: we know our Lord's return will be a visible, glorious
+                    descent from heaven (Matthew 24:27-30), so we can reject any impostors arising from the earth claiming
+                    to be Christ <sup>22</sup>.
+                </p>
+                <p>
+                    Names and titles of Christ: John notes several titles for the One on the horse. First, He is called <span class="verse-number">"Faithful and
+                    True,"</span> meaning Jesus is the perfectly faithful One, true to His promises and character <sup>23</sup>. He earlier
+                    introduced Himself to the Laodicean church as <span class="verse-number">"the Amen, the Faithful and True Witness"</span> (Rev 3:14) – a
+                    reassurance that even when human witnesses fail, Christ is utterly reliable. Now He comes to fulfill all
+                    promises. He also comes <span class="verse-number">"in righteousness He judges and makes war."</span> Unlike earthly conquerors driven
+                    by pride or evil, Christ's war against His enemies is completely just. He is the <span class="verse-number">"Judge of all the earth [who] will
+                    do right"</span> (cf. Genesis 18:25). This fulfills prophecies like Isaiah 11:4: <span class="verse-number">"He shall strike the earth with the rod of His
+                    mouth, and with the breath of His lips He shall slay the wicked."</span> His eyes are described <span class="verse-number">"like a flame of fire"</span>
+                    (19:12), echoing the vision of Christ in Revelation 1:14. Those flaming eyes indicate His piercing
+                    omniscience and holiness - He sees all and can judge all sin with perfect insight <sup>24</sup>. On His head are
+                    <span class="verse-number">"many diadems"</span> (royal crowns), signifying complete sovereignty. In chapter 12, the dragon had seven
+                    diadems and the beast had ten (symbols of limited earthly authority), but Jesus wears many crowns, a way
+                    of saying <span class="verse-number">"all authority in heaven and earth"</span> has been given to Him (Matthew 28:18) <sup>25</sup>. He is King over
+                    every kingdom, the rightful heir of the universe <sup>26</sup>.
+                </p>
+                <p>
+                    John then mentions, <span class="verse-number">"He had a name written that no one knew except Himself"</span> (19:12). This mysterious
+                    unknown name implies that there are depths to Christ's person that are unfathomable. Even in His
+                    revelation, some aspects of His glory and identity transcend creaturely knowledge <sup>27</sup>. It calls to mind how
+                    in Judges 13:18 the Angel of the Lord told Manoah, <span class="verse-number">"Why do you ask My name, seeing it is wonderful (beyond
+                    understanding)?"</span> Likewise Jesus, being fully God and man, has an eternal divine nature known only to the
+                    Father (cf. Matthew 11:27) <sup>27</sup>. As one hymn puts it, <span class="verse-number">"The Father only Thy blest name of Son can
+                    comprehend"</span> <sup>27</sup>. So, while Revelation gives us many titles of Christ, it humbles us with the fact that the
+                    infinite Son of God still surpasses all human understanding (see Proverbs 30:4, where the question is
+                    asked, <span class="verse-number">"What is His name, and what is His Son's name, if you know?"</span>).
+                </p>
+                <p>
+                    In verse 13 we see a striking image: <span class="verse-number">"He was clothed with a robe dipped in blood."</span> This may immediately
+                    remind us of Isaiah 63:1-3, a prophecy of the Messiah coming from Edom with crimson-stained garments
+                    after treading the winepress of God's wrath. Indeed, John soon explicitly references the winepress (19:15).
+                    There are two complementary interpretations of the blood on His robe: (1) It symbolizes the blood of
+                    Christ's enemies whom He will slay in judgment, fulfilling the Isaiah 63 imagery of garments stained by the
+                    lifeblood of the wicked <sup>28 29</sup>. (2) It may also remind us of Christ's own sacrificial blood by which He
+                    conquered sin and death <sup>30</sup>. Ironside suggests the dipped robe, <span class="verse-number">"like the rams' skins dyed red in the
+                    tabernacle,"</span> is a token of Christ's consecration unto death - essentially saying Jesus is coming as victorious
+                    Lamb who was slain <sup>30</sup>. In either case (and both can be true), the robe dipped in blood shows that Christ's
+                    victory is connected to bloodshed – either His enemies' or His own. The first time Jesus came, His own
+                    blood was shed to provide salvation. When He comes again, He will shed the blood of the unrepentant
+                    who trample His grace. Thus, the blood-stained robe is a solemn reminder that justice comes at a high
+                    price. John immediately adds <span class="verse-number">"and His name is called The Word of God"</span> (19:13). There is no ambiguity about
+                    the rider's identity now - only one Person in Scripture is God's Word made flesh (John 1:1, 1:14). Jesus is the
+                    perfect revelation of God's character and will <sup>31</sup>. In His first advent He revealed God's grace and truth
+                    (John 1:17-18); in His second advent He reveals God's holiness and wrath against sin. By this title we know
+                    that the same Jesus who spoke forgiveness will now speak justice - every word He utters is the Word of
+                    God, which <span class="verse-number">"will not return void"</span> (Isaiah 55:11).
+                </p>
+                <p>
+                    Verse 14 describes the companions of Christ: <span class="verse-number">"And the armies in heaven, clothed in fine linen, white and clean,
+                    followed Him on white horses."</span> This vivid procession shows Christ leading a heavenly army. The <span class="verse-number">"fine linen,
+                    white and clean"</span> immediately links these riders to the redeemed saints, since verse 8 used the same
+                    phrase for the Bride's garments. Thus, we understand that the glorified Church is following Christ at His
+                    return. Earlier, Revelation 17:14 foretold, <span class="verse-number">"the Lamb will overcome them... and those who are with Him are
+                    called, chosen, and faithful."</span> Here they are! Not only the Church, but likely other believers in resurrection
+                    bodies (Old Testament saints and Tribulation martyrs, now raised) join the Lord's army as well <sup>32</sup>. Ironside
+                    enumerates that this army <span class="verse-number">"comprises (1) the church, which we have just seen as the bride; (2) the saints of
+                    former dispensations; and (3) the tribulation saints"</span> - all following their triumphant Lord <sup>32</sup>. In addition,
+                    Scripture suggests holy angels will accompany Christ's return (Matthew 25:31 says <span class="verse-number">"all the angels with
+                    Him"</span>). So it will be an immense, multi-ranked heavenly host. Notably, these armies are unarmed in the
+                    narrative - they are not the ones doing battle. They ride on white horses (symbolic of victory and purity) and
+                    simply witness Christ's victory. As Darby observes, their garments are not dipped in blood; only Christ's
+                    robe is, because He alone treads the winepress of wrath <sup>33</sup>. Our Lord alone is the Executor of judgment -
+                    His followers share in the honor of victory, but not in the actual fighting. This fits other scriptures: for
+                    example, when Jesus comes, it is <span class="verse-number">"with ten thousands of His saints"</span> (Jude 14) and Zechariah 14:5 says <span class="verse-number">"the
+                    LORD my God will come, and all the holy ones with Him."</span> We as believers are assured the privilege of
+                    returning with Jesus in glory (Colossians 3:4), but we won't need to swing a single sword - He fights for
+                    us.
+                </p>
+                <p>
+                    Verse 15 vividly portrays Christ's weaponry and rule: <span class="verse-number">"Out of His mouth goes a sharp sword, that with it He
+                    should strike the nations."</span> The sword from His mouth symbolizes His authoritative word of judgment <sup>34</sup>.
+                    He will strike down the wicked simply by His command. This hearkens back to the description of Christ in
+                    Rev 1:16 (<span class="verse-number">"out of His mouth went a sharp two-edged sword"</span>) and to the warning He gave the church of
+                    Pergamum, <span class="verse-number">"Repent, or else I will come to you quickly and will fight against them with the sword of My mouth"</span>
+                    (Rev 2:16) <sup>34</sup>. Now that threat becomes a reality for unrepentant nations. It's a sobering reminder of the
+                    power of Christ's word - the same voice that created the universe (Hebrews 11:3) and calmed storms will
+                    now fell armies in an instant (cf. 2 Thessalonians 2:8, <span class="verse-number">"the Lord will slay [the lawless one] with the breath of
+                    His mouth"</span>). We also read, <span class="verse-number">"He will rule them with a rod of iron."</span> This phrase fulfills the Messianic promise of
+                    Psalm 2:9, where God says to His Son, <span class="verse-number">"You shall break them with a rod of iron; You shall dash them to pieces
+                    like a potter's vessel."</span> It signifies Jesus' absolute, unbreakable authority over the nations. Interestingly,
+                    Christ promised the overcoming church that they would share in this <span class="verse-number">"rod of iron"</span> authority over nations
+                    (Rev 2:26-27) <sup>35</sup> – meaning when He reigns in the Millennium, His faithful people will reign with Him
+                    (Revelation 20:4, 2 Timothy 2:12). Finally, verse 15 adds: <span class="verse-number">"He Himself treads the winepress of the fierceness and
+                    wrath of Almighty God."</span> This alludes again to the imagery of Isaiah 63:3 and Revelation 14:19-20 – the
+                    nations are likened to clusters of ripe grapes that Jesus now crushes in the winepress of God's wrath. The
+                    repetition (<span class="verse-number">"He Himself"</span>) stresses that Christ personally executes the wrath of God; it is not merely an
+                    impersonal judgment. When Jesus came the first time, He bore the fierceness of God's wrath upon Himself
+                    for our sins (satisfying God's justice for believers). But those who refused that sacrifice will now face the
+                    fierceness of God's wrath from His own hand. This is a terrifying prospect - the gentle Lamb of God is also
+                    the Lion who brings God's fierce justice. Yet, as hard as it is to contemplate, it is part of God's goodness to
+                    finally remove evil and vindicate the innocent. As Ironside comments, <span class="verse-number">"The winepress is the figure of
+                    unsparing judgment"</span> – here, all of God's stored-up wrath against the long history of human cruelty,
+                    persecution, and rebellion will be unleashed without mixture <sup>36</sup>. For centuries, tyrants and Antichrists have
+                    <span class="verse-number">"trampled"</span> on others; now Christ tramples them in a just reversal.
+                </p>
+                <p>
+                    In verse 16 John notes another inscription on Jesus' garments: <span class="verse-number">"And He has on His robe and on His thigh a
+                    name written: KING OF KINGS AND LORD OF LORDS."</span> This is the climactic title, declaring Jesus as the supreme
+                    ruler over all earthly kings and lords. In His first coming, Jesus was King, but only acknowledged by a few
+                    (the Magi called Him <span class="verse-number">"King of the Jews"</span> at His birth, and He was mockingly labeled <span class="verse-number">"King"</span> at the crucifixion).
+                    The world gave Him a crown of thorns and a cross <sup>26</sup>, rejecting His kingship. Now God reverses that
+                    unrighteous verdict: <span class="verse-number">"Behold, your King comes!"</span> in undeniable glory. All the kings of the world are about to
+                    fall, and the King of Kings will take the throne. This title was hinted at in Rev 17:14 (the Lamb is <span class="verse-number">"Lord of
+                    lords and King of kings"</span>), and it echoes Old Testament language for God's absolute sovereignty (e.g.
+                    Deuteronomy 10:17). Ironside notes that this is Christ's <span class="verse-number">"official title"</span> as Son of Man, the heir of all nations
+                    <sup>37 26</sup>. Where the world refused His rightful rule, God now exalts Him <span class="verse-number">"and gives Him a name above every
+                    name"</span> (Philippians 2:9-11). No one will usurp or ignore His authority in the coming Kingdom. This
+                    inscription being on His robe and thigh suggests visibility and strength - the thigh was a symbol of power,
+                    and the flowing robe would display the title openly. One is reminded of the imagery in Isaiah 11:5,
+                    <span class="verse-number">"Righteousness shall be the belt of His loins, and faithfulness the belt of His waist."</span> All of Christ's attributes –
+                    faithful, true, righteous judge, Word of God, King of kings - combine to show the perfect, sovereign Judge
+                    and King that He is.
+                </p>
+                <p>
+                    Personal Application: The vision of Jesus in 19:11-16 is awe-inspiring and should stir many responses in us.
+                    First, hope and comfort – we see clearly that evil will not triumph forever. All the corrupt powers (beast,
+                    kings, etc.) that cause suffering now will be destroyed by our Lord. The persecuted and oppressed can take
+                    heart that Jesus is coming as a Warrior to deliver and vindicate (2 Thessalonians 1:6-8). When the world
+                    feels unjust, Revelation 19 refocuses us: God's King will make things right.
+                </p>
+                <p>
+                    Second, reverence and worship – this is no tame, domesticated Jesus; this is the Holy King. John's vision
+                    should expand our view of Christ. He is still the Lamb who loves us, but He's also the Lion with eyes of fire.
+                    We should approach Him with humility, obedience, and awe. Are our lives submitted to the King of Kings
+                    now? Philippians 2:10-11 reminds us every knee will bow and every tongue confess Jesus as Lord - the joyful
+                    privilege for believers is to bow now willingly. Knowing His return is literal and imminent, we ought to live in
+                    readiness (1 John 3:2-3). Those fine linen garments of righteous acts (v.8) are made up of our daily decisions
+                    – so let's be clothed in white by doing His will today.
+                </p>
+                <p>
+                    Third, there's a warning inherent here: Jesus will come <span class="verse-number">"in flaming fire taking vengeance"</span> on those who do
+                    not know God (2 Thess 1:8). This should sober us and also motivate evangelism. We want to be riding with
+                    Jesus in His army, not standing against Him with the world's armies. If someone has not surrendered to
+                    Christ, Revelation 19 is an urgent appeal: Today is the day to meet the Faithful and True Savior; tomorrow He
+                    may come as your Judge. As Amos 4:12 says, <span class="verse-number">"Prepare to meet your God!"</span> The <span class="verse-number">"sword from His mouth"</span> (v.15)
+                    will strike down His enemies - but right now, that sword is the Word of God calling people to repentance
+                    (Ephesians 6:17, Hebrews 4:12). We should respond to and wield that Word for salvation while we can, so
+                    that when our Lord appears, we will <span class="verse-number">"have confidence and not shrink from Him in shame"</span> (1 John 2:28).
+                </p>
+
+                <h3>Revelation 19:17-21 - The Great Supper of God and the Final Defeat
+                    of Evil</h3>
+                <p>
+                    Following the description of Christ's arrival, John's vision moves to the dramatic climax of the battle – often
+                    called Armageddon. In verses 17-18, an angel standing in the sun (a position of high visibility and brilliance)
+                    cries with a loud voice to all the birds: <span class="verse-number">"Come and gather for the great supper of God, to eat the flesh of kings,
+                    the flesh of captains, the flesh of mighty men, the flesh of horses and their riders, and the flesh of all people, free
+                    and slave, small and great."</span> This grim invitation is a macabre counterpart to the marriage supper mentioned
+                    earlier. Ironside aptly noted that Revelation 19 presents two very different <span class="verse-number">"suppers"</span>: one a joyous
+                    celebration in heaven for the saved, and the other a ghastly feast of judgment on earth for the carrion birds
+                    <sup>38</sup>. The <span class="verse-number">"great supper of God"</span> is the aftermath of Christ's victory – the bodies of the defeated armies
+                    become a banquet for vultures. This graphic imagery fulfills Old Testament prophecy almost directly: <span class="verse-number">"Speak
+                    to every sort of bird... 'Assemble yourselves and come... to My sacrificial meal which I am sacrificing for you... You
+                    shall eat the flesh of the mighty, drink the blood of the princes..."</span> (Ezekiel 39:17-20). In that Ezekiel passage,
+                    God foretold a massive slaughter of the forces of Gog, and the language is mirrored here in Revelation,
+                    indicating a similar great defeat of God's enemies. The repetition of <span class="verse-number">"flesh... flesh..."</span> emphasizes the utter
+                    humiliation of the proud and powerful – the highest generals and lowliest soldiers alike become mere
+                    carrion. Earthly status proves futile in opposing the King of Kings. Also, by addressing the scavenger birds,
+                    the angel implies the outcome is certain; it's like pre-announcing the victory feast before the battle even
+                    begins, because Christ's triumph is never in doubt.
+                </p>
+                <p>
+                    In verse 19, the conflict is set: <span class="verse-number">"And I saw the beast, the kings of the earth, and their armies, gathered together to
+                    make war against Him who sat on the horse and against His army."</span> Here <span class="verse-number">"the beast"</span> refers to the Antichrist, the
+                    final world dictator empowered by Satan (as described in Revelation 13). He, along with the coalition of
+                    <span class="verse-number">"kings of the earth"</span> (the allied nations under his influence), marshals their forces to literally fight Jesus
+                    Christ as He returns. This is the ultimate expression of human and demonic rebellion – a delusional attempt
+                    to wage war against God. We were told in Revelation 16:14-16 that demonic spirits would go out to gather
+                    the kings of the whole world to a place called Armageddon for <span class="verse-number">"the war of the great day of God Almighty."</span>
+                    Now we see that war unfolding. Psalm 2 foretold this scenario: <span class="verse-number">"The kings of the earth set themselves, and the
+                    rulers take counsel together, against the LORD and against His Anointed..."</span> (Ps 2:2). They intend to cast off God's
+                    rule, but Psalm 2 also reveals God's response: <span class="verse-number">"He who sits in the heavens laughs; He holds them in derision"</span>
+                    (Ps 2:4). Indeed, the battle is over almost as soon as it begins. Verse 20 reveals the swift outcome: <span class="verse-number">"Then
+                    the beast was captured, and with him the false prophet who worked signs in his presence... These two were cast
+                    alive into the lake of fire burning with brimstone."</span>
+                </p>
+                <p>
+                    This is a monumental moment in Scripture: the Beast (Antichrist) and his False Prophet are decisively
+                    judged. These two humans who were the pinnacle of satanic power and deception on earth are seized
+                    by Christ's power. We're not even told the details of how they are captured; it's simply the edict of the
+                    Almighty. Notably, they are thrown alive into the <span class="verse-number">"lake of fire,"</span> which is the final place of eternal
+                    punishment. Up until now in Revelation, we've seen the concept of the <span class="verse-number">"abyss"</span> or bottomless pit (where
+                    demonic spirits can be bound). But the <span class="verse-number">"lake of fire"</span> (mentioned first here) corresponds to what we usually
+                    call hell or the final Gehenna – the ultimate destination of the devil, his angels, and all who utterly reject
+                    God (Matt 25:41, Rev 20:10,15). By casting the Beast and False Prophet alive into the lake of fire, God makes
+                    an example of them as the firstfruits of final judgment. Ironside points out that even 1,000 years later, in
+                    Revelation 20:10, these two are still there, suffering - <span class="verse-number">"where a thousand years later they are still said to be
+                    suffering the vengeance of eternal fire"</span> <sup>39</sup>. This plainly refutes the notion of annihilation; their fate is eternal
+                    conscious punishment, not mere extinction <sup>39</sup>. It also shows the lake of fire is not a purgatory that
+                    purifies – after a millennium, they remain unpurified and under judgment <sup>39</sup>. Jude 1:7 similarly uses the
+                    example of Sodom and Gomorrah suffering <span class="verse-number">"the vengeance of eternal fire,"</span> reinforcing the idea that the
+                    punishment is everlasting.
+                </p>
+                <p>
+                    Verse 20 also alludes to the crimes of the false prophet: he deceived people by signs into worshiping the
+                    Beast's image (see Rev 13:11-15). Thus, the leaders of this final rebellion receive a unique judgment with
+                    no reprieve. They bypass any ordinary death and are thrown bodily into hell. This is an ironic parallel to an
+                    Old Testament observation: Enoch and Elijah were two men who went to heaven without dying (God
+                    <span class="verse-number">"raptured"</span> them directly - Gen 5:24, 2 Kings 2:11). Now the Beast and False Prophet are two men who go to
+                    hell without dying <sup>40</sup>. In both cases, God is showing His sovereignty: He can translate righteous
+                    individuals out of the world, and He can just as certainly cast wicked individuals into judgment at His word.
+                    What an awesome warning their fate is – it's a glimpse of the final judgment that will ultimately befall all
+                    unrepentant enemies of God.
+                </p>
+                <p>
+                    Finally, verse 21 wraps up the battle: <span class="verse-number">"And the rest were killed with the sword which proceeded from the mouth
+                    of Him who sat on the horse, and all the birds were filled with their flesh."</span> <span class="verse-number">"The rest"</span> refers to all the remaining
+                    armies and likely the leaders/rulers who had gathered under the Beast's banner. They are all slain by
+                    Christ's spoken word - the <span class="verse-number">"sword from His mouth"</span> strikes them down. Just as Jesus could calm an entire
+                    storm with <span class="verse-number">"Peace, be still,"</span> here He can wipe out vast armies with a command. In a parallel in 2
+                    Thessalonians 2:8, <span class="verse-number">"the Lord will consume [the lawless one's forces] with the breath of His mouth and destroy
+                    [them] with the brightness of His coming."</span> Some have imagined a scenario like the angel of the Lord
+                    destroying Sennacherib's 185,000 Assyrian troops overnight (2 Kings 19:35) – an effortless victory by divine
+                    power <sup>41</sup>. Zechariah 14:12 describes a plague striking the armies fighting at Jerusalem such that their flesh
+                    dissolves as they stand – possibly depicting the instantaneous judgment at Christ's return. However it
+                    precisely happens, it is clear no human weapons or numbers can oppose the Lord Almighty. In the
+                    aftermath, the earlier invitation to the birds is fulfilled: they gorge on the flesh of the slain. It's a gruesome
+                    end to the forces of evil, a scene of carnage permitted by God as an exclamation point on the futility of
+                    rebelling against Him. The once-proud opponents of Christ lie dead, and the scavengers clean up – a stark
+                    illustration that <span class="verse-number">"those who live by the sword die by the sword"</span> when facing the King. Chapter 19 thus
+                    ends with total victory for Jesus: the counterfeit trinity of the Dragon (Satan), Beast, and False Prophet has
+                    been partially dealt with (two of them in the lake of fire, Satan's turn comes in Chapter 20), and the global
+                    threat to Christ's kingdom is eliminated. What follows in Revelation 20 is the chaining of Satan and the
+                    inauguration of Christ's 1000-year reign on earth, the Millennium, now that His enemies are defeated.
+                </p>
+                <p>
+                    Personal Application: The somber end of Revelation 19 carries both warning and hope. On one hand, it is a
+                    strong warning against aligning oneself with the Beast (the spirit of Antichrist). We see here the
+                    ultimate futility of fighting God. No matter how powerful or clever the worldly opposition, God will
+                    overcome it in the end – utterly and decisively. It challenges us: Whose side are we on? In the trials and
+                    cultural pressures we face even now (which 1 John 4:3 says are animated by the <span class="verse-number">"spirit of antichrist"</span>), will we
+                    stand with Christ or against Him? Ironside concludes this chapter by urging readers to consider that each
+                    person will be present at one of two suppers – either the marriage supper of the Lamb as a redeemed
+                    believer, or the great supper of God as judged flesh for the vultures <sup>42</sup>. It's a stark but valid image: those
+                    who accept Jesus' invitation to salvation will feast with Him in joy, whereas those who refuse His grace will
+                    be food for judgment (cf. Luke 14:24). In light of this, the most <span class="verse-number">"personal"</span> question of all is whether we have
+                    responded to Christ. The Gospel invitation is open now: <span class="verse-number">"Him that comes to Me I will by no means cast out,"</span>
+                    Jesus promises (John 6:37) <sup>43</sup>. But the scene of judgment shows that this invitation won't be open forever.
+                    Now is the time to <span class="verse-number">"flee for refuge"</span> to Christ <sup>44</sup>. If you have not done so, let the fate of the Beast and his
+                    followers jolt you - do not delay in surrendering to the true King.
+                </p>
+                <p>
+                    For believers, these verses are also a source of encouragement and perspective. They reinforce that all
+                    the injustice, persecution, and evil that we might witness or even suffer at the hands of ungodly powers are
+                    not forgotten. God's vengeance is certain and righteous (Romans 12:19). We are reminded that when we
+                    endure hardship for Christ now, we do so with the knowledge that He will set all wrongs right. We need not
+                    take revenge or despair; the Lord will handle it at the proper time. Furthermore, knowing the destiny of the
+                    world's system should motivate us to live holy and on mission. 2 Peter 3:11, in view of end-time
+                    judgments, asks, <span class="verse-number">"What sort of people ought you to be in lives of holiness and godliness, waiting for and
+                    hastening the coming of the day of God...?"</span> We have the assurance that the Kingdom of God will prevail, so we
+                    can labor with hope, share the gospel passionately, and refuse to compromise with <span class="verse-number">"Babylon"</span> or <span class="verse-number">"Beast"</span>
+                    ideologies even if they seem dominant. One day, faith will be sight - our King will appear, and we will reign
+                    with Him. Revelation 19 ultimately points us to that glorious outcome, encouraging us that <span class="verse-number">"the sufferings of
+                    this present time are not worthy to be compared with the glory which shall be revealed in us"</span> (Romans 8:18).
+                </p>
+
+                <h3>Conclusion</h3>
+                <p>
+                    Revelation 19 is a pinnacle chapter that contrasts two feasts and two destinies. We see the
+                    ultimate wedding - Christ and His beloved Church united in celebration – and the ultimate war - Christ
+                    defeating the rebellious powers in judgment. For the believer in Jesus, this chapter is immensely reassuring:
+                    it reveals the end of the story where good wins, Christ reigns, and we are with Him. It should deepen our
+                    worship, as we cry <span class="verse-number">"Hallelujah!"</span> with the heavenly hosts for God's salvation, glory, and justice. It should also
+                    sober us, knowing that these prophecies will come to pass exactly as <span class="verse-number">"the true sayings of God"</span> (19:9). The
+                    theological truths here (Christ's kingship, the Church as Bride, the reality of judgment, etc.) have very
+                    personal implications for how we live each day. May we be found watching and ready, with our lamps
+                    burning and our garments clean (Luke 12:35-37), living in the light of Jesus' soon return. As the following
+                    chapter will show the beginning of Christ's peaceful reign, Revelation 19 assures us that every enemy of
+                    God – no matter how powerful - will be removed to make way for the Kingdom of our Lord. In that
+                    confidence, we say even now: <span class="verse-number">"Amen. Hallelujah!... Come, Lord Jesus!"</span>
+                </p>
+
+                <h3>Sources and References</h3>
+                <ul class="sources-list">
+                    <li>H.A. Ironside, Lectures on Revelation - "Chapter Nineteen: The Two Suppers" (Plymouth Brethren
+                        Writings) <sup>45 7 12 16 18 26 39 46</sup></li>
+                    <li>William Kelly, Lectures on the Book of Revelation - Part 4 (Revelation 19-22) <sup>10 11</sup></li>
+                    <li>John N. Darby, Synopsis of the New Testament - Commentary on Revelation 19 <sup>1 20 33</sup>.</li>
+                    <li>The Holy Bible, Revelation 19 (with cross-references to Isaiah 63:1-4, Psalm 2, 2 Thess. 2:8, etc., as
+                        noted in text).</li>
+                    <li><sup>1 2 3 17 20 33 35</sup> Revelation 19 Darby's Bible Synopsis <a href="https://biblehub.com/commentaries/darby/revelation/19.htm" target="_blank">https://biblehub.com/commentaries/darby/revelation/19.htm</a></li>
+                    <li><sup>4 5 6 7 8 9 12 13 14 15 16 18 19 21 22 23 24 25 26 27 28 29 30 31 32 34 36 37 38 39 40 41 42 43 44 45 46</sup> Chapter Nineteen The Two Suppers | Plymouth Brethren Writings <a href="https://plymouthbrethren.org/article/5728" target="_blank">https://plymouthbrethren.org/article/5728</a></li>
+                    <li><sup>10 11</sup> Revelation 19-22. <a href="https://www.stempublishing.com/authors/kelly/2Newtest/REV_PT4.html" target="_blank">https://www.stempublishing.com/authors/kelly/2Newtest/REV_PT4.html</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = scrollPercent + '%';
+            }
+        });
+
+        // Show the chapter page
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapterPage = document.getElementById('chapter19Page');
+            if (chapterPage) {
+                chapterPage.style.display = 'block';
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
