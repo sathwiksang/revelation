@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 21</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background-color: #f0f0f0;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+
+        /* Image Placeholder Styling */
+        .image-placeholder {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Styles for Sources and References */
+        .sources-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 0;
+            margin-top: 1.5rem;
+        }
+
+        .sources-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .sources-list a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .sources-list a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter21Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="revelation_study_chapter20.html#chapters" class="nav-button">← Previous Chapter</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 21</h1>
+                <p>New Heaven, New Earth, and New Jerusalem (In-Depth Study)</p>
+            </div>
+            <div class="content-body" id="chapter21Content">
+                <h3>Introduction and Context</h3>
+                <p>
+                    Revelation 21 is one of the most hope-filled and theologically rich chapters in Scripture. It follows the final
+                    judgment (Revelation 20) and unveils "a new heaven and a new earth" - the eternal state where God makes all
+                    things new. This chapter is crucial for Christian theology, as it describes the ultimate destiny of God's people
+                    in the New Jerusalem and God's everlasting fellowship with redeemed humanity. Many Bible teachers have
+                    marveled at the depth of this passage. Notably, Plymouth Brethren expositors (a group of 19th-20th
+                    century evangelical Christians known for a dispensational, literal approach to prophecy) have provided
+                    detailed insights. They often highlight that Revelation 21 has two distinct sections:
+                </p>
+                <ul>
+                    <li>Revelation 21:1-8 a description of the eternal state (after Christ's Millennial Kingdom and after
+                        the final judgment). William Kelly observes that these verses are "the fullest account that the word of
+                        God furnishes of the new heavens and new earth in the proper sense... subsequent to the thousand years'
+                        reign [and] the great white throne" <sup>1</sup>. In this eternal state, history has ended and "all time-distinctions
+                        are at an end" <sup>2</sup>. God's direct relationship is with "men" (humanity as a whole) with no nations or
+                        earthly rulers as distinct entities <sup>3</sup>. All effects of sin and sorrow are removed forever.</li>
+                    <li>Revelation 21:9-27 (continuing to 22:5) - a symbolic "appendix" that revisits the vision of the New
+                        Jerusalem, portraying it in relation to the Millennial Kingdom (Christ's 1000-year reign). Brethren
+                        scholars note that starting at 21:9, John's vision "goes back again to the millennium" <sup>4</sup> <sup>3</sup>. The same
+                        New Jerusalem (the "bride, the Lamb's wife") is now shown in its millennial glory, shining over the
+                        earth where there are still nations and kings <sup>5</sup>. This interpretation is based on details like the
+                        presence of "nations", "kings of the earth", and the need for "healing" (in 22:2), which imply a world
+                        where some are still being governed and blessed (conditions characteristic of the Millennium rather
+                        than the final eternal state <sup>3</sup> <sup>6</sup>). In eternity, by contrast, all evil is gone and God is "all in all."</li>
+                </ul>
+                <p>
+                    Note: Not all Bible teachers divide the chapter this way. Many evangelical commentators (e.g.
+                    Dr. John Walvoord) understand all of 21:1-22:5 as a description of the eternal state, viewing
+                    the mentions of nations and kings figuratively <sup>7</sup>. However, for this study we will primarily
+                    follow the Plymouth Brethren perspective, which sees a clear chronological distinction at
+                    verse 9. This approach yields a rich understanding of both our eternal hope and the glorious
+                    role of the Church in the Millennium <sup>8</sup> <sup>9</sup>.
+                </p>
+                <p>
+                    With that context, let us proceed verse by verse through Revelation 21, drawing on parallel Scriptures and
+                    theological insights. We will explore both doctrinal significance and personal application for each verse.
+                </p>
+
+                <h2>Revelation 21:1 - "I saw a new heaven and a new earth..."</h2>
+                <p>
+                    <span class="verse-number">Text: "And I saw a new heaven and a new earth: for the first heaven and the first earth were passed away; and
+                    there was no more sea." (21:1, KJV)</span>
+                </p>
+                <p>
+                    John's vision opens with a dramatic transition: the present creation has vanished, and God unveils a new
+                    heaven and a new earth. This fulfills God's ancient promises and displays His power to completely renew
+                    creation. The "first" heaven and earth (our current universe) are "passed away," as also described in
+                    Revelation 20:11 (earth and sky fled from God's presence) and 2 Peter 3:10-13. The Apostle Peter wrote,
+                    "according to His promise, we look for new heavens and a new earth wherein dwelleth righteousness" <sup>10</sup>. In this
+                    new creation, righteousness "dwells" permanently - evil has no presence at all <sup>10</sup>. This goes beyond the
+                    Millennium (where righteousness reigns but sin and death still exist on earth in some measure); here,
+                    righteousness inhabits everything, forever <sup>11</sup> <sup>12</sup>.
+                </p>
+                <p>
+                    John's language deliberately echoes Old Testament prophecy. Isaiah 65:17 first recorded God saying,
+                    "Behold, I create new heavens and a new earth; and the former shall not be remembered". However, as
+                    expositors like William Kelly and Edward Dennett note, Isaiah's context shows that he was describing a
+                    renewed order largely within time (often understood as the blissful conditions of Christ's future kingdom
+                    on earth) <sup>13</sup> <sup>14</sup>. For example, Isaiah 65 goes on to mention people still dying at a hundred years old (a
+                    great age, but death nonetheless - Isaiah 65:20) <sup>12</sup> <sup>15</sup>. In contrast, Revelation 21:1 uses "new heaven and
+                    new earth" in the absolute, fullest sense - an eternal order where death itself is abolished <sup>14</sup> <sup>16</sup>. The Old
+                    Testament gave a preview (a "qualified" use of the phrase), whereas the New Testament gives the ultimate
+                    reality <sup>14</sup> <sup>17</sup>. This shows the progression of revelation: what Isaiah foresaw in part, John sees in its
+                    complete fulfillment.
+                </p>
+                <p>
+                    John adds, "and there was no more sea." This detail may seem small, but it carries profound meaning. In our
+                    current world, seas are literally vast bodies of water that separate lands and peoples. Symbolically in
+                    Scripture (especially in Revelation), the sea often represents chaos, unrest, and the rebellious masses of
+                    humanity (contrast "the wicked are like the troubled sea" in Isaiah 57:20). No more sea therefore signifies at
+                    least two truths:
+                </p>
+                <ul>
+                    <li>No Separation: The sea is a "barrier" that keeps people apart. In the new earth, humanity will no
+                        longer be divided geographically or relationally - there will be perfect unity and togetherness <sup>18</sup>.
+                        All believers will enjoy unbroken fellowship with God and each other, with nothing like an ocean to
+                        separate us. Today, we experience many kinds of separation (distance, death, cultural divides), but
+                        God is promising an ultimate togetherness of His family. Personal Application: This assures us that
+                        all painful separations (even death itself) will be overcome. We can take comfort that in eternity we
+                        will be reunited with God's people in perfect union.</li>
+                    <li>No Chaos or Rebellion: In prophetic imagery, the "sea" can represent the turbulent, unordered
+                        nations of the world (contrast with the "earth" symbolizing ordered society or stable government)
+                        <sup>19</sup>. "No more sea" thus means no more disorder or rebellion against God. Every part of the new
+                        earth will be under God's perfect governance <sup>19</sup>. There will be absolute peace - no raging waves of
+                        sin or unrest. One Brethren writer explains that the new earth will be "the perfect expression of [God's]
+                        own will", finally answering the Lord's Prayer: "Thy will be done on earth as it is in heaven." <sup>20</sup> <sup>21</sup>. In
+                        other words, just as Christ once calmed the stormy sea with "Peace, be still," in the new creation all
+                        of creation is stilled under the peace of His lordship. Personal Application: Even now, we are called
+                        to submit to God's order and find peace in His will. The promise of a world with no more "sea"
+                        encourages us that every storm will ultimately be calmed. Believers can endure present chaos with
+                        hope, knowing God will bring everlasting peace.</li>
+                </ul>
+                <p>
+                    Whether "no more sea" will also be literal (i.e. the new earth having no oceans at all) is debated, but clearly
+                    even if literal, it points to these deeper spiritual realities. In sum, verse 1 gives us a breathtaking first glimpse
+                    of eternity: an entirely new creation free from the flaws of the old. For a Christian, this sparks hope - "we,
+                    according to His promise, look for new heavens and a new earth" (2 Peter 3:13) - and it challenges us to hold
+                    loosely to this present world, since something far better is coming.
+                </p>
+
+                <h2>Revelation 21:2 - "The holy city, New Jerusalem, coming down from God..."</h2>
+                <p>
+                    <span class="verse-number">"And I John saw the holy city, New Jerusalem, coming down from God out of heaven, prepared as a bride
+                    adorned for her husband." (21:2)</span>
+                </p>
+                <p>
+                    After seeing the broad panorama of a renewed creation, John's focus narrows to a specific feature: the Holy
+                    City. He calls it New Jerusalem, a name loaded with meaning. This city is described as "coming down from
+                    God out of heaven," indicating its divine origin and nature. It is "prepared as a bride adorned for her
+                    husband." The imagery of a bride tells us this city is not merely bricks and mortar it represents a
+                    community of people deeply loved by Christ. In fact, later in the chapter an angel explicitly identifies the
+                    New Jerusalem with "the bride, the Lamb's wife"* (v.9-10). This signifies that the city symbolizes the
+                    redeemed people of God in their glorified, perfected state - especially the Church. As one commentator notes, "in
+                    this New Jerusalem we have in symbol the church of God, which is the bride of Christ" <sup>22</sup>. The false city
+                    "Babylon" (chapters 17-18) was depicted as an immoral woman; by contrast, the true city is depicted as a
+                    pure bride <sup>22</sup>.
+                </p>
+                <p>
+                    Let's unpack some key aspects of verse 2:
+                </p>
+                <ul>
+                    <li>"Holy city, New Jerusalem": In the Bible, Jerusalem was the beloved city of God's people, the place
+                        where God's temple stood. This New Jerusalem is the ultimate fulfillment of all that the old Jerusalem
+                        foreshadowed. It is "holy" - completely pure and set apart for God. The prophet Isaiah and apostle
+                        Paul both anticipated a heavenly Jerusalem. Isaiah spoke of God creating "Jerusalem a rejoicing" in a
+                        context that hints at future glory (Isaiah 65:18). Paul explicitly calls it "Jerusalem which is above"
+                        (Galatians 4:26) and "the mother of us [believers]", and Hebrews 11:10 says Abraham looked for "the
+                        city... whose builder and maker is God" <sup>23</sup>. These references point to a real yet spiritual city
+                        designed and built by God for His people. John now sees that very city. Importantly, it comes "down
+                        out of heaven" meaning its origin is divine, not human. Mankind has always tried to build
+                        utopias (even the Tower of Babel was an attempt at a city reaching heaven), but the true City of God
+                        comes from God. Jesus told His disciples, "I go to prepare a place for you" (John 14:2). This verse
+                        suggests that preparation is complete: the New Jerusalem is that place prepared by Christ, now
+                        descending into the new creation as a gift from God to His people.</li>
+                    <li>"Prepared as a bride adorned for her husband": The beauty and glory of this city are likened to a
+                        bride on her wedding day. Think of a bride making herself as lovely as possible for the one she loves
+                        - it's the height of purity, joy, and relationship. In Ephesians 5:25-27, Christ is said to love the Church
+                        as His bride, "that He might present her to Himself a glorious church, not having spot or wrinkle... holy
+                        and without blemish." That moment of presentation is here! The New Jerusalem "bride" has been
+                        made perfectly ready for eternal communion with Christ <sup>24</sup>. A Plymouth Brethren writer points out
+                        that although ages (the Millennial thousand years) will have passed, the city "is still seen arrayed in all
+                        her bridal beauty, as much without blemish or wrinkle... as on the day" she was first presented to Christ
+                        <sup>24</sup>. In other words, the purity and joy of the Church's union with Christ never fade with time - she
+                        remains eternally lovely to Him. This speaks of the permanence of our relationship with Jesus.
+                        Personal Application: Believers are part of this bride. It's a reminder that our destiny is intimate
+                        fellowship with Christ. Just as a bride prepares for her wedding, we should prepare ourselves now -
+                        pursuing holiness and love for Christ - for that coming marriage supper (Revelation 19:7-8). We take
+                        heart that Christ Himself is working even now to sanctify us, so we will one day be perfectly
+                        "adorned" by His grace.</li>
+                    <li>The Church and Israel: Some wonder if New Jerusalem includes Old Testament saints (Israel) or only
+                        the Church. The imagery of "bride" most directly applies to the Church (the new-covenant people
+                        saved between Christ's first and second comings). Yet the city's name "Jerusalem" and later details
+                        (like gates named after Israel's tribes, v.12) show that Old Testament saints also have a place in
+                        God's city. A balanced view is that all the redeemed are ultimately residents of this glorious city, but
+                        that the Church holds a special role as the "bride" in closest relationship to Christ <sup>25</sup> <sup>26</sup>. One
+                        Brethren commentator explains that in the eternal state, "the tabernacle (dwelling) is the holy city [the
+                        Church]" in which God lives, while "men" (all the saved of all ages) live on the new earth around and
+                        enjoy God's presence as His people <sup>25</sup>. All are blessed, but God's wisdom in redemption is displayed
+                        in differing roles yet with no envy or distance, only perfection in every part <sup>26</sup>. Thus, New
+                        Jerusalem can be seen as the totality of God's redeemed people in glory, with the Church as the
+                        jewel at its heart (the bride).</li>
+                </ul>
+                <p>
+                    In sum, verse 2 gives us a vision of ultimate community - the people of God in perfect holiness and unity,
+                    originating from God's heaven, and beautiful beyond description, like a radiant bride. This is our future
+                    home. Jesus' promise that the meek "shall inherit the earth" (Matthew 5:5) comes to fruition here: the earth is
+                    made new, and the greatest city ever imagined is given to God's people as an inheritance. What a
+                    motivation to persevere in faith! If we are citizens of that city (Philippians 3:20), we ought to live as
+                    "strangers and pilgrims" here, setting our hearts on things above.
+                </p>
+
+                <h2>Revelation 21:3 - "Behold, the tabernacle of God is with men..."</h2>
+                <p>
+                    <span class="verse-number">"And I heard a great voice out of heaven saying, 'Behold, the tabernacle of God is with men, and He will
+                    dwell with them, and they shall be His people, and God Himself shall be with them and be their God." (21:3)</span>
+                </p>
+                <p>
+                    A loud proclamation now interprets the significance of the descending New Jerusalem. It announces the
+                    climactic truth of Scripture: God and humanity reunited. In Eden, God walked with Adam and Eve; that
+                    fellowship was broken by sin. Throughout history, God's desire has been to dwell among His people
+                    (Leviticus 26:11-12, Ezekiel 37:27). Here in verse 3, we finally see the full realization of Emmanuel - "God
+                    with us" on a cosmic scale.
+                </p>
+                <p>
+                    Key phrases and their meaning:
+                </p>
+                <ul>
+                    <li>"The tabernacle of God is with men" - The word tabernacle means dwelling place or tent. In the Old
+                        Testament, the tabernacle was the portable sanctuary where God's presence stayed in the midst of
+                        Israel's camp (Exodus 25:8). It was a foreshadowing that God wanted to live among His people.
+                        Notice it does not say "the temple of God" here, but tabernacle. One commentator notes that in
+                        Revelation, the word for temple (naos, inner sanctuary) is used elsewhere, but here "tabernacle" is
+                        chosen deliberately <sup>27</sup>. The tabernacle harkens back to the earliest form of God's dwelling with
+                        man, suggesting intimacy and God's immediate presence in the community. Now, what is this
+                        tabernacle? The voice doesn't say "in" men, but "with men." Given verse 2, the city itself is the
+                        tabernacle i.e. God's dwelling is the New Jerusalem, in the midst of humanity <sup>28</sup> <sup>25</sup>. And as
+                        established, the city symbolizes the Church. So this beautifully implies: God dwells in and among
+                        His people forever. The Church collectively is called a "holy temple" or dwelling of God even now
+                        (Ephesians 2:21-22), but then it will be in the fullest, most literal way. All barriers (physical or
+                        spiritual) between God and His people will be gone.</li>
+                    <li>"With men... they shall be His people"
+                        Importantly, it says God's dwelling is with men (plural,
+                        humanity), and they (all of them) shall be His people. This indicates the scope of God's plan: not just
+                        one nation (like Israel of old) and not only the Church, but all redeemed people together are "His
+                        people" and He is "their God." In the eternal state, the distinctions between Jew and Gentile, or
+                        among different ages of redemption, fade in the presence of God's glory <sup>29</sup>. There is one huge
+                        family of the redeemed, and God lives in the midst of all ("men" in general). As Kelly observed, in
+                        eternity "there is no such thing then as kings and nations" in the old sense <sup>29</sup>. We are simply "His
+                        people." This fulfills the repeated covenant promise found throughout Scripture: "I will be their God,
+                        and they will be My people" (see Jeremiah 31:33, Ezekiel 37:27, 2 Corinthians 6:16). Never before has it
+                        been as perfectly true as it will be then. Personal Application: The heart of salvation is not just
+                        escaping hell or enjoying heaven's luxuries - it is being with God as His people. Here we see our
+                        highest joy: God giving Himself to us in relationship ("God Himself will be with them"). Even now,
+                        through Christ, we are brought into fellowship with God (1 Peter 3:18). But we still "see through a
+                        glass darkly" - then we will see Him face to face. Take comfort that God wants you in His presence. All
+                        of history is moving toward this loving fellowship. We should likewise desire to be "with God,"
+                        practicing His presence daily.</li>
+                    <li>Emphasis "God Himself": The verse emphasizes "God Himself shall be with them". It is God in His
+                        fullness, not through intermediaries or types. In the Old Testament, God's presence was in the
+                        tabernacle's Holy of Holies, and people could not draw too near; only the high priest could enter that
+                        inner sanctuary once a year. In the New Jerusalem, the entire city is like a Holy of Holies, and
+                        every person is welcomed in, because God's presence fills it (compare verse 16 where the city's
+                        shape is a perfect cube - just like the Holy of Holies was a cube). There is no temple building in this
+                        city (verse 22), meaning no separate chamber needed God Himself is the temple, and we dwell
+                        inside His immediate presence. F.B. Hole notes that in the eternal state, "His desire to dwell [with men]
+                        will be finally accomplished" - God's great plan from Eden onward reaches completion <sup>30</sup> <sup>31</sup>.</li>
+                </ul>
+                <p>
+                    In the last part of verse 3, the voice essentially restates the covenant formula: "He will dwell with them... God
+                    Himself shall be with them and be their God." This double emphasis shows how important this is to God. It's as
+                    if God says: "At last, I am with my children forever, and they are truly Mine." This is the ultimate blessing of
+                    heaven: God's presence. All the splendors described (golden streets, jewels, etc.) are secondary to this
+                    central truth. As Psalm 16:11 says, "In Your presence is fullness of joy; at Your right hand are pleasures
+                    forevermore." For personal devotion, we can reflect: Do I yearn for God's presence above all, as He desires
+                    mine? The loud announcement in verse 3 invites us to "Behold" this reality to gaze on it, believe it, and let
+                    it shape our lives. When we know that our destiny is to be God's people living with God forever, it puts our
+                    trials in perspective and gives us a powerful hope to purify ourselves (1 John 3:2-3).
+                </p>
+
+                <h2>Revelation 21:4 - "God shall wipe away all tears... no more death, sorrow, crying, or pain"</h2>
+                <p>
+                    <span class="verse-number">"And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor
+                    crying, neither shall there be any more pain: for the former things are passed away." (21:4)</span>
+                </p>
+                <p>
+                    This is one of the most cherished promises in Scripture. Here we see the tenderness of God toward His
+                    redeemed. The Almighty who sits on the throne (v.5) personally wipes away every tear from our eyes. It
+                    evokes the image of a loving parent comforting a child - but on an eternal, cosmic scale. Let's break down
+                    the beautiful guarantees in this verse:
+                </p>
+                <ul>
+                    <li>"God shall wipe away all tears from their eyes": This indicates that God personally removes
+                        every cause of grief. The phrasing suggests not merely that tears dry up, but that God actively
+                        comforts us, eliminating sorrow at its source. Isaiah prophesied similarly, "The Lord God will wipe
+                        away tears from off all faces" (Isaiah 25:8), and here it is fulfilled. Consider the intimacy: God doesn't
+                        delegate this; He Himself does it. Every hurt, disappointment, and sadness we've carried will be
+                        addressed by His own hand. Personal Application: We all carry sorrows and shed tears in this life.
+                        This promise assures us that none of those tears are ignored by God one day He will wipe them
+                        away forever. Knowing this, we can trust Him with our pain now, and let the hope of His comfort
+                        sustain us. As 2 Corinthians 4:17 says, "our light affliction, which is but for a moment, works for us a far
+                        more exceeding and eternal weight of glory." The eternal comfort will far outweigh the temporal pain.</li>
+                    <li>"No more death": Death is called "the last enemy" in 1 Corinthians 15:26, and here we see it
+                        abolished. In the new creation, no one will ever die again. All the resurrected saints have glorified,
+                        immortal bodies (1 Corinthians 15:53-55). "Former things have passed away" - and death was part of
+                        the former things under the curse (Genesis 2:17, 3:19). This fulfills what was promised: "Death is
+                        swallowed up in victory" (Isaiah 25:8, 1 Cor 15:54). Imagine a world with no funerals, no goodbyes, no
+                        aging into frailty - ever! It's hard to fathom, but this is the Christian's hope. "God shall wipe away all
+                        tears... there shall be no more death" <sup>32</sup> <sup>33</sup>.</li>
+                    <li>"Neither sorrow, nor crying... neither any more pain": All forms of suffering are included in this
+                        sweeping promise. Sorrow (grief, heartache), crying (the outward expression of distress one
+                        commentator notes this word implies the "outcry" or clamor of anguish in a fallen world <sup>32</sup>), and
+                        pain (whether physical pain or emotional anguish) will be no more. Think of every cause of tears or
+                        pain in life: illness, loneliness, betrayal, fears, injuries, disappointments God will ensure none of
+                        these ever afflict His children again. "Former things" like sickness and tragedy will be as though they
+                        never were. In our current world, "the whole creation groans" (Romans 8:22) and we ourselves groan
+                        inwardly. But in that world, only rejoicing. F.B. Hole beautifully comments: "The things that will never
+                        enter those blissful scenes are all painfully familiar to us at present. We know them only too well!" <sup>32</sup>.
+                        Indeed, all five sources of human sorrow mentioned (tears, death, mourning, crying, pain) are things
+                        every person experiences now - but God Himself will remove them.</li>
+                </ul>
+                <p>
+                    It's worth noting that during Christ's future Millennial reign, many of these sorrows will be dramatically
+                    reduced - life spans will increase, joy will abound, etc. But only in the eternal state are they completely
+                    eradicated <sup>33</sup>. For example, in the Millennium death will still occur for some (though rare), and there will
+                    be the need for Christ's rule to restrain sin. In Revelation 21:4's scene, even the possibility of sin or curse or
+                    death is gone ("no more... any pain"). The ultimate healing has taken place.
+                </p>
+                <ul>
+                    <li>"The former things have passed away." This is a summary explanation: the entire old order, with
+                        its curse and its grief, is finished. Earlier in Revelation, at the blowing of the seventh trumpet, loud
+                        voices said, "The kingdom of the world has become the kingdom of our Lord... and He shall reign forever...
+                        and He will destroy those who destroy the earth" (Rev 11:15,18). Now we witness that outcome: all
+                        destructive, hurtful things are gone. The phrasing here intentionally mirrors Isaiah 65:17 "the former
+                        shall not be remembered, nor come into mind." The memory of the painful past will be overshadowed
+                        by the glory of the new.</li>
+                </ul>
+                <p>
+                    Personal Application: This verse is one we can turn to in our hardest moments. It's God's promise that every
+                    wound will be healed. Knowing this, we do not grieve "as others who have no hope" (1 Thessalonians 4:13).
+                    Each tear we shed now is temporary and seen by God (Psalm 56:8 says He keeps our tears in His bottle). A
+                    day is appointed when He will tenderly wipe them all away. Let this hope spur us to endurance. And more
+                    let it spur us to gratitude and worship. We can start rejoicing now for what God will certainly do.
+                    Revelation 21:4 is truly a balm: reading it, we can almost feel God's hand brushing our cheeks, saying, "No
+                    more tears, my child."
+                </p>
+
+                <h2>Revelation 21:5 - "Behold, I make all things new."</h2>
+                <p>
+                    <span class="verse-number">"And He that sat upon the throne said, 'Behold, I make all things new.' And He said unto me, 'Write: for these
+                    words are true and faithful.'" (21:5)</span>
+                </p>
+                <p>
+                    Now God Himself speaks directly (the speaker is "He who sits on the throne," a title used of God in
+                    Revelation 4:2, or possibly Christ as God). His pronouncement sums up what John is witnessing: "Behold
+                    (look!), I am making everything new." God wants us to take notice ("Behold!") of this marvelous
+                    transformation. Every trace of the old creation cursed by sin is being replaced with a new creation
+                    unmarred by sin. This is the great renewal that the prophets and apostles foresaw. Jesus promised at the
+                    regeneration (palingenesia) of all things, His followers would reign with Him (Matthew 19:28). Here, that
+                    regeneration is stated plainly by God: all things new!
+                </p>
+                <p>
+                    Consider the scope: not just a new earth, but all things. A new universe, new realms of glory, and even we
+                    are made new (with glorified bodies and perfected spirits). The same Lord who once said, "Behold, I create
+                    new heavens and a new earth" now declares it done. This statement also reminds us of 2 Corinthians 5:17,
+                    "If anyone is in Christ, he is a new creation; old things have passed away; behold, all things have become new."
+                    That personal new birth we experience now is the firstfruits; here in Revelation is the final harvest of
+                    newness - new creation in totality.
+                </p>
+                <p>
+                    A Plymouth Brethren commentator notes that this renewing is the work of Christ: He created the first
+                    creation by His word in Genesis, and here "He speaks and it is done" for the new creation <sup>34</sup>. Indeed, the
+                    verse continues with God commanding John to "Write, for these words are true and faithful." God vouches for
+                    this promise - it is utterly trustworthy because God's own character stands behind it. "True and faithful"
+                    echo Revelation 19:11 where Christ is called Faithful and True. It underlines that what is being revealed is no
+                    fantasy; it is a guaranteed reality. John must write it down to assure all readers that God will do this.
+                </p>
+                <p>
+                    Also, telling John to "write" here (even though John has been writing all along) adds solemnity. It's as if God
+                    is saying: "Make sure not to miss this, record it plainly!" For us, it means we should record this on our hearts.
+                    When life's troubles make us doubt, we recall: God's words are faithful and true. He will make all things new.
+                    There is an almost gentle rebuke in this command - perhaps John was so awestruck he paused writing, so
+                    God reminded him. God wants the Church to have this hope in writing, to lean on it in every age.
+                </p>
+                <p>
+                    Personal Application: Embrace the newness that God promises. Already, if we belong to Christ, He is making
+                    us new from the inside out. One day, He will complete that work, and even give us a new environment
+                    suited to our new nature. Whenever you feel weary of the brokenness around or within you, hear God say,
+                    "I am making everything new." It is both a promise and a process
+                    ultimately finished in eternity, but
+                    applicable now as He renews our minds (Romans 12:2) and grows us in grace. We serve a God of
+                     resurrection and restoration; nothing is beyond His power to renew.
+                </p>
+
+                <h2>Revelation 21:6 - "It is done...I am Alpha and Omega... I will give of the fountain of the water of life freely."</h2>
+                <p>
+                    <span class="verse-number">"And He said unto me, It is done. I am Alpha and Omega, the beginning and the end. I will give unto him
+                    that is athirst of the fountain of the water of life freely." (21:6)</span>
+                </p>
+                <p>
+                    God's declaration continues in verse 6 with several profound statements:
+                </p>
+                <ul>
+                    <li>"It is done." This parallels Christ's words on the cross, "It is finished" (John 19:30), and also echoes a
+                        similar proclamation in Revelation 16:17 ("It is done!" at the final bowl judgment). Here the context is
+                        the completion of God's redemptive plan: the new creation and eternal order are established. In
+                        Greek, it's essentially "They have come to pass" - all these promises and prophecies are now reality.
+                        History has reached its appointed culmination. For the believer, these words are thrilling: our
+                        salvation and sanctification are brought to full completion by God's power, not our own. What God
+                        started in Genesis is now "done" in Revelation. There's a sense of finality and fulfillment. No more
+                        suspense about the future - God's plan is fully realized. This conveys God's sovereignty over time; He
+                        can speak of future things as accomplished facts.</li>
+                    <li>"I am Alpha and Omega, the beginning and the end." Alpha and Omega are the first and last
+                        letters of the Greek alphabet. God is saying, "I am the A to Z of everything." He is the Originator of
+                        creation and the Consummator of creation. This title was used of the Lord God in Revelation 1:8 and
+                        22:13, as well as of Christ (who shares God's titles). It emphasizes God's eternal nature and absolute
+                        authority over all things. All reality begins with Him and ends with Him. For a personal application:
+                        our lives find meaning when centered on the Alpha and Omega. If God is the beginning and end,
+                        then all purpose and truth start and finish with Him. It also comforts us that nothing in our life is
+                        outside His knowledge or control He's already at the "end" of our story as surely as at the
+                        beginning. We can trust Him from start to finish.</li>
+                    <li>"I will give to him who thirsts from the fountain of the water of life freely." Here God issues a
+                        gracious promise (almost an invitation, akin to Revelation 22:17). The water of life symbolizes eternal
+                        life and ultimate satisfaction in God. In the Middle East, fountains of living (fresh) water are a source
+                        of life. Spiritually, God is the source of life-giving water. Jesus told the Samaritan woman about
+                        "living water" that leads to eternal life (John 4:14) and later cried out, "If anyone thirsts, let him come to
+                        Me and drink" (John 7:37). The thirst spoken of is the yearning of the human soul for salvation, for
+                        God Himself. The beautiful thing here is God's assurance that He will freely give this water to all who
+                        desire it. "Freely" means as a gift, without cost. Salvation in Christ is without money and without
+                        price (Isaiah 55:1 "come, buy wine and milk without money"). In eternity, the fullness of this
+                        promise is experienced: all the redeemed have drunk from the spring of God's grace and are
+                        continuously refreshed by Him.</li>
+                </ul>
+                <p>
+                    This line may also serve as a final gospel call in the book: anyone who is spiritually thirsty is invited to come
+                    even now. God's heart is to give life, not withhold it. What an encouragement - our God is a generous God. In
+                    heaven, we will eternally drink of His goodness (Psalm 36:8-9 says God's people "drink from the river of Your
+                    pleasures; for with You is the fountain of life").
+                </p>
+                <p>
+                    Personal Application: Are you spiritually thirsty? Jesus promised, "Blessed are those who hunger and thirst
+                    for righteousness, for they shall be filled" (Matthew 5:6). God delights to satisfy our deepest needs. Even
+                    today, we drink of the water of life by coming to Christ in faith and receiving the Holy Spirit (see John
+                    7:38-39). And in eternity, that satisfaction will be complete. This also challenges us: the offer is free, but one
+                    must recognize their thirst and come. Pride or love of sin can keep someone from admitting their need. But
+                    God assures that anyone who comes will receive life abundantly. Revelation 21:6, therefore, brims with the
+                    grace of God. Salvation is accomplished ("It is done"), provided by the Eternal One, and offered freely to all
+                    who will take it.
+                </p>
+
+                <h2>Revelation 21:7 - "He who overcomes shall inherit all things, and I will be his God and he shall be My son."</h2>
+                <p>
+                    <span class="verse-number">"He that overcometh shall inherit all things; and I will be his God, and he shall be My son." (21:7)</span>
+                </p>
+                <p>
+                    This verse describes the portion of the redeemed in terms of inheritance and relationship. It echoes
+                    promises Christ made earlier in Revelation and in the epistles:
+                </p>
+                <ul>
+                    <li>"He that overcomes" - In Revelation chapters 2-3, each letter to the seven churches ended with a
+                        promise "to him who overcomes" (or conquers). To overcome, in John's writings, essentially means to
+                        remain faithful to Christ by faith, overcoming sin, the world, and falsehood (1 John 5:4-5 says, "Who is
+                        he that overcomes the world, but he that believes that Jesus is the Son of God?"). In other words,
+                        "overcomer" = true believer who endures to the end by the power of Christ. It does not imply a
+                        special elite class of Christian; rather, every true Christian is an overcomer (through Christ's
+                        victory). Here, at the end of the story, we see what the overcomer receives.</li>
+                    <li>"shall inherit all things" - Some manuscripts read "inherit these things" (meaning the blessings
+                        just described). In any case, the promise is that the victor will receive the full inheritance God has
+                        prepared. And what is "all things"? It doesn't mean we become little gods, but it does mean every
+                        blessing of God's kingdom becomes ours to enjoy. We will inherit the new heavens and new earth
+                        (just as the meek inherit the earth). Romans 8:17 calls us "heirs of God and joint-heirs with Christ."
+                        Imagine: everything Christ receives by divine right, He shares with us by grace! The overcomer
+                        inherits the very presence of God, eternal life, glory, the kingdom, and all its riches. This fulfills
+                        scriptures like Psalm 37: "The righteous shall inherit the land and dwell in it forever" (Ps 37:29). It's the
+                        ultimate reversal of the curse - whereas man once lost his inheritance through sin, now in Christ we
+                        regain not just Eden, but far more. Ephesians 1:18 prays we grasp "the riches of the glory of His
+                        inheritance in the saints." Here it's plainly stated: God's children get it all not one good thing
+                        withheld.</li>
+                    <li>"I will be his God and he shall be My son." - Here God promises relationship using intimate terms.
+                        It's the language of adoption and family. In the Old Testament, God spoke of Israel collectively as
+                        His son (e.g. Hosea 11:1, "Out of Egypt I called My son"). But now this promise is personal: "he"
+                        (individual) shall be My son. Through Christ, we are adopted as sons and daughters of God
+                        (Galatians 4:5-7, Ephesians 1:5). That status is realized fully in eternity: God openly claims us as His
+                        children, and we enjoy all the love and privilege of being in His family. 1 John 3:1 says, "Behold what
+                        manner of love the Father has bestowed on us, that we should be called children of God!" This was always
+                        God's desire - to raise up human sons and daughters in His image. Now it's come true forever. And "I
+                        will be his God" repeats the covenant refrain, but adding "son" intensifies the closeness. We are not
+                        just "people" under God's rule; we are children in the Father's house. In fact, Romans 8:19 speaks
+                        of the coming glory as "the revealing of the sons of God." Here it is revealed.</li>
+                </ul>
+                <p>
+                    The combination of inheritance and sonship is significant. In human terms, it is sons (or children) who
+                    inherit the estate of the father. So God is saying: because you are My son, you will inherit My estate - which is
+                    essentially "all things." What a staggering inheritance! No wonder Paul wrote, "All things are yours... and you
+                    are Christ's, and Christ is God's" (1 Corinthians 3:21-23).
+                </p>
+                <p>
+                    Personal Application: This promise motivates us to persevere. The overcomer is the one who doesn't
+                    abandon faith when tested. Knowing what's at stake everything! we can endure hardship. As Jesus
+                    encouraged, "To him who overcomes I will grant to sit with Me on My throne" (Rev 3:21). No trial or sacrifice in
+                    this life compares to the reward to come. Also, this assures us of God's love: He wants us as sons and
+                    daughters. Even now, "the Spirit bears witness... that we are children of God" (Rom 8:16). We should walk in
+                    dignity and obedience, reflecting our Father's character. And when we stumble, remember that a loving
+                    Father disciplines and restores us - He won't disown those truly in Christ. If we belong to Jesus, our future is
+                    secure: God has spoken, "You are Mine; you will inherit it all."
+                </p>
+
+                <h2>Revelation 21:8 - The fate of the wicked: "their part in the lake of fire."</h2>
+                <p>
+                    <span class="verse-number">"But the fearful, and unbelieving, and the abominable, and murderers, and whoremongers (sexually
+                    immoral), and sorcerers, and idolaters, and all liars, shall have their part in the lake which burns with fire and
+                    brimstone: which is the second death." (21:8)</span>
+                </p>
+                <p>
+                    After the soaring promises to the overcomers, verse 8 gives a sober contrast. Not everyone will be in this
+                    glorious new creation. This verse serves as a warning: those who remain in sin and unbelief - who do not
+                    overcome face a tragic destiny, namely the "second death" in the lake of fire. This was mentioned in
+                    Revelation 20:14-15 (the lake of fire is where Death, Hades, the devil, and all whose names were not in the
+                    Book of Life were thrown, "the second death"). Now it specifically lists categories of those excluded from the
+                    Holy City and instead cast into eternal judgment.
+                </p>
+                <p>
+                    The list includes:
+                </p>
+                <ul>
+                    <li>The cowardly (fearful) - meaning those who shrink back from confessing Christ or living by faith due to
+                        fear. In context, possibly those who caved in to pressures under persecution or took the mark of the beast
+                        out of fear. It's a sobering inclusion: moral cowardice (when it reflects a lack of genuine trust in God) can be
+                        soul-destroying. Compare Jesus' words: "Whoever is ashamed of Me... the Son of Man will be ashamed of
+                        him" (Mark 8:38).</li>
+                    <li>The unbelieving - those who refuse to trust in God or His gospel. Unbelief is a root sin; it cuts one off
+                        from salvation (John 3:18, "he who does not believe is condemned already").</li>
+                    <li>The abominable people polluted by abominations, i.e. gross evil, perhaps including things like occult
+                        practices or extreme moral filth.</li>
+                    <li>Murderers - those who unjustly take life (and by Jesus' standard, even harboring hateful anger is murder
+                        in seed form).</li>
+                    <li>Sexually immoral (fornicators) - those indulging in sexual sin (porneia in Greek covers all sexual activity
+                        outside God's design of marriage). In our age, sexual immorality is rampant and even celebrated, but God's
+                        word consistently warns it leads to exclusion from His kingdom (Ephesians 5:5).</li>
+                    <li>Sorcerers those practicing witchcraft, magic arts, or drug-induced occult experiences (the Greek
+                        pharmakoi implies use of potions/drugs in magical practices).</li>
+                    <li>Idolaters - worshipers of anything other than the true God. This can be overt (pagan religion) or covert
+                        (greed is called idolatry in Colossians 3:5).</li>
+                    <li>All liars - those who live in falsehood and deceit. The inclusion of "all liars" reminds us that even sins we
+                        consider "small" (like lying) have no place in God's perfect kingdom. Satan is the father of lies; God's city is
+                        the home of truth, so none who love lies will enter.</li>
+                </ul>
+                <p>
+                    This catalog is similar to other New Testament lists (see 1 Corinthians 6:9-10, Galatians 5:19-21) which warn
+                    that "those who do such things will not inherit the kingdom of God." It doesn't mean a true Christian who once
+                    fell into a lie or act of immorality is automatically lost; rather, it describes those who persist in these sins and
+                    never turn in repentance to Christ. Their lives are characterized by these things rather than by faith and
+                    overcoming.
+                </p>
+                <p>
+                    For such, their "part" (portion) is not in the New Jerusalem but in the lake of fire and brimstone. This is the
+                    final hell, a place of eternal separation from God's goodness, described as burning fire (and brimstone, i.e.
+                    sulfur) - imagery of terrible, unending judgment (see Mark 9:48, "their worm does not die and the fire is not
+                    quenched"). It is called the second death because it is the eternal death that follows physical death for
+                    those not redeemed. Physical death separates soul from body; the second death is the final separation of
+                    the person from God's life. It's eternal dying without ever ceasing to exist or finding relief.
+                </p>
+                <p>
+                    This verse is a solemn reminder: Heaven is real, but so is hell. In the midst of comforting promises, God
+                    makes sure we understand that the New Earth is a holy realm nothing unclean enters (as verse 27 will
+                    reiterate). Those who choose sin over the Savior will tragically get what they chose a destiny apart from
+                    God, which is only darkness and anguish.
+                </p>
+                <p>
+                    Personal Reflection: This should stir us to holy fear and evangelism. First, it challenges us to examine
+                    ourselves: Am I among "the unbelieving" or "the cowardly"? Have I truly put my faith in Christ and repented
+                    of these sins? True believers can still stumble, but they will ultimately overcome and not be defined by
+                    these sins (1 Cor 6:11, "such were some of you, but you were washed..."). If you see these patterns ruling
+                    your life, flee to Jesus now for forgiveness and transformation! Second, it should give us compassion and
+                    urgency for others. People around us who don't know Christ are described by some term in that list. We
+                    have the message that can save them from the second death. God "is not willing that any should perish" <sup>2</sup>
+                    Peter 3:9), which is why He sent Jesus. Let's be faithful to warn and woo people with the gospel. Verse 8,
+                    though heavy, is actually an expression of God's justice and truth - the very things that make the New World
+                    so good are the things that judge unrepentant evil.
+                </p>
+                <p>
+                    Finally, the placement of this warning right after the magnificent promises reminds us: every human
+                    being has two possible destinies. There is no middle ground. Either one becomes an overcomer by faith
+                    and inherits all things as God's child, or one clings to sin and unbelief and receives a share in the lake of fire.
+                    "Choose this day whom you will serve" (Josh 24:15) has eternal significance. But thanks be to God, today is the
+                    day of salvation and the invitation to drink freely of the water of life (v.6) is still open as long as it's called
+                    "today."
+                </p>
+
+                <h2>Revelation 21:9-10 - Vision of the Bride, the Lamb's Wife (the Holy City descends)</h2>
+                <p>
+                    <span class="verse-number">"And there came unto me one of the seven angels which had the seven vials full of the seven last plagues,
+                    and talked with me, saying, 'Come hither, I will show thee the bride, the Lamb's wife.' And he carried me away in
+                    the spirit to a great and high mountain, and showed me that great city, the holy Jerusalem, descending out of
+                    heaven from God." (21:9-10)</span>
+                </p>
+                <p>
+                    At verse 9, we essentially begin a new section of the vision (as noted in the introduction). One of the bowl-
+                    judgment angels approaches John to reveal more about the bride of the Lamb. This scene deliberately
+                    parallels Revelation 17:1, where a bowl-angel said, "Come, I will show you...the judgment of the great harlot
+                    (Babylon)." Here the angel says, "Come, I will show you the bride, the Lamb's wife." The contrast is striking and
+                    intentional <sup>35</sup> <sup>36</sup>. Previously, John saw the prostitute Babylon (symbol of godless worldly culture) and her
+                    destruction. Now he is shown the pure bride (the community of God's people) and her eternal glory.
+                </p>
+                <p>
+                    The angel takes John "in the Spirit" to a vantage point: a high mountain, from which he can see the Holy City
+                    descending out of heaven from God (just as John had seen in verse 2). This likely is the same descent as in
+                    verse 2, but now we zoom in to explore the city in detail. However, recall that from the Brethren/
+                    dispensational perspective, verses 9 and following describe the city particularly in relation to the
+                    millennial earth (the 1000-year reign). William Kelly notes that the angel is showing John the bride in her
+                    millennial display "the Holy Ghost goes back to describe the same New Jerusalem, with reference to the
+                    millennial reign, and the kings and nations then on earth." <sup>9</sup> <sup>37</sup>. Edward Dennett also explains that verse
+                    10's scene is "prior by a thousand years" to the scene of verse 2 - meaning John is now seeing the city during
+                    the Millennium, reigning from heaven over the earth <sup>38</sup>. This is supported by details in verses 24-26
+                    (nations, kings, etc.). So what John sees from the mountain is the New Jerusalem in its role as the
+                    metropolis of Christ's Kingdom, hovering in the sky ("descending from heaven") radiating glory to the
+                    earth. (One might think of it as a satellite city or the "capital" of the renewed world under Christ's reign,
+                    accessible perhaps to earth's inhabitants in some way.)
+                </p>
+                <p>
+                    Let's highlight some points:
+                </p>
+                <ul>
+                    <li>"The bride, the Lamb's wife" = "that great city, the holy Jerusalem." The angel says he will show
+                        the bride (Christ's wife), and John looks and sees a city. This directly identifies the two: the city is the
+                        bride in symbolic terms <sup>39</sup>. It's a reminder that in prophecy, a "city" often symbolizes its people.
+                        Here, the brilliance and structure of New Jerusalem represents the redeemed community in glory.
+                        Just as Babylon was both a city and a representation of a wicked society, so New Jerusalem is both a
+                        literal place and representation of God's holy people. John is effectively seeing the Church (and
+                        redeemed) glorified. Earlier, in Revelation 19:7-8, the bride made herself ready and was arrayed in
+                        fine linen (righteous deeds). Now we see the corporate bride as a beautiful city prepared by God.</li>
+                    <li>"Carried me... to a great and high mountain." In Scripture, significant visions of future Jerusalem
+                        often involve being on a high mountain (Ezekiel 40:2, where a man shows Ezekiel the future temple
+                        from a high mountain; also perhaps reminiscent of Moses viewing Canaan from Mount Nebo). A
+                        high vantage indicates importance and allows John (and us) to take in the vastness of the city.</li>
+                    <li>"Descending out of heaven from God." This repeats verse 2; it signifies that the city's origin and
+                        character are heavenly and divine. During the Millennium, the thought is that this city is hovering
+                        above the earthly Jerusalem (some believe New Jerusalem might remain in the air, a celestial city
+                        lighting the earth). Scripture hints the Church's dwelling is "heavenly places" even in the kingdom
+                        age. For example, Ephesians 2:6 says we are seated in heavenly places in Christ. Some
+                        dispensational teachers (like J.N. Darby) have described New Jerusalem as the "heavenly metropolis"
+                        of the millennial kingdom <sup>40</sup>. Darby wrote that in this vision "It is the assembly [Church] as founded on
+                        the twelve [apostles] - the organized seat of heavenly power, the new and now heavenly capital of God's
+                        government" <sup>40</sup>. So, during Christ's reign, the New Jerusalem is the capital city of the universe,
+                        connecting heaven and earth. The nations on earth walk in its light (v.24).</li>
+                </ul>
+                <p>
+                    Personal Application: Seeing the Church pictured as a glorious city should fill us with awe and a sense of
+                    purpose. God is constructing His people into something of unspeakable beauty and order (Ephesians
+                    2:19-22 compares the Church to a building, a temple for God). Today, we may see the Church in her
+                    weakness and blemishes, but God sees the finished product: radiant and solid as a jewel-city. It reminds us
+                    that our faith isn't individualistic only - we are being built together with all the saints. One day we'll be part
+                    of this perfected community shining for Christ. That encourages us to love the Church now, serve in it, and
+                    strive for purity as part of the bride. Also, the title "the Lamb's wife" reminds us of the price of our
+                    redemption - we belong to the Lamb who was slain for us. We are His beloved. The splendor of the city is all
+                    due to the Lamb's work. Thus all our glory will be to His glory.
+                </p>
+                <p>
+                    In verses 9-10, we've set the stage: John is about to describe the city/bride in detail. It is enormous, dazzling,
+                    and full of symbolism. Every feature speaks of God's glory and His redeemed people's perfection. As we
+                    proceed, keep in mind both the literal grandeur and the spiritual meanings these details convey about our
+                    future with God.
+                </p>
+
+                <h2>Revelation 21:11 - "Having the glory of God, her light like a jasper stone, clear as crystal."</h2>
+                <p>
+                    <span class="verse-number">"Having the glory of God: and her light was like unto a stone most precious, even like a jasper stone, clear as
+                    crystal." (21:11)</span>
+                </p>
+                <p>
+                    The first thing John notices about New Jerusalem is the radiant glory shining from it. The city has the glory
+                    of God meaning the very presence and brilliance of God's own glory fills and emanates from her. In
+                    Scripture, God's glory is often manifested as overwhelming light (e.g. the Shekinah glory cloud in Solomon's
+                    temple, 1 Kings 8:11). Here, the entire city is suffused with that divine light. It is as if God's character and
+                    splendor have permeated His people completely, fulfilling Jesus' word that the righteous will shine like the
+                    sun in the kingdom of their Father (Matthew 13:43).
+                </p>
+                <p>
+                    John tries to describe the appearance: "her light was like a most precious stone, like jasper, clear as crystal."
+                    Earlier in Revelation 4:3, God on the throne was described as looking like jasper and sardius stone. Jasper
+                    in ancient terms is likely not the opaque jasper we know today, but rather a translucent gem possibly
+                    similar to diamond or a brilliantly shining jewel. John calls it "most precious" and "clear as crystal." This
+                    suggests the city gleams like a giant sparkling diamond, flashing the colors of God's glory. Imagine pure
+                    light refracting through a flawless gemstone the city's light is like that. And note: it's not reflecting an
+                    external light; the glory of God within her is the light (verse 23 will say the Lamb is its lamp). So this is
+                    inherent glory from God's presence.
+                </p>
+                <p>
+                    In practical terms, this means the Church (the bride-city) fully reflects God's character (holiness, beauty) and
+                    is filled with His presence. When Moses spent time with God, his face shone (Exodus 34:29); how much more
+                    will the entire community of the redeemed shine after being in God's immediate presence! Jesus prayed in
+                    John 17:22, "The glory which You gave Me I have given them, that they may be one just as We are one." That
+                    prayer finds ultimate fulfillment here: we share in Christ's glory (not His deity, of course, but His moral and
+                    resurrected glory).
+                </p>
+                <p>
+                    Jasper, clear as crystal: Jasper could indicate a crystal-green shining (some say ancient jasper was
+                    greenish). Whether it's green or diamond-like, later in verse 18 jasper is also said to be the material of the
+                    city's wall, explicitly called "pure... like clear glass." So likely a transparent crystalline substance. In any case,
+                    John's impression is of brilliant clarity, purity, and priceless beauty. Nothing is murky or dim. The city is
+                    full of light with no impurity to obscure it. "Clear as crystal" speaks of absolute purity.
+                </p>
+                <p>
+                    Personal Application: Jesus said "You are the light of the world. A city set on a hill cannot be hidden" (Matt 5:14).
+                    The New Jerusalem is literally a city of light on the highest hill (mountain). Our destiny is to shine with
+                    God's glory. Even now, we should reflect His light in a dark world, though imperfectly. Philippians 2:15
+                    encourages us to be "blameless... shining as lights in the world." One day, all imperfections will be gone and
+                    we'll shine crystal-clear. What an incentive to pursue purity now! Also, consider that all this light isn't
+                    originating from us - it is God's glory in us. So all credit goes to Him. Believers won't be boasting of their
+                    own righteousness in heaven; we'll be radiating the righteousness and beauty that He gave us. It's a gift of
+                    grace that we share in His glory. That should humble us and fill us with gratitude.
+                </p>
+                <p>
+                    Finally, think of the contrast: the harlot Babylon in Rev 17 was decked in gold and jewels too, but it was a
+                    gaudy, impure glitter - and she was full of abominations (Rev 17:4). New Jerusalem has true jewels (as we'll
+                    see) but more importantly has God's glory, pure and clear. It's the difference between worldly glamour
+                    (external, corrupt) and godly glory (internal, holy). We as the Church are called even now to renounce
+                    Babylon's false glitter and embrace the true light of holiness. For "if we walk in the light as He is in the light, we
+                    have fellowship with one another" (1 John 1:7). In eternity, that fellowship in light is complete and unbroken.
+                </p>
+
+                <h2>Revelation 21:12-14 - The Great Wall, Twelve Gates, and Twelve Foundations</h2>
+                <p>
+                    <span class="verse-number">"And [the city] had a wall great and high, and had twelve gates, and at the gates twelve angels, and names
+                    written thereon, which are the names of the twelve tribes of the children of Israel: on the east three gates; on the
+                    north three gates; on the south three gates; and on the west three gates. And the wall of the city had twelve
+                    foundations, and in them the names of the twelve apostles of the Lamb.**" (21:12-14)</span>
+                </p>
+                <p>
+                    John now describes the structure of the New Jerusalem. It has a massive wall with gates, and foundations
+                    undergirding the wall. The number twelve dominates the description symbolizing completeness,
+                    especially the people of God. Twelve was the number of Israel's tribes and also Christ's apostles. Here we
+                    have both, indicating the unity and continuity of God's people across covenants.
+                </p>
+                <ul>
+                    <li>"a wall great and high" In the ancient world, city walls provided security and defined the city's
+                        extent. This wall being "great and high" shows the city is perfectly secure (no threat can breach it)
+                        and clearly delineated as a special, holy place. Spiritually, it signifies eternal security and separation
+                        from all evil (verse 27 will say nothing defiling enters). One commentator says the symbolic meaning
+                        of the wall is security, guaranteed by God's own glory as the wall's material <sup>41</sup>. Indeed, since the
+                        wall is made of jasper (v.18), essentially the wall is the shining glory of God - what better protection!
+                        We can think of Isaiah 26:1, "We have a strong city; God makes salvation its walls and bulwarks." The
+                        saved are "walled in" by God's salvation itself.</li>
+                    <li>"twelve gates... and at the gates twelve angels" - The city has 12 entry points (gates), three on
+                        each side (East, North, South, West - reminiscent of how Israel's camp in the wilderness had three
+                        tribes camped on each side of the tabernacle, Numbers 2). The equal distribution shows the city is
+                        oriented in all directions - open to people from every direction of the earth (north, south, east, west
+                        an echo of how the redeemed come from all directions, Luke 13:29). Each gate has an angel
+                        stationed, perhaps as an honor guard or gatekeeper (angels often guard holy places - e.g. cherubim
+                        at Eden's gate in Gen 3:24). But unlike Eden, these gates are not to keep redeemed people out (they
+                        are actually open perpetually, v.25); rather the angels at the gates could be a ceremonial
+                        acknowledgment of God's authority and welcome to the righteous <sup>42</sup>.</li>
+                    <li>"names... of the twelve tribes of the children of Israel" - Each gate is inscribed with the name of
+                        one of Israel's tribes (probably one name per gate). This powerfully signifies that the heritage of
+                        Israel is integral to the city. Jesus said in John 4:22, "salvation is of the Jews." God began His
+                        redemptive community with the 12 tribes, and through Israel came the Messiah. These names on
+                        gates show that no one enters the city apart from the groundwork laid through Israel's covenant
+                        and promises. In fact, in the Millennium, Israel will be the lead nation on earth, and here, even in the
+                        eternal/glorified sense, Israel's honor is memorialized. One might recall that in Ezekiel's vision of the
+                        future earthly Jerusalem (Ezekiel 48:30-35), the city gates were likewise named after the 12 tribes of
+                        Israel. So God keeps Israel's identity in an everlasting way. Brethren expositors also see a millennial
+                        meaning: that the government of the kingdom is administered in connection to Israel. Dennett
+                        notes that having 12 gates (and 12 angels) implies perfect administration of justice and
+                        government, with the names of Israel's tribes denoting the kingdom's administration "through Israel
+                        as a center" during the Millennium <sup>43</sup> <sup>44</sup>. In other words, in Christ's kingdom, Israel is the head of
+                        the nations; the Church (in the heavenly city) is reigning with Christ; and righteous angels serve - all
+                        cooperating in God's government. The picture is one of divine order and inclusion of all God's people.</li>
+                    <li>"twelve foundations, and in them the names of the twelve apostles of the Lamb." - The wall
+                        isn't just one layer; it has 12 foundational layers, each inscribed with the name of one of Christ's
+                        apostles. This is a vivid symbol that the Church (built on the apostolic gospel) is foundational in
+                        God's city. It fulfills Ephesians 2:20, which says believers "are built on the foundation of the apostles and
+                        prophets, Jesus Christ Himself being the chief cornerstone." Here Jesus as cornerstone isn't mentioned
+                        (He's the Lamb, the light, etc., in the city), but the apostles' names on foundations tell us that their
+                        testimony of Christ - the gospel - is what this entire community is built upon. The fact there are 12
+                        apostles named likely presumes Matthias (who replaced Judas) or Paul included; the exact identities
+                        aside, it's the concept of the apostolic foundation of the Church. The word "apostles of the Lamb"
+                        emphasizes these were Christ's direct messengers, the ones who brought the Lamb's salvation
+                        message.</li>
+                </ul>
+                <p>
+                    Having both tribes of Israel and apostles of the Church inscribed in the city's architecture shows the unity
+                    of all God's people. It's like Revelation is saying: This city is the home of the Old Testament saints (represented by
+                    tribes) and New Testament saints (represented by apostles). Hebrews 11:10,16 said the faithful saints awaited a
+                    "city prepared by God" - here it is, for all the faithful. It also beautifully demonstrates that God has been
+                    building this "city/people" through both covenants of history. Hebrews 12:22-23 says "you have come to
+                    Mount Zion, to the city of the living God, the heavenly Jerusalem, to an innumerable company of angels, to the
+                    general assembly and church of the firstborn..." - it's a gathering of all redeemed.
+                </p>
+                <p>
+                    From a dispensational Brethren perspective, they would add that in the Millennial phase, the mention of
+                    tribes and apostles underscores the administrative roles: Israel (tribes) as the channel of earthly rule (the
+                    gates of the city connecting to earth's governance) and the Church (apostles) as the administrative
+                    foundation of the heavenly rule <sup>45</sup> <sup>40</sup>. As Dennett says, "the church, the Lamb's wife, is displayed... in
+                    connection with the government of the earth in the hands of Christ during the thousand years" <sup>45</sup>. In that
+                    display, the number 12 (tribes/apostles) shows the perfection of government in and through God's people
+                    <sup>46</sup>. The apostles judging the 12 tribes (as Jesus promised in Matt 19:28) might be implied.
+                </p>
+                <ul>
+                    <li>Angels and subordination: Dennett interestingly remarks that the angels at the gates, who used to
+                        be God's primary agents in running the world, are now gladly subordinate to the glorified saints in
+                        the city <sup>47</sup>. They serve as "doorkeepers" of the great city, while the saints reign. This aligns with 1
+                        Corinthians 6:3, "Do you not know that we shall judge angels?" - not in punishing sense, but ruling
+                        above them in hierarchy. Yet all in harmony under Christ.</li>
+                </ul>
+                <p>
+                    Personal Application: The inclusion of both Israel and the Church in the city's design encourages humility
+                    and harmony among God's people. There is no "Old vs New" or "Jew vs Gentile" division in the end - all are
+                    part of God's one glorious people, differentiated yet unified. God's promises to Israel were not forgotten;
+                    and the labor of the apostles was not in vain - both are memorialized forever. For us, this means we ought
+                    to appreciate the whole counsel of God Old and New Testaments and the heritage of faith that came
+                    before us. We are part of a big family. Also, the foundations being the apostles hints that what we have
+                    now in Scripture (the apostolic teaching) is foundational. If we want to live as citizens of that city, we must
+                    stay true to the apostolic gospel (Galatians 1:8-9). The Church today is "the pillar and ground of the truth" (1
+                    Tim 3:15) only so far as it stands on the foundation already laid by Christ and His apostles. Finally, consider
+                    the names on gates and foundations. God knows His own by name. He has named sections of His city after
+                    His people what an honor! This reflects His personal love and the fact that our identities and stories are
+                    precious to Him. Your name may not be on a foundation stone, but Jesus did promise to write the
+                    overcomer's name on God's city (Rev 3:12). He includes us in His eternal story. That should inspire us to
+                    honor His name here on earth.
+                </p>
+
+                <h2>Revelation 21:15-17 - The City's Measurements (Perfect Symmetry)</h2>
+                <p>
+                    <span class="verse-number">"And he that talked with me had a golden reed to measure the city, and the gates thereof, and the wall
+                    thereof. And the city lies foursquare, and its length is as large as the breadth. And he measured the city with the
+                    reed: twelve thousand furlongs. The length and the breadth and the height of it are equal. And he measured the
+                    wall thereof, an hundred and forty and four cubits, according to the measure of a man, that is, of the angel."
+                    (21:15-17)</span>
+                </p>
+                <p>
+                    The angel now measures the city, much as Ezekiel saw an angel measure the new temple (Ezek 40-42) and
+                    as John himself once measured the tribulation temple (Rev 11:1). Measuring in prophetic visions often
+                    symbolizes that God is claiming ownership of something and showing its perfection and security <sup>48</sup>.
+                    Here, the measuring serves to convey the city's immense size and perfect proportions:
+                </p>
+                <ul>
+                    <li>The angel uses a golden reed (a measuring rod). Gold indicates the dignity and perhaps divine
+                        standard of this measurement it's an official, righteous measurement (not arbitrary) <sup>48</sup>. The
+                        phrase "according to the measure of a man, that is, of the angel" suggests that the measurements
+                        given, though made by an angel, are in human terms we can understand (the angel didn't use some
+                        otherworldly scale; it's translatable to our measurements).</li>
+                    <li>Shape of the city: "The city lies foursquare, its length as large as the breadth... the length and
+                        breadth and height are equal." This describes a cube or possibly a pyramid (some suggest maybe a
+                        pyramid could fit, but "length = breadth = height" most naturally implies a cube). A cube is a shape of
+                        perfection and stability. Importantly, the Holy of Holies in the temple was a cube (1 Kings 6:20 - 20
+                        cubits each dimension). So the entire city is like one gigantic Holy of Holies the place of God's
+                        presence. This reinforces that God's presence fills the city and every part of it is most holy.</li>
+                    <li>Dimensions: "Twelve thousand furlongs" A furlong (stadion in Greek) is about 600 feet (185
+                        meters). 12,000 stadia would be roughly 1,380 miles (2,220 km). In other words, ~1,400 miles in
+                        length, width, and height! To put in perspective: that's about the distance from New York City to
+                        Houston, or from London to Athens. A square of that size would cover nearly half of the continental
+                        United States, or most of Europe. And then it extends upward 1,400 miles high - far beyond Earth's
+                        atmosphere. Clearly this is vast. These numbers might be symbolic (12,000 has 12 and 1000,
+                        numbers of completeness and magnitude), but even if so, it indicates the city can easily
+                        accommodate all God's people and more. There's no lack of space or resources in God's eternal
+                        home. Jesus said "In My Father's house are many mansions" (John 14:2) - indeed, an immense plenty!</li>
+                </ul>
+                <p>
+                    Whether literal or symbolic, the enormity tells us of the majesty. And if literal, God could create a new earth
+                    and new physics to support such a structure. Nothing is impossible in the new creation. Some interpret that
+                    perhaps the city could be more of a mountain shape (pyramidal), but text says equal in all dimensions,
+                    favoring a cube.
+                </p>
+                <ul>
+                    <li>Wall thickness/height: John says the wall was 144 cubits by the angel's measure. 144 cubits is about
+                        216 feet (around 66 meters). It's a bit unclear: is that the wall's thickness or height? Some think
+                        height, but 216 feet seems short compared to a 1,400-mile high city! More likely it's the thickness (or
+                        the height of the wall proper if the city rises like a cube above it). In any case, "144" is 12 x 12 - again
+                        the number of fullness (probably indicating the wall is perfectly sufficient). If it's thickness, a 216-foot
+                        thick wall is extremely secure. If height, it shows the wall is dwarfed by the city's own height,
+                        implying the wall primarily serves symbolic purpose (since no enemy is around to climb anyway in
+                        eternity).</li>
+                </ul>
+                <p>
+                    One commentary suggests the measurement affirms God's approval: the golden reed measuring the city is
+                    like God declaring "this is exactly right" <sup>48</sup>. Indeed, it says the measured result was a perfect cube. This
+                    perfection is not accidental; it reflects God's design. The symmetry (length = breadth = height) suggests
+                    perfection, completeness, harmony. Everything about salvation will be perfectly balanced and
+                    proportionate. The city is the ultimate "holy of holies" where we all dwell.
+                </p>
+                <p>
+                    Personal Application: These measurements can blow our mind, but spiritually we can draw a couple lessons.
+                    One, God's kingdom is spacious - there is room for all who will come. We don't have to fear that heaven
+                    will run out of space or blessings. It's an infinite, abundant inheritance (Heb 11:16, God prepared a city for
+                    them not just a cottage). Two, precision and order characterize God's work. Our future is not a nebulous
+                    cloud of existence, but something tangible and beautifully ordered. This speaks to God's nature - He brings
+                    order, design, and clarity. Believers can trust that even now God is measuring and fitting us into His spiritual
+                    house (Eph 2:21). We are living stones being shaped for our place. Sometimes His chisel hurts, but He has a
+                    precise purpose, to fit us into the structure. Finally, note that the measurement was "according to man's
+                    measure." The idea is that God wants us to comprehend (as much as possible) the greatness of this city.
+                    He communicates in terms we can grasp (even if only in awe). This tells me that God wants us to anticipate
+                    and long for this reality. Reading these specifics should make heaven feel more concrete, not just a vague
+                    hope. It's real, measured, built by God. Thus our hope is anchored in something solid and not fanciful.
+                </p>
+
+                <h2>Revelation 21:18-21 - Materials of Construction: Gold and Precious Stones</h2>
+                <p>
+                    <span class="verse-number">"And the building of the wall of it was of jasper: and the city was pure gold, like unto clear glass. And the
+                    foundations of the wall of the city were garnished with all manner of precious stones. The first foundation was
+                    jasper; the second, sapphire; the third, chalcedony; the fourth, emerald; the fifth, sardonyx; the sixth, sardius; the
+                    seventh, chrysolite; the eighth, beryl; the ninth, topaz; the tenth, chrysoprasus; the eleventh, jacinth; the twelfth,
+                    amethyst. And the twelve gates were twelve pearls; every several gate was of one pearl: and the street of the city
+                    was pure gold, as it were transparent glass." (21:18-21)</span>
+                </p>
+                <p>
+                    Now the materials of the city are described, and they are astonishingly rich and symbolic. Essentially, the
+                    city is composed of pure gold and precious gems. This shows the extreme value and beauty God has
+                    invested in His people. It also fulfills Old Testament imagery: for example, Isaiah 54:11-12 (addressing
+                    restored Jerusalem) says, "I will lay your stones with colorful gems, and lay your foundations with sapphires. I
+                    will make your pinnacles of rubies, your gates of crystal, and all your walls of precious stones." That poetic
+                    promise is literally realized in New Jerusalem.
+                </p>
+                <p>
+                    Key details:
+                </p>
+                <ul>
+                    <li>Wall of Jasper: As earlier noted, jasper here is a crystal-like gem, likely shining clear or in hues. The
+                        entire wall is made of this gem (so imagine a huge transparent, radiant wall). Jasper represented
+                        God's glory in 4:3; so the wall being jasper <sup>41</sup> means the glory of God is what encloses and protects
+                        the city. It is also beautiful to behold, refracting light.</li>
+                    <li>City of pure gold, like clear glass: The city itself its buildings or streets are made of gold so
+                        pure it is translucent. We think of gold as opaque, but in this glorified state it's as if the gold is
+                        crystal-clear while still gold-colored ("like transparent glass"). This indicates utmost purity; no
+                        impurity in the gold. Gold in Scripture often symbolizes what is divine or kingship or precious; here
+                        the very fabric of the city is divine in quality and absolutely pure. It also suggests that the city is
+                        filled with light that can pass through (nothing murky). F.B. Hole notes that the street being gold
+                        and transparent means the daily walk and commerce of the city is utterly holy and open <sup>49</sup> <sup>50</sup> - no
+                        hidden dark corners. All is righteousness (gold) and truth (clear).</li>
+                    <li>Foundations adorned with precious stones: Each of the 12 foundation layers of the wall is
+                        decorated with a different gem. John lists twelve gemstones: jasper, sapphire, chalcedony, emerald,
+                        sardonyx, sardius (carnelian), chrysolite, beryl, topaz, chrysoprase, jacinth, amethyst. Many of these
+                        correspond to the stones on the High Priest's breastplate (Exodus 28:17-20) which had 12 stones for
+                        the 12 tribes <sup>51</sup> <sup>52</sup>. Not exactly the same list/order (some differences in naming), but the parallel is
+                        clear. The high priest bore Israel's tribes as gems on his chest into God's presence, indicating they
+                        were precious to God. Here, likewise, God's people are represented as precious jewels forming the
+                        city's foundation. Some commentators see significance in each stone's color: together they would
+                        produce a magnificent spectrum - maybe like a rainbow encircling the city's base <sup>53</sup> <sup>54</sup>. A 19th-
+                        century source (likely the Pulpit Commentary) notes these stones shining together would be "like a
+                        rainbow belt" around the city <sup>55</sup>. This reminds of God's glory and promise (the rainbow around His
+                        throne, Rev 4:3). Also, the variety of gems implies the manifold, varied graces and individual beauty
+                        of the saints unity (all foundations shine together) but diversity (different gems). As one put it:
+                        "harmony, not monotony; variety, not sameness; unity, not uniformity" <sup>56</sup>. The Church is composed of
+                        people of different hues, all glorified. Each apostolic foundation had its distinct stone, perhaps
+                        reflecting the labor of each apostle and those saved through their ministry shining forever.</li>
+                </ul>
+                <p>
+                    Spiritually, gems are formed under heat and pressure - one could say the trials and refining of God's people
+                    produce gem-like Christlike character, which will adorn eternity. Malachi 3:17, God says of His people, "They
+                    shall be Mine... in that day when I make up My jewels." Truly here He has made them up in a wall!
+                </p>
+                <ul>
+                    <li>The Twelve Gates = Twelve Pearls: This is one of the most famous images - the "pearly gates." Each
+                        gate is a single enormous pearl. Pearls in nature are formed through suffering (an oyster covers an
+                        irritant with layers of nacre, building a pearl). Some have drawn analogy that the pearl is a product
+                        of pain - perhaps reflecting that our access to God (the gates) was made by Christ's suffering, and
+                        even the church's suffering in Christ. Indeed, a parable of Jesus compares the kingdom to "a pearl of
+                        great price" that a merchant sold all to purchase (Matt 13:45-46). Brethren commentators see that
+                        parable as Christ giving all to redeem the Church, the pearl <sup>57</sup> <sup>58</sup>. Dennett explicitly says: "the pearl
+                        speaks of what is attractive to the heart of Christ - a beauty which ravished Him, so that He loved the
+                        church and gave Himself for it" <sup>57</sup> <sup>58</sup>. How fitting, then, that each gate - an entrance point - is a
+                        giant pearl: symbol of Christ's redemption and the priceless value of His people for whom He paid all
+                        <sup>57</sup>. Every time one "enters" or beholds the city, one is reminded of the Lamb's sacrifice that made it
+                        possible, and of how cherished the saints are to Him. Also, a gate being one pearl suggests unity
+                        (each gate is single, whole possibly hinting one way of salvation).</li>
+                </ul>
+                <p>
+                    Additionally, pearls were highly valued (one of the most valuable ancient gems). So this adds to the picture
+                    that everything in this city is of extreme worth.
+                </p>
+                <ul>
+                    <li>Street of pure gold, transparent like glass: Often cited is "streets of gold." Interestingly it says
+                        "street" (singular) - possibly a broad way or the general thoroughfare. It being pure gold and
+                        transparent reiterates verse 18's point. The transparency likely means that even this most opaque of
+                        metals is as pure and clear as glass in heaven. There's no impurity or anything to hide. The whole
+                        environment is full of light and holiness.</li>
+                </ul>
+                <p>
+                    Symbolic significance: Gold in the Bible can represent divine nature or glory, and precious stones
+                    represent the beauty of God's work in believers (see 1 Cor 3:12 where our works that last are compared to
+                    gold, silver, precious stones). So one might see the gold city as the divine life permeating everything, and
+                    the multi-colored gems as the graces of the saints reflecting God's light. The pearls at gates symbolize the
+                    work of Christ as the entry to glory. Thus doctrinally: we enter by Christ's sacrifice (pearls), built on the
+                    foundation of apostolic truth (the jeweled foundations with apostles' names), and are filled with God's glory
+                    (gold and jasper). It's a cohesive picture of salvation's outcome.
+                </p>
+                <p>
+                    Also consider: what is most precious to us now (gold, jewels) are mere building materials in heaven. That
+                    shows how vastly greater the value system is. God's presence and holiness are the true riches; gold and
+                    gems are just the asphalt and drywall, so to speak, of our eternal home! It emphasizes that what we count
+                    precious here is commonplace there - an encouragement not to idolize earthly wealth.
+                </p>
+                <p>
+                    Personal Application: This lavish description should stir worship in our hearts. If God so adorned the city,
+                    how much more beautiful must be the One who prepared it! It also reminds us that we are God's precious
+                    jewels in the making. Do we view fellow believers as jewels for whom Christ gave all? It should inspire love
+                    and respect in the community. Moreover, the pearl gates tell us that the only way in is through Christ's
+                    sacrifice. There were no pearls on the high priest's breastplate - pearls are unique in that they come from a
+                    living creature's suffering. The church is that unique jewel from Christ's suffering. We must always cling to
+                    the cross as our entrance into every blessing. Even in heaven, the basis of our presence there will forever be
+                    the Lamb's work (we'll see in 22:1 the Lamb on the throne).
+                </p>
+                <p>
+                    Finally, the transparency speaks to living in total honesty and purity. Even now, "if we walk in the light as He is
+                    in the light... the blood of Jesus cleanses us" (1 John 1:7). Let's practice that transparent, golden living
+                    genuine faith and holiness - knowing that's our destiny.
+                </p>
+
+                <h2>Revelation 21:22-23 - No Temple, God and the Lamb are its Temple; No Sun or Moon, God's Glory is Light</h2>
+                <p>
+                    <span class="verse-number">"And I saw no temple therein: for the Lord God Almighty and the Lamb are the temple of it. And the city had
+                    no need of the sun, neither of the moon, to shine in it: for the glory of God did lighten it, and the Lamb is the light
+                    thereof." (21:22-23)</span>
+                </p>
+                <p>
+                    These verses highlight what is absent in the city things that were crucial in the old world but are
+                    superseded now by God's immediate presence.
+                </p>
+                <ul>
+                    <li>No temple in the city: This is significant because in the present/historical Jerusalem, the temple was
+                        the very center of worship. In Ezekiel's future prophecy of a millennial earth, there is a temple. But in
+                        New Jerusalem, no temple building exists. Why? "For the Lord God Almighty and the Lamb are its
+                        temple." In other words, God Himself (Father and Son, implied by "Lamb") is directly present;
+                        therefore, an intermediate structure for worship is unnecessary. A temple is a place set apart to
+                        meet God; here the entire city is that place. The whole city is effectively one giant Holy of Holies (as
+                        noted by its cube shape). In ancient times, no one could enter the Holy of Holies except the High
+                        Priest once a year, and that with blood. Now all have access constantly, living in the Holy of Holies,
+                        because Christ (the Lamb) has made the once-for-all sacrifice to allow us to draw near. So instead of
+                        a sanctuary building, God and the Lamb Themselves constitute the sacred presence. Wherever you go
+                        in the city, you are in the temple - meaning in immediate worshipful communion with God.</li>
+                </ul>
+                <p>
+                    This fulfills what Jesus told the Samaritan woman: "the hour is coming when you will neither on this mountain,
+                    nor in Jerusalem, worship the Father... true worshipers will worship in spirit and truth" (John 4:21-23). Ultimately,
+                    worship is not about a location because God's presence is everywhere with His people. Here, it's literally
+                    true no temple, because worship is life and life is worship, in direct encounter with God. Also, it shows
+                    the completion of God's plan from Eden: He originally dwelt with man without temple; temple came in after
+                    sin as a gracious means to allow His presence among a sinful people. With sin gone, we return to that direct
+                    fellowship but on an even higher level (no possibility of fall).
+                </p>
+                <p>
+                    Brethren writer F.B. Hole noted a technicality: the Greek word for temple used in Revelation (naos) usually
+                    means the inner sanctuary. Revelation never uses the term for an outer temple building, only naos (e.g. Rev
+                    11:19, "the temple of God was opened in heaven" referring to God's immediate presence). So here saying
+                    "no naos" indicates no inner sanctuary separate from people <sup>27</sup>. Because "the Lord God Almighty and the
+                    Lamb are the naos." That is, God Himself is the meeting place. We worship in the very presence of His
+                    person.
+                </p>
+                <ul>
+                    <li>No need of sun or moon: Now the lighting of the city is addressed. John doesn't say there is no sun
+                        or moon in the new creation at all (though possibly not needed anywhere), but specifically the city
+                        doesn't need them. Why? "For the glory of God illuminated it, and the Lamb is its light." God's own
+                        radiance provides all the illumination required. In the earthly night we depend on sun by day, moon
+                        by night - but in New Jerusalem there is never night (v.25) and the effulgence of God makes any
+                        other light source redundant. This fulfills Old Testament prophecy: "The sun shall no longer be your
+                        light by day, nor for brightness shall the moon give light to you; But the LORD will be to you an everlasting
+                        light, and your God your glory" (Isaiah 60:19) <sup>7</sup>. Indeed Isaiah 60:20 continues, "For the LORD will be
+                        your everlasting light." Here we see that literally in the city. The Lamb (Christ) is specifically called its
+                        lamp (some translations) or light. This reminds us of Jesus' claim, "I am the light of the world. He who
+                        follows Me shall not walk in darkness, but have the light of life" (John 8:12). In eternity, that metaphor
+                        becomes concrete - Jesus' presence and glory illuminates everything.</li>
+                </ul>
+                <p>
+                    The dual statement "glory of God illuminated it, and the Lamb is its light" again hints at Father and Son
+                    together being the source. It shows the Lamb shares the glory of God (a testimony to Christ's divinity). No
+                    lesser lights needed. Also, practically, it means no natural cycles of day-night control life in the city; life is
+                    continuous and un-dimmed.
+                </p>
+                <p>
+                    Some wonder: does this mean in the new heavens and earth there will be no sun at all? Possibly the new
+                    creation operates differently. Or perhaps the sun/moon still exist for the outside earth but the city's
+                    brightness eclipses them locally. However, given that "no night" is stated, it implies a kind of self-contained
+                    brilliance everywhere. So likely no sun or moon in eternity, or at least not in any necessary capacity. God is
+                    directly the light source. It's as if creation has been brought back to Genesis 1:3 "Let there be light" before
+                    the sun was made; God's own light sufficed.
+                </p>
+                <p>
+                    Symbolic note: Light = truth and holiness. Darkness = sin/ignorance. That there is no need for created
+                    lights because the Creator's glory shines means truth is fully revealed, and holiness permeates. We won't
+                    need, for example, secondary "luminaries" (like prophets, Scripture, sacraments) to mediate truth to us - we
+                    will directly bask in the light of God. Now we see by the light of the Word (Ps 119:105), then we see by God
+                    Himself in person.
+                </p>
+                <p>
+                    Personal Application: No temple calls us even now to focus on God Himself in our worship, not external
+                    forms or places. We gather in church buildings, but the real sanctuary is Christ's presence in our midst. We
+                    can experience a foretaste of "no temple" when we truly commune with God anywhere, anytime by the
+                    Spirit. Also, no need of sun or moon - God's presence is all-sufficient. Today, we often look to created things
+                    (even good things like the beauty of nature or human wisdom) to give us light/joy. But in the end, God is
+                    our light. So we should learn to live in His light now: seeking His guidance, His truth as our primary
+                    illumination. Psalm 36:9 says, "In Your light we see light." The more we walk closely with Jesus, the more
+                    clearly we see everything else.
+                </p>
+                <p>
+                    Finally, consider the comfort: no more darkness at all. Many people fear literal darkness or the metaphorical
+                    darkness of evil, depression, ignorance. God promises an existence free of all those shadows. It's literally all
+                    light, all the time - but unlike our sun which can burn or blind, God's light will be perfectly pleasant and life-
+                    giving. 1 John 1:5, "God is light, and in Him is no darkness at all." We will live that reality eternally.
+                </p>
+
+                <h2>Revelation 21:24-26 - The Nations and Kings Bring Their Glory; Gates Always Open</h2>
+                <p>
+                    <span class="verse-number">"And the nations of them which are saved shall walk in the light of it: and the kings of the earth do bring
+                    their glory and honour into it. And the gates of it shall not be shut at all by day: for there shall be no night there.
+                    And they shall bring the glory and honour of the nations into it." (21:24-26, KJV)</span>
+                </p>
+                <p>
+                    These verses describe how the rest of the earth (outside the city) relates to the New Jerusalem. It's a bit
+                    mysterious because in the eternal state we typically think all redeemed are part of the city. But this scene,
+                    especially read in a millennial context, shows an ongoing relationship between the city (the glorified saints)
+                    and "nations" and "kings" outside.
+                </p>
+                <ul>
+                    <li>"The nations of those who are saved" (some translations: "the nations shall walk in its light"). This
+                        indicates there are nations (peoples, ethnic groups) living on the new earth. These are distinct from
+                        the glorified Church in the city. Many interpreters see this as evidence that 21:9-26 is speaking of the
+                        Millennium: nations on earth are still in existence (like mortal populations). In the Millennium,
+                        indeed, nations continue (Israel and Gentile nations), and Christ rules them with the help of His
+                        glorified saints (who could be represented by the city). In eternity, arguably, all the redeemed
+                        become one "nation" under God, though it's possible God maintains diversity of peoples for His
+                        glory. The phrase "of them which are saved" clarifies these are righteous nations, not rebel ones (the
+                        wicked have been cast out by now). So these "nations" are composed of those saved through the
+                        ages (possibly tribulation survivors who entered the Millennium and had offspring, etc., eventually
+                        translated into eternal state). They walk in the light of New Jerusalem, meaning they live by the
+                        truth and blessings that emanate from the city. Isaiah 60:3 prophesied, "Nations shall come to your
+                        light, and kings to the brightness of your rising." This is directly reflected here <sup>5</sup>. So, the city serves as
+                        a lamp and center for human life across the earth.</li>
+                    <li>"The kings of the earth bring their glory and honor into it." During the Millennium, there will be
+                        kings governing various nations under Christ. This says those kings will acknowledge the supremacy
+                        of Christ and His city by bringing "their glory" (the best of their produce, wealth, homage) into New
+                        Jerusalem. In ancient times, subject nations brought tribute to the capital of an empire. Here, it's
+                        voluntary worship: they deposit the honor (perhaps cultural treasures, praise, etc.) before God. In
+                        Isaiah 60:11, speaking of Zion's future glory: "Your gates shall be open continually... that men may bring
+                        to you the wealth of the Gentiles, and their kings in procession." <sup>5</sup> Exactly echoed here the idea of
+                        continuous open gates (v.25) and kings bringing wealth. In eternity (if this still applies), it might
+                        mean that whatever splendid achievements or offerings the redeemed nations have, they attribute it
+                        to God's glory, symbolically "bringing it into the city." All greatness is surrendered to the Greatest
+                        One.</li>
+                    <li>"Gates shall not be shut at all by day (and there is no night)." City gates in ancient times were
+                        closed at night or in war to keep out enemies. Here, because there is no night (constant day under
+                        God's light) and no threat (Satan and sin are gone), the gates are never shut. This signifies absolute
+                        security and openness. There's free access to God at all times. It also implies the fellowship
+                        between the city and the nations is unhindered - people can come and go in fellowship and worship
+                        constantly. It is the ultimate safe society: nothing to fear, nothing to hide. For those in the
+                        Millennium interpretation: The city (with gates open) could mean the glorified saints are always
+                        accessible to and serving the nations, perhaps as governors or teachers (Isaiah 30:20-21 hints at
+                        "teachers" guiding people in the kingdom, which some think are glorified believers). But in any case,
+                        the open gates show generosity of God He is not shutting Himself away. Contrast in Revelation
+                        22:15, the unclean are "outside" permanently. But those outside here are saved nations, so the open
+                        gate means they have entry as welcome worshipers.</li>
+                    <li>Reiteration (v.26): "They shall bring the glory and honor of the nations into it." The double mention
+                        (with v.24) emphasizes how all glory ultimately ends up being God's. Whatever is honorable among
+                        nations (cultural glory, wealth, splendor), it's laid at God's feet. We might imagine, for example, the
+                        art, music, and achievements of various peoples, purified of sin, being offered in worship. God is
+                        glorified by the rich tapestry of human (redeemed) culture. He is not just the God of one narrow
+                        group; He's honored by every tribe, tongue, and nation (Rev 7:9). The kings/nations don't lose their
+                        identity-rather they fully subordinate their glory to God's glory.</li>
+                </ul>
+                <p>
+                    In the eternal perspective, this assures us that diversity is not erased but unified in praise. The multitude in
+                    Revelation 7 wore different cultural markers (palm branches, etc.) but all praised God together. Here we see
+                    the same principle.
+                </p>
+                <p>
+                    From a doctrinal standpoint, verses 24-26 pose a puzzle if strictly eternal state: who are these kings and
+                    nations if every saved person is presumably in the city? One solution: perhaps not everyone lives in the city
+                    proper; maybe some saved (like non-Church) have dwellings outside but come into the city regularly.
+                    Another: "nations" might simply mean all the peoples, emphasizing that the redeemed collectively still carry
+                    a sense of their origins but now all act as one in worship. Either way, the main point is the universal scope
+                    of God's kingdom and the continuous worship directed to God from all creation.
+                </p>
+                <p>
+                    Personal Application: Think of the contrast to our world now. Today, nations seek their own glory, kings fight
+                    each other, gates and borders are shut for security. In God's future, nations will cooperate to glorify God,
+                    rulers will humbly submit, and doors will be open in trust and peace. We should live in light of that coming
+                    reality by cultivating unity among believers of all backgrounds now, by honoring God with the "glory" of our
+                    own life (our talents, achievements laid at His feet), and by keeping the "gates" of fellowship open (being
+                    welcoming, not fearful). Also, the fact that the nations walk in the city's light reminds us that we, the Church,
+                    even now are called to be light to the world (Phil 2:15). One day, indeed, the world will walk in the light
+                    emanating from God's people perfected. That encourages us not to hide our light now but let it shine as a
+                    foretaste of what's to come.
+                </p>
+                <p>
+                    Lastly, on security: "never shut gates" means total absence of danger. Many of us carry anxieties and take
+                    measures to protect ourselves (lock doors, etc.). Imagine the relief and freedom of a world where no evil
+                    can ever threaten. God promises that level of security. We can rest in His ultimate protection plan, and even
+                    now trust that our lives are in His hands.
+                </p>
+
+                <h2>Revelation 21:27 - Nothing Impure Enters (Holiness of the City)</h2>
+                <p>
+                    <span class="verse-number">"And there shall in no wise enter into it anything that defiles, neither whatsoever works abomination, or
+                    makes a lie: but they which are written in the Lamb's book of life." (21:27)</span>
+                </p>
+                <p>
+                    The chapter closes with a strong affirmation of the city's holiness and the qualification for entry. After
+                    describing its splendor, John reminds us that only the redeemed can partake in it.
+                </p>
+                <ul>
+                    <li>"By no means" (in no wise) will anything unclean enter. This is an absolute negation. Nothing
+                        that defiles (morally or ritually unclean), or anyone practicing abomination (detestable sins, often
+                        idolatry or gross immorality) or falsehood ("makes a lie" - living in deception), will ever enter the New
+                        Jerusalem. In other words, sin and sinners have no place there. This picks up from verse 8's list of
+                        those consigned to the lake of fire. After the final judgment, the only ones left are the redeemed and
+                        purified. So this is simultaneously a promise and a warning: a promise that heaven will be utterly
+                        pure (no more of sin's pollution in our fellowship), and a warning that if someone clings to sin, they
+                        will not be there.</li>
+                </ul>
+                <p>
+                    This verse echoes passages like Isaiah 52:1, "O Jerusalem, the holy city: for the uncircumcised and the unclean
+                    shall no longer come to you." Also earlier in Revelation, at the end of the next chapter (22:15) a similar
+                    statement lists those "outside" as dogs, sorcerers, etc. It underscores that the separation between righteous
+                    and wicked is final and complete. We will never again experience what we do now the tension of living
+                    among sin or our own temptation.
+                </p>
+                <ul>
+                    <li>"but only those who are written in the Lamb's Book of Life." This is the sole criterion: one's name
+                        in the Lamb's Book of Life (see also Rev 20:15). The "Book of Life" is essentially God's roster of the
+                        saved - those who belong to Christ (the Lamb) who died for them. That our names must be written
+                        there means salvation by grace, not works. We enter not because we never sinned (we did), but
+                        because we've been cleansed by the Lamb's blood and our names recorded by His grace.</li>
+                </ul>
+                <p>
+                    Thus, the city's population = the redeemed of all ages. If your name is in the Book of Life, you have full
+                    rights to enter (like a citizen's name on a registry). If not, entry is impossible.
+                </p>
+                <p>
+                    It's called the Lamb's Book of Life to stress Christ's redemptive role. He purchased our life by His death as the
+                    Lamb of God. So again, Jesus is the key. It ties in that the only people in the city are those who came
+                    through those pearl gates - i.e., through Christ's sacrifice (as we discussed about pearls). They have been
+                    made pure by Him, so they no longer defile; they have been forgiven of lies and abominations, and given a
+                    new nature that doesn't practice such things.
+                </p>
+                <p>
+                    This verse is a fitting capstone to Chapter 21: after all the lovely description, it soberly reminds the reader -
+                    make sure you are among those written in the Lamb's Book! It invites us implicitly: Is my name in that Book? If I
+                    trust in Christ, it is - and thus my hope is secure. If not, I must turn to Him.
+                </p>
+                <p>
+                    Personal Application: This truth should cultivate in us a longing for holiness now. If nothing impure will be
+                    in our eternal home, we should aim to avoid defilement here as much as possible. Of course, we still sin,
+                    but our attitude should be to pursue purity. "Everyone who has this hope in Him purifies himself, just as He is
+                    pure" (1 John 3:3). We want to dress rehears for heaven by living in truth and holiness, shunning the
+                    "abominations" of the world's corruption.
+                </p>
+                <p>
+                    It also gives comfort that heaven will have no painful memories of sin coming back to haunt, no danger of it
+                    ever being spoiled. All the heartbreak caused by lies, immorality, and abominations in this life - none of that
+                    enters God's city. We will be completely safe morally; even our own hearts will no longer desire anything
+                    impure. Imagine that freedom never an impure thought or motive again! Truly, what a holy and happy
+                    environment.
+                </p>
+                <p>
+                    Finally, evangelistically, this verse challenges us: there are people we know whose names are not yet in the
+                    Book of Life. While the gates stand open now (the gospel invitation is open), someday the only ones inside
+                    will be those written. So we should fervently pray and witness for people to come to the Lamb. It's
+                    ultimately the Lamb's book meaning we point people to the Lamb, Jesus, for salvation. He is willing to
+                    inscribe any name when a person repents and believes. Our citizenship is in heaven (Phil 3:20), so let's
+                    also be ambassadors calling others to become citizens through the gospel.
+                </p>
+                <p>
+                    In summary, Revelation 21 has shown us the radiant future awaiting believers: a new creation free from
+                    curse, a capital city where God dwells with His people, every aspect filled with His glory and perfection. It is
+                    both a theological vision (God's purposes fulfilled, promises kept) and a personal hope (every tear wiped,
+                    each of us enjoying intimate fellowship with our Savior). For a personal bible study, the applications are rich:
+                    we are encouraged to endure suffering with the hope of glory, to seek holiness in light of our pure destiny,
+                    to value fellowship and unity as we will in that city, and above all to treasure Christ - the Lamb - who is the
+                    light, the temple, the foundation, and the entry of that entire blessed realm.
+                </p>
+                <p>
+                    As the next chapter will invite, "The Spirit and the bride say, 'Come!"" (Rev 22:17). We, the prospective bride,
+                    already echo: "Even so, come, Lord Jesus!" For only in His coming will Revelation 21 become reality.
+                    Meanwhile, we hold fast to these "true and faithful words"<sup>4</sup>, letting the vision of New Jerusalem shape
+                    our lives here and now. Amen
+                    may we live as citizens of that heavenly city, eagerly awaiting its
+                    coming!
+                </p>
+
+                <h3>Sources and References</h3>
+                <ul class="sources-list">
+                    <li>William Kelly, Lectures on Revelation 21, emphasizing the eternal state in 21:1-8 and the millennial
+                        display from 21:9 onward <sup>8</sup> <sup>29</sup>.</li>
+                    <li>Edward Dennett, Notes on Revelation, on the symbolism of "no more sea" (no separation or rebellion)
+                        <sup>20</sup> and the significance of the pearl gates (the Church as the pearl of great price to Christ) <sup>57</sup>.</li>
+                    <li>Frank Binford Hole, Revelation: Briefly Expounded, on the city as the bride in contrast to Babylon, and
+                        the total absence of sin and sorrow in the eternal state <sup>22</sup> <sup>32</sup>.</li>
+                    <li>Pulpit Commentary (Rev. 21:19-20) noting the foundations' jewels parallel the High Priest's
+                        breastplate, signifying God's people as His precious treasure <sup>59</sup> <sup>51</sup>.</li>
+                    <li>The Holy Bible (KJV) cross-referenced throughout, including Isaiah 65:17-19 <sup>13</sup> <sup>12</sup>, 2 Peter 3:13 <sup>10</sup>,
+                        Isaiah 60:19 <sup>7</sup>, and others, to show the fulfillment of prophecy in Revelation 21.</li>
+                    <li><sup>1</sup> <sup>2</sup> <sup>3</sup> <sup>4</sup> <sup>5</sup> <sup>6</sup> <sup>7</sup> <sup>8</sup> <sup>9</sup> <sup>10</sup> <sup>11</sup> <sup>12</sup> <sup>13</sup> <sup>14</sup> <sup>15</sup> <sup>16</sup> <sup>17</sup> <sup>18</sup> <sup>19</sup> <sup>20</sup> <sup>21</sup> <sup>22</sup> <sup>23</sup> <sup>24</sup> <sup>25</sup> <sup>26</sup> <sup>27</sup> <sup>28</sup> <sup>29</sup> <sup>30</sup> <sup>31</sup> <sup>32</sup> <sup>33</sup> <sup>34</sup> <sup>35</sup> <sup>36</sup> <sup>37</sup> <sup>38</sup> <sup>39</sup> <sup>40</sup> <sup>41</sup> <sup>42</sup> <sup>43</sup> <sup>44</sup> <sup>45</sup> <sup>46</sup> <sup>47</sup> <sup>48</sup> <sup>49</sup> <sup>50</sup> <sup>51</sup> <sup>52</sup> <sup>53</sup> <sup>54</sup> <sup>55</sup> <sup>56</sup> <sup>57</sup> <sup>58</sup> <sup>59</sup> Revelation 21 - Edward B. Dennett (#56790) - Bible Truth Library <a href="https://bibletruthpublishers.com/revelation-21/edward-b-dennett/the-visions-of-john-on-patmos-notes-on-the-apocalypse-revelation/e-dennett/la56790" target="_blank">https://bibletruthpublishers.com/revelation-21/edward-b-dennett/the-visions-of-john-on-patmos-notes-on-the-apocalypse-revelation/e-dennett/la56790</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = scrollPercent + '%';
+            }
+        });
+
+        // Show the chapter page
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapterPage = document.getElementById('chapter21Page');
+            if (chapterPage) {
+                chapterPage.style.display = 'block';
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
