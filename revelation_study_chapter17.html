@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 17</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background-color: #f0f0f0;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+
+        /* Image Placeholder Styling */
+        .image-placeholder {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Styles for Sources and References */
+        .sources-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 0;
+            margin-top: 1.5rem;
+        }
+
+        .sources-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .sources-list a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .sources-list a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter17Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="#" class="nav-button" onclick="window.location.href='revelation_study_chapter1.html#chapters'">← Chapters</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 17</h1>
+                <p>An In-Depth Theological Study (Plymouth Brethren Perspective)</p>
+            </div>
+            <div class="content-body" id="chapter17Content">
+                <h3>Introduction</h3>
+                <p>
+                    Revelation 17 gives a detailed "behind the scenes" look at the judgment of "Babylon the
+                    Great," depicted as a great harlot riding a beast. Notably, this chapter is a parenthetical vision - it "does
+                    not pursue the chronological course" of Revelation's narrative but zooms in to explain why Babylon is
+                    judged so severely. The focus here is on the religious corruption of Babylon in partnership with worldly
+                    powers. In Scripture, man's sin often takes two broad forms: (1) corruption symbolized by a harlot
+                    indulging in idolatry and immorality, and (2) violence - symbolized by a beast representing arrogant, brute
+                    force <sup>2</sup>. Chapter 17 addresses the first (corrupt false religion), while the beast she rides embodies the
+                    second (violent political power). We will study verse by verse, drawing on insights from Plymouth Brethren
+                    authors (like John N. Darby and William Kelly) and similar dispensational theologians, and noting parallel
+                    Scriptures. This is both a doctrinal examination and a personal Bible study - thus we will consider not only
+                    prophetic details but also spiritual lessons and applications for today.
+                </p>
+
+                <h2>Verse 1 - The Angel's Invitation to Witness Judgment</h2>
+                <p>
+                    <span class="verse-number">"And one of the seven angels which had the seven bowls came and talked with me, saying to me, 'Come, I
+                    will show you the judgment of the great harlot who sits on many waters."</span> John is approached by one of the
+                    bowl-judgment angels (from Revelation 16) and invited to see a specific vision of judgment. The subject is a
+                    symbolic woman described as "the great harlot" (or "great prostitute") enthroned on "many waters." In
+                    prophetic imagery, a harlot represents religious unfaithfulness – a once-pure entity that has committed
+                    spiritual adultery by allying with ungodly powers. The phrase "sits on many waters" indicates her
+                    widespread influence over peoples and nations. Indeed, verse 15 will later explain that "the waters... where
+                    the harlot sits" represent peoples, multitudes, nations, and languages <sup>3</sup>. In other words, this false
+                    religious system has a global reach, dominating multitudes. The angel specifically calls this vision the
+                    "judgment" of the harlot, meaning God is about to reveal why and how He will punish this corrupt system.
+                    This sets the stage for understanding the gravity of her sins and the certainty of her fall.
+                </p>
+                <p>
+                    Doctrine: The fact that this vision is introduced by a bowl-angel and termed a "judgment"
+                    shows that the fall of Babylon is part of God's end-times wrath. It is a "retrogressive"
+                    description (a flashback) explaining Babylon's offense against God <sup>1</sup>. The true Church is
+                    often pictured in Scripture as a faithful bride to Christ, but this woman is a counterfeit
+                    church - unfaithful, apostate, and flirting with the world's powers.
+                </p>
+                <p>
+                    Application: God invites John (and us as readers) to "come... and see" the fate of this harlot.
+                    This is a call to discernment. We are warned that religious institutions can become corrupt
+                    and face judgment. Believers today should not be awed by mere external success or power in
+                    "Babylon-like" religious systems, but should view them through God's eyes. As we proceed, we
+                    should ask: Am I aligned with the humble, faithful Bride of Christ, or with the worldly
+                    spirit of Babylon?
+                </p>
+
+                <h2>Verse 2 - The Harlot's Fornication with Kings and Peoples</h2>
+                <p>
+                    <span class="verse-number">"With whom the kings of the earth committed fornication, and the inhabitants of the earth were made
+                    drunk with the wine of her fornication."</span> Here the angel summarizes the crimes of the harlot. In symbolic
+                    terms, fornication means unholy alliance or intimacy. The "kings of the earth" (political rulers) have
+                    committed spiritual adultery with this woman – in other words, church and state are in a corrupt
+                    partnership for power. Historically, this evokes how medieval religious authorities sought the favor of
+                    kings, and kings in turn used religion to legitimize their rule. Plymouth Brethren commentator J. N. Darby
+                    notes that this harlot is "the great active idolatress" who seduced nations; "kings... have lived in guilty intimacy
+                    with her," seeking her favors <sup>4</sup>. In addition, "the inhabitants of the earth" – the masses of people - have
+                    become spiritually intoxicated by her influence. They are "drunk with [her] wine," meaning they have
+                    swallowed her idolatrous teachings and dazzling ritualism without discernment, to the point of spiritual
+                    madness. This imagery deliberately echoes Jeremiah 51:7, which described ancient Babylon as a "golden
+                    cup" in God's hand that "made all the earth drunk", with nations drinking her wine to their own madness
+                    <sup>5</sup>. In the same way, this end-times Babylon has intoxicated the world with her false religion and worldly
+                    seductions.
+                </p>
+                <p>
+                    Notably, William Kelly points out the allure of this corrupted "Christian" system: "Everything that could
+                    attract the natural man was there" - splendid ceremonies, wealth, power – "but it is nothing but ecclesiastical
+                    pride and corruption... a religion of grace and truth unknown". He specifically identifies practices like
+                    selling indulgences for sin, promoting false dogmas (e.g. transubstantiation, papal infallibility),
+                    venerating relics, and blasphemous idol-worship of saints, angels, and the Virgin Mary <sup>7</sup>. These
+                    striking details show how closely the prophecy corresponds to the history of the apostate church centered
+                    in Rome. Indeed, Darby remarks that this "character [is] plain enough to mark the Roman or Papal
+                    system". The harlot's illicit unions with kings remind us of how, for centuries, the Roman Church
+                    engaged in political intrigues and alliances (spiritual "fornication") to gain worldly influence. Her making the
+                    world drunk hints at the deceptive appeal of her idolatries – a heady mix of truth and lies that ensnares
+                    hearts and minds.
+                </p>
+                <p>
+                    Doctrine: Spiritual infidelity is a grave sin. Just as ancient Israel was condemned for "playing
+                    the harlot" with pagan nations and gods (e.g. Ezekiel 16, Hosea 2), so this end-time religious
+                    system is judged for compromising with secular powers and spreading false worship. The
+                    imagery of fornication indicates that what should belong to God alone (devotion, trust,
+                    worship) has been given to others. The result is corruption at the highest levels (kings) and
+                    mass deception among the people.
+                </p>
+                <p>
+                    Application: We must guard against any compromise of our faith for political or material
+                    gain. The "wine" of Babylon can be enticing - it may promise unity, prosperity, or influence
+                    – but it leads to spiritual drunkenness (loss of discernment and moral clarity). Believers are
+                    called to spiritual sobriety, not to be intoxicated by the world (1 Thessalonians 5:6-8). Ask: Are
+                    we flirting with the world's values or remaining faithful to Christ? The fate of Babylon
+                    warns that seeking friendship with the world is enmity with God (James 4:4).
+                </p>
+
+                <h2>Verse 3 - The Vision: A Woman on a Scarlet Beast in the Wilderness</h2>
+                <p>
+                    <span class="verse-number">"So he carried me away in the Spirit into the wilderness. And I saw a woman sitting on a scarlet-colored
+                    beast which was full of names of blasphemy, having seven heads and ten horns."</span> Now John is transported
+                    "in the Spirit" to a wilderness, a desert-like setting, to see the vision. The wilderness suggests a place of
+                    spiritual desolation – this harlot does not dwell in the fruitful garden of God's presence, but in a dry,
+                    barren realm (implying that, despite her outward riches, she is spiritually bankrupt) <sup>9</sup>. Some interpreters
+                    even see a hint of the literal ruined "wilderness" of the Campagna outside Rome's walls <sup>10</sup>, but the
+                    emphasis is likely on the spiritual wasteland that Babylon inhabits (contrast this with the woman of
+                    Revelation 12 who fled to the wilderness under God's protection - here the wilderness is the abode of the
+                    harlot by God's perspective, indicating her lifelessness toward Him).
+                </p>
+                <p>
+                    John sees "a woman sitting on a scarlet beast." This immediately connects to earlier prophecies. The
+                    beast with seven heads and ten horns is a familiar figure - it was first seen in Revelation 13 as the monster
+                    rising from the sea, and it echoes the fourth beast of Daniel's prophecy (Daniel 7:7 with ten horns). The
+                    angel later confirms this beast represents an empire with seven heads (rulers) and ten horns (kings).
+                    William Kelly calls it "the well-known emblem of the Roman empire" <sup>11</sup>. In John's day, the Roman Empire was
+                    the world power, and prophecy indicates this empire (or its successor) will have a final form in the end
+                    times. The beast's scarlet color may signify luxury, royalty, or bloodlust. The beast is also "full of names of
+                    blasphemy," meaning it openly defies God, claiming honors or titles belonging to God alone. This recalls
+                    how Roman emperors assumed divine titles and in the future, the beast's leader (the Antichrist figure) will
+                    blaspheme God blatantly (Rev. 13:5-6). The seven heads and ten horns show it is the same beastly power
+                    as in Rev 13, now carrying the woman.
+                </p>
+                <p>
+                    The woman riding the beast indicates a close relationship: she is supported by the beast, and she steers
+                    or influences it for a time. This portrays a church-state union. Historically, after the Roman Empire
+                    "Christianized," a powerful church rode upon the secular empire's legacy. Darby explains that this scene
+                    shows "a woman, a religious system, sitting on an imperial beast... having the form which marked it Roman." The
+                    woman is "gorgeously and imperially arrayed" and holds a cup of idolatries, showing this is a religious
+                    system entwined with imperial power <sup>12</sup>. For a period, the political beast carries the religious system –
+                    indicating that the empire (and its client kings) give authority and prestige to the false church. The
+                    wilderness setting may imply that, from God's viewpoint, this alliance occurs outside His true spiritual realm
+                    - it is a perversion of His design.
+                </p>
+                <p>
+                    Doctrine: The beast represents godless political power (specifically the Roman Empire in
+                    prophecy). The woman represents apostate religion. Their coupling reveals a key truth: false
+                    religion often rides on the back of secular power. For a time, a corrupt church can wield
+                    great influence over empires (as seen historically in the Holy Roman Empire and various
+                    theocracies). But this is an unstable, temporary alliance. The description here already hints at
+                    tension – the woman sits atop a blasphemous beast, showing the union of convenience
+                    between religious apostasy and political arrogance.
+                </p>
+                <p>
+                    Application: We learn the danger of a church that seeks political power. When Christianity
+                    prostitutes itself for influence, it may gain earthly splendor but becomes a "wilderness"
+                    spiritually. Believers should be wary of any movement that prioritizes political clout over
+                    faithfulness to Christ. Also, observe God's perspective: what the world sees as a grand
+                    partnership (a woman on a regal beast), God sees as a harlot in a wasteland riding a scarlet
+                    monstrosity. We need spiritual vision to discern things as God does, not as they appear
+                    superficially.
+                </p>
+
+                <h2>Verse 4 - The Harlot's Opulence and Idolatry</h2>
+                <p>
+                    <span class="verse-number">"The woman was arrayed in purple and scarlet, and adorned with gold and precious stones and pearls,
+                    having in her hand a golden cup full of abominations and the filthiness of her fornication."</span> The attire and
+                    accessories of the harlot convey her character. Purple and scarlet were the colors of royalty, luxury, and
+                    pomp in the ancient world. She is "arrayed" (clothed) in these, signifying that she presents herself as a
+                    queenly, wealthy power. Strikingly, William Kelly notes that "her officials alone in Christendom array
+                    themselves in these colors of the world's glory" <sup>13</sup> – an unmistakable reference to the purple and scarlet
+                    vestments of Roman Catholic cardinals and bishops. The woman is also lavishly decked with gold, precious
+                    stones, and pearls - symbols of immense wealth. This calls to mind the historic riches of ecclesiastical Rome
+                    (golden altars, jeweled chalices, etc.). Every outward indication is one of splendor, wealth, and grandeur.
+                    In her hand is a golden cup, a vessel of great beauty and value - yet it is filled with "abominations" and the
+                    impurities of her fornication. In Scripture, "abominations" often refers to idols or idolatrous practices
+                    <sup>14</sup>. Darby flatly states: "Abominations are simply idols; the filthiness of her fornication" refers to the immoral
+                    and corrupting aspects that accompany that idolatry <sup>14</sup>. So this golden cup, though outwardly impressive,
+                    is full of the spiritual poison of idol worship and perverse rites.
+                </p>
+                <p>
+                    This detail strongly parallels Jeremiah 51:7, as mentioned earlier: "Babylon has been a golden cup in the
+                    Lord's hand that "made all the earth drunk" <sup>5</sup>. Here, Babylon the Great holds her own golden cup to
+                    intoxicate the nations with idolatrous abominations. Kelly remarks: "Idolatry is the awful stamp that she
+                    bears" both in what she offers to men and in what God sees written on her <sup>15</sup>. Despite all her gold and
+                    jewels, her true contents are "unclean things" – false doctrines, idolatrous masses, saint-and-Mary
+                    veneration, etc., which God calls abominations. The contrast is stark: outward magnificence, inward
+                    monstrosity.
+                </p>
+                <p>
+                    The harlot's opulence also contrasts with the true Church. In this present age, the faithful Church ("the
+                    bride") is often despised, a pilgrim people with no worldly glory – her glory is heavenly and moral. By
+                    contrast, "Babylon" claims earthly glory now: "Everything that looks fairest, she thinks, ought to be devoted to
+                    religion", Kelly observes, yet it is a religion "of pride and corruption", not of Christ. Indeed, he notes
+                    how this harlot system loves money (selling spiritual favors), power, and external show, but lacks true
+                    humility and holiness <sup>7</sup>.
+                </p>
+                <p>
+                    Doctrine: Great wealth and splendor in a religious system are not proofs of God's approval; in
+                    fact, they can mask great corruption. The golden cup full of abominations teaches that
+                    false religion often disguises its spiritual poison in a glittering chalice. This image should
+                    also remind us of the "golden cup" of the Lord's true fellowship (1 Corinthians 10:16) versus
+                    the "cup of demons" (1 Corinthians 10:21). Babylon's religion is a demonic counterfeit of true
+                    worship - a bejeweled cup of idolatry.
+                </p>
+                <p>
+                    Application: Appearances are deceiving. The harlot is richly dressed, but God sees the "filth"
+                    in her cup. We must not judge ministries or churches by outward prosperity, ornate
+                    cathedrals, or elaborate ritual alone. The real question is: What's in the cup? Is it the pure
+                    gospel of Christ or a mix of truth with idolatry? Believers should value truth and holiness
+                    over external trappings. Also, personal application: we ourselves are called "vessels" (2
+                    Timothy 2:21). Do we present a golden exterior of religiosity while harboring inner
+                    abominations? God desires "truth in the inward parts" (Psalm 51:6).
+                </p>
+
+                <h2>Verse 5 - "MYSTERY, BABYLON THE GREAT, MOTHER OF HARLOTS"</h2>
+                <p>
+                    <span class="verse-number">"And on her forehead a name was written: MYSTERY, BABYLON THE GREAT, THE MOTHER OF HARLOTS
+                    AND OF THE ABOMINATIONS OF THE EARTH."</span> In John's vision, the harlot's forehead is emblazoned with a
+                    startling title. In ancient Rome, prostitutes were said to wear headbands with their names; here God makes
+                    sure the identity of this woman is clear to those with spiritual insight. The title begins with "MYSTERY",
+                    indicating that there is a secret or hidden meaning to this woman. This is not literal Babylon of old (which
+                    had long fallen in John's time) but a "mystery" Babylon – a symbol. In biblical terms, a "mystery" is a
+                    sacred secret now revealed by God <sup>16</sup>. William Kelly explains that "a 'mystery' points to something
+                    undiscoverable by the natural mind... a secret which, when revealed by God, becomes plain" <sup>16</sup>. So, Mystery
+                    Babylon is spiritual Babylon – the hidden dimension of Babylon-like evil working through a religious
+                    system. Paul mentioned the "mystery of lawlessness" (2 Thessalonians 2:7) already at work in his day - the
+                    seeds of apostasy that would one day bloom fully in this Babylon.
+                </p>
+                <p>
+                    Next, she is called "Babylon the Great." This links her to ancient Babylon in character. Just as literal
+                    Babylon was the fountainhead of idolatry and defiance against God (the Tower of Babel, Genesis 11, and
+                    the idolatrous empire of Nebuchadnezzar), so this end-time entity carries that legacy. H.A. Ironside, a
+                    dispensational author, wrote that "Babylon became the fountainhead of idolatry and the mother of every
+                    heathen and pagan system in the world. The mystery-religion originated there spread in various forms throughout
+                    the whole earth and is still with us today", having infiltrated even Christendom <sup>17</sup>. In this sense, Babylon the
+                    Great represents the sum-total of all false religion ultimately embodied in this apostate pseudo-
+                    Christianity centered in Rome. She is the "MOTHER OF HARLOTS", meaning she gives birth to other false
+                    religions and cults. All spiritual prostitutions - whether pagan idolatries or perversions of true faith - find
+                    their prototype in Babylon. For example, the mother-and-child cult of ancient Babel (Semiramis and
+                    Tammuz) spread to many cultures (Isis & Horus in Egypt, Ishtar & Tammuz in Mesopotamia, etc.) and some
+                    of its concepts (a Queen of Heaven with an miraculously conceived son, mourning for a dead god, etc.) were
+                    later absorbed into Roman Catholic Marian devotion and rites <sup>18 19</sup>. Truly, the harlot is "mother" to
+                    countless harlot daughters - all the systems that depart from pure devotion to God.
+                </p>
+                <p>
+                    She is also mother of "the abominations of the earth" - i.e., the idols and blasphemies that pollute the
+                    world. Kelly emphasizes that this refers to open idolatries: "Babylon is the parent of the prostitutes and of the
+                    abominations (idolatries) of the earth", not merely subtle errors but "open image worship" - the veneration of
+                    creatures, images, relics instead of the Creator <sup>20</sup>. He specifically alludes to the "horrors of Mariolatry",
+                    the worship of angels and saints, relics, and so on <sup>21</sup>. This is remarkably direct: the prophecy is pointing to
+                    a religious system claiming Christian names and titles ("mystery" implies a pseudo-Christian form), yet
+                    engaging in gross idolatry as pagan as any other. History bears this out: by the Middle Ages, the Roman
+                    church had imported multitudes of Babylonish practices (prayers for the dead, incense, images, the title
+                    "Pontifex Maximus" for its leader, etc.).
+                </p>
+                <p>
+                    The inclusion of the word "MYSTERY" in the title suggests that this false church presents itself as part of the
+                    "mysteries" of God, yet it is in reality the "mystery of iniquity." There is an aura of deep spiritual secret about her
+                    - think of the esoteric rituals, the mystique of ancient tradition - but it's a corrupted mystery. Some scholars
+                    also connect this Mystery Babylon to the vision in Zechariah 5:5-11, where a woman personifying
+                    Wickedness is sealed in a basket and transported to Shinar (Babylonia) to have a house built for her in the
+                    end times. This suggests that the wickedness of false religion was being kept for a future Babylon - exactly
+                    what we see in Revelation 17.
+                </p>
+                <p>
+                    Doctrine: This verse essentially names the system: it is Babylon, in mystery form. The
+                    reference to Babylon tells us we are dealing with the same spirit that animated ancient Babel –
+                    pride, idolatry, confusion – now clothed in a Christian-like mystery. Many Protestant
+                    expositors since the Reformation have identified this "Babylon" with the Roman Catholic
+                    Church. Plymouth Brethren writers agree that Rome (ecclesiastical Babylon) is primarily in
+                    view <sup>22</sup>. However, they also caution that this prophecy looks beyond just the medieval
+                    papacy to a future climax. Kelly notes that while the "Protestant application" (to Romanism)
+                    has much truth, the full "result will not be till the end of the age", when all strands of false
+                    religion unite in one grand Babylonian system <sup>23 24</sup>. In the end, apostate Roman
+                    Christianity may well absorb or lead a coalition of global false spirituality - truly becoming
+                    the mother of all harlotries on earth.
+                </p>
+                <p>
+                    Application: We must examine our own worship and doctrine in light of God's Word. Is it
+                    pure, or mixed with "Babylonian" tradition? The label "Mother of Harlots" warns us that false
+                    religion reproduces itself - error begets more error. We should trace teachings and practices
+                    back to their source: are they rooted in Scripture or in ancient human traditions? Also, this
+                    verse challenges us: Where is our spiritual motherhood? The true Church is "Jerusalem
+                    above, the mother of us all" (Galatians 4:26), but false systems look to Babylon as their
+                    mother. Every believer must ensure that their faith lineage comes from apostolic truth (New
+                    Jerusalem) and not from the apostate church (Babylon). Finally, note that the name is on her
+                    forehead - visible to all with discernment. If we walk closely with the Lord and know Scripture,
+                    we will not be fooled by Mystery Babylon; her forehead name will be clear to us.
+                </p>
+
+                <h2>Verse 6 - Drunk with the Blood of Saints</h2>
+                <p>
+                    <span class="verse-number">"And I saw the woman, drunk with the blood of the saints and with the blood of the martyrs of Jesus.
+                    And when I saw her, I marveled with great amazement."</span> Beyond her idolatries, Babylon is charged with
+                    violence against God's people. The woman is pictured as intoxicated with blood - having gorged herself
+                    on the persecution and murder of the saints (God's holy people). The phrase "blood of the saints"
+                    suggests victims generally, and "blood of the martyrs (witnesses) of Jesus" emphasizes those who were
+                    killed specifically for their testimony of Christ. Astonishingly, this false "Christian" religious system has killed
+                    the true followers of Christ. Darby observes that "All the blood of the saints was found in her: she was the
+                    persecuting murderess of those God delighted in, who bore witness to Jesus." No wonder John "marveled" greatly
+                    - "the prophet was astonished, for it was what the church had come to" <sup>25</sup>! This vision reveals a horrific truth: a
+                    counterfeit church, styling itself as the true one, has become the chief enemy of God's real saints. John
+                    had known pagan Rome's persecutions, but to see a professedly Christian system drunken on killing
+                    Christians was deeply shocking. William Kelly explains John's reaction: he "marveled greatly that
+                    Christendom, under the guise of the holy church, should become the bitterest of persecutors, more murderous
+                    against the witnesses of Jesus than even paganism had been" <sup>26</sup>. Indeed, history confirms that during the
+                    Middle Ages and Inquisition, more Bible-believing Christians were slaughtered by the papal persecutors
+                    than in the early Roman pagan persecutions. The harlot has much to account for: from crusades against
+                    "heretics," to inquisitions, burnings, and massacres (e.g. the Albigenses, Waldenses, Huguenots, etc.), the
+                    blood of martyrs drenched the soil of Europe. Revelation 18:24 later says, "in her was found the blood of
+                    prophets and saints, and of all who were slain on the earth." This indicates she inherits not only the guilt of
+                    papal Rome, but of all Jerusalem and Babylon before her (Matthew 23:35 all righteous blood on earth will
+                    be required of the apostate Jerusalem leadership; similarly Babylon embodies collective guilt of centuries of
+                    martyrdom).
+                </p>
+                <p>
+                    John "marveled with great amazement" at this sight. The Greek implies a bewildered, horrified
+                    astonishment. It was inconceivable that something claiming to be of God could be so bloodthirsty. But
+                    such is the nature of false, apostate religion: it cannot tolerate the true gospel and those who hold it. Darby
+                    comments that formal religion that has lost truth "always becomes the instigator of persecution" - e.g.,
+                    the Jewish leaders against Christ and the apostles, and later Rome against true believers <sup>27</sup> (see the
+                    footnote in Darby's commentary). False church often uses the power of the state (the beast) to do its
+                    killing, but God lays the blame at the harlot's feet - she is drunk with the blood.
+                </p>
+                <p>
+                    Doctrine: The persecuting nature of the harlot reveals her as the anti-church (just as the
+                    beast is an anti-Christ empire). In Revelation, we have a counterfeit trinity: the Dragon
+                    (Satan), the Beast (Antichrist empire/leader), and the False Prophet (Antichrist religious
+                    figure). The harlot Babylon can be seen as the false bride, parodying the true Bride of Christ.
+                    Instead of loving the saints, she kills them. This verse starkly identifies Babylon with Rome,
+                    because it was Rome - first pagan, then papal - that was notorious for shedding the blood of
+                    Christian martyrs. No other city or system so perfectly fits being "drunk" on the blood of Jesus'
+                    witnesses. As one Protestant historian phrased it, the papal system "has shed more Christian
+                    blood than any other institution that ever existed." <sup>28</sup>
+                </p>
+                <p>
+                    Application: We should not be surprised that genuine disciples of Christ face persecution,
+                    sometimes even from those claiming to be "Christians." Jesus warned of a coming time when
+                    "whoever kills you will think he offers God service" (John 16:2). The history of Babylon the Great
+                    reminds us that empty religion hates living faith. True believers must sometimes dissent
+                    from corrupt church authorities, and this can be costly. Yet the blood of the martyrs is
+                    precious to God (Revelation 6:9-11). If we face opposition or ostracism for holding to biblical
+                    truth (even from within broader Christendom), we stand in a long line of witnesses. John
+                    marveled; perhaps we should too at the mystery of iniquity that can so twist religion into
+                    murder. But we should also be prepared: if organized religion departs from God, it will
+                    persecute those who remain faithful. Let this verse search our own hearts: Do we harbor
+                    enmity toward true brethren? The spirit of Babylon is one of pride and intolerance, utterly
+                    contrary to the love of Christ.
+                </p>
+
+                <h2>Verse 7 - Angelic Explanation Begins: The Mystery of Woman and
+                    Beast</h2>
+                <p>
+                    <span class="verse-number">"But the angel said to me, 'Why did you marvel? I will tell you the mystery of the woman and of the
+                    beast that carries her, which has the seven heads and the ten horns."</span> John is transfixed with
+                    astonishment, but the angel gently rebukes him – "Why do you marvel?" - and promises to explain the
+                    mystery. This is encouraging: God does not leave us in bafflement at these symbols; Scripture interprets
+                    Scripture. The phrase "mystery of the woman and of the beast" indicates that both the harlot and the
+                    beast carry hidden meanings that need divine illumination. We are about to get Heaven's interpretation of
+                    the major symbols: the woman (harlot), the beast she rides, the seven heads, and the ten horns. Notice the
+                    wording: "the beast that carries her." This reiterates that the woman's power depends on the beast's support.
+                    At this point in the vision, the harlot is still riding high, carried by the empire and its client kings. The
+                    angel will explain how this relationship plays out.
+                </p>
+                <p>
+                    For the reader, verse 7 is a turning point: from descriptive vision to interpretive prophecy. We are reminded
+                    that spiritual truths require spiritual revelation. John could not discern the full meaning of what he saw
+                    until the angel explained. Likewise, in studying prophecy, we must rely on Scripture and the Holy Spirit, not
+                    our own wisdom. Darby notes that if John had penetrated the mystery already, he would not have marveled;
+                    hence the angel's question and forthcoming explanation <sup>28</sup>. This verse also shows God's compassion: He
+                    sees John's confusion and offers clarity.
+                </p>
+                <p>
+                    Doctrine: God himself provides the interpretation of key symbols here, so we should pay
+                    close attention to verses 8-18. There is no need for wild speculation when the angel literally
+                    "tells us the mystery." The harlot and beast are not merely abstract ideas; they correspond to
+                    real entities (a city/church and an empire) as the angel will show.
+                </p>
+                <p>
+                    Application: When confronted with perplexing spiritual truths (things that make us "marvel"),
+                    we should turn to God's Word for explanation. As the angel guided John, the Holy Spirit
+                    guides us into truth (John 16:13). Also, the angel's question "Why did you marvel?" gently
+                    suggests that if John fully knew God's character and the prophetic scriptures, he might not
+                    have been so surprised – after all, Scripture had long warned of a corrupt "woman" (false
+                    religion) and fierce beasts (empires). For us, this is a nudge: we should not be naïve about the
+                    state of Christendom or the world. God has already unveiled these mysteries so that,
+                    informed by prophecy, we won't be dumbfounded when we see apostasy and persecution.
+                    Instead, we'll say, "Yes, the Lord told us this would happen." As Amos 3:7 says, "Surely the Lord
+                    God does nothing, unless He reveals His secret to His servants the prophets." He has revealed it -
+                    our task is to understand and heed it.
+                </p>
+
+                <h2>Verse 8 - The Beast: "Was, and Is Not, and Will Ascend" (Revival of
+                    the Roman Empire)</h2>
+                <p>
+                    <span class="verse-number">"The beast that you saw was, and is not, and will ascend out of the bottomless pit and go to perdition.
+                    And those who dwell on the earth will marvel, whose names are not written in the Book of Life from the
+                    foundation of the world, when they see the beast that was, and is not, and yet is."</span> Now the angel begins
+                    by explaining the beast. This verse is dense with information about the beast's career:
+                </p>
+                <ul>
+                    <li>"Was" - the beast once existed in some form.</li>
+                    <li>"Is not" - at the time of the vision, it currently does not exist.</li>
+                    <li>"Will ascend out of the bottomless pit" - it will return to existence by a demonic/satanic power
+                        ("the abyss" is the realm of demonic spirits).</li>
+                    <li>"And go to perdition" - its ultimate fate is destruction (perdition means ruin; the beast will be
+                        utterly defeated by God).</li>
+                </ul>
+                <p>
+                    Clearly, this is describing something unusual: an empire or power that existed, then ceased to exist ("died"),
+                    and will later rise again in a latter-day incarnation empowered by hell, only to be finally destroyed. Futurist
+                    interpreters (including Plymouth Brethren) have long identified this as the Roman Empire. In John's day, the
+                    Roman Empire "was" (it existed). Later, it essentially "is not" – the unified empire collapsed (traditionally
+                    dated to AD 476 in the West). Yet prophecy says it will "ascend from the abyss" - meaning a future revival of
+                    the Roman Empire in an anti-God form. John Darby writes: "The renewed Roman Empire, which had
+                    disappeared, is blasphemous and diabolical in nature, and in this character goes to destruction" <sup>29</sup>. William
+                    Kelly likewise notes that no past empire fits fully - we must look to a "still more complete development
+                    before the Lamb judges the Beast" <sup>30</sup>. He and Darby both stress that pagan Rome did not "ascend from
+                    the abyss" – it was a normal historical power ordained by God in its time. But the coming revival will be
+                    something uncanny, energized directly by Satan <sup>31</sup>. Indeed, Revelation 13:3 prophesied that one of the
+                    beast's heads would seem to have a fatal wound but would be healed, and the whole world would marvel -
+                    pointing to a resurrection of the empire. Here in verse 8, we see the world's reaction: earth-dwellers
+                    (unbelievers) will marvel when the beast reappears. They will be in awe of the resurgence of this power,
+                    which defies historical precedent. Kelly comments on how astonished people will be: an empire coming
+                    back to life is "altogether exceptional in world history," like a resurrection - but in this case a satanic one <sup>32</sup>.
+                    He notes that normally kingdoms rise and fall once; "as man does not believe in the resurrection of a man, he
+                    does not look for the resurrection of an empire" - yet it will happen, and the devil will be its author <sup>33</sup>.
+                </p>
+                <p>
+                    The verse also emphasizes that only those not written in the Book of Life (i.e. unbelievers) will marvel at the
+                    beast. True believers, understanding prophecy, will not be deceived by the beast's return. But the unsaved
+                    world will be mesmerized by the reborn Roman Empire and its leader. They will say, "Who is like the Beast?
+                    Who can make war with him?" (Rev 13:4). This resurgence likely refers to a future confederation of nations
+                    (the ten horns) forming a new Roman-like superpower, perhaps centered in Europe or around the
+                    Mediterranean, headed by the Antichrist figure. Its ascent "from the bottomless pit" implies the dragon
+                    (Satan) gives it power and authority (cf. Rev 13:2). In the end, however, this beast will "go to perdition" –
+                    meaning Christ will destroy it (as described in Revelation 19:19-20, the beast is captured and thrown alive
+                    into the lake of fire).
+                </p>
+                <p>
+                    It is sobering that this verse almost parodies the description of Christ ("who was, and is, and is to come"
+                    Rev 1:4). The beast "was, is not, and will be present (yet is)." The Antichrist empire mimics Christ's death and
+                    resurrection in a political realm. No wonder the lost world, without discernment, will marvel as if at a
+                    miracle. But believers know its true origin - the abyss and its end - destruction.
+                </p>
+                <p>
+                    Doctrine: This verse strongly supports a futurist, premillennial understanding of
+                    Revelation. It predicts a future revival of the Roman Empire shortly before Christ's return.
+                    The "beast" is both the empire and its final emperor (the terms often interchange). The fact
+                    that it "was and is not" in John's time means this prophecy could not have been completely
+                    fulfilled in the first century (preterist view) nor fully through the papacy alone (historicist
+                    view), because those interpretations struggle with the idea of the empire's revival. The
+                    Brethren view is clear: the Roman Empire will re-emerge in a new form after a long absence
+                    <sup>34 35</sup>. The source of its power will be Satan (the abyss), not God's ordinance (unlike past
+                    secular governments, which Romans 13 says are appointed by God for order - this final phase
+                    will be utterly lawless <sup>31</sup>). And its destiny is perdition - meaning it will be directly destroyed
+                    by Christ (the Lamb) when He comes.
+                </p>
+                <p>
+                    Application: We learn that history is under God's control, even the mysterious revivals of
+                    empires. God foretold this "resurrection" of Rome long ago, showing His sovereignty over
+                    what may appear a geopolitical marvel. For us personally, it's a caution not to marvel with
+                    the world at worldly power. The unbelieving world is impressed by political and military
+                    might - by whatever seems invincible ("who can war with the beast?"). But believers are told
+                    the end from the beginning. When we see nations aligning in unprecedented ways or
+                    perhaps the formation of a powerful federation (some see the European Union or a future
+                    iteration as a precursor), we should remember this verse. Instead of gaping in awe or fearing,
+                    we can say: "My Lord told me this - the beast will arise, but he's doomed." Our names in the Book
+                    of Life should keep us from being star-struck by Satan's political miracles. Also, reflect
+                    spiritually: are we drawn to worship "what was and is not and yet comes" (the latest worldly
+                    trends, revivals of old ideas) rather than "Him who was, and is, and is to come" (the eternal
+                    Christ)? Let's not be enamored with the Beast's spectacle, but stay faithful to the Lamb.
+                </p>
+
+                <h2>Verse 9 - Seven Heads = Seven Mountains (and More)</h2>
+                <p>
+                    <span class="verse-number">"Here is the mind which has wisdom: The seven heads are seven mountains on which the woman
+                    sits."</span> The angel now moves to interpret the seven heads of the beast. He prefaces it with "here is the mind
+                    which has wisdom," signaling that this detail requires spiritual discernment. The first layer of meaning: the
+                    seven heads represent seven mountains. To the original readers, this would have been an immediate
+                    clue: The city famously built on seven hills/mountains is ROME. In fact, one of Rome's ancient nicknames
+                    is "the city on seven hills." By saying the woman sits on seven mountains, the angel identifies the
+                    geographical locale of this prophecy - Rome - because verse 18 will confirm the woman is a great city
+                    ruling over kings (and in John's time, only Rome fit that description). William Kelly stresses that we are not
+                    free to ignore this feature: Scripture clearly wants us to make the Rome connection <sup>36</sup>. He writes, "It is
+                    written to be believed, not to be explained away." <sup>37</sup>. Thus, Babylon the Great = Rome in some form. Not
+                    literal Babylon in Mesopotamia (that would be one "mountain" on a plain, not seven), and not Jerusalem
+                    (also not seven hills, and Jerusalem never ruled over the earth's kings in John's day). The wisdom required is
+                    to see that "Babylon" is a code name for Rome's religious system – something obvious to believers but
+                    perhaps veiled from hostile authorities in John's time.
+                </p>
+                <p>
+                    Many Protestant expositors (and the Brethren) saw in this an undeniable reference to the Roman Catholic
+                    Church, centered in Rome. The woman sitting on Rome's seven hills signifies the Church headquartered
+                    there. Indeed, "Rome, city and system, figures in the scene", writes Kelly <sup>38</sup>. Darby also affirms: "Rome is
+                    more distinctly marked. It is the city of the seven hills." <sup>39</sup>. This identifying marker has been highlighted for
+                    centuries: for example, the Reformers would point out that the papal tiara is even called "septimontium"
+                    (seven mounts). Clearly, God did not want this "mystery" to be an impenetrable puzzle - He gave a big hint
+                    by invoking Rome's topography.
+                </p>
+                <p>
+                    However, the angel's interpretation of the heads doesn't stop at mountains. In the same breath (continuing
+                    into verse 10), he says "and they are seven kings" or kingdoms. This shows a double meaning: the seven
+                    heads symbolize both seven hills and seven kings/kingdoms. This dual symbolism is not uncommon in
+                    prophecy (e.g., in Daniel, horns are kings and also kingdoms). So, the angel signals that we must think of
+                    the heads as Rome's seven hills (geographical, pointing to the city) and as seven successive powers
+                    (historical/political). The phrase "here is the mind which has wisdom" may imply that understanding the
+                    dual reference requires spiritual insight. Simply put: the harlot sits on seven hills = she is Rome; the beast
+                    has seven kings = there's a sequence of ruling powers involved, which verse 10 will elaborate.
+                </p>
+                <p>
+                    Doctrine: The identification of Babylon with Rome is one of the most important keys to
+                    interpreting Revelation 17. God did not choose a random number of mountains – He
+                    specifically chose "seven mountains" to direct us to Rome. Thus, any interpretation that
+                    ignores Rome is deficient. The Plymouth Brethren perspective fully acknowledges this: Babylon
+                    is Roman ecclesiastical power. But they also extend it to future Rome. They note that ancient
+                    pagan Rome alone doesn't fit (because in the pagan era, the prophecy of seven kings and ten
+                    horns wasn't fulfilled) <sup>40</sup>. Therefore, Rome in its papal and end-time form is meant. The
+                    "wisdom" needed is to see that a religious system called Babylon can be headquartered in
+                    Rome, even as that system transcends a single city. Indeed, Roman Catholicism, though
+                    global, is quintessentially linked to the city of Rome - fulfilling "sits on seven mountains."
+                </p>
+                <p>
+                    Application: God requires us to use "the mind with wisdom" when handling prophetic
+                    symbols. We should be cautious interpreters - neither ignoring clear clues (like Rome's seven
+                    hills) nor leaning on wild imagination. Historically, many godly people did have this wisdom:
+                    they recognized the corruptions of Rome as "Babylon" and separated from them. The
+                    challenge for us: do we have the courage of that wisdom? It's one thing to identify Babylon;
+                    it's another to "come out of her" (Rev 18:4). Also, consider the broader principle: the harlot
+                    sitting on mountains may hint that false religion often tries to root itself in worldly power
+                    centers (the "mountains" of influence). True faith, however, looks for a city whose builder is
+                    God (Hebrews 11:10). Are we overly attached to earthly "mountains" (places of prestige,
+                    cultural power)? The wisdom from above would keep us focused on the Kingdom of God
+                    rather than the citadels of human civilization.
+                </p>
+
+                <h2>Verse 10 - Seven Kings: Five Fallen, One Present, One to Come (Then
+                    an Eighth)</h2>
+                <p>
+                    <span class="verse-number">"There are also seven kings. Five have fallen, one is, and the other has not yet come. And when he
+                    comes, he must continue a short time."</span> Still speaking of the seven heads, the angel now explains them as
+                    seven kings (or kingdoms/ruling powers). This appears to describe a sequence of seven regimes related in
+                    some way to the beast. The angel breaks it down: five are fallen, one is (currently), the other has not yet come,
+                    and when the seventh comes it will be brief. Let's decode this in context:
+                </p>
+                <p>
+                    Since the harlot is clearly connected to Rome, many interpreters understand these seven "kings" as forms
+                    of government or phases of rule over the Roman Empire (or broadly, world empires culminating in Rome).
+                    A common view (noted by many, including brethren expositors) is that the "five fallen" could refer to five
+                    successive phases of Roman governance that had passed by John's time. Some historical suggestions: (1)
+                    Kings (the early regal period of Rome), (2) Consuls, (3) Dictators, (4) Triumvirs (or perhaps Decemvirs), (5)
+                    Imperial (Julius/ Augustus) - though the counting varies in different analyses. The "one is" would then be
+                    the form in place in John's day, which was the imperial rule (the emperors - Caesar Domitian likely at the
+                    time of writing). In fact, William Kelly explicitly interprets: "the sixth head (reigning in that day) was the
+                    imperial form of government" <sup>41</sup>. Darby concurs that "it was the existing authority in the time of prophecy:
+                    five... had fallen; one was there" <sup>42</sup> - clearly the "one is" = the Roman Empire of the first century.
+                </p>
+                <p>
+                    Then "the other (seventh) has not yet come; and when he comes, he must continue a short space." This predicts a
+                    seventh form of the beast's kingdom that would arise after John's time and last only a little while. Brethren
+                    commentators have sometimes speculated on this. Remarkably, writing in the 1800s, Darby suggested:
+                    "My impression is that the first Napoleon and his brief empire is the seventh" <sup>43</sup>, which indeed was a short-lived
+                    revival of empire. Whether or not that is correct, it shows the expectation that after the long papal period
+                    (which isn't counted among these heads in their view), there could be a short-lived attempt at empire
+                    (Napoleon's), and then the final revival. In any case, the wording implies the seventh will be brief ("must
+                    remain a little while"). Perhaps it could be a short re-organization of the Roman domain before the final
+                    Antichrist - or even a future transitional government before the beast's full manifestation.
+                </p>
+                <p>
+                    Now, the eighth is mentioned in the next verse, but verse 10 sets it up: The beast itself in its end-time
+                    satanic revival is going to be an anomaly - in one sense the 7th, in another an 8th (we discuss in verse 11).
+                    Essentially, by the end of verse 10 we have: 5 past, 1 present (the imperial Rome of John's day), and 1
+                    future short-lived. These make seven.
+                </p>
+                <p>
+                    An alternative approach sees these as seven major empires in biblical history that oppressed God's
+                    people, with Rome being the sixth ("one is" in John's time) and a future coalition as the seventh. Some list:
+                    Egypt, Assyria, Babylon, Medo-Persia, Greece (that's five fallen by John's time), Rome (one is), and then a
+                    future revived Roman-based empire (the seventh). This scheme too yields seven, with an eighth being the
+                    final Antichrist's kingdom (though it's basically the same as seventh revived). Both views ultimately converge
+                    on the idea: We are heading toward the final phase of the beast, which is rooted in the Roman
+                    context. Kelly emphasizes that no past historical application fits all details, so "for the fulfilment of the
+                    prophecy, we must look onward to the latter day" <sup>44 45</sup>.
+                </p>
+                <p>
+                    We must hold these identifications humbly, but the angel clearly wanted John to see a continuum of power:
+                    by John's time some phases were already history ("5 fallen"), his present was the 6th, and there was more to
+                    come. This reassures us that God knows the end from the beginning - the rise and fall of empires are on
+                    His timeline.
+                </p>
+                <p>
+                    Doctrine: The exact identification of the seven heads/kings has been debated, but what's
+                    doctrinally clear is that God had a sovereign plan for the Roman beast. Many brethren
+                    writers identify the "five fallen" as previous Roman governmental forms, "one is" as the
+                    then-current empire, and "another yet to come" as a future government that will precede
+                    the final Antichrist. They see a possible gap or transition representing the Church Age (when
+                    the Roman Empire "is not" in full beast form) and then an end-time resurgence. The key point
+                    is that the beast's rule goes through stages culminating in a final satanically empowered
+                    phase. And however men list them, the final phase is short ("a short space") - implying that
+                    when the last empire comes, events will move quickly (cf. the Tribulation period).
+                </p>
+                <p>
+                    Application: This verse reminds us that world kingdoms are temporary. "Five have fallen" -
+                    the mightiest empires eventually crumble. Only God's kingdom is eternal. The one that
+                    "is" (for John, Rome) seemed invincible, but it too passed away. Believers should not put hope
+                    in any earthly empire. Also, note God's hand even in the duration: the seventh "must continue
+                    a short time" - God sets a limit on the last human empire before Christ returns. Evil will have
+                    its brief hour, but only as God permits. This encourages patience and trust; when we see
+                    nations raging, we know they operate on God's timetable, not their own. Finally, "here is
+                    wisdom" for us: reading history (the fallen five) in light of prophecy (the future seventh and
+                    eighth) helps us avoid being overly impressed by present powers. We can say of any regime,
+                    "It was, and is not" (or soon will not be). Therefore, we fix our eyes on Jesus, the true King,
+                    whose kingdom "shall never be destroyed" (Daniel 2:44).
+                </p>
+
+                <h2>Verse 11 - The Beast as an Eighth King (of the Seven)</h2>
+                <p>
+                    <span class="verse-number">"And the beast that was, and is not, is himself also the eighth, and is of the seven, and is going to
+                    perdition."</span> This somewhat cryptic statement wraps up the explanation of the heads. It reveals that the
+                    beast, in its end-time form, will be a kind of "eighth" king, yet it belongs to the seven. How can this be? The
+                    angel indicates a paradox: the final incarnation of the beast is both one of the seven (not an entirely new
+                    entity) and yet an eighth (in the sense of an unprecedented resurgence). William Kelly elucidates: the
+                    beast "in one sense [is] an eighth, in another sense it is of the seven; 'eighth' perhaps, because of its extraordinary
+                    resurrection character, yet 'one of the seven' because it is old imperialism revived" <sup>46</sup>. In other words, the final
+                    world empire under Antichrist will essentially be a revived Roman Empire (thus part of the historic "seven"
+                    regimes of Rome – likely the same as the 7th head coming back), but its revival is so remarkable (coming
+                    from the abyss with new satanic power) that it can be labeled an "eighth" king. It's an extraordinary
+                    extension of the series.
+                </p>
+                <p>
+                    Think of it this way: if the seven heads were successive governments, the beast's return is the return of one
+                    of those heads (the imperial) in a new form. It "is of the seven" - meaning it's the same basic beastly empire,
+                    not an entirely different civilization - it's Rome again. Yet it's the eighth - because it's a new embodiment of
+                    that empire after a long gap and with demonic power. This is consistent with Revelation 13: the beast's
+                    mortal wound (to one of its heads) is healed, so that head (the imperial power) lives again as an "eighth."
+                </p>
+                <p>
+                    The verse then solemnly repeats the beast's destiny: it "is going to perdition." Despite its rebirth and short-
+                    lived domination, its doom is sure. The word "perdition" was used of Judas (the "son of perdition") and is
+                    used of the Antichrist (2 Thessalonians 2:3 calls him the "son of perdition"). It implies not just destruction
+                    but being sent to eternal judgment. Indeed, in Revelation 19:20 the beast is cast alive into the lake of fire.
+                </p>
+                <p>
+                    So, verse 11 essentially summarizes: the final Antichristian empire = a resurrected Roman Empire (one
+                    of the previous seven) which, by virtue of its revival, can be considered an "eighth" world power - and its end
+                    will be utter destruction by God.
+                </p>
+                <p>
+                    Historically, we can observe that the Roman imperial idea never quite died – the "Holy Roman Empire,"
+                    various European empires, etc., all tried to revive Rome's legacy. But prophecy suggests a final, full revival is
+                    coming. We see shadows even in organizations like the EU, but the ultimate fulfillment awaits the
+                    Antichrist's arrival.
+                </p>
+                <p>
+                    Doctrine: The beast being "of the seven" yet "an eighth" underscores that Antichrist's
+                    kingdom will be a revival, not a brand-new civilization. It will likely involve the same
+                    geographic core (Europe/Rome) and cultural heritage of the old Roman Empire. This puts to
+                    rest theories that the Beast's empire is something totally unrelated to Rome. Brethren writers
+                    firmly plant the Beast in the Roman context. Darby wrote, "Of itself this marks the Roman or
+                    Latin Empire, only it will reappear more formally" <sup>47</sup>. The "eighth" also hints at the beast's
+                    counterfeit nature - "8" in the Bible sometimes signifies a new beginning (e.g., Christ rose on
+                    the first day of a new week, effectively an eighth day). Here the Beast mimics a "new
+                    beginning" for the empire, but it's a satanic one. In contrast, Christ's kingdom is often
+                    associated with the number 8 in a positive sense (new creation). Satan's final attempt at a new
+                    world order will likewise be an "eighth" - an imitation destined to fail.
+                </p>
+                <p>
+                    Application: God is not fooled by appearances or pretenses. The world may hail the final
+                    empire as something entirely new and hopeful (perhaps touting it as a new era of peace or
+                    unity), but God labels it plainly: it's just the old beast back again, and headed for perdition. We
+                    need that discernment. Also, consider how this principle applies spiritually: sometimes old
+                    sins or ideologies repackage themselves as "new" (an eighth), but in reality they are "of the
+                    seven" – the same old lies. We should be wary of "new" doctrines or movements that are
+                    really just revived errors from the past. Lastly, the beast's certain perdition is a comfort to
+                    believers. No matter how powerful evil seems, its doom is sealed. When we see evil
+                    "resurrect" in our day (whether in society or personal struggles), we can trust that Christ will
+                    ultimately triumph. The eighth will go to perdition, but "of His kingdom there shall be no end"
+                    (Luke 1:33).
+                </p>
+
+                <h2>Verse 12 - The Ten Horns: Future Kings Allied with the Beast</h2>
+                <p>
+                    <span class="verse-number">"The ten horns which you saw are ten kings who have received no kingdom as yet, but they receive
+                    authority for one hour as kings with the beast."</span> Now the angel turns to the ten horns on the beast.
+                    Horns in prophetic imagery typically represent kings or kingdoms (Daniel 7:24). Here we are told plainly: the
+                    ten horns are ten kings. Importantly, in John's time these kings had "no kingdom as yet" - meaning they
+                    are future from John's perspective. They will receive royal authority at the same time ("one hour") as the
+                    beast's final manifestation. In other words, this indicates a future confederation of ten co-ruling kings or
+                    kingdoms that will arise concurrently and join under the beast's leadership.
+                </p>
+                <p>
+                    This detail aligns perfectly with Daniel 7:24, which foretold that the Roman beast's ten horns are ten kings
+                    who will arise. Historically, people have often tried to identify the ten horns with ten nations that came out
+                    of the Roman Empire's breakup. For example, after Rome fell, various barbarian kingdoms (Visigoths,
+                    Vandals, etc.) emerged - sometimes listed as ten. However, the angel's explanation shows a crucial point:
+                    these ten kings reign "with the beast" simultaneously <sup>48</sup>, not simply sequentially or apart from him.
+                    William Kelly stresses that in history, when the Western Roman Empire fell and fragmented into multiple
+                    kingdoms, "they received their power as kings when the Beast ceased to exist. Thus the difference is complete
+                    between past history and the certain fulfillment of the prophecy in the future" <sup>49</sup>. In other words, in past
+                    history the Roman Empire and the independent kings did not coexist - one replaced the other. But in the
+                    future, prophecy requires a scenario where a central imperial power (the Beast) and ten regional kings are
+                    all ruling together for a brief period. This has never happened yet, which strongly indicates a future
+                    fulfillment.
+                </p>
+                <p>
+                    The phrase "one hour" suggests a short, specific timeframe of joint rule - likely the final period (perhaps
+                    the Great Tribulation, often thought of as 3.5 years). It emphasizes how quickly these events will unfold
+                    once the coalition forms. The ten kings receive authority with the beast implying they willingly share
+                    power under his supremacy. Possibly, these could be ten nations or regions (perhaps a ten-nation
+                    federation or ten blocs in a future world government) that unite under the Antichrist's empire. Some have
+                    speculated about organizations like the EU having ten core nations, etc., but the prophecy will ultimately
+                    fulfill exactly as written when the time comes.
+                </p>
+                <p>
+                    Importantly, these kings "have not yet received a kingdom" in John's day. This demolishes any interpretation
+                    that tries to force the ten horns into ancient history. It also suggests that any current identifications (say,
+                    ten specific countries today) might be premature until the Beast himself is on the scene. The number ten
+                    could be literal or symbolic of completeness; however, given the precision of prophecy, many expect a literal
+                    ten-nation alliance.
+                </p>
+                <p>
+                    Doctrine: The ten horns show that the final world empire is not an absolute monarchy in
+                    isolation; it is a coalition of rulers. This corresponds to the ten toes of Nebuchadnezzar's
+                    statue (Daniel 2:41-44), which were part iron, part clay – a divided kingdom partly strong,
+                    partly brittle. The Brethren writers note that any attempt to see a perfect fulfillment in the
+                    past (like the ten Germanic tribes of the 5th century) falls short, because those tribes did not
+                    reign concurrently with a Roman emperor <sup>49</sup>. Therefore, we expect a future ten-
+                    kingdom structure. It speaks of a kind of "restored" Roman Empire in federal form - likely
+                    some new political arrangement where multiple leaders govern under the Antichrist's
+                    authority. This makes sense in a modern context (e.g., a union of states).
+                </p>
+                <p>
+                    Application: God controls the rise of kings. These ten will only receive power at the ordained
+                    "one hour." We can trust that world events – alliances, unions of nations – are moving under
+                    God's sovereign hand toward His predetermined end. As believers, we should neither be
+                    alarmist nor oblivious. When we see nations coalescing or talks of global governance, we
+                    shouldn't jump to conclusions, but we should recall this prophecy. It teaches us to have a
+                    balanced view: God's plan includes human political developments (He foretold them), yet His
+                    people's hope isn't in any political union but in Christ's return. Also, the "one hour" of shared
+                    authority reminds us how fleeting worldly power is. These leaders will enjoy power briefly. So
+                    why envy or fear the powerful? Psalm 37: "fret not... for they shall soon wither." Instead of
+                    fretting about emerging superstates or conspiracies, Christians stay informed but calm,
+                    knowing that nothing can happen outside God's "hour" and plan.
+                </p>
+
+                <h2>Verse 13 - Unified Purpose: Giving Power to the Beast</h2>
+                <p>
+                    <span class="verse-number">"These are of one mind, and they will give their power and authority to the beast."</span> The angel here
+                    reveals the unity of purpose among the ten kings. Though they are ten separate rulers, "they are of one
+                    mind." They willingly subordinate their individual sovereignty to the Beast's leadership. In practical terms,
+                    this suggests a future coalition where national leaders unanimously cede authority to a single supreme
+                    leader (the Antichrist). They form something like a federal empire: ten kings acting in lockstep,
+                    surrendering their armies, resources, and political clout to the central imperial figure.
+                </p>
+                <p>
+                    This is a remarkable contrast to historical reality. Typically, alliances of nations are full of rivalries and
+                    conflicting agendas. But prophecy indicates that at least for a short period, these ten will be completely
+                    aligned – likely galvanized by the charismatic, domineering presence of Antichrist and perhaps by external
+                    pressures (like the judgments occurring or the threat of the Lamb's coming). Darby notes: "They all give their
+                    power to the beast" <sup>50</sup>. This means the beast (the Antichrist) will effectively wield the combined might of all
+                    ten kingdoms as one. It's a picture of extreme centralized power - a final attempt at world dominion.
+                </p>
+                <p>
+                    We see foreshadows in history: for example, how European nations sometimes band together under a
+                    strong leader (think of Napoleon's vassal kings, or Hitler's Axis allies). But those fell apart due to mistrust. In
+                    the end times, God will put it into these kings' hearts (as verse 17 will say) to wholeheartedly cooperate.
+                    They will likely institute a one-world government (or at least one-world in the scope of the old Roman
+                    domain, which could be quite extensive). Such unity of secular powers against God's purposes is seen also
+                    in Psalm 2: "The kings of the earth set themselves, and the rulers take counsel together, against the LORD and
+                    against His Anointed." Here we have ten kings counselled together with one mind – a fulfillment of that
+                    pattern.
+                </p>
+                <p>
+                    However, what they intend for evil, God will use for good (namely, to fulfill prophetic purposes, as we'll see
+                    in verse 17).
+                </p>
+                <p>
+                    For now, verse 13 sets up the climax: with their combined strength given to the beast, the stage is set for
+                    direct conflict with Christ.
+                </p>
+                <p>
+                    Doctrine: The voluntary unity of these kings under the beast underscores how Antichrist
+                    will achieve global dominance not just by conquest but by consent (at least initially). It
+                    fulfills what Daniel 17:12 predicted (ten kings arise, and presumably the little horn/Antichrist
+                    arises among them and gains preeminence). The one mind could indicate political
+                    unanimity or even a strong delusion causing them to all adopt the beast's agenda. It shows
+                    the extent of human rebellion: many nations acting as one in defiance of God. This
+                    anticipates the battle of Armageddon where "the kings of the earth and of the whole world"
+                    gather together (Rev 16:14) under demonic influence to war against Christ. Theologically, it
+                    demonstrates the principle that satanic unity can exist – the enemies of God will
+                    momentarily set aside differences to fight the Lamb.
+                </p>
+                <p>
+                    Application: Unity is powerful for good or for ill. Here we see a unity of the wicked, a
+                    counterfeit of the unity of the Spirit believers enjoy. It's sobering: just as Christians are called
+                    to be of one mind in Christ (Phil 2:2), the world will one day be of one mind in Antichrist. We
+                    should strive for godly unity and be wary of false unity movements. Not every call for
+                    "global unity" is benign; when unity is based on rejecting God's truth, it becomes a tool for
+                    Antichrist. Already, we observe trends of centralizing authority (in governance, economics,
+                    even religion) - believers should discern the spirit behind calls for unity at the expense of
+                    truth. Also, personally: are we "of one mind" with the agenda of this world or with the agenda
+                    of Christ? James 4:4 warns friendship with the world is enmity with God. In the end, there will
+                    be no middle ground – one either sides with the Beast or with the Lamb. This verse
+                    challenges us to examine where our allegiance and "mindset" lie.
+                </p>
+
+                <h2>Verse 14 - War Against the Lamb, and the Lamb's Victory</h2>
+                <p>
+                    <span class="verse-number">"These will make war with the Lamb, and the Lamb will overcome them, for He is Lord of lords and
+                    King of kings; and those who are with Him are called, chosen, and faithful."</span> Here we reach the
+                    culmination of the harlot/beast vision: the ten kings and the beast, unified in purpose, turn their aggression
+                    toward "the Lamb" - a title of Christ in Revelation emphasizing His sacrificial death and meekness, yet also
+                    His ultimate triumph. The phrase "make war with the Lamb" alludes to the climactic battle when Christ
+                    returns (Revelation 19:19: "the kings of the earth and their armies gathered to make war against Him who
+                    sat on the horse"). This shows that the final world empire and its allies will literally attempt to fight Jesus
+                    Christ at His Second Coming – likely by attacking His people and perhaps even gathering to fight Him
+                    directly as He appears. It's the zenith of human rebellion: the armies of earth trying to overthrow the King of
+                    Heaven.
+                </p>
+                <p>
+                    Yet the outcome is never in doubt: "the Lamb will overcome them." Praise God - gentle Lamb though He
+                    may be, He is also the Lion of Judah. His meekness in redemption will be matched by His majesty in
+                    judgment. The text gives the reason: "for He is Lord of lords and King of kings." All earthly lords and kings
+                    (including the beast and his ten kings) are ultimately subordinate to Jesus, the sovereign over all. This title
+                    "King of kings and Lord of lords" is one of Christ's highest titles, also seen written on His robe in Revelation
+                    19:16. It means no coalition of rulers, no matter how powerful, can prevail against Him, because He is
+                    the supreme authority in the universe.
+                </p>
+                <p>
+                    Beautifully, we're also told that when Christ comes to defeat the beast, His followers come with Him:
+                    "those who are with Him are called, chosen, and faithful." This refers to the saints – likely the raptured
+                    Church and possibly angels too, but the triple description (called, chosen, faithful) fits believers. They are
+                    "called" by God's grace, "chosen" (elect) in Christ, and "faithful" in their life and testimony (proved genuine
+                    by perseverance). What an encouragement: when Jesus returns, we will be with Him (cf. Rev 19:14, "the
+                    armies in heaven, clothed in fine linen, followed Him on white horses"). We don't win the victory; He wins it
+                    - but we share in His triumph.
+                </p>
+                <p>
+                    Darby comments on this scene: despised as Christ may be now, "He shall overcome them," and "there are
+                    others coming with Him, not merely angels, but called ones, His saints." <sup>51</sup>. The Brethren often taught that the
+                    Church, having been caught up to meet Christ (in the rapture), will return with Him in glory to reign.
+                    (Colossians 3:4, 1 Thess 3:13). Here is a direct evidence of that: the Lamb's companions share His titles in a
+                    derivative way (Revelation 19:14's fine linen was the righteousness of saints). They reign with Him
+                    (Revelation 20:4). But in the actual battle, Christ alone treads the winepress (Isaiah 63:3, Rev 19:15) - we are
+                    just joyful witnesses to His victory.
+                </p>
+                <p>
+                    So verse 14 gives the concluding spoiler: despite Babylon's intrigues and the beast's terrifying power, Jesus
+                    Christ ("the Lamb") wins. This is doctrinally central. God allows evil a short reign, but Christ will utterly
+                    conquer. The rest of Revelation will give details (chapter 19), but here the end is summarized so we have no
+                    doubts.
+                </p>
+                <p>
+                    Doctrine: Christ's sovereignty and victory are the ultimate themes here. "Lord of lords, King
+                    of kings" affirms His deity and omnipotence - titles used of God in the Old Testament (e.g.,
+                    Deut 10:17). It's a strong testimony that Jesus, the Lamb, is none other than the Almighty God
+                    who has absolute dominion. Theologically, this also highlights the bond between Christ and
+                    His people: He doesn't come alone; His "called, chosen, faithful" ones are inseparable from
+                    Him. It implies the doctrine of glorification - the saints, having been called and chosen, have
+                    also been made faithful (by His grace) and will partake in His triumph. Also, note the contrast:
+                    the beast had ten kings "of one mind" with him; Jesus has saints with Him who are "faithful."
+                    The beast's followers are coerced or deluded; Jesus' followers are willing and loyal. Another
+                    subtlety: Christ is called "Lamb" even in war, signifying that His victory comes through His
+                    sacrificial work (the very reason He can judge is that He first redeemed).
+                </p>
+                <p>
+                    Application: This verse is deeply encouraging. No matter how dark the times, we know the
+                    ending: "The Lamb will overcome them." When evil forces seem to be winning, remember that
+                    our Lord is King of kings – every ruler, every tyrant is under Him and will answer to Him. If
+                    you ever feel in the minority or powerless as a Christian, recall that one Lamb defeats ten
+                    kings and a beast in one stroke. Also, take heart that you are "called and chosen" - God has
+                    set you apart to belong to Christ's victorious company. Strive therefore to be "faithful." That
+                    is the one part of the description we must actively live out. We can ask: Am I living as one of
+                    the called, chosen, and faithful? When Jesus returns, will I be arrayed in the fine linen of
+                    practical righteousness (Rev 19:8) following Him? This hope of victory should fuel our
+                    perseverance now. Furthermore, the unity of the ten kings for evil reminds us to be united
+                    with Christ and our brethren for good – we want to be found "of one mind" with the Lamb,
+                    not with the world. The Lamb's victory is our victory; let's live boldly and loyally in that
+                    assurance.
+                </p>
+
+                <h2>Verse 15 - The Waters Interpreted as Peoples and Nations</h2>
+                <p>
+                    <span class="verse-number">"Then he said to me, 'The waters which you saw, where the harlot sits, are peoples, multitudes,
+                    nations, and tongues.""</span> The angel now clarifies the first symbol mentioned back in verse 1: the "many
+                    waters" upon which the harlot sits. As suspected, it is a metaphor for the vast multitude of humanity
+                    under her influence. "Peoples, multitudes, nations, and tongues" is a fourfold expression basically covering
+                    all categories of mankind - it emphasizes the universality of Babylon's sway. The false religious system isn't
+                    confined to one ethnic or linguistic group; it has worldwide scope. In John's day, Rome indeed sat on "many
+                    waters" in the sense that the Roman Church eventually spread across many nations, and more broadly, false
+                    religion spans the globe. Darby's commentary explicitly notes: "The waters are explained as peoples,
+                    multitudes, nations, and tongues – masses of populations in their diverse divisions." <sup>52</sup>. This shows that
+                    Babylon's power base is the population of the world, especially the unregenerate masses ("those who dwell
+                    on the earth" who were mentioned as being intoxicated with her in verse 2).
+                </p>
+                <p>
+                    This interpretation also connects to Jeremiah 51:13, which addressed historical Babylon: "O you who dwell by
+                    many waters, abundant in treasures..." - ancient Babylon literally sat on the Euphrates and its canals, but
+                    mystic Babylon "dwells" on the seas of peoples. Essentially, Babylon thrives on the support of the world's
+                    populace and its cultures. She influences multitudes and draws her strength from them, much as a city
+                    draws prosperity from the trade of many waters.
+                </p>
+                <p>
+                    For our study, verse 15 is straightforward because the angel himself decodes it. It reinforces the earlier
+                    understanding of verse 2 and verse 1. It also sets the stage for verse 16: now that we know "waters" = the
+                    peoples, and that the harlot sits on them (implying she rules or heavily influences them), we can appreciate
+                    how dramatic it will be when the beast and kings turn on her - they will strip her of that position over the
+                    peoples.
+                </p>
+                <p>
+                    Doctrine: The harlot's "sitting" on the waters indicates her dominion over the world's
+                    peoples in religious matters. This verse teaches the global nature of end-times apostasy. The
+                    false church isn't a local aberration; it will encompass nations and languages – a counterfeit
+                    "great commission," if you will, making disciples of all nations but in a false religion. It
+                    reminds us of the worldwide extent of Roman Catholic influence historically (truly a multi-
+                    national church), and perhaps in the future that influence will expand or merge with other
+                    religious movements to literally cover the globe. It's sobering to think of the majority of the
+                    world's population being under the spell of Babylon (as Rev 13:8 says, all whose names are
+                    not in the Book of Life will worship the beast or his image).
+                </p>
+                <p>
+                    Application: First, this reveals the urgency of the Gospel mission. If Babylon sits on
+                    "peoples, multitudes, nations, tongues," then people everywhere are in spiritual danger of
+                    deception. We must labor to call individuals out of Babylon into the marvelous light of Christ.
+                    Second, it's a check on any complacency: large numbers do not equal truth. Just because
+                    something is popular among "many peoples" doesn't mean it's of God - in fact, here the vast
+                    multitudes are aligned with the harlot. True faith may often be a faithful remnant, not the
+                    popular majority. Third, this interpretation assures us that God's Word can be understood –
+                    symbols like waters have clear meaning as defined by Scripture. It encourages us to study
+                    Scripture carefully and let it interpret itself. When facing confusing imagery in our own life or
+                    dreams or ideas, we should seek God's interpretation through His Word. Finally, personally:
+                    does the harlot influence me? She sits on multitudes – are we inadvertently part of those
+                    "waters"? We should examine whether any Babylonish beliefs or practices have subtly swayed
+                    us because "everyone is doing it." Remember, "peoples, multitudes" may follow Babylon, but
+                    we are called to follow the Lamb (even if it's against the flow of the majority).
+                </p>
+
+                <h2>Verse 16 - The Harlot's Destruction by Her Former Allies</h2>
+                <p>
+                    <span class="verse-number">"And the ten horns which you saw on the beast, these will hate the harlot, make her desolate and
+                    naked, eat her flesh and burn her with fire."</span> Here a dramatic twist is revealed: the very ten kings (horns)
+                    that initially supported the harlot will turn against her. The angel prophesies a violent betrayal: the secular
+                    powers will "hate" the harlot (grow to abhor her) and utterly devastate her. The language is graphic and
+                    final:
+                </p>
+                <ul>
+                    <li>"Make her desolate and naked" - they will strip away all her wealth, adornment, and support,
+                        exposing her shame. Desolate implies robbing her of resources and followers; naked implies public
+                        humiliation (she who sat as a queen in luxury is reduced to nothing).</li>
+                    <li>"Eat her flesh" - a figurative way to say they will devour her completely, perhaps plundering her
+                        treasures and consuming all that sustained her (just as wild beasts eat the flesh of a prey). This
+                        echoes Old Testament judgment language; for example, in Psalm 27:2 enemies came to "eat up my
+                        flesh" - meaning to utterly destroy.</li>
+                    <li>"Burn her with fire" - they will burn the city/system to the ground. In ancient law, the punishment
+                        for a harlot (and for a priest's daughter who played the harlot) could be burning (Leviticus 21:9). Also,
+                        burning a city indicates total judgment (like God's destruction of Sodom or Jericho). So the kings will
+                        be God's instruments to reduce Babylon to ashes.</li>
+                </ul>
+                <p>
+                    This is a stunning turn of events. Initially, the harlot rides the beast - indicating the empire tolerated and
+                    carried her. But something changes during Antichrist's reign: the political powers grow to resent the
+                    religious Babylon. Many expositors suggest that once the Antichrist (the Beast) declares himself god (2
+                    Thess 2:4, and sets up the abomination of desolation), he will no longer brook any rival, even an apostate
+                    church. He and his vassal kings will dismantle the false church to establish direct worship of the Beast.
+                    The harlot – initially useful to unite people religiously – becomes unnecessary or even an obstacle to the
+                    Beast's own divine pretensions. Thus, God sovereignly puts it into their hearts (v17) to destroy her.
+                </p>
+                <p>
+                    Historically, we can see foreshadows: secular rulers at times chafed under papal authority and eventually
+                    broke with it (e.g., the rise of nationalism, the stripping of church lands, etc.). Here it's the consummation:
+                    the world rulers violently overthrow the religious system. In one hour she is made desolate (Rev 18:17).
+                    Note, Revelation 18 will describe in detail the fall and burning of Babylon (though it emphasizes more the
+                    economic aspect). But here we know who causes her fall: not believers (they're told to come out, not fight
+                    her), but her own former political lovers.
+                </p>
+                <p>
+                    Darby captures the scene: "the ten horns... and the beast hate the whore and eat her flesh and burn her with
+                    fire" <sup>52</sup>. This shows that ultimately, secular powers despise the false church - once they have use for her
+                    no longer, they turn savagely. It's poetic justice: she rode them for gain; now they buck her off and trample
+                    her.
+                </p>
+                <p>
+                    Doctrine: God's judgments are often carried out by the hands of the wicked themselves. Here
+                    Babylon's judgment comes via the Beast and his kings. This fulfills God's Word: "they shall
+                    hate the harlot" and burn her - reminiscent of how ancient Israel's harlotry was punished by
+                    the nations she enticed (Ezekiel 16:37-41 prophesied that Israel's lovers would turn on her
+                    and strip her naked and burn her houses). It also aligns with the ten horns being partly iron,
+                    partly clay (Daniel 2): the alliance is unstable and eventually fractures, leading to Babylon's
+                    ruin. This verse is key in dispensational understanding: it distinguishes the fall of
+                    ecclesiastical Babylon (chapter 17) by the Beast's hand, from the fall of commercial/
+                    political Babylon (chapter 18) by God's direct wrath at the end. However, they likely occur in
+                    close sequence. Theologically, note that evil contains the seeds of its own destruction. The
+                    beast's regime destroys Babylon (evil vs evil), then God destroys the beast.
+                </p>
+                <p>
+                    Application: There are several sobering lessons. First, compromise with the world is fatal.
+                    The harlot thought riding the beast would bring her power; in the end, the beast devoured
+                    her. Churches today that cozy up to secular power or dilute truth for influence might gain for
+                    a while, but they risk destruction by the very world they court. Second, we see the principle
+                    that ungodly alliances never last. The kings and Babylon turn on each other; there is no
+                    honor among thieves. For personal life: if we base relationships or ventures on sin or
+                    expediency rather than God's way, eventually it will implode. Third, note the complete
+                    judgment: despised ("hate"), deprived ("desolate and naked"), destroyed ("eat flesh, burn with
+                    fire"). God's judgment on false religion is total. This should instill a holy fear - He is patient,
+                    but finally Babylon's sins reach heaven (Rev 18:5) and judgment is irrevocable. Lastly, on a
+                    hopeful note: verse 16 implies the demise of false, oppressive religion. All the corruption
+                    that has plagued true faith will be removed. Sometimes we get discouraged by religious
+                    hypocrisy and abuse; God promises He will deal with it decisively. Our job is to "come out of
+                    her" (18:4) and stay pure, trusting that God will handle Babylon's fall.
+                </p>
+
+                <h2>Verse 17 - God's Sovereign Plan Behind the Scenes</h2>
+                <p>
+                    <span class="verse-number">"For God has put it into their hearts to fulfill His purpose, to be of one mind, and to give their
+                    kingdom to the beast, until the words of God are fulfilled."</span> Here the angel reveals the divine sovereignty
+                    orchestrating these events. Why do the ten kings suddenly unite under the Beast and then turn against the
+                    harlot? Because God put it in their hearts to carry out His purpose. This is a profound statement of how
+                    God's providence can operate even through wicked rulers. They freely choose to ally with Antichrist and to
+                    destroy Babylon out of hatred, yet over and above their choices, God is using their actions to accomplish
+                    His prophetic Word.
+                </p>
+                <p>
+                    So, God's purpose was twofold here: (1) to bring the ten kings under one mind (united under the Beast's
+                    authority), and (2) to use them as instruments to judge the harlot. They "give their kingdom to the beast" –
+                    we saw that in verse 13 – and they will do so "until the words of God are fulfilled." That implies there is a
+                    divinely appointed duration for the Beast's reign (often understood as the 42 months of Rev 13:5). When
+                    that time is up (when all God's prophetic words are accomplished), then the Beast and kings themselves will
+                    face judgment (at Armageddon by Christ).
+                </p>
+                <p>
+                    This verse is comforting: it shows God is in ultimate control even during the darkest hour of tribulation.
+                    The rise of Antichrist's empire and the fall of Babylon are not random; they happen "for God has put it in their
+                    hearts" to act according to His will. This does not excuse their evil (they act from hatred and pride), but it
+                    shows God's sovereignty is so great that He can steer even the wrath of man to praise Him (Psalm 76:10).
+                    It's akin to how God stirred the hearts of pagan kings like Cyrus (Ezra 1:1) to fulfill His word, or how He
+                    allowed nations to judge Israel yet later judged those nations for their violence (Zech 1:15).
+                </p>
+                <p>
+                    In the end, "the words of God" – all the prophecies – will be fulfilled precisely. Not one will fail. The
+                    destruction of Babylon was prophesied (e.g., Rev 14:8, "Babylon is fallen"), and God ensures its fulfillment by
+                    guiding events. Likewise, the dominance of the Beast for a short time is prophesied and is permitted
+                    precisely until that prophetic word is accomplished, no longer.
+                </p>
+                <p>
+                    This verse also answers any question of "why would God let the Beast and ten kings do this?" It's part of His
+                    judgment on Babylon and the final act of the drama of human history. As soon as the harlot is out of the
+                    way, the stage is set for Christ's return to judge the Beast's empire (Rev 19).
+                </p>
+                <p>
+                    Doctrine: Providence and Predestination are at work here. We see that God can "put it into
+                    the hearts" of rulers to carry out His decree <sup>3</sup>. This doesn't mean He makes them evil;
+                    rather, He guides their existing evil intentions to align with His timing and plan. It's like
+                    Proverbs 21:1, "The king's heart is in the hand of the Lord... He turns it wherever He wishes." This
+                    interplay of divine sovereignty and human free agency is a mystery, but Revelation affirms
+                    both. The kings choose to give allegiance to the Beast (they are responsible for that), yet God
+                    ordained it to fulfill His word. The phrase "until the words of God are fulfilled" underscores
+                    the inerrancy and certainty of God's prophetic Word. Every prophecy about Babylon and
+                    the Beast will come to pass to the letter, because God Himself ensures it.
+                </p>
+                <p>
+                    Application: We can take great comfort that God's plan cannot be thwarted. Even when evil
+                    seems rampant, God is still ruling. The worst schemes of Satan will inadvertently serve God's
+                    ends. When we watch world events that are troubling (wars, plots, persecutions), we should
+                    remember God's "purpose" is being worked out. This doesn't make evil good, but it means evil
+                    never escapes God's control. Also, the kings had "one mind" to do evil (echoing verse 13), and
+                    that was from God in the sense of permission and direction. Conversely, we pray God would
+                    put in our hearts His will to do good. Just as He can direct evil hearts to unknowingly carry out
+                    His judgment, He can direct willing hearts to knowingly carry out His commission. Are we
+                    yielding to His prompting? Another lesson: patience in waiting for "the words of God" to be
+                    fulfilled. There was a specific "until" in God's plan. We often ask, "How long, O Lord?" (Rev
+                    6:10). This verse implies God has an "until" for everything. He waits until the perfect moment.
+                    So we must trust His timing. Lastly, we see the necessity of knowing God's Word. It was by
+                    knowing the prophetic "words of God" that the early church recognized events (like Christ's
+                    first coming). Similarly, those who understand these prophecies during the end times will not
+                    be dismayed; they will say, "This is exactly what God said would happen." We too should
+                    familiarize ourselves with God's promises and prophecies, so that as history unfolds, our faith
+                    is strengthened by seeing His Word fulfilled, rather than shaken.
+                </p>
+
+                <h2>Verse 18 - The Woman Identified as the Great City Ruling the
+                    Earth's Kings</h2>
+                <p>
+                    <span class="verse-number">"And the woman whom you saw is that great city which reigns over the kings of the earth."</span> The
+                    angel's final statement removes any lingering ambiguity about the harlot's identity. "The woman... is the
+                    great city that has dominion over the kings of the earth." In John's time (circa 1st century A.D.), only one
+                    city could be described in those terms: Rome. Rome was the seat of a vast empire, the city that "reigned"
+                    over earthly kings and nations. Indeed, Roman emperors held sway over client kings and governors
+                    worldwide. William Kelly affirms: "Rome in some form is the woman described in the chapter. The seven heads
+                    or hills clearly point to that city, which of all cities was known as ruling over the kings of the earth." <sup>22</sup>. Darby
+                    likewise concludes: "the woman... is Rome" <sup>53</sup>.
+                </p>
+                <p>
+                    Thus, scripture itself confirms the interpretation: Mystery Babylon = Rome (especially in its religious
+                    aspect). But notice, it says "the great city which reigns (present tense) over the kings of the earth" - John
+                    wrote this likely during the Roman Empire's heyday (possibly under Domitian), so the angel is virtually
+                    pointing a finger at Rome. Early Christian readers likely understood this, though they had to be cautious in
+                    openly saying so (hence the code-name "Babylon").
+                </p>
+                <p>
+                    This identification also provides a bridge: it is Rome - yet not merely pagan Rome, because the context of a
+                    harlot false religion in league with empire suggests Christianized Rome (the Papal system) that came later.
+                    Some have noted that in Revelation 17 John is astonished because he's essentially seeing what had been the
+                    church of Rome turned into a bloodthirsty harlot. In John's time, the "church" was still pure and persecuted,
+                    not persecuting. The prophecy foresaw a time when Rome, after professing Christianity (Rome papal, the
+                    Vatican), would corrupt truth and persecute saints, all while still being identified with the ancient city of
+                    seven hills. This indeed happened in history, confirming the prophecy. And it will reach its zenith in the final
+                    days.
+                </p>
+                <p>
+                    By calling her a "city," the angel also hints at Babylon's worldly, political dimension (which chapter 18 will
+                    expand on, describing the wealth and commerce of Babylon). So the religious system is intertwined with an
+                    actual city/civilization (Rome). In a sense, Babylon (Rome) is both a city and a system (religious and
+                    economic). The Bible sometimes personifies cities as women (Jerusalem as the adulterous wife in Ezekiel 16,
+                    for example). Here the city of Rome is personified as the harlot.
+                </p>
+                <p>
+                    This verse also ties back to Revelation 16:19, which mentioned "the great city" and "Babylon the great." It's
+                    confirmed they are one: the great city Babylon = Rome.
+                </p>
+                <p>
+                    With this identification, chapter 17 concludes. We now know: the harlot is Rome (the apostate religious
+                    system emanating from Rome), and she will be judged by the Beast and kings, as part of God's plan, prior to
+                    Christ's return. What follows in chapter 18 is a lament over Babylon's fall, likely looking at it from an earthly
+                    perspective.
+                </p>
+                <p>
+                    Doctrine: This verse solidifies the historic Protestant interpretation that the Papal Roman
+                    Church is in view. The Reformers openly said, "Rome is Babylon." Brethren authors like Kelly
+                    and Darby, though more focused on future fulfillment, fully concur that Rome is intended <sup>22
+                    53</sup>. It's doctrinally significant that Revelation pinpoints a city - Christianity is unique among
+                    religions in having a city (Vatican/Rome) at the core of a powerful religious hierarchy that
+                    endured through ages. Another doctrinal point: God sees not just systems but actual places.
+                    Judgment is coming on an actual location (Rome) for its spiritual crimes. This parallels OT
+                    prophecies where specific cities (Babylon, Tyre, Nineveh) were judged. It reminds us God is
+                    the Lord of history and geography.
+                </p>
+                <p>
+                    Application: "The great city reigning over the kings" - think of the arrogance and influence of
+                    that city. It should humble us that even the mightiest city is nothing before God when it
+                    becomes proud. Rome, the marvel of the world, becomes a byword for harlotry in Scripture.
+                    Let that warn modern cities and institutions: any city or nation that exalts itself and corrupts
+                    truth can become 'Babylon' and will face a fall. On a personal level, this identification
+                    challenges us: Do we recognize Babylon for what it is? Early Christians had to discern that
+                    behind Rome's pomp was a harlot. Today, do we discern the spirit of Babylon in worldly
+                    culture or compromised religion? Also, consider the appeal of that "great city." Many were
+                    enticed by Rome's power and luxury. We must heed Hebrews 13:14, "For here we have no
+                    continuing city, but we seek the one to come." Our citizenship is in New Jerusalem, not Rome/
+                    Babylon. The faithful in history often had to figuratively "come out of Rome/Babylon"
+                    whether that meant leaving false churches or refusing imperial cults. We too may face times
+                    where loyalty to Christ means distancing ourselves from "Babylonian" elements, even if they
+                    appear as a powerful "great city" in Christendom. But we take courage: though Rome was
+                    great, John sees her judged. Conversely, the Bride (New Jerusalem) in Revelation 21 is the
+                    city that will truly reign forever under the King of kings. So as chapter 17 ends, a contrast is
+                    implied: choose your city – Babylon or New Jerusalem, the harlot or the bride. For us, the
+                    choice is clear.
+                </p>
+
+                <h3>Conclusion & Spiritual Lessons</h3>
+                <p>
+                    Revelation 17, though filled with symbolism, conveys timeless lessons for
+                    believers:
+                </p>
+                <ul>
+                    <li>The Peril of Apostasy: Babylon the harlot represents apostate religion - a warning that proximity
+                        to truth (she had a golden cup and a pretense of wealth) can devolve into gross error if love for
+                        Christ is abandoned. We must cling to pure doctrine and holy living, lest we partake in Babylon's
+                        sins and plagues <sup>20 14</sup>. Personal holiness and devotion guard us from the seductions of spiritual
+                        harlotry.</li>
+                    <li>Come Out of Her: While chapter 18 explicitly calls, "Come out of her, My people" (Rev 18:4), already by
+                        understanding chapter 17 we sense that application. God desires a separated people - in the world
+                        but not of it. We should disentangle ourselves from compromising alliances, whether in religious,
+                        moral, or philosophical matters. Is there any "Babylon" in our life - love of luxury, pride of position,
+                        idolizing of anything alongside God? If so, flee from it.</li>
+                    <li>God's Sovereignty Over History: Through all the frightening imagery - a blasphemous Beast, a
+                        wealthy harlot, plotting kings - we see God's hand orchestrating events <sup>3</sup>. This comforts us that
+                        nothing in our world surprises God. When we see corruption in high places or false teaching arising,
+                        we know God already foresaw it and will judge it in His time. Our part is to remain faithful and
+                        patient, bearing witness to the truth like the martyrs did, trusting that "the Judge of all the earth" will
+                        do right.</li>
+                    <li>The Victory of Christ: Evil may assemble its forces ("make war with the Lamb"), but the Lamb wins
+                        <sup>51</sup>. Always. This fills us with hope and courage. No matter how strong the forces of anti-Christian
+                        persecution or deception become, they are doomed to fail before our Savior. We therefore live not in
+                        fear, but in expectation. We might well echo the early Christians: "Maranatha! Come, Lord Jesus." When
+                        He comes, all Babylons fall and His Kingdom alone stands. Let us live even now under His lordship,
+                        as citizens of the New Jerusalem, "called, chosen, and faithful" by His grace.</li>
+                </ul>
+                <p>
+                    In summary, Revelation 17 has given us a rich prophetic panorama of false religion's apex and demise. It
+                    has also given very practical warnings against spiritual infidelity and very precious assurances of Christ's
+                    ultimate triumph. May we heed the warnings – staying separate from Babylon – and rejoice in the
+                    assurances - staying with the Lamb who overcomes. As the next chapter will show the fall of Babylon in
+                    detail, we already have the key takeaway: "Babylon the great is fallen" (Rev 18:2). But in contrast, "the
+                    kingdoms of this world have become the kingdoms of our Lord and of His Christ, and He shall reign forever" (Rev
+                    11:15). Amen.
+                </p>
+
+                <h3>Sources and References</h3>
+                <ul class="sources-list">
+                    <li><sup>2 11</sup> William Kelly, Lectures on the Revelation, on Revelation 17 <sup>1</sup></li>
+                    <li><sup>6 7 15 22</sup> John N. Darby, Synopsis of the Books of the Bible, on Revelation 17 <sup>4 12 28 29 54 51 3</sup></li>
+                    <li><sup>17</sup> H. A. Ironside, Lectures on Revelation (1919), on Babylon's historical background <sup>17</sup>.</li>
+                    <li>Bible (KJV) - Jeremiah 51:7 parallel to Rev 17:2,45 cross-references as noted within text.</li>
+                    <li><sup>2 6 7 9 10 11 13 15 16 20 21 22 23 24 26 30 31 32 33 34 48 49</sup> Revelation 17-20 | Plymouth Brethren Writings <a href="https://plymouthbrethren.org/article/3666" target="_blank">https://plymouthbrethren.org/article/3666</a></li>
+                    <li><sup>36 40 44 45 46 47 50 51 52 53 54</sup> Revelation 17 Darby's Bible Synopsis <sup>3 4 8 12 14 25 27 28 29 39</sup> <a href="https://biblehub.com/commentaries/darby/revelation/17.htm" target="_blank">https://biblehub.com/commentaries/darby/revelation/17.htm</a></li>
+                    <li><sup>5</sup> Jeremiah 51:7 Babylon was a gold cup in the hand of the LORD, making the whole earth drunk. The nations drank her wine; therefore the nations have gone mad. <a href="https://biblehub.com/jeremiah/51-7.htm" target="_blank">https://biblehub.com/jeremiah/51-7.htm</a></li>
+                    <li><sup>17 18 19</sup> Revelation 17 - Ironside's Notes on Selected Books - Bible Commentaries - StudyLight.org <a href="https://www.studylight.org/commentaries/eng/isn/revelation-17.html" target="_blank">https://www.studylight.org/commentaries/eng/isn/revelation-17.html</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = scrollPercent + '%';
+            }
+        });
+
+        // Show the chapter page
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapterPage = document.getElementById('chapter17Page');
+            if (chapterPage) {
+                chapterPage.style.display = 'block';
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
