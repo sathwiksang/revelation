@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelation Study - Chapter 22</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --max-width: 1200px;
+            --reading-width: 900px;
+        }
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Cambria', serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background-color: #f0f0f0;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page { display: none; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 999; }
+        .progress-fill { height: 100%; background-color: var(--accent-color); width: 0%; transition: width 0.3s ease; }
+        .navigation { position: fixed; top: 2rem; left: 2rem; z-index: 1000; }
+        .nav-button { display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+        .content-container { 
+            max-width: var(--reading-width); 
+            margin: 0 auto; 
+            padding: 4rem 3rem;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+        .content-header { text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .content-header h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+        .content-body { 
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            letter-spacing: 0.01em;
+            word-spacing: 0.05em;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            position: relative;
+        }
+        .content-body p { 
+            margin-bottom: 1.75rem;
+            text-align: justify;
+            text-justify: inter-word;
+            text-indent: 1.5em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+        .content-body h1, 
+        .content-body h2, 
+        .content-body h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .content-body h2 { 
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 4rem 0 2rem 0;
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
+        }
+        .content-body h3 { 
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+        .content-body ul { 
+            list-style-type: disc; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body ol { 
+            list-style-type: decimal; 
+            margin: 1.5rem 0 2rem 3rem;
+            line-height: 1.8;
+        }
+        .content-body li { 
+            margin-bottom: 0.75rem;
+        }
+        .verse-number { 
+            color: var(--accent-color); 
+            font-weight: 600;
+            margin-right: 0.5rem;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            .content-header h1 { font-size: 2rem; }
+            .navigation { top: 1rem; left: 1rem; }
+        }
+
+        /* Optional: Add decorative borders */
+        .content-container::before,
+        .content-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-color) 20%, 
+                var(--accent-color) 80%, 
+                transparent 100%);
+            opacity: 0.3;
+        }
+
+        .content-container::before {
+            left: -20px;
+        }
+
+        .content-container::after {
+            right: -20px;
+        }
+
+        /* ADD specific styles for better typography: */
+        .content-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .content-body em {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .content-body blockquote,
+        .content-body p em {
+            color: #4a4a4a;
+        }
+
+        /* ADD for superscript references: */
+        .content-body sup {
+            font-size: 0.75em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -0.5em;
+            margin-left: 0.1em;
+        }
+
+        /* IMPROVE responsive design for larger screens: */
+        @media (min-width: 1400px) {
+            .content-container {
+                max-width: 1000px;
+            }
+            
+            .content-body {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* For wider screens, add page-like appearance */
+        @media (min-width: 1200px) {
+            .content-container {
+                margin: 2rem auto;
+                border-radius: 4px;
+                box-shadow: 
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    0 10px 50px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Better mobile reading: */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .content-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-body p {
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Add subtle vertical lines for reading guides */
+        .content-container {
+            background-image: 
+                linear-gradient(90deg, 
+                    transparent 0, 
+                    transparent calc(100% - 1px), 
+                    #f5f5f5 calc(100% - 1px), 
+                    #f5f5f5 100%);
+            background-size: 100% 100%;
+            background-position: 0 0;
+        }
+
+        /* Image Placeholder Styling */
+        .image-placeholder {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Styles for Sources and References */
+        .sources-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 0;
+            margin-top: 1.5rem;
+        }
+
+        .sources-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .sources-list a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .sources-list a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="chapter22Page" class="page">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="navigation">
+            <a href="revelation_study_chapter21.html" class="nav-button">← Previous Chapter</a>
+        </div>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Revelation Chapter 22</h1>
+                <p>A Comprehensive Verse-by-Verse Study (NKJV)</p>
+            </div>
+            <div class="content-body" id="chapter22Content">
+                <h3>Introduction and Context</h3>
+                <p>
+                    Revelation 22 is the final chapter of the Bible, completing the apocalyptic vision given to the Apostle John. It
+                    continues the description of the New Jerusalem from chapter 21 and culminates with Christ's final promise
+                    and a closing benediction. Notably, this last chapter brings Scripture full circle: the themes and images of
+                    Revelation 22 intentionally echo those of Genesis 1-3 (the first chapters of the Bible) <sup>1</sup>. Here we see a
+                    restoration of Paradise the river of life and the tree of life reappear, and the curse of sin is removed,
+                    reversing the fall of man in Eden (cf. Genesis 2:9; 3:17-19). God's eternal plan of redemption is thus
+                    completed, and the faithful enjoy unhindered fellowship with Him.
+                </p>
+                <p>
+                    This study will examine Revelation 22 verse by verse (using the NKJV text), drawing out doctrinal
+                    significance and personal application. We will reference parallel Scriptures and insights from classic
+                    conservative commentators including Plymouth Brethren authors known for their dispensational
+                    theology and literal approach to prophecy. (The Plymouth Brethren movement, exemplified by writers like
+                    John N. Darby and William Kelly, emphasizes the distinction between Israel and the Church in prophecy and
+                    the imminence of Christ's return.) The goal is a very in-depth theological understanding of each verse,
+                    coupled with practical lessons for personal spiritual growth.
+                </p>
+
+                <h2>Revelation 22:1-5 - The River of Life and the Eternal Throne</h2>
+                <p>
+                    In the opening verses of this chapter, John's tour of the Holy City continues, focusing on the river of life,
+                    the tree of life, and the blessings of God's throne in the midst of New Jerusalem. This section (22:1-5)
+                    actually concludes the description of the city begun in Revelation 21. Some dispensational teachers note
+                    that John may be describing the city's relationship to the millennial earth here, since nations are mentioned
+                    (v.2) yet the same blessings also carry into the eternal state <sup>2</sup> <sup>3</sup>. Either way, the scene is one of
+                    Paradise Restored.
+                </p>
+
+                <h3>Verse 1: The Pure River of Water of Life</h3>
+                <p>
+                    <span class="verse-number">"And he showed me a pure river of water of life, clear as crystal, proceeding from the throne of God
+                    and of the Lamb." (NKJV)</span>
+                </p>
+                <p>
+                    John sees a river of the water of life flowing from God's throne at the center of the New Jerusalem. This
+                    river, bright and clear as crystal, symbolizes the everlasting life and divine blessing that flow from God
+                    and Christ (the Lamb) to His people. In Scripture, water often represents life, sustenance, and the Holy
+                    Spirit's presence. Here it is called the "water of life", indicating it gives eternal life and full satisfaction to all
+                    who drink freely (cf. Revelation 21:6). The psalmist similarly spoke of "a river whose streams shall make glad
+                    the city of God" <sup>4</sup>. On earth, Jesus invited believers to partake of "living water" (the Holy Spirit) which
+                    satisfies the thirsty soul (John 4:14, 7:37-39). In the heavenly city, this promise is seen in its consummated
+                    form - an ever-flowing pure river from God's presence.
+                </p>
+                <p>
+                    This river "proceeds from the throne of God and of the Lamb." God's throne is the source of all life,
+                    authority, and blessing in the eternal order. Importantly, God and the Lamb share the throne - a testimony to
+                    the deity of Christ. The union of "God and the Lamb" on one throne is a recurring theme in John's vision <sup>5</sup>
+                    underscoring that Jesus (the Lamb) reigns co-equally with the Father. For the believer, this speaks of the
+                    security and abundance of life under Christ's reign. What flows to us from God's throne now is grace and
+                    life, not judgment, because the Lamb has conquered sin.
+                </p>
+                <p>
+                    Theological Insight: William Kelly (a noted Plymouth Brethren commentator) observes that unlike the
+                    thunders and judgments that once proceeded from God's throne (see Rev. 4:5 during the tribulation), now
+                    "what issues from it? A river of water of life, bright as crystal", perfectly suited to the age of blessing
+                    when Christ and the Church reign in glory <sup>6</sup>. The throne that once meant judgment for a rebellious world
+                    now "is the source of blessing, not of curse", for God's servants (cf. John 7:38) <sup>7</sup>. This reflects how grace
+                    characterizes the Church in glory even in reigning, the glorified saints are channels of life and healing,
+                    not judgment <sup>8</sup>.
+                </p>
+                <p>
+                    Application: The "water of life" reminds us that even now, in this age, eternal life flows from Christ to us by
+                    the Holy Spirit. Those who belong to Jesus have within them "a fountain of water springing up into
+                    everlasting life" (John 4:14). We are invited to drink freely of His life. Just as physical water refreshes and
+                    sustains, we should daily seek the refreshment of God's Spirit and Word. Ultimately, this verse gives hope
+                    that all our spiritual thirst will be quenched in God's presence. Whenever you feel dry or weary, remember
+                    that a river of life flows from God's throne approach Him in prayer and He will revive your soul (Psalm 46:4).
+                </p>
+
+                <h3>Verse 2: The Tree of Life and Healing for the Nations</h3>
+                <p>
+                    <span class="verse-number">"In the middle of its street, and on either side of the river, was the tree of life, which bore twelve
+                    fruits, each tree yielding its fruit every month. The leaves of the tree were for the healing of the
+                    nations." (NKJV)</span>
+                </p>
+                <p>
+                    John now notices the tree of life in the city. This imagery directly harkens back to the Garden of Eden - "the
+                    tree of life" first appeared in Genesis 2:9 as a source of unending life for sinless man. After the Fall,
+                    humanity was barred from that tree (Genesis 3:22-24), symbolizing the loss of eternal life and fellowship
+                    with God. Now in the New Jerusalem, the way to the tree of life is open again through Christ's redemption.
+                    The location is described somewhat mysteriously: the tree of life is in the middle of the city's street and on
+                    either side of the river. This could imply multiple trees of life lining the river, or one vast tree with
+                    interconnected roots/branches spanning the river. In either case, access to the tree of life is abundant for
+                    all residents of the city.
+                </p>
+                <p>
+                    The tree "bore twelve fruits, each yielding fruit every month." The number twelve in Scripture often signifies
+                    human administration or completeness in God's government <sup>9</sup> <sup>10</sup>. Here, twelve fruits could indicate an all-
+                    sufficient variety of provision. Unlike normal fruit trees which have one season of harvest, this tree is
+                    ever-fruitful ("each month") - it never fails to provide nourishment. This symbolizes the continual, fresh
+                    blessings of eternal life in God's presence. Believers in glory will forever be sustained and satisfied by
+                    Christ, with no lapse in His life-giving provision.
+                </p>
+                <p>
+                    Not only fruit, but even "the leaves of the tree were for the healing of the nations." This intriguing
+                    phrase suggests that the benefits of Christ's work (symbolized by the tree of life) extend to all peoples.
+                    In the millennial age, the "nations" on earth will enjoy physical and spiritual healing under Christ's
+                    reign, supplied in part through the New Jerusalem (which likely hovers over the earthly Jerusalem as a
+                    heavenly city) <sup>11</sup> <sup>3</sup>. The imagery comes from the prophet Ezekiel's vision of a river flowing from the
+                    future temple: "Along the bank of the river, on this side and that, will grow all kinds of trees used for food... their
+                    fruit will be for food, and their leaves for medicine" (Ezekiel 47:12). John's vision builds on that, with the
+                    ultimate fulfillment in the New Jerusalem. During Christ's 1000-year kingdom, the nations will still need
+                    "healing" from the effects of past ages - and God will graciously supply it. The leaves may represent divine
+                    truths or influences that bring moral and physical health to the world under Jesus' rule.
+                </p>
+                <p>
+                    Kelly contrasts this grace-filled picture with the earthly Jerusalem's role in the millennium. Isaiah 60 says of
+                    Zion: "The nation which will not serve you shall perish" - indicating strict justice on rebel nations. But the
+                    heavenly Jerusalem (the Church in glory) operates on grace: "the leaves...for healing" show mercy and
+                    blessing flowing outward <sup>12</sup> <sup>6</sup>. "Pure grace reigning through righteousness" is the character of the scene
+                    <sup>13</sup>. God's kingdom will uplift the world by grace, even as His justice also reigns. We see here a beautiful
+                    picture of the Church's ministry in the ages to come not only enjoying God's life internally (fruits), but
+                    also channeling healing to others (leaves), all under Christ's lordship.
+                </p>
+                <p>
+                    Application: The tree of life represents Christ Himself as the source of all eternal blessings - He is "the true
+                    Vine" in whom we abide for life (John 15:5). The endless fruitfulness of this tree reminds us that in Jesus
+                    there is always fresh grace for every need, "new every morning" (Lamentations 3:22-23). There is a "fruit"
+                    for each "month" - meaning God has provision for every season of our lives. We need never go spiritually
+                    hungry if we stay near Christ. Additionally, the "healing leaves" challenge us that even now, as the Church,
+                    we are called to extend God's healing grace to the "nations" - to a hurting world. We possess the words of
+                    life (the Gospel) which bring healing to sin-sick souls. How eagerly do we offer the hope and restoration
+                    found in Jesus to those around us? Let's be "leaf-bearers" even in this age, ministering God's grace and
+                    pointing people to the tree of life - Jesus Christ.
+                </p>
+
+                <h3>Verse 3: No More Curse - Serving God on His Throne</h3>
+                <p>
+                    <span class="verse-number">"And there shall be no more curse, but the throne of God and of the Lamb shall be in it, and His
+                    servants shall serve Him." (NKJV)</span>
+                </p>
+                <p>
+                    Here is one of the most joyous proclamations of the eternal state: "No more curse." Ever since Adam's fall,
+                    creation has labored under the curse of sin and death (Genesis 3:14-19). Pain, thorns, sorrow, and
+                    separation from God have been humanity's lot. But in the New Jerusalem, because "there is no more sin",
+                    every vestige of the curse is gone <sup>14</sup>. All the "bondage of corruption" will be banished, and the universe
+                    enters the glorious liberty of God's children (Romans 8:21). Every result of the fall is erased - no more death,
+                    suffering, decay, or judgment (cf. Revelation 21:4). Christ has fully redeemed creation, and this is the
+                    tangible fulfillment of Galatians 3:13, "Christ has redeemed us from the curse of the law, having become a curse
+                    for us." We now experience some freedom from the curse spiritually, but then it will be a complete, cosmic
+                    lift of the curse - an environment of total blessing and life. (It's noteworthy that the Old Testament ends
+                    with the word "curse" in Malachi 4:6, whereas the New Testament ends with God's grace <sup>15</sup> <sup>16</sup>.
+                    Through Jesus, the curse is replaced by blessing!)
+                </p>
+                <p>
+                    Instead of a curse, we see a throne: "the throne of God and of the Lamb shall be in it." God's throne denotes
+                    His sovereign presence and kingly rule. In the eternal order, God is not distant; He is enthroned right in
+                    the midst of His people (Revelation 21:3). This fulfills the promise of Ezekiel 48:35, "The name of the city
+                    from that day shall be: THE LORD IS THERE." There is no more separation between God and redeemed
+                    mankind. "God and the Lamb" sharing the throne emphasizes again Christ's deity and the unity of the
+                    Father and Son in the kingdom (John 10:30). It also reflects how Jesus' mediatorial kingdom (as Messiah on
+                    David's throne) is now merged into the eternal kingdom of God <sup>17</sup> <sup>18</sup> one throne over all forever. The
+                    Davidic throne (for Israel) and the Father's throne become one, with Christ reigning in perfect union with
+                    the Father for eternity (see 1 Corinthians 15:24-28). For us, this means we will live continually under the
+                    loving lordship of God - the best and safest place to be.
+                </p>
+                <p>
+                    "And His servants shall serve Him." What a privilege in eternity, we are not idle; we joyfully serve God
+                    forever. The word for "serve" here (Greek latreuō) often implies worshipful service <sup>19</sup>. Our service will be
+                    pure worship, not drudgery. In Eden, Adam was given work to tend the garden before sin (Genesis 2:15);
+                    Likewise, work itself is not a curse - toil and futility are (Genesis 3:17-19). In the New Jerusalem, our service is
+                    meaningful and delightful, free from frustration. What will this service entail? Possibly reigning with
+                    Christ over the universe (as suggested by verse 5) and priestly worship (we'll be "priests of God"
+                    Revelation 20:6). We may have assignments in God's eternal administration, exploring His infinite wisdom
+                    and carrying out His will across the ages. The key point is that heaven is not inactivity; it is productive, God-
+                    glorifying activity. "They shall serve Him" implies intimacy and purpose we serve in His immediate
+                    presence, seeing our Lord's delight as we do His will. Indeed, "His servants shall serve Him" can also be
+                    translated "shall worship Him". Our perfect service is perfect worship every act an act of love and
+                    devotion. What an honor that God invites us to serve Him eternally, indicating He has fulfilling roles for us in
+                    His kingdom.
+                </p>
+                <p>
+                    Application: Do you view heaven as merely a place of rest, or also a place of service? Verse 3 assures us our
+                    deepest fulfillment will be found in serving our King. If service is worship in eternity, it should be so now
+                    as well. "Serve the Lord with gladness" (Psalm 100:2) - even now, our work for Christ can be joyful when done
+                    for His glory. Knowing we'll serve Him eternally encourages us to serve Him wholeheartedly here on
+                    earth. Every act of obedience or ministry now is a foretaste of the eternal purpose God created us for. Also,
+                    the removal of the curse means nothing will hinder our work no fatigue, no frustration. If you ever feel
+                    your labor in the Lord is in vain, remember that in eternity "his servants shall serve Him" in utter
+                    fruitfulness. This motivates us to be faithful servants today, looking forward to our reward of serving Him
+                    unhindered in glory (1 Corinthians 15:58).
+                </p>
+
+                <h3>Verse 4: Beholding God's Face and Bearing His Name</h3>
+                <p>
+                    <span class="verse-number">"They shall see His face, and His name shall be on their foreheads." (NKJV)</span>
+                </p>
+                <p>
+                    This simple verse contains two profound privileges promised to God's people:
+                </p>
+                <ol>
+                    <li>"They shall see His face." - This is staggering! In our current mortal state, no one can literally see
+                        God's face (His full glory) and live (Exodus 33:20). Sinful man has been estranged from direct vision of
+                        God since the fall. Even Moses only saw God's back, and Isaiah, upon seeing a vision of God's glory,
+                        cried out in terror (Isaiah 6:5). But in the New Jerusalem, the redeemed will finally behold God face to
+                        face. Unbroken fellowship and intimate knowledge of God is the essence of eternal life (John
+                        17:3). This fulfills Jesus' promise, "Blessed are the pure in heart, for they shall see God" (Matthew 5:8),
+                        and the longing of all the faithful. In the resurrection, we will be made perfectly holy and immortal,
+                        able to endure the blazing beauty of God's presence. "We shall be like Him, for we shall see Him as He
+                        is" (1 John 3:2). The beatific vision - seeing God is the greatest reward of heaven. Throughout
+                        Scripture, the highest hope is for God's face to shine upon His people (Numbers 6:25, Psalm 17:15).
+                        Here that hope is realized forever. "They shall see His face" indicates complete acceptance (we are no
+                        longer separated by sin) and complete revelation (we will truly know God). Paul said now we see in a
+                        mirror dimly, "but then face to face" (1 Corinthians 13:12). Imagine, face to face with the Lord - gazing
+                        on His glory, experiencing His love directly, nothing between us and Him! That is the heaven of
+                        heavens. William Kelly exclaims that this vision of God will be the portion of "the pure in heart",
+                        who finally see what they longed for <sup>20</sup>. Personal communion with God will be unhindered and
+                        constant.</li>
+                    <li>"His name shall be on their foreheads." - In Revelation, having a name on the forehead signifies
+                        ownership and identification. Earlier, God sealed His servants on their foreheads (Revelation 7:3), and
+                        the 144,000 had "His Father's name written on their foreheads" (Revelation 14:1). In the letter to
+                        Philadelphia, Jesus promised the overcomer, "I will write on him the name of My God... and My new
+                        name" (Revelation 3:12). Now, collectively, all God's servants bear His name on their foreheads. This
+                        means we openly belong to Him and reflect His character. The forehead is a prominent, visible place
+                        our identity as God's own people will be perfectly evident. No more do we carry the name of sin or
+                        the beast or anything corrupt; we bear God's holy name as a mark of highest honor. This likely
+                        fulfills Scriptures like Isaiah 43:7, where God says His people are "created for My glory; I have formed
+                        them... I have made them" and called by His name. In ancient times, slaves or soldiers would
+                        sometimes be branded with their master's or patron's name - here God Himself "brands" us as His
+                        very own (in love, not coercion). Eternally, we will never forget whose we are we are God's
+                        treasured possession. And perhaps others will "see" God's name on us and thereby see the glory of
+                        God in us. In other words, we will perfectly manifest God's character (bearing His name implies
+                        reflecting His holiness and love). What a contrast to the mark of the beast on the foreheads of the
+                        damned (Revelation 13:16-17)! The faithful chose God's name, and now they shine with it.</li>
+                </ol>
+                <p>
+                    These two blessings together - seeing God's face and bearing His name speak of intimate fellowship
+                    and identification with God. We will truly know Him and truly be His. This is the culmination of the biblical
+                    covenant promise: "I will be their God, and they shall be My people" (Jeremiah 31:33). We belong to Him and
+                    behold Him. Theologians call this glorification - we are glorified in His presence, and He is glorified in us.
+                </p>
+                <p>
+                    Application: Meditating on "seeing His face" should fill us with hope and purity. 1 John 3:2-3 says that
+                    since we hope to see Him as He is, "everyone who has this hope in Him purifies himself, just as He is pure." The
+                    prospect of unfiltered communion with God should motivate us to seek a closer walk with Him now - to
+                    "seek His face" in prayer and worship (Psalm 27:4,8). Though we see dimly now, we can still gaze upon the
+                    glory of the Lord in Scripture and be transformed (2 Corinthians 3:18). Also, knowing God's name is on us
+                    even now (we bear the name "Christian") encourages us to live in a manner worthy of that Name. We are
+                    representatives of Christ; our thoughts and actions are like having His name on our foreheads for the world
+                    to read. Let's not bring reproach to that name. Instead, let's show we belong to Jesus by our love and
+                    holiness. Ultimately, the promise of forever seeing God's face is a strong antidote to discouragement - one
+                    day all spiritual dryness will vanish when our faith turns to sight. As the hymn says, "And Lord, haste the day
+                    when my faith shall be sight!" - we long for that day.
+                </p>
+
+                <h3>Verse 5: Eternal Light and Reign</h3>
+                <p>
+                    <span class="verse-number">"There shall be no night there: They need no lamp nor light of the sun, for the Lord God gives them
+                    light. And they shall reign forever and ever." (NKJV)</span>
+                </p>
+                <p>
+                    Reiterating what was said of New Jerusalem in Revelation 21:23-25, John emphasizes that in the city it is
+                    never night. "No night" implies not only the absence of literal darkness, but the absence of all that
+                    darkness symbolically represents: no ignorance, no fear, no evil lurking nothing hidden or troubling.
+                    Nighttime, with its dangers and uncertainties, simply doesn't exist in God's perfected kingdom. The verse
+                    explains why: "They need no lamp nor sunlight, for the Lord God gives them light." The direct glory of God is the
+                    light source of the New Jerusalem (cf. Isaiah 60:19-20). There is perpetual, perfect illumination. Imagine a
+                    world where you don't need candles, electricity, or the sun itself to see - God's radiant presence lights up
+                    everything! This speaks to the glory of God permeating every aspect of life there. His Shekinah glory that
+                    once lit the Holy of Holies now lights the entire city continuously. In human history, darkness has also been
+                    tied to sorrow and uncertainty; by contrast, "God is light, and in Him is no darkness at all" (1 John 1:5). In
+                    eternity, we live fully in God's light intellectually and morally as well. All questions answered, all truth
+                    revealed, all beauty visible. This fulfills Old Testament prophecies: "The LORD will be to you an everlasting
+                    light, and your God your glory" <sup>21</sup>. "Your sun shall no longer go down... for the LORD will be your everlasting
+                    light" (Isaiah 60:19-20). Our days of walking by faith in a dark world will be over; we will literally walk by
+                    sight in God's light.
+                </p>
+                <p>
+                    Finally, we read: "And they shall reign forever and ever." Earlier in Revelation it was said that the saints
+                    would reign with Christ for 1000 years (Rev. 20:4-6). But here the promise is unending: not only for a
+                    millennium, but "to the ages of ages", forever. The reign of God's people is eternal. What does it mean that
+                    we shall reign? It fulfills verses like Daniel 7:27, "Then the kingdom... shall be given to the people, the saints of
+                    the Most High; His kingdom is an everlasting kingdom...", and Christ's words that the faithful would rule over
+                    "many things" (Matthew 25:21) and sit with Him on His throne (Revelation 3:21). In some amazing way, God
+                    invites the redeemed to share in Christ's kingly authority over the new creation. We are made "kings and
+                    priests" (Revelation 1:6, 5:10) - a royal family under the Great King. Throughout eternity, there will be roles
+                    of responsibility and governance for God's glory. Perhaps over galaxies or new worlds the Lord will create in
+                    the infinite future we don't know, but "of the increase of His government... there will be no end" (Isaiah
+                    9:7). Note, however, our reign is derivative: it flows from God's throne (which is why this statement comes
+                    immediately after mentioning God's light). We reign under God, by His light and glory, not independently.
+                </p>
+                <p>
+                    Kelly explains that reigning "to the ages of the ages" must be taken in the absolute sense here - "beyond
+                    the thousand years" into all eternity <sup>22</sup> <sup>23</sup>. During the Millennium, the glorified saints reign with Christ over
+                    the earth. After the final judgment, when the form of the kingdom changes (Christ delivers the kingdom to
+                    the Father per 1 Cor. 15:24), the sphere of our reigning may shift from the millennial earth to the wider new
+                    creation. But in essence, the saints continue to share Christ's reign forever <sup>24</sup>. Our service (v.3) and
+                    reigning (v.5) both persist eternally, though the context changes once sin and death are no more. Thus,
+                    heaven is not a static condition - it includes an active, regal destiny for God's people.
+                </p>
+                <p>
+                    Application: "They shall reign forever" underlines the astonishing grace and exaltation God gives His
+                    children. We who were once slaves to sin are not only freed and forgiven, but enthroned with Christ! This
+                    speaks of our identity and hope. Are we living like people destined for a throne? That doesn't mean
+                    arrogance - it means confidence in our Lord's victory and our inheritance in Him. Paul wrote, "If we endure,
+                    we shall also reign with Him" (2 Timothy 2:12). Endurance in trials now is easier when we remember the
+                    honor and authority Christ will share with us soon. Also, knowing we will reign forever encourages us that
+                    our relationship with Christ is eternal and secure we are forever part of His royal household. Unlike
+                    earthly positions that fade, our role in God's kingdom will never end. So we should serve faithfully now,
+                    even in small things, as training for greater service in eternity (Luke 19:17). Furthermore, "no night" and
+                    God's perpetual light mean that even in our darkest nights now, we can look forward to a time when all
+                    darkness flees away. "The night is far spent, the day is is at hand" (Romans 13:12). Let that hope brighten your
+                    perspective when you walk through dark valleys here. The Lord will be your everlasting light.
+                </p>
+                <p>
+                    Verses 1-5 have given us a breathtaking glimpse of the eternal blessings awaiting believers: abundant life,
+                    healing, intimate fellowship with God, and exaltation to reign with Christ. Truly, as 1 Corinthians 2:9 says, "Eye has
+                    not seen, nor ear heard... the things which God has prepared for those who love Him." Now the chapter (and the
+                    book) transitions from description to final exhortations and promises:
+                </p>
+
+                <h2>Revelation 22:6-11 - Faithful Words, Imminent Return, and Exhortations</h2>
+                <p>
+                    Beginning in verse 6, the angel and Jesus Himself speak to John, affirming the trustworthiness of this
+                    revelation and emphasizing the nearness of the Lord's coming. John is reminded to obey and share this
+                    prophecy (not seal it up), and there is a solemn indication that when the end comes, a person's fate is fixed.
+                    This section serves as a "divine epilogue" <sup>25</sup> to the entire book of Revelation, highlighting key takeaways for
+                    the reader.
+                </p>
+
+                <h3>Verse 6: "These Words Are Faithful and True"</h3>
+                <p>
+                    <span class="verse-number">"Then he said to me, 'These words are faithful and true.' And the Lord God of the holy prophets sent
+                    His angel to show His servants the things which must shortly take place." (NKJV)</span>
+                </p>
+                <p>
+                    The angel who has been guiding John (one of the seven bowl angels, cf. Rev 21:9) now assures him that
+                    everything he has heard and seen is trustworthy. "These words are faithful and true" echoes a similar declaration
+                    from Revelation 21:5 <sup>26</sup>. In other words, the prophecies and promises just described (and indeed the
+                    whole book) are completely reliable because they come from God who cannot lie. Believers reading this
+                    prophecy can be confident that the glorious future of Revelation 21-22 will surely come to pass, and that
+                    the warnings of judgment will also be fulfilled. This is important because Revelation contains many
+                    astounding, even hard-to-imagine scenes; the angel affirms their veracity. The phrase "faithful and true"
+                    also recalls one of Christ's titles (Revelation 19:11 He is "Faithful and True"). Ultimately, Jesus is the
+                    guarantee of these words.
+                </p>
+                <p>
+                    Next, "the Lord God of the holy prophets sent His angel to show His servants the things which must shortly take
+                    place." This reminds us of how the book began: Revelation 1:1 says God "sent and signified [these things] by
+                    His angel to His servant John." Here God is called the "Lord God of the holy prophets." This title emphasizes
+                    continuity with all previous biblical prophecy. The same God who inspired Isaiah, Jeremiah, Daniel, etc., has
+                    now given this revelation. He is faithful to His promises. Just as their prophecies came true, so will John's.
+                    God is the Lord of history who spoke through the prophets and now speaks through this vision.
+                </p>
+                <p>
+                    The content of the revelation is described as "the things which must shortly take place." This also echoes
+                    Revelation 1:1 ("things which must shortly come to pass"). It underscores the imminence of these events.
+                    From God's perspective, the unfolding of end-times events is near - not necessarily meaning "immediately"
+                    in human reckoning, but that they are the next major step in His redemptive plan and can begin at any
+                    time. The word "must" shows divine necessity - these events are decreed by God's sovereign will (compare
+                    the prophetic "must" in Luke 24:44). For the original readers (first-century churches) and us today, "shortly"
+                    is meant to impart a sense of urgency and expectation. In God's timing, the return of Christ and
+                    consummation of all things is always at hand (Romans 13:11-12).
+                </p>
+                <p>
+                    Theological Note: John Darby pointed out that the Church is always to consider the time at hand, unlike
+                    Daniel who was told his prophecy was for "many days to come." To Daniel, God said, "seal the book until the
+                    time of the end" (Dan. 12:4); but to John, "Do not seal... for the time is at hand" <sup>27</sup>. The Church has no date
+                    schedule to tick off we live in the last days since Christ's first coming (Hebrews 1:2). Darby wrote that the
+                    assembly is viewed as outside of prophetic time-counting; our attitude is to be one of constant readiness
+                    <sup>28</sup> <sup>29</sup>. Thus "shortly" doesn't set a specific deadline by human calendars, but keeps believers in every
+                    generation watchful.
+                </p>
+                <p>
+                    Application: Do we treat God's Word - especially prophetic Scripture - as "faithful and true"? In a skeptical age,
+                    we must hold fast to the trustworthiness of these promises. Prophecies about Christ's first coming were
+                    fulfilled literally; those about His second coming will be just as certain. Let this assurance strengthen your
+                    faith. Also, the phrase "must shortly take place" challenges us to live in a state of readiness. Jesus is
+                    coming again, and the events of Revelation will happen. We shouldn't become complacent, assuming
+                    "my master delays His coming." Instead, maintain a sense of urgency in holy living and in sharing the
+                    Gospel. As 2 Peter 3:11 says, "Therefore, since all these things will be dissolved, what manner of persons ought
+                    you to be in holy conduct and godliness!" God gave us prophecy not to satisfy curiosity but to sanctify us and
+                    spur us to mission. Because the time is near, we should redeem the time (Ephesians 5:16) - obey God now,
+                    serve Him now, reach others now.
+                </p>
+
+                <h3>Verse 7: "Behold, I Am Coming Quickly - Blessed is He Who Keeps the Words"</h3>
+                <p>
+                    <span class="verse-number">"Behold, I am coming quickly! Blessed is he who keeps the words of the prophecy of this book." (NKJV)</span>
+                </p>
+                <p>
+                    Suddenly, Jesus Himself interjects with a dramatic declaration (the switch to first person "I" indicates Christ
+                    speaking). He says: "Behold, I am coming quickly!" This is the first of three times in this closing section that
+                    Christ affirms His imminent return (see also verses 12 and 20) <sup>30</sup>. The repetition underscores how strongly
+                    Jesus wants us to live in expectation of His swift, sudden coming. "Quickly" (Greek tachu) can mean soon or
+                    suddenly/unexpectedly. Given that nearly 2,000 years have passed, the emphasis is likely on the suddenness
+                    when the time comes, it will be in a moment, without delay (1 Corinthians 15:52). Also, from the divine
+                    perspective, time is short (2 Peter 3:8). The key is that Jesus wants every generation to heed this promise: I
+                    am coming! He is alive and will personally return to consummate history. For believers, this is a joyful hope;
+                    for the world, a warning.
+                </p>
+                <p>
+                    Jesus prefacing it with "Behold" means "Pay attention!" It's as if He waves to get our attention: Listen, I'm
+                    coming soon! The certainty of Christ's return is meant to be central in our consciousness. The early church
+                    kept this hope bright, often greeting one another with "Maranatha" ("O Lord, come!", 1 Cor. 16:22). We too
+                    should frequently recall and rejoice in our Lord's promised return.
+                </p>
+                <p>
+                    After the announcement, Jesus pronounces the final of Revelation's seven beatitudes: "Blessed is he who
+                    keeps the words of the prophecy of this book." (Compare the first beatitude in Rev. 1:3: "Blessed is he who
+                    reads and those who hear the words of this prophecy, and keep those things which are written in it.") The book of
+                    Revelation begins and ends with this double blessing on those who heed its message <sup>25</sup>. To "keep" means
+                    to observe, guard, or obey. It's not enough to read or study prophecy; we are called to respond to it with
+                    faithful obedience and vigilance. Despite its mysteries, Revelation was given for practical impact to shape
+                    how we live and persevere.
+                </p>
+                <p>
+                    What does "keeping the words" look like? It includes holding fast the truths revealed (e.g. believing in
+                    Christ's ultimate victory, the reality of judgment, etc.), obeying the commands/exhortations given (such as
+                    "repent" in the letters to churches, or "come out of Babylon" in Rev. 18:4), and maintaining watchfulness
+                    for Christ's return. It's developing the perspective and hope Revelation instills - living a holy life "set apart"
+                    from the world, zealously resisting evil (like the beastly systems), enduring trials with the vision of the
+                    Lamb's triumph in mind. Jesus promises that such a person is "blessed" - meaning favored and happy in
+                    God's sight. Indeed, great joy comes from aligning our lives with God's prophetic word. We experience
+                    peace amid chaos because we keep the certainty of God's plan in view. Also, we'll be blessed in the age to
+                    come - possibly receiving reward for honoring and obeying this book.
+                </p>
+                <p>
+                    Historical Insight: H.A. Ironside commented on the significance of Revelation's beginning and ending with
+                    a blessing: "Significantly, the book of Revelation begins and ends with a blessing pronounced on those who read
+                    and keep what is written therein (1:3; 22:7)" <sup>31</sup>. This was perhaps to encourage Christians not to neglect this
+                    prophetic book. Sadly, through history some have ignored Revelation or thought it too hard; but Jesus
+                    himself emphasizes our responsibility to read and heed it. William Kelly even noted how some church
+                    liturgies practically left Revelation out, and he saw verse 7 as Christ's preventive warning against such
+                    neglect <sup>32</sup>. We are accountable for the book of Revelation as much as any Scripture.
+                </p>
+                <p>
+                    Application: We should ask ourselves: Am I "keeping" the words of Revelation? It might help to list some key
+                    takeaways we've learned: e.g., God is sovereign over history; Jesus is the worthy Lamb who will rule; Satan's
+                    kingdoms will fall; Jesus could return at any moment; there is a heavenly home awaiting, etc. Do we live in
+                    light of these truths? To keep this prophecy is to let it purify our priorities for instance, knowing
+                    Babylon's materialistic system will be judged (Rev. 18) should cause us to hold possessions loosely and seek
+                    first God's kingdom. Knowing trials are temporary and glory is ahead helps us endure suffering without
+                    compromising. Keeping Revelation's words might also mean encouraging others with its hope or warning
+                    others of its judgments essentially, treating it as real and life-changing. Jesus says such a person is
+                    blessed. If we find obedience hard, remember that God never commands without also offering blessing. The
+                    way of ultimate joy is to take His Word seriously. So let's treasure the prophecies in this book, not as
+                    fanciful stories, but as future certainties that demand a response. Every "blessed" in Scripture invites us into
+                    a deeper joy through trust and obedience.
+                </p>
+
+                <h3>Verses 8-9: John's Worship Mistake and Angelic Correction</h3>
+                <p>
+                    <span class="verse-number">"Now I, John, saw and heard these things. And when I heard and saw, I fell down to worship before the
+                    feet of the angel who showed me these things. Then he said to me, 'See that you do not do that. For I
+                    am your fellow servant, and of your brethren the prophets, and of those who keep the words of this
+                    book. Worship God." (NKJV)</span>
+                </p>
+                <p>
+                    The Apostle John now inserts a personal testimony (identifying himself by name, as also in 1:9).
+                    Overwhelmed by all the visions ("these things") he has witnessed, John falls down to worship at the feet of
+                    the angel who has been his guide. This mirrors an earlier incident in Revelation 19:10 where John did the
+                    same and was rebuked. Despite having walked with Jesus and receiving so much truth, John - in the rapture
+                    of this moment - momentarily errs by directing worship to the glorious angel. It's a reminder that even the
+                    holiest of humans can falter and that the splendor of angelic beings is powerful but must not distract us
+                    from God. Perhaps John was emotionally overcome and instinctively showed reverence to the messenger.
+                    But worship is reserved for God alone.
+                </p>
+                <p>
+                    The angel responds firmly: "See that you do not do that" (or "Do not do that!"). He immediately stops John.
+                    "For I am your fellow servant (slave), and of your brethren the prophets, and of those who keep the words of this
+                    book. Worship God." This is a crucial correction: angels, though magnificent, are created beings and fellow
+                    servants of God along with humans. The angel identifies himself as a "fellow servant" (Greek sundoulos - co-
+                    slave) of three groups: John (and by extension believers), the prophets, and those who keep these words (all
+                    obedient Christians). In other words, the angel is saying, "I'm on the same team as you! I serve God like you
+                    do. I may have a different role, but I'm not your Lord." Angels are servants of God who minister to the saints
+                    (Hebrews 1:14). They are not to be worshiped or prayed to. This verse strongly refutes any idea of angel-
+                    worship or veneration - a practice the New Testament warns against (Colossians 2:18). Even the prophets
+                    (who delivered God's Word) were just servants, not to be idolized.
+                </p>
+                <p>
+                    Only God is worthy of worship. The angel's final command is the core of all Scripture: "Worship God." This
+                    echoes the first commandment and Jesus' words to Satan, "You shall worship the Lord your God, and Him only
+                    you shall serve" (Matthew 4:10). It's notable that earlier in Revelation, on two occasions, heavenly beings and
+                    elders do receive worship without rebuking it but those beings were the Lamb (Jesus) in Revelation 5:14
+                    and God on the throne in 4:10. Here the angel deflects worship to God <sup>33</sup>, which incidentally shows that
+                    Jesus is indeed God, because He does accept worship (Revelation 5:8-14, and throughout the Gospels).
+                </p>
+                <p>
+                    John's mistake and the correction are recorded twice (here and 19:10) - likely to emphasize humility and the
+                    supreme glory of God over even the highest creatures. If John, an apostle, could momentarily slip, we too
+                    must be careful to direct our devotion properly. Even good things (like messengers, pastors, saints) must
+                    not take God's place in our hearts.
+                </p>
+                <p>
+                    Application: The angel's words "I am your fellow servant" teach us the true attitude of God's servants
+                    whether angelic or human which is to point away from themselves to God. This is a model for Christian
+                    ministry: we should never allow undue adulation of us; instead, deflect all glory to God. If an apostle must
+                    not be worshiped, neither should any church leader be elevated to god-like status. Also, we learn to discern
+                    spiritual experiences. Not every awe-inspiring experience is meant to lead us to venerate the instrument
+                    through which it comes. John was overwhelmed by the experience, but the angel essentially says: "Stay
+                    theologically grounded, John. Only God gets worship." In our lives, we might be tempted to "adore" the means
+                    of a blessing (like a preacher, a worship band, an angelic encounter if one ever happened) - but we must
+                    always give the glory to God. Keep "Worship God" as a motto.
+                </p>
+                <p>
+                    Finally, this incident beautifully shows an angel's humility and unity with us. It's comforting to know that
+                    these mighty angels consider themselves comrades with us who serve God and keep His Word. We are part
+                    of a vast family of servants - prophets of old, apostles, angels, and us today all on one mission to honor
+                    God. So when you worship God, you join a cosmic chorus. Let nothing and no one else take that worship. If
+                    John needed a second reminder, how much more do we need to guard our hearts from idolatry in subtle
+                    forms. Worship God alone.
+                </p>
+
+                <h3>Verse 10: Do Not Seal the Prophecy - The Time is at Hand</h3>
+                <p>
+                    <span class="verse-number">"And he said to me, 'Do not seal the words of the prophecy of this book, for the time is at hand."" (NKJV)</span>
+                </p>
+                <p>
+                    The angel (or possibly Jesus - but likely still the angel, continuing his instructions) now tells John that this
+                    book of prophecy is to be left open and unsealed. In ancient times, to "seal" a scroll meant to roll it up and
+                    secure it closed, often to hide its contents until a later time. John is explicitly commanded not to seal the
+                    book. This is in contrast to the Old Testament prophet Daniel, who was told, "seal up the vision... for many
+                    days in the future" (Daniel 8:26) and "seal the book until the time of the end" (Daniel 12:4,9) <sup>34</sup>. Daniel's
+                    prophecies had a long-term fulfillment primarily involving Israel's distant future; thus, they were "sealed" in
+                    the sense that their full understanding would await the end times. But John's prophecy, dealing largely with
+                    the end times and the Church's hope, is to be unsealed immediately.
+                </p>
+                <p>
+                    "Do not seal" implies that the message is meant to be read, heard, and understood now. God wants His
+                    people of every generation to have access to the truths in Revelation. The early church was to study it and
+                    take it to heart (as we saw in verse 7). There is an urgency to Revelation's message - hence it must not be
+                    hidden away or treated as an esoteric secret. Sadly, many through history neglected this book or treated it
+                    as sealed due to its symbolism, but the angel's instruction shows God's intention for clarity and
+                    dissemination.
+                </p>
+                <p>
+                    The reason given is: "for the time is at hand." Similar to verse 6's "shortly take place," this reinforces the
+                    imminence of the events described. "At hand" means near. In God's redemptive timeline, nothing else
+                    needs to happen before these end-time events can begin. The coming of Christ and the consummation of
+                    the age are impending. Therefore, believers must have these prophecies unsealed and in view, so they can
+                    live accordingly. If the time was "at hand" in the first century, how much more now! This phrase "the time is
+                    at hand" brackets the book along with Revelation 1:3 ("the time is near"). In essence, Revelation begins with
+                    "the time is near" and ends with "the time is at hand." The idea is that with Christ's first coming, death
+                    and resurrection, the last days have arrived (Hebrews 1:2), and the next big event is His return. We live
+                    on the brink of eternity.
+                </p>
+                <p>
+                    John Darby explains this by noting that now that Christ has come and accomplished redemption, time from
+                    the church's perspective is always viewed as short - "To the Christian the end is always near... the Church is
+                    heavenly, and in heaven are no times or seasons" <sup>35</sup>. In other words, the church exists in a state of
+                    expectancy, not tied to a timeline of earthly events as Israel was. Darby contrasted how Daniel was told to
+                    seal his book because there was a sequence of epochs for Israel to pass through, but John's is unsealed
+                    because the Church could be taken home at any moment <sup>35</sup>. The prophetic lamp is to be kept burning and
+                    visible.
+                </p>
+                <p>
+                    Application: We should be thankful that Revelation is "unsealed." God wants us to know His plans. This
+                    should motivate us to study and proclaim this book. It's not to be treated as an encrypted code for scholars
+                    only; it's for all "His servants" (1:1). Don't shy away from Revelation - God intentionally made it available and
+                    understandable (with the Spirit's help) because the time is near. Also, knowing the time is at hand, we should
+                    cultivate an attitude of readiness and watchfulness. This doesn't mean trying to set dates (Matthew 24:36
+                    forbids that), but it means living morally and spiritually awake. Jesus said, "Blessed is that servant whom his
+                    master finds watching" (Luke 12:37). We should have a sense of destiny about our lives that at any time
+                    our Lord might call us to Himself or begin to wrap up history. That urgency can translate into zeal for
+                    evangelism (since time for the lost may be short) and diligence in personal holiness (since we want to be
+                    found faithful).
+                </p>
+                <p>
+                    On a practical level, "do not seal" could also apply to how we handle God's Word. We shouldn't "seal" it by
+                    keeping it to ourselves or neglecting it. Let's open the book of Revelation (and all Scripture) regularly, and
+                    also help others understand it. There is a blessing in making God's truth known. The angel basically
+                    authorized John to publish Revelation widely; likewise, we are authorized to share its message: Jesus is
+                    coming soon; the kingdom is near; repent and believe! The unsealed book is meant to produce an unsealed
+                    life open, transparent, and expectant before God.
+                </p>
+
+                <h3>Verse 11: Final States - Righteous or Filthy Still</h3>
+                <p>
+                    <span class="verse-number">"He who is unjust, let him be unjust still; he who is filthy, let him be filthy still; he who is righteous, let
+                    him be righteous still; he who is holy, let him be holy still." (NKJV)</span>
+                </p>
+                <p>
+                    This verse is a solemn and somewhat startling pronouncement. It is not a command to be unjust or holy;
+                    rather, it's declaring a reality about the finality of one's moral state when the end comes. In context, because
+                    "the time is at hand" (v.10), there will come a point when time runs out for change. Essentially, when Christ
+                    returns and the final judgment arrives, a person's character is fixed eternally. The verse reads like a
+                    pronouncement of destiny: the unjust (unrepentant) will remain unjust forever; the filthy (morally defiled)
+                    will remain filthy forever. Conversely, the righteous will remain righteous, and the holy will remain holy
+                    forever.
+                </p>
+                <p>
+                    This can be understood as God's decree of finality. When Jesus comes and closes this age, "he who is unjust
+                    (or does wrong) must remain so still" - there will be no further opportunity to repent and be made righteous.
+                    The day of grace will be over for the sinner. Similarly, those who have been cleansed and made holy will
+                    remain holy for eternity never again falling into sin. This has a parallel in Daniel 12:10, "Many shall be
+                    purified and made white... but the wicked shall do wickedly; and none of the wicked shall understand." In that
+                    sense, in the end times, the wicked persist in wickedness despite warnings, and the righteous continue in
+                    righteousness by God's grace. But Revelation 22:11 extends it to an eternal principle: as death finds you, so
+                    judgment keeps you. It's reminiscent of Jesus' parable of the ten virgins (Matthew 25:1-13) where the door
+                    was shut on the foolish virgins - too late to remedy their lack of oil.
+                </p>
+                <p>
+                    Steve Ironside (paraphrasing) noted that "as a man is found in that coming day, so he will remain for all
+                    eternity" <sup>36</sup>. The statement "let him be still" indicates a continuing state. This is actually sobering: It's
+                    implying now is the time to be made righteous (through Christ) or else a day is coming when change is no
+                    longer possible. The unjust and filthy describe the lost in terms of their wrongdoing and impurity of heart.
+                    The righteous and holy describe the saved, whose lives have been justified by faith and sanctified by God.
+                </p>
+                <p>
+                    One might wonder why a statement like this is given here. It serves as an emphatic warning and
+                    encouragement at the end of the book. It's as if God is saying: "If these words don't persuade you to repent,
+                    then there's nothing more I can say go on in your wickedness if you will. But know that judgment is coming
+                    quickly and will freeze you in that state." God allows people the freedom to choose; if they stubbornly choose
+                    unrighteousness, He confirms them in that choice at judgment (like Pharaoh hardening his heart and then
+                    God hardening it). On the flip side, it's an encouragement to the believer: if you are striving to be righteous
+                    and holy now, continue - remain faithful, because your righteous standing will be eternally vindicated and
+                    secure.
+                </p>
+                <p>
+                    It's important to note: This verse is descriptive, not prescriptive. God is not advising people to stay unjust; He
+                    is foretelling that many will, despite warnings. It carries a tone of lament and finality, much like Jesus
+                    saying, "Let the dead bury their own dead" (Luke 9:60) i.e., those who are spiritually dead will act
+                    accordingly.
+                </p>
+                <p>
+                    Application: The implication for us today is to urgently choose righteousness while we still can. "Behold,
+                    now is the accepted time; behold, now is the day of salvation" (2 Corinthians 6:2). We do not want to be found
+                    in the filthy/unjust category when Jesus comes or when we die. How do we ensure we're in the "righteous/
+                    holy" category? By receiving Christ's righteousness by faith (justification) and pursuing a holy life in the
+                    power of the Spirit (sanctification). Once we have that new standing, verse 11 encourages us: keep living it
+                    out ("let the righteous still do right, let the holy still be holy"). Don't lapse back. Persevere in godliness.
+                </p>
+                <p>
+                    For the unbeliever or procrastinator, verse 11 is a wake-up call: there is a point of no return. After death or
+                    when Christ returns, your character and destiny are sealed. There will be no last-minute character changes
+                    at the Great White Throne. Today, however, transformation is possible filthy souls can be washed, unjust
+                    hearts can be justified - through the blood of Jesus (1 Corinthians 6:9-11). So, choose this day whom you will
+                    serve (Joshua 24:15).
+                </p>
+                <p>
+                    Even for believers, there is a caution: Don't flirt with sin, thinking, "I'll repent later." That can harden into a
+                    permanent state. Instead, "keep yourselves in the love of God" (Jude 21). Continue in holiness; every day we
+                    practice righteousness is a day we are being who we will be forever. There's also comfort in knowing that if
+                    we are declared righteous in Christ, in eternity we will forever be righteous (no more struggle with sin
+                    nature hallelujah!). Conversely, those who love evil now and refuse Christ will be stuck with their sinful
+                    nature forever, which is a hell in itself.
+                </p>
+                <p>
+                    Thus, verse 11 draws a sharp line and calls us to live on the right side of that line while we have time. It's
+                    one more motivator to heed the gospel presented implicitly throughout Revelation (the Lamb's offer of
+                    salvation) - because the Lamb is returning, and then "Let him who is filthy be filthy still." Don't let that be said
+                    of you rather, "he who is holy, let him be holy still."
+                </p>
+
+                <h2>Revelation 22:12-17 - Jesus' Final Declarations and the Grand Invitation</h2>
+                <p>
+                    In these verses, Jesus speaks again (verses 12-16), affirming His imminent coming and identifying Himself
+                    by majestic titles. We also find one of the most beautiful invitations in Scripture (verse 17), where the Holy
+                    Spirit and the Church jointly call people to come to Christ for salvation. This section blends doctrinal truth
+                    about Christ's person and work with a tender gospel appeal, all in light of His soon return.
+                </p>
+
+                <h3>Verse 12: "I Am Coming Quickly, and My Reward Is with Me"</h3>
+                <p>
+                    <span class="verse-number">"And behold, I am coming quickly, and My reward is with Me, to give to every one according to his
+                    work." (NKJV)</span>
+                </p>
+                <p>
+                    Once more, Jesus proclaims: "Behold, I am coming quickly." The word "behold" signals something
+                    important - Jesus wants our full attention on this promise. We've now heard "I am coming quickly" from His
+                    lips in verse 7 and here, and we will hear it once more in verse 20. This triple affirmation cements the
+                    certainty and urgency of His return. We should never doubt whether Christ will come or become lax about
+                    when - He says it will be sudden and without delay when the appointed time arrives.
+                </p>
+                <p>
+                    Here Jesus adds that when He comes, "My reward is with Me, to give to every one according to his
+                    work." This echoes Isaiah 40:10 and 62:11, which prophesied of God's coming with reward and recompense
+                    <sup>17</sup>. It portrays Jesus as the divine Judge and Rewarder. He carries "wages" or "rewards" with Him
+                    meaning He is ready to distribute the outcomes of judgment. For believers, reward often implies positive
+                    reward (crowns, commendation, etc., as per 2 Timothy 4:8, 1 Corinthians 3:14). For unbelievers, the "reward"
+                    of their works is punishment (Rom. 6:23 says the wages of sin is death). In Revelation 11:18, it was said the
+                    time had come to "reward Your servants the prophets and the saints... and to destroy those who destroy the
+                    earth." So both recompense for the righteous and retribution for the wicked are in view.
+                </p>
+                <p>
+                    "To give to every one according to his work" establishes the biblical principle of judgment according to
+                    deeds. While we are saved by grace through faith (Ephesians 2:8-9), our works are the evidence of our faith
+                    and will be evaluated. For the saved, Christ will assess our works at the Judgment Seat of Christ (Romans
+                    14:10, 2 Corinthians 5:10) to determine rewards. He spoke of this often: "The Son of Man will come... and then
+                    He will reward each according to his works" (Matthew 16:27). There are varying rewards (crowns, positions in
+                    the kingdom see Luke 19:17, 1 Cor 3:12-15) for faithfulness. For the unsaved, their works (sins) are
+                    evidence for condemnation at the Great White Throne (Rev. 20:12 "the dead were judged according to their
+                    works"). God's judgment is perfectly just; no one will be treated unfairly. The phrase also emphasizes
+                    individual responsibility - "each one" will answer for their life.
+                </p>
+                <p>
+                    Jesus bringing the reward "with Him" suggests immediacy. When He appears, judgment and reward follow
+                    swiftly. This reminds believers to live in such a way that when Christ returns, He can say "Well done, good and
+                    faithful servant" (Matthew 25:21). It reminds unbelievers that their accumulated deeds (and guilt) will
+                    accompany them to judgment unless they repent.
+                </p>
+                <p>
+                    Theological Note: The concept of judgment according to works is not contrary to salvation by grace. For
+                    believers, good works are the fruit of genuine salvation, and God graciously rewards what His grace
+                    enabled us to do <sup>37</sup>. For unbelievers, their works (and lack of Christ's atonement) are the basis of their
+                    guilt. So Christ's rewards are really two-sided: blessing for those justified by faith (whose works demonstrate
+                    that faith), and punishment for those who in stubborn unbelief continued in evil works.
+                </p>
+                <p>
+                    William Kelly commented that in verse 12 Jesus is referring not to the blessing of those who keep the
+                    prophecy (that was verse 7's focus), but now "for those whom He shall find here below, to render to each as his
+                    work $is^{\prime\prime}$ <sup>38</sup>. This likely points to the scenario of His return affecting those alive on earth at His Second
+                    Coming (e.g., separating sheep and goats, rewarding Tribulation saints vs. punishing beast worshipers). But
+                    by extension it covers all judgment.
+                </p>
+                <p>
+                    Application: This verse motivates us to faithful service and holy living. Knowing Jesus will evaluate our
+                    lives should instill a healthy reverence. We want to have works that please Him - works that will survive the
+                    fire of judgment (1 Cor. 3:13). This means investing in eternal things: obedience, love, sharing the gospel,
+                    helping others, etc., rather than living selfishly. Also, if wrongs have been done to us, we can find solace
+                    that Jesus brings justice. He will reward the righteous and right all wrongs. We don't need to seek
+                    vengeance; the Lord will repay (Romans 12:19). Another personal application: sometimes believers feel their
+                    labors are unnoticed - but Jesus is bringing your reward. "God is not unjust to forget your work and labor of
+                    love" (Hebrews 6:10). Even a cup of cold water given in Christ's name will not lose its reward (Matthew 10:42).
+                </p>
+                <p>
+                    On the flip side, this should terrify the unrepentant: every lie, every cruelty, every secret sin is known and
+                    there will be a "reward" (penalty) for it unless forgiven in Christ. It's an impetus to run to Jesus now for
+                    mercy rather than face Him then with only justice. In summary, live every day with the expectation: "My
+                    Lord is coming with rewards in hand." That will help prioritize our choices. Like Paul, we want to love His
+                    appearing (2 Tim 4:8) and thus receive a crown, instead of shrinking back in shame (1 John 2:28).
+                </p>
+
+                <h3>Verse 13: "I Am the Alpha and the Omega, the Beginning and the End, the First and the Last"</h3>
+                <p>
+                    <span class="verse-number">"I am the Alpha and the Omega, the Beginning and the End, the First and the Last." (NKJV)</span>
+                </p>
+                <p>
+                    Still the words of Jesus (from verse 12 context), He now identifies Himself with three profound titles, all of
+                    which express His eternal divine nature:
+                </p>
+                <ul>
+                    <li>"Alpha and Omega" - Alpha is the first letter of the Greek alphabet, Omega the last. This title was
+                        used of God in Revelation 1:8 and 21:6, and of Christ in Revelation 1:11 (depending on manuscript)
+                        and here. It means Jesus is the A to Z, the source and consummation of all things. He encompasses
+                        all knowledge and existence. Nothing comes before Him or after Him. It implies His eternity and
+                        omnipotence - He initiates creation and He brings it to its final purpose. In other words, Jesus is the
+                        eternal Word (compare John 1:1) who spoke the first word in creation and will have the last word in
+                        judgment and new creation.</li>
+                    <li>"The Beginning and the End" A similar concept, also attributed to God in 21:6. Christ is the
+                        beginning (Greek arche), meaning not just first in sequence but the source/origin. "All things were
+                        made through Him" (John 1:3). And He is the end (Greek telos) the goal or consummation. All
+                        history is moving toward the glory of Christ. Colossians 1:16 echoes this: "All things were created
+                        through Him and for Him." So Christ is the beginning (creator) and the end (the one for whom all
+                        exists and who will conclude the story). This title assures us of Christ's sovereignty over time and
+                        history.</li>
+                    <li>"The First and the Last" - This title is explicitly used by Jesus earlier in Revelation 1:17 and 2:8, and
+                        significantly it's a title Yahweh uses in Isaiah 44:6 ("I am the First and I am the Last; besides Me there is
+                        no God") and Isaiah 48:12. By taking this title, Jesus unmistakably claims full deity He is one with
+                        the God of Israel. The "First" (protos) and "Last" (eschatos) again signify eternity and supremacy.
+                        There was none before Him and none after - He spans all of existence. It also can imply that He is
+                        the ultimate cause and conclusion - similar to alpha/omega.</li>
+                </ul>
+                <p>
+                    All three phrases essentially reinforce each other; the triple form adds emphasis. The repetition of similar
+                    ideas in different words is a Hebrew style of expressing completeness and certainty. Jesus wants us to know
+                    exactly who He is: the eternal, all-encompassing God. This is especially fitting as He is giving final words - He
+                    speaks as the One who has authority over the entire scope of redemptive history. It underscores the
+                    reliability of His promise to come quickly and reward - because He is God from start to finish. Who else
+                    could guarantee the outcome of history except the One who began it and will end it?
+                </p>
+                <p>
+                    For believers, these titles bring great comfort: Our Lord Jesus isn't just a part of the story - He is the story.
+                    He's writing it from Genesis to Revelation. If He is the Beginning and End, then nothing in between is
+                    outside His control. If He is the First and Last, then our lives are safe in His eternal hands. It also
+                    encourages us to worship Christ as fully God.
+                </p>
+                <p>
+                    John Darby commented on this verse, noting that Christ here "announces Himself, having taken up the
+                    word in Person... as Alpha and Omega, the beginning and the end God before and after all; and filling
+                    duration" <sup>39</sup>. In other words, Jesus spans all of time and existence, from eternity past to eternity future. We
+                    find our meaning in relation to Him.
+                </p>
+                <p>
+                    Application: How do we respond to such a revelation of Christ's identity? Firstly, with worship and awe.
+                    When we pray or sing to Jesus, remember you're addressing the Alpha and Omega very God of very God.
+                    This should deepen our reverence and trust. Secondly, these truths can banish fear. If Jesus is the Beginning
+                    and End, then no circumstance is outside His plan. We can say, "Lord, You are in control from start to finish; I
+                    trust You with both my birth and death and everything in between." It also humbles us: we are not the center;
+                    He is. Our lives find purpose only as they align with the One who is the beginning and end.
+                </p>
+                <p>
+                    Moreover, it gives hope: The one who began a good work in us will complete it (Philippians 1:6) - because
+                    He is the Completer. The world's chaos doesn't have the last word - Jesus does. In personal trials or when we
+                    see evil in society, recall that Christ is the Last - He will have the final say, and it will be just and good.
+                    When sharing Christ with others, we can confidently present Him not merely as a historical figure but as the
+                    eternal God: "the First and Last" who calls them into a relationship.
+                </p>
+                <p>
+                    Finally, ponder that our Savior who died for us is none other than the Alpha and Omega - meaning His
+                    sacrifice has infinite value and His love is from everlasting to everlasting. Such thoughts fuel deep devotion.
+                    Let's echo Thomas: "My Lord and my God!" (John 20:28). Jesus is everything the A to Z. Therefore, He
+                    deserves everything from us: all our heart, soul, mind, and strength.
+                </p>
+
+                <h3>Verse 14: Blessing on Those Who Obey (Wash Their Robes/Do His Commandments) - Access to the Tree of Life</h3>
+                <p>
+                    <span class="verse-number">"Blessed are those who do His commandments, that they may have the right to the tree of life, and
+                    may enter through the gates into the city." (NKJV)</span>
+                </p>
+                <p>
+                    Here we encounter another beatitude (blessed saying). However, there is a well-known textual variation in
+                    this verse. The NKJV (following the Majority Text/TR) reads "those who do His commandments", whereas many
+                    modern versions (ESV, NIV) read "those who wash their robes". The difference comes from a variation in
+                    Greek manuscripts - but both phrases convey complementary truths. We'll consider NKJV's reading first:
+                </p>
+                <ul>
+                    <li>"Blessed are those who do His commandments." This phrase points to the importance of
+                        obedience. It echoes Jesus' words in John 14:15, "If you love Me, keep My commandments." In
+                        Revelation's context, it may especially refer to heeding the calls to faithfulness given throughout the
+                        book (e.g., resisting the beast, keeping oneself pure, holding to Jesus' testimony). Those who "do His
+                        commandments" are essentially true believers, since obedience is the fruit of saving faith (1 John
+                        2:3-4). They are "blessed" - happy and fortunate - because their obedient faith grants them access to
+                        the eternal blessings described next. Obedience does not earn salvation, but it is evidence of it, and
+                        thus gives "right" in the sense of proving one's part in Christ.</li>
+                    <li>The alternate reading "Blessed are those who wash their robes" (found in older manuscripts)
+                        emphasizes cleansing by the blood of Christ. Revelation 7:14 uses that phrase: "they have washed
+                        their robes and made them white in the blood of the Lamb." If that is the original reading, the meaning
+                        is: Blessed are those who have been cleansed from their sins by Christ's sacrifice. Essentially,
+                        those who have appropriated Christ's atonement are blessed. This also leads to the same result: only
+                        the forgiven, blood-washed saints may enter the Holy City.</li>
+                </ul>
+                <p>
+                    Interestingly, both readings are theologically harmonious - those who have been washed in the blood
+                    will also be those who keep God's commandments (not perfectly, but as a direction of life). Our
+                    obedience flows from being cleansed and regenerated. Darby, in fact, preferred "wash their robes" as the
+                    true text <sup>40</sup>, underscoring grace. But he and others acknowledged that the evidence of washed robes is a
+                    life of holiness (obedience).
+                </p>
+                <p>
+                    The verse continues: "that they may have the right to the tree of life, and may enter through the gates
+                    into the city." Here is the reward of being among the blessed, redeemed ones: access to the tree of life
+                    (see verse 2) and free entrance into New Jerusalem. "Right" to the tree of life implies entitlement or authority.
+                    In Christ, believers have the God-given right to eternal life (symbolized by eating from the tree). This
+                    reverses the banishment of Adam. What man lost by disobedience, Christ regained for us by His obedience.
+                    Early in Revelation, a promise to overcomers was "To him who overcomes I will give to eat from the tree of life,
+                    which is in the midst of the Paradise of God" (Rev. 2:7). Here we see its fulfillment. We will freely enjoy eternal
+                    sustenance and immortality with God.
+                </p>
+                <p>
+                    Likewise, entering the city's gates means we are full citizens of God's kingdom. We belong there. In
+                    ancient times, only approved citizens or dignitaries could enter a walled city's gates freely. Sinners and
+                    outsiders might be kept out. By saying we can "enter by the gates," it implies a welcome we're not
+                    sneaking in or barred at the door. Jesus said in John 10:9, "I am the door. If anyone enters by Me, he will be
+                    saved, and will go in and out and find pasture." Through Christ (the Door), we legitimately enter God's city. We
+                    have eternal security and fellowship (coming and going at will in God's presence, though really we will
+                    dwell there continually).
+                </p>
+                <p>
+                    So, verse 14 essentially summarizes the beatific state of the redeemed: cleansed by Christ (and evidenced
+                    by obedience), thus granted eternal life and citizenship in heaven. It's the ultimate blessing - the fulfillment of
+                    all our hopes.
+                </p>
+                <p>
+                    Application: This verse invites us first to make sure we are among those "washed" and obedient. Have
+                    you had your robes washed in Jesus' blood? That happens when one repents and trusts Christ, receiving His
+                    forgiveness. If not, you're missing the right to the tree of life. If yes, then you are blessed - rejoice! But also,
+                    do you "do His commandments"? Our lifestyle should match our claim of being washed. This is a check: Am I
+                    living in a way that befits someone headed for the Holy City? Ephesians 5:8 says, "You were once darkness, but
+                    now you are light in the Lord. Walk as children of light."
+                </p>
+                <p>
+                    Knowing what awaits (tree of life, entry to the city) should motivate us to persevere in purity. No
+                    temporary pleasure of sin is worth forfeiting that right (not that true salvation can be lost, but a pattern of
+                    willful disobedience might indicate one was never truly washed). Also, this beatitude gives comfort about
+                    loved ones who died in Christ: if they had washed robes and faithful lives, they now have the right to the
+                    tree of life and walk Heaven's streets. We grieve with hope.
+                </p>
+                <p>
+                    Finally, verse 14 stirs evangelism in us. We desire that more people "wash their robes" in Jesus' blood and
+                    gain access to the city. It's heartbreaking to think some will be left outside (as next verse shows). So we
+                    invite others to the cleansing fountain (Zechariah 13:1). There's a popular hymn line: "Blessed are they who
+                    do His commandments, they shall claim the tree of life." Let's live out that blessed obedience and share
+                    the invitation so that many will join us inside the gates, eating the fruit of eternal life together.
+                </p>
+
+                <h3>Verse 15: The Exclusion of the Wicked</h3>
+                <p>
+                    <span class="verse-number">"But outside are dogs and sorcerers and sexually immoral and murderers and idolaters, and whoever
+                    loves and practices a lie." (NKJV)</span>
+                </p>
+                <p>
+                    In contrast to the blessed insiders of verse 14, verse 15 lists those who are excluded ("outside") from the
+                    Holy City. This stark contrast reinforces the holiness of the New Jerusalem and the necessity of being among
+                    the redeemed to enter it. "Outside" doesn't necessarily mean just outside the city walls on the new earth (for
+                    in the eternal state, all evil is confined to the lake of fire - Rev. 20:15). It rather means excluded from the city
+                    - i.e., excluded from eternal life and God's presence, hence consigned to hell (the second death). Revelation
+                    21:8 gave a similar list of those whose part is in the lake of fire, and 21:27 said nothing impure can enter the
+                    city. So verse 15 reiterates that no unrepentant sinner will inherit the kingdom of God (see also 1
+                    Corinthians 6:9-10, Galatians 5:19-21).
+                </p>
+                <p>
+                    The list of the excluded: "Dogs" - In biblical usage, "dogs" were a derogatory term. To Jews, dogs were
+                    unclean scavengers. In the New Testament, "dogs" can refer to impure or shameless people (Philippians 3:2
+                    "Beware of dogs" referring to false teachers of the circumcision party). In ancient culture, it might also
+                    allude to male cult prostitutes (Deuteronomy 23:18 uses "dog" figuratively for such). Here, it likely means
+                    those of vile, morally impure character <sup>41</sup>. They live like unclean animals, driven by base instincts, not by
+                    God's Spirit. It's a strong term for the despicable (from a holy perspective). "Sorcerers" - those who
+                    practice magic arts and occultism (the Greek word pharmakoi hints at using potions/drugs in witchcraft).
+                    Sorcery in Revelation is associated with deception and demonism (Rev. 18:23). Thus, all forms of witchcraft,
+                    occult practices, or drug-induced superstition fall here. These are rejected because they follow demonic
+                    powers rather than God. - "Sexually immoral" - the Greek pornos refers to fornicators, those engaging in
+                    sexual sin (any sexual activity outside God's design of marriage between a man and woman). This covers
+                    adultery, premarital sex, homosexuality, etc., unrepented. The holy city has no place for the unholy use of
+                    God's gift of sexuality. "Murderers" - those who take life unjustly, from hatred or violence. In a broader
+                    sense, it includes those who harbor hatred (1 John 3:15 equates hatred with murder in God's eyes). The city
+                    of life has no place for those who embraced death-dealing ways. "Idolaters" those who worship
+                    anything other than the true God (could be literal idols, money, power, etc.). In Revelation's original context,
+                    this would include worshipers of the beast or emperor. Idolatry violates the first commandment. Only those
+                    who worship God the Lamb are inside; all who gave their devotion elsewhere are excluded. - "Whoever
+                    loves and practices a lie"
+                    This covers all kinds of deceivers, especially those who love falsehood. It
+                    hearkens to the ultimate lie of Satan. In Revelation, the "lie" might specifically relate to false religion or
+                    denying Christ (2 Thess. 2:10-11 speaks of people believing "the lie" of the Antichrist). But it includes all
+                    habitual liars and those who find pleasure in deception. Earlier in 21:8, "all liars" were listed. God is truth;
+                    nothing false can enter His city.
+                </p>
+                <p>
+                    This catalogue basically spans major categories of sin: ritual impurity, occult sin, sexual sin, sins against
+                    others, sins against God, sins of falsehood. It's not an exhaustive list but representative. These are people
+                    whose lifestyles were characterized by such sins, showing they were never born again or cleansed by Christ.
+                </p>
+                <p>
+                    It's implied that these "outsiders" are in the lake of fire, the only other place mentioned for the wicked after
+                    judgment. So "outside" likely equals "in hell." Some commentators note the tragic image: while the saints
+                    are feasting on the tree of life inside, the lost are eternally outside shut out from the feast, as Jesus'
+                    parables describe (e.g., outer darkness, Matthew 22:13).
+                </p>
+                <p>
+                    Important to note: In this life, some of us were exactly these things - Paul says "such were some of you; but
+                    you were washed... sanctified... justified in the name of the Lord Jesus" (1 Cor. 6:11). So it's not that anyone who
+                    ever committed these sins has no hope; rather, those who clung to these sins and refused Christ's
+                    salvation remain defiled by them and thus cannot enter heaven. If a person truly repents and is cleansed
+                    (like the "washed robes" imagery), they are no longer identified by these labels. But those who "loved" their
+                    sin and persisted in practicing it showing they did not love God's truth are left "outside." It underscores
+                    that God's judgment is just those in hell are there because they ultimately preferred darkness to light
+                    (John 3:19).
+                </p>
+                <p>
+                    Application: This verse should stir a holy fear and urgency in us. It's a sober reminder that sin excludes
+                    from God's kingdom. We should examine ourselves: Do I "love" any lie? Do I harbor any idols? If any such
+                    patterns linger, it calls for repentance. While believers can stumble into sins, they will not love and practice
+                    them continually if they are truly regenerated conviction and discipline will lead them out. If someone
+                    finds themselves loving sin more than God, they need to truly turn to Christ while there is time.
+                </p>
+                <p>
+                    For evangelism, verse 15 is basically telling us who is lost and needs the gospel: the immoral, the deceived,
+                    the idolater, etc. It's a prompt to reach out even to those steeped in these sins, because only the gospel can
+                    wash them. We shouldn't soft-pedal the reality of exclusion from heaven - sometimes people need to hear
+                    that "no, not everyone goes to a better place; certain lifestyles lead you away from God." In love, we must warn
+                    that outside is terrible, and only Jesus can bring one inside.
+                </p>
+                <p>
+                    Also, for believers suffering injustice or surrounded by evil, this verse comforts that none of those evils will
+                    enter eternity with us. All the corrupt, violent, deceitful forces we struggle against now will be shut out. In
+                    the here and now, the "dogs" and liars often barge into our lives; but in New Jerusalem, absolute purity and
+                    safety reigns. So, endure a little longer - God will "outside" all evil permanently.
+                </p>
+                <p>
+                    Thus, verse 15 is a mirror: if any of these descriptions fit someone reading, let it drive them to repentance.
+                    If by grace we've been saved from these, let it cause gratitude and deep aversion to returning to that vomit.
+                    It underscores what a high price Jesus paid, as these sins deserved exclusion but He was excluded on the
+                    cross ("My God, why have You forsaken Me?") so that we could come in. Praise God for that grace!
+                </p>
+
+                <h3>Verse 16: "I, Jesus... the Root and Offspring of David, the Bright and Morning Star"</h3>
+                <p>
+                    <span class="verse-number">"I, Jesus, have sent My angel to testify to you these things in the churches. I am the Root and the
+                    Offspring of David, the Bright and Morning Star." (NKJV)</span>
+                </p>
+                <p>
+                    Now Jesus Himself speaks in the first person (confirming it's been Him speaking in verses 12-15 too). He
+                    gives a sort of divine signature and seal to the entire book.
+                </p>
+                <ul>
+                    <li>"I, Jesus, have sent My angel to testify to you these things in the churches." This reminds us of
+                        Revelation 1:1-2, where Jesus sent an angel to deliver the revelation to John. By saying "I, Jesus," He
+                        personalizes and authenticates the message. It's as if He is signing the letter with His own name
+                        "Jesus." This is one of the few places in Scripture where the Lord refers to Himself by His human
+                        name "Jesus" directly to us, highlighting His personal connection to His Church. He wants us to know
+                        He Himself is behind this book. The angel was just His messenger.</li>
+                </ul>
+                <p>
+                    The phrase "to testify to you these things in the churches" indicates the audience. Unlike many prophecies
+                    given only to individuals or Israel, this prophecy is intended for the churches i.e., the Christian
+                    congregations (like the seven churches of Asia Minor and by extension all churches). This loops back to the
+                    letters to seven churches in chapters 2-3. Revelation as a whole is meant to be read publicly and heeded in
+                    church gatherings. It's not an arcane document for a select few; it's the Church's book of hope and warning.
+                    Jesus cares that His assembled people know what's coming. So this verse dispels any notion that Revelation is
+                    too impractical or scary for regular church folk - Jesus specifically addressed it "to the churches." We who
+                    are part of His Church must pay attention.
+                </p>
+                <ul>
+                    <li>"I am the Root and the Offspring of David." Here Jesus identifies Himself with two connected but
+                        distinct messianic titles relating to King David:</li>
+                    <ul>
+                        <li>As Root of David, He is the source/origin of David. This implies His divinity and pre-existence. How
+                            could Christ be the root (ancestor) of David? Only if He is David's Lord who existed before David.
+                            Indeed, Isaiah 11:10 prophesied a "Root of Jesse" (David's father) who would reign. Jesus stumped
+                            the Pharisees by asking how the Messiah could be David's Son if David calls Him "Lord" (Matthew
+                            22:42-45). The answer: Messiah is both David's Creator (root) and his descendant.</li>
+                        <li>As Offspring of David, He is literally a descendant of David in His human lineage (born from the line
+                            of David through Mary, as the Gospels record). This affirms His humanity and rightful claim to the
+                            Davidic throne as the promised Messiah-King. God promised David that his seed would reign
+                            forever (2 Samuel 7:12-16). Jesus fulfills that: "the Lord God will give Him the throne of His father David"
+                            (Luke 1:32). He is born of David's line ("offspring" can be translated "shoot" or "branch" - see Isaiah
+                            11:1, a branch from Jesse's roots).</li>
+                    </ul>
+                </ul>
+                <p>
+                    By combining Root and Offspring, Jesus encapsulates His unique nature: both divine and human, the
+                    eternal God who entered David's line as man. As William Kelly notes, Jesus here presents Himself in His
+                    kingly connection to Israel's promises (Root and Offspring of David) <sup>42</sup>. This shows that the one speaking
+                    and promising "I come quickly" is none other than Israel's Messiah, the fulfillment of covenant promises.
+                    The early church, especially Jewish Christians, would resonate with this - knowing Jesus is truly the Messiah
+                    of Israel.
+                </p>
+                <ul>
+                    <li>"The Bright and Morning Star." This title shifts focus to a different aspect. The morning star
+                        appears in the sky just before dawn, while it's still night, heralding the coming day. Jesus being the
+                        Bright Morning Star indicates:</li>
+                    <ul>
+                        <li>He is glorious ("bright").</li>
+                        <li>He appears just before the dawn of the Kingdom (the Millennium or the eternal day).</li>
+                        <li>This title was promised to believers in Revelation 2:28 ("I will give him the morning star" - essentially
+                            giving them Himself).</li>
+                    </ul>
+                </ul>
+                <p>
+                    In biblical typology, the "Sun of Righteousness" (Malachi 4:2) represents Christ's coming to Israel and the
+                    world in visible power at the dawn of the Kingdom (the Second Coming, bright as the sun). The "Morning
+                    Star" by contrast is seen only by those awake in the night, anticipating the day. Many commentators
+                    (especially in dispensational circles) see "morning star" as a picture of Christ's coming for His Church (the
+                    rapture), which occurs prior to the "dawn" of the visible kingdom <sup>43</sup> <sup>44</sup>. The Church, watching in the dark
+                    night of the world, sees Christ as the Morning Star - our hope that He will call us home before the judgment
+                    and kingdom dawn breaks upon the world. Darby eloquently wrote that the morning star doesn't awaken
+                    the sleeping world but is a delight to those who watch through the night <sup>43</sup>. So Jesus as Morning Star is
+                    especially a comfort to the Church: He's coming privately for us (at the rapture) ahead of His public coming
+                    as the Sun.
+                </p>
+                <p>
+                    Whether or not one makes that timing distinction, Morning Star certainly indicates hope and comfort in
+                    dark times. 2 Peter 1:19 says, "...until the day dawns and the morning star rises in your hearts." That rising star
+                    in our hearts is Christ's return anticipated now by faith. He is our light in the darkness, assuring us a new
+                    day is near.
+                </p>
+                <p>
+                    So in one breath, Jesus declares Himself the fulfillment of Jewish hope (Messiah son of David) and Church
+                    hope (Morning Star). Both aspects are united in His person. We see here again the broad sweep of God's
+                    plan - Jesus over Israel and the Church, over both prophecy and mystery.
+                </p>
+                <p>
+                    Application: Jesus saying "I, Jesus" is personal. It reminds us our faith is not in ideas but in a Person - the
+                    living Jesus who speaks to us. He sent His angel, showing He actively cares that we get His message. So
+                    when you read Revelation (or any Scripture), receive it as from Jesus Himself to you. It carries weight and
+                    also love.
+                </p>
+                <p>
+                    His being Root and Offspring of David should strengthen our confidence in God's promises. Across
+                    millennia, God kept His word to David by sending Jesus. He will also keep His word about Jesus' return.
+                    Christ's credentials are solid. It also shows Christ's humility - the mighty Root of David chose to become also
+                    David's Offspring for our sake. Marvel at the mystery: the Creator became a creature, God became man,
+                    fulfilling every promise in between.
+                </p>
+                <p>
+                    Cherishing Jesus as the Morning Star can ignite joy. In the darkest night of our trials, look for the Morning
+                    Star. He may not have risen for all to see yet, but by faith we see Him and know the night is far spent. This
+                    can give you strength to endure: "just a little while, and He who is coming will come" (Hebrews 10:37). Also,
+                    consider: the morning star is exceedingly beautiful to those awake early - do we rise early (figuratively) to
+                    gaze on Jesus? This speaks to cultivating an eager, watchful heart. Those who love His appearing will be
+                    rewarded (2 Tim. 4:8). Perhaps we should literally sometimes go out before dawn and see the morning star
+                    (often Venus) and let it remind us: "Maybe today, Lord?"
+                </p>
+                <p>
+                    Finally, "Bright Morning Star" implies we as Christians should reflect His light even now. Philippians 2:15
+                    urges us to shine like lights (literally luminaries or stars) in this world. We reflect the Morning Star to others
+                    by holding forth the word of life. Let's point people to Jesus in this dark world, so they too might have the
+                    hope of dawn.
+                </p>
+                <p>
+                    In sum, verse 16 richly assures us that the book of Revelation is from Jesus - Messiah and Hope-Giver - so
+                    we can stake our lives on it.
+                </p>
+
+                <h3>Verse 17: The Invitation - "Come!"</h3>
+                <p>
+                    <span class="verse-number">"And the Spirit and the bride say, 'Come!' And let him who hears say, 'Come!' And let him who thirsts
+                    come. *Whoever desires, let him take the water of life freely." (NKJV)</span>
+                </p>
+                <p>
+                    This beautiful verse is like a grand double-invitation, with two directions of "Come!" being expressed:
+                </p>
+                <ol>
+                    <li>The Church's plea to Christ: "And the Spirit and the bride say, 'Come! "" - Here, the Holy Spirit and the
+                        bride (the Church) unite in calling out for Jesus to return. In response to Jesus' promise "I am
+                        coming quickly" (v.12, v.20), the Spirit in the hearts of believers moves us to cry, "Come, Lord Jesus!"
+                        This is essentially a prayer for Christ's return - often summarized by the Aramaic word "Maranatha"
+                        (1 Cor. 16:22). The bride is the Church portrayed as the bride of Christ (see Rev. 19:7). The bride longs
+                        for the Bridegroom's appearing. Significantly, the Spirit also says "Come" - meaning the Holy Spirit,
+                        dwelling in the Church, inspires and agrees with this longing. It's a Spirit-led desire of God's people
+                        that Jesus should come and consummate the marriage, taking us to Himself (John 14:3).</li>
+                </ol>
+                <p>
+                    William Kelly noted, "The church cannot hear of Him as the Morning Star without at once desiring that He should
+                    come" <sup>45</sup>. The Spirit in us stirs an echo of Christ's own promise. So, our proper posture is one of yearning:
+                    "We want You, Jesus!" It's notable that it doesn't say the bride says, "Come quickly." Kelly comments the
+                    Church, in submission, simply says "Come," leaving the timing to Him <sup>46</sup>. But Jesus Himself adds "quickly" -
+                    only He can speak to the timing.
+                </p>
+                <p>
+                    Also, "the Spirit and the bride" implies harmony between the Holy Spirit and the Church when the
+                    Church is in tune with God. When we are filled with the Spirit, our cry aligns with God's will - and God's will
+                    is that Christ returns and reigns. This prayer "Come" is a fitting summary of all Christian hope.
+                </p>
+                <ol start="2">
+                    <li>The Church's invitation to the world: "And let him who hears say, 'Come!' And let him who thirsts come.
+                        Whoever desires, let him take the water of life freely." - Now the direction shifts. First, "him who hears"
+                        presumably means whoever has heard the Spirit and bride's cry - i.e., the individual believer who has
+                        heard the gospel. That person is invited to join the chorus: "say, Come!" (likely also directed to Jesus).
+                        In other words, every believer, even if they feel they're not very knowledgeable ("he who hears"
+                        maybe implies one who has just heard and believed), is encouraged to also long for Christ's return.
+                        No Christian is too simple or unworthy to pray "Come, Lord Jesus." Make it your own cry.</li>
+                </ol>
+                <p>
+                    Then, the invitation clearly goes outward: "And let him who thirsts come. Whoever desires, let him take the water
+                    of life freely." This is a final evangelistic invitation in the Bible. "Him who thirsts" refers to anyone who
+                    recognizes their need for salvation spiritual thirst (as in Matthew 5:6, "hunger and thirst for
+                    righteousness"). Isaiah 55:1 resonates: "Ho! Everyone who thirsts, come to the waters..." Jesus Himself cried in
+                    John 7:37, "If anyone thirsts, let him come to Me and drink." Here the bride, by the Spirit, extends that same
+                    offer: Are you thirsty for forgiveness, for true life? Come!
+                </p>
+                <p>
+                    "Whoever desires" (or "whosoever will") underlines the universality of the call. Anyone who wants salvation
+                    is welcome. There is no predestined exclusion from the invitation - it's genuinely open to all who will come.
+                    This counters any notion that the gospel is restricted - whosoever will may come!
+                </p>
+                <p>
+                    "Let him take the water of life freely." The water of life again refers to eternal life in Christ (see verse 1, the
+                    river of life). To "take... freely" means it's a gift - you cannot pay for it or earn it. The Greek word for "freely"
+                    is dorean, meaning without cost. This echoes Revelation 21:6, "I will give of the fountain of the water of life
+                    freely to him who thirsts." Salvation is by grace: Jesus paid the price, so we may take freely. The only condition
+                    implied is desire (thirst/will). If one truly wants the living water, they are invited to take it. It reminds of
+                    Jesus's encounter with the Samaritan woman: He offered her "living water" springing to eternal life (John
+                    4:10-14). Here, at Scripture's end, the offer still stands - even intensified - right up until the final pages.
+                </p>
+                <p>
+                    It's profound that after pronouncing judgment on the wicked "outside" in verse 15, the very next verse says
+                    effectively, "But you don't have to stay outside if you thirst, come in and drink!" Grace is still extended. This
+                    shows God's heart: even at the threshold of closing the book, He pleads with sinners to come receive life.
+                    It balances the warnings with mercy.
+                </p>
+                <p>
+                    So, two "Comes": one is the bride to the Bridegroom, the other is the bride to the thirsty stranger. This is
+                    the dual role of the Church - looking upward for Christ, and outward for the lost.
+                </p>
+                <p>
+                    Application: First, does "Come, Lord Jesus" rise from your heart? Or have we lost our first love and become
+                    too comfortable here? The Spirit within us yearns for Jesus we should nurture that desire. How? By
+                    focusing on His promises, by worship and prayer that often include longing for His return, by living as
+                    pilgrims. Titus 2:13 calls it "looking for the blessed hope and glorious appearing of our great God and Savior."
+                    Make "Come, Lord" part of your prayer vocabulary. It's a sign of spiritual health and love.
+                </p>
+                <p>
+                    Second, are we echoing the invitation to the thirsty? This is evangelism. The Church (the bride) led by the
+                    Spirit should be saying to the world, "Come to Jesus, and drink freely!" It's noteworthy that the bride's voice
+                    here invites others - implying our role is to call others to salvation up until the very end. We must never
+                    neglect the "whoever desires" part of the gospel. It's beautifully inclusive: everyone is welcome, regardless
+                    of background or past sins, if they will only come. We should share the gospel as widely as possible,
+                    knowing it's a genuine offer to all.
+                </p>
+                <p>
+                    Also, note the simplicity: take the water of life freely. Gospel presentations need not be complicated; it's an
+                    offer to take what Christ offers, at no cost. Are we perhaps guilty of adding cost (like implying people must
+                    clean up first or follow certain rituals)? The scripture says freely let's keep grace free. No works, no
+                    payment - just come and drink.
+                </p>
+                <p>
+                    For seekers: do you thirst? That's the only qualification. Thirst means recognizing your soul's need - that
+                    money, pleasure, etc., haven't satisfied, that you are parched spiritually. If so, Jesus invites you. Don't
+                    hesitate thinking you're not worthy - whoever desires may come. The water of life (eternal life) is a gift. You
+                    take it by faith by believing in Jesus and receiving Him (John 1:12). As the hymn says, "Let him that is
+                    athirst now come."
+                </p>
+                <p>
+                    Thus, verse 17 stands as one of the most grace-filled verses in Scripture. It's the Spirit's final wooing. If the
+                    Bible ended with verse 15, we might despair for sinners; but verse 17 shows the door is still open now. One
+                    day it will close, but as of this invitation, it hasn't. It's also a model for us: As we long for Christ's return, we
+                    must at the same time be inviting others to Christ. Our end-time hope should not make us inward; it should
+                    propel us outward to bring as many to the water as will come, before night falls.
+                </p>
+                <p>
+                    In summary, Revelation's grand finale isn't just prophecy - it's pleading. The King is coming, and the Bride
+                    says "Come!" while also shouting to the lost, "Come drink!" May we live in that dual attitude daily: "Even so,
+                    come Lord Jesus!" and "Be reconciled to God- take the free gift of life!"
+                </p>
+
+                <h2>Revelation 22:18-21 - Warning, Promise, and Closing Benediction</h2>
+                <p>
+                    The final verses of the Bible contain a solemn warning against tampering with the sacred text (verses
+                    18-19), followed by Jesus' final assurance of His imminent return (verse 20) and a concluding prayer/blessing
+                    (verse 21). These words leave a lasting impression about the authority of Scripture, the certainty of Christ's
+                    coming, and the grace of God with His people.
+                </p>
+
+                <h3>Verses 18-19: The Warning Against Adding or Removing Words</h3>
+                <p>
+                    <span class="verse-number">"For I testify to everyone who hears the words of the prophecy of this book: If anyone adds to these
+                    things, God will add to him the plagues that are written in this book; and if anyone takes away from
+                    the words of the book of this prophecy, God shall take away his part from the Book of Life, from the
+                    holy city, and from the things which are written in this book." (NKJV)</span>
+                </p>
+                <p>
+                    These verses deliver a direct and fearsome warning. John, as the inspired writer, testifies (solemnly
+                    declares, almost in legal fashion) that absolutely no tampering with the contents of Revelation (and by
+                    extension, Scripture as a whole) is permissible.
+                </p>
+                <ul>
+                    <li>Adding to the words of this prophecy will result in God adding to that person the plagues described
+                        in Revelation. The plagues likely refer to the various judgments throughout the book (the seals,
+                        trumpets, bowls, and the final lake of fire judgment) <sup>47</sup>. In other words, one who dares to insert
+                        their own false "revelations" or distortions into this book will incur the full measure of God's wrath. It
+                        implies such a person is aligning themselves with the false prophets (like those promoting the
+                        worship of the beast) and thus will suffer those plagues. Throughout Scripture, adding to God's word
+                        is condemned (Deuteronomy 4:2, Proverbs 30:5-6) <sup>34</sup>. It typically means introducing human ideas
+                        as if divine or altering doctrine by addition (e.g., the Pharisees adding traditions). Here the stakes are
+                        shown to be eternal.</li>
+                    <li>Taking away from the words (subtracting, omitting parts) will result in God taking away that
+                        person's share in the Book of Life, the holy city, and the other blessings written. This means loss of
+                        eternal life exclusion from heaven (as only those in the Lamb's Book of Life enter the city, Rev.
+                        21:27). In essence, it's damnation. Removing words suggests rejecting or denying parts of God's
+                        revelation (like heretics who cut out truths they dislike). Marcion in early church, for example,
+                        removed large parts of Scripture a spirit that persists today when people pick-and-choose
+                        doctrines. God says such will lose everything - their name out of the Book of Life (meaning they are
+                        not saved), no access to the city or any promise.</li>
+                </ul>
+                <p>
+                    This warning is extremely strong. It does not mean a true believer could lose salvation by accidentally
+                    misquoting a verse or having a variant manuscript. Rather, it addresses willful corruption of God's message.
+                    It assumes an attitude of either arrogant deception (adding false teaching) or arrogant unbelief (denying
+                    true teaching). Such actions reveal a person who is not truly regenerate, hence the threatened punishment.
+                </p>
+                <p>
+                    In context, think of those who might try to distort Revelation's message perhaps to fit a different
+                    narrative, or claim more visions beyond it that alter its meaning (like some cults do). God is essentially
+                    putting an official seal of canon here: This is My final revelation; don't tamper. Indeed, Revelation is the last
+                    book chronologically and in placement adding any "new revelation" that changes the story is forbidden.
+                    Likewise, taking out the uncomfortable parts (like judgment, hell, etc.) is forbidden.
+                </p>
+                <p>
+                    It's interesting that the specific punishments mirror the crimes: add words -> receive added plagues.
+                    Remove words -> lose blessings (removed from your account). It's perfect justice. The severity also
+                    underscores that God's Word is sacred; to mess with it is to assault God's authority and truthfulness.
+                    Essentially, it's aligning with Satan (who from Eden twisted God's word saying "has God indeed said...?").
+                </p>
+                <p>
+                    While the warning explicitly refers to "the prophecy of this book" (Revelation), by principle it can extend to
+                    all Scripture. The Bible began with a command not to eat of one tree (which Satan twisted) and ends with a
+                    command not to alter God's words. We should approach Scripture with reverence, seeking to interpret
+                    faithfully rather than bending it to our desires.
+                </p>
+                <p>
+                    Application: Practically, we might not physically cut out verses or add new ones, but we must guard against
+                    subtle ways of adding or subtracting: Adding: e.g., insisting on man-made doctrines or extra-biblical
+                    revelations as equal to Scripture, legalisms, "new truths" that are not in the Bible. We must hold the
+                    completed canon as sufficient (Jude 3 says the faith was "once for all delivered"). Subtracting: e.g.,
+                    ignoring doctrines that are unpopular (like judgment, sexual ethics, etc.), or explaining away miracles, or
+                    claiming some biblical texts are not for today. We should preach and accept the whole counsel of God.
+                </p>
+                <p>
+                    We should also be discerning of false teachers and groups that do exactly this - many cults have additional
+                    "scriptures" or heavily edited Bibles. This verse should ring alarm bells regarding any movement that says
+                    "we have another testament" or "here's a new prophecy that changes what Revelation says." The plagues
+                    and loss of life threaten such behavior - God takes it seriously.
+                </p>
+                <p>
+                    On a personal level, it encourages humility under God's Word. We are not editors, we are messengers.
+                    John himself as author doesn't claim the right to adjust what he's given - he passes it on intact and warns
+                    others to do the same. The Bible is not a buffet where we take what we want and leave what we don't. It's
+                    the authoritative Word of God.
+                </p>
+                <p>
+                    One might ask: can a true Christian fall under this curse? A true Christian should heed the warning and
+                    avoid these errors. Those who flagrantly distort the gospel (like prosperity preachers twisting promises,
+                    etc.) or deny core truths - if unrepentant - show they may not be true believers. We should pray for any who
+                    are mishandling Scripture to repent, lest they face this horrid fate.
+                </p>
+                <p>
+                    It's also comforting in a sense: the truth of God is protected. No attack on Scripture will succeed
+                    ultimately; God will vindicate His Word and punish those who assail it. For believers, we can trust our God
+                    has given a complete and secure revelation we don't need "more." And we should treasure every word.
+                    Perhaps memorize these verses as a constant guardrail.
+                </p>
+                <p>
+                    In summary, verses 18-19 finalize the canon with a thunderclap: Do not meddle with God's Word. As Proverbs
+                    30:5-6 says, "Every word of God is pure... Do not add to His words, lest He rebuke you and you be found a liar." <sup>34</sup>
+                    May we handle the Scripture with the utmost fidelity, neither embellishing nor truncating, but declaring it
+                    as is, knowing our eternal lot aligns with our response to His Word.
+                </p>
+
+                <h3>Verse 20: Jesus' Final Promise and John's Response</h3>
+                <p>
+                    <span class="verse-number">"He who testifies to these things says, 'Surely I am coming quickly.' Amen. Even so, come, Lord Jesus!"
+                    (NKJV)</span>
+                </p>
+                <p>
+                    This penultimate verse of the Bible encapsulates the heart of Christian expectation.
+                </p>
+                <ul>
+                    <li>"He who testifies to these things" refers to Jesus Christ, the faithful witness of all these revelations
+                        (see Rev. 1:5 where Jesus is called the faithful witness). Jesus is the one who has been "testifying"
+                        throughout Revelation (through His angel and directly). Now, as if to officially close His testimony, He
+                        speaks one more time: "Surely, I am coming quickly." This is the third time in this chapter Jesus
+                        declares His imminent return (see v.7 and v.12). The word "Surely" (sometimes translated "Yes" or
+                        "Surely") adds emphasis and certainty. It's like Jesus saying, "Yes indeed, I am coming soon!" There is
+                        a tone of final confirmation - no doubt should remain.</li>
+                </ul>
+                <p>
+                    "Quickly" again denotes the suddenness and near expectation of His return (as earlier discussed). Jesus
+                    wants this to ring in our ears as we finish Scripture: He is coming and it could be at any time. It's a promise,
+                    an assurance, and to the believer, a joyful guarantee.
+                </p>
+                <ul>
+                    <li>"Amen. Even so, come, Lord Jesus!" Now the response: John (and all believers by extension) replies.
+                        "Amen" means "so be it" or "truly." John is basically affirming Jesus' statement: Amen, let it be so. Then
+                        he adds his own Spirit-inspired plea: "Even so, come, Lord Jesus!" This is essentially the same cry as
+                        "Come, Lord" we saw in verse 17, but directly addressed to Jesus by name ("Lord Jesus"). It's John's
+                        personal echo to Christ's promise. Some translations render it "Come, Lord Jesus!" alone, which is
+                        actually the prayer Maranatha in Aramaic.</li>
+                </ul>
+                <p>
+                    This little prayer "Come, Lord Jesus" is the last recorded prayer in Scripture. It powerfully sums up the
+                    longing of the Church across ages. Having seen the visions of Revelation - both the horrors of evil and the
+                    glories to come - John's final desire is for Jesus Himself to come and fulfill all things. It is the appropriate
+                    response to prophecy: not to be obsessed with the events themselves, but to yearn for the Person of Christ.
+                </p>
+                <p>
+                    We can sense the passion and love in John's voice. "Lord Jesus" - he addresses his beloved Master, whom he
+                    knew on earth and now sees in glory. There's a yearning for reunion and the completion of Christ's
+                    kingdom. Also, by calling Him "Lord," it expresses submission and recognition of Christ's authority to do as
+                    He promised.
+                </p>
+                <p>
+                    This dialogue between Jesus and the Church forms a fitting conclusion. It shows communion: Jesus gives
+                    His word, the Church responds in faith and desire. It assures us that Jesus hears our "Amen, come!" and
+                    implicitly He will answer it by indeed coming.
+                </p>
+                <p>
+                    Historically, the early church did have this prayer in use. The Didache (an early Christian document) records
+                    believers praying "May grace come and this world pass away. Hosanna to the God of David. If anyone is
+                    holy, let him come; if not, let him repent. Maranatha. Amen." So "Maranatha" was a watchword. We should
+                    make it ours too.
+                </p>
+                <p>
+                    Application: Do we truly echo John's "Amen. Come, Lord Jesus!" in our hearts? Sometimes Christians may
+                    fear the Second Coming (maybe due to attachment to this life or fear of judgment). But John shows the
+                    bride's true heart: longing for the Bridegroom. If we find ourselves not desiring His return, it's time to
+                    refocus on eternal things and renew our first love. As we grow in love for Christ and weariness of this fallen.
+                    world's sin, "Come, Lord Jesus" will become a more natural cry.
+                </p>
+                <p>
+                    This also teaches us the power of praying God's promises back to Him. Jesus says "I am coming" - John
+                    prays "Yes, come!" We too can pray Scripture: "Lord, you promised to come quickly; we pray You to fulfill that
+                    promise! We are ready for You." It's a prayer God delights in because it aligns with His will.
+                </p>
+                <p>
+                    On the flip side, if someone cannot sincerely pray "Come, Lord Jesus" because they know they're not right
+                    with God let that motivate them to get right (through repentance and faith). The whole book invites and
+                    warns so that no one need shrink at His coming (1 John 2:28). There's still an opportunity (as long as one is
+                    alive) to heed and be able to welcome Christ with joy.
+                </p>
+                <p>
+                    For a suffering or persecuted believer, "Come, Lord Jesus" is a prayer of hope and relief asking Jesus to
+                    intervene and set things right. For all of us, it should be a daily attitude. Perhaps literally including it in our
+                    prayers or even sighs, especially when we see tragedies and injustice: "Oh, come, Lord Jesus."
+                </p>
+                <p>
+                    Also, note how personal this is: Lord Jesus. Our hope is not an event but a Person. We long for Jesus - His
+                    presence, His vindication, His rule. That's the essence of heaven.
+                </p>
+                <p>
+                    So, as we live each day, verse 20 invites us to hold two things: Christ's promise ("I am coming quickly") and
+                    our response ("Amen, come!"). These should be like the rhythm of our Christian life - promise and prayer,
+                    promise and prayer. One day the promise will become sight, and the prayer answered.
+                </p>
+                <p>
+                    In sum, verse 20 seals the revelation with the sweet assurance from Jesus and the ardent agreement of the
+                    Church. The Bible could end no better than with the bright morning Star Himself speaking of His return,
+                    and His beloved responding, "Yes, please come!"
+                </p>
+
+                <h3>Verse 21: Closing Benediction of Grace</h3>
+                <p>
+                    <span class="verse-number">"The grace of our Lord Jesus Christ be with you all. Amen." (NKJV)</span>
+                </p>
+                <p>
+                    The final verse of Scripture is a brief benediction, calling upon the grace of the Lord Jesus to be with all the
+                    saints (the readers).
+                </p>
+                <ul>
+                    <li>"The grace of our Lord Jesus Christ" - Grace (Greek charis) refers to God's unmerited favor and
+                        enabling power given to believers. It is fitting that the Bible ends with grace, as that has been the
+                        theme of redemption from start to finish: we are saved by grace, kept by grace, and will be glorified
+                        by grace. Specifically, it is the grace of our Lord Jesus - highlighting that every blessing and help
+                        flows from Jesus. He is Lord (sovereign), yet He deals with us in grace (kindness and gift). This pairing
+                        of "Lord" and "grace" encapsulates the Christian life: we serve a gracious Master.</li>
+                    <li>"Be with you all." - This indicates the inclusive scope: all believers (in the churches addressed and
+                        beyond). Some manuscripts omit "you all" or just have "with all," but the meaning is to cover all the
+                        recipients of this word - ultimately, all of Christ's people. It assures us that as we await His return, His
+                        grace is present with us. It's a prayer/wish and an apostolic blessing. John, as an apostle/elder,
+                        imparts this blessing as he closes.</li>
+                </ul>
+                <p>
+                    We can also hear in this the pastoral heart: after delivering such intense prophecies, John commends his
+                    readers to Jesus' grace, knowing they will need it to stay faithful and comforted in the in-between time.
+                </p>
+                <p>
+                    "Amen." - The final word "Amen" means so be it or truly. It likely is John's final endorsement of this
+                    blessing and everything prior. So the very last word of the Bible is "Amen," which is appropriate: it
+                    affirms all that has been revealed. It's like signing "Truly" at the end of a document. It also implies
+                    our agreement - when we read, we can say "Amen" in response, accepting the blessing.
+                </p>
+                <p>
+                    Comparatively, the Old Testament ended in Malachi with a warning of a curse (Mal. 4:6) <sup>15</sup>, whereas the
+                    New Testament ends with grace. This contrast highlights the difference between law and grace. Through
+                    Jesus Christ, grace has the last word.
+                </p>
+                <p>
+                    Also, note it says the grace of our Lord Jesus. John includes himself with the readers (our Lord). We share
+                    one Lord, one grace.
+                </p>
+                <p>
+                    Application: This benediction isn't just a formality; it's something we can take to heart. We live under grace
+                    until Jesus comes. The days ahead, we have His grace to rely on. Thus, we should be strong in grace (2 Tim.
+                    2:1), not in ourselves. The grace that forgave our sins also empowers us to overcome, to endure
+                    persecution, to do His will. Whatever Revelation's readers would face - be it trials of that time or prophetic
+                    end-times events - the grace of the Lord would sustain the faithful.
+                </p>
+                <p>
+                    For us, if we feel weak or fearful reading Revelation's heavy prophecies, this last verse assures us: His grace
+                    is with you. You are not left to do this alone. Christ's grace means His presence, favor, and help. It also
+                    implies joy and peace, since grace often carries those.
+                </p>
+                <p>
+                    We should also note John's emphasis on Jesus' grace. Even after seeing the glorified Christ and the
+                    judgments, John's final thought is "our Lord Jesus Christ" - personal and gracious. Knowing His grace is with
+                    us should stir gratitude and love. It's like He signs off the letter saying, "I'm with you always, even to the end
+                    of the age" (Matt. 28:20) but phrased as grace.
+                </p>
+                <p>
+                    Finally, the word "grace" encapsulates the gospel. It's a reminder that entry into all the blessings we've
+                    studied (the city, the water of life, etc.) is purely by grace. So those reading who have not responded can
+                    know the door is grace
+                    and for those who have, it's our constant standing. We don't move on from grace;
+                    we delve deeper into it.
+                </p>
+                <p>
+                    We can echo, "Amen!"
+                    which means we affirm God's entire plan and promise, and we yearn for its
+                    fulfillment. It's a note of faith and agreement.
+                </p>
+                <p>
+                    Thus, the Scripture ends on a note of blessing and hope. The last image left is not doom, but grace with us,
+                    until Jesus comes in glory. This encourages a positive outlook: no matter how dark the immediate future
+                    might be (with tribulations prophesied), the final reality is grace and Jesus among His people.
+                </p>
+                <p>
+                    As a reflection: The Bible's storyline - creation, fall, redemption, new creation - closes assuring us that the
+                    Redeemer's grace accompanies us from now to forever. Our response is worshipful: "Amen."
+                </p>
+                <p>
+                    So, in closing: - We have heard Jesus' vow: "Surely I come quickly." - We have answered: "Amen. Come, Lord
+                    Jesus!" - And until that moment, we rest in "the grace of our Lord Jesus."
+                </p>
+                <p>
+                    Amen and Amen.
+                </p>
+
+                <h3>Sources and References</h3>
+                <ul class="sources-list">
+                    <li>William Kelly emphasizes how Revelation links to Genesis and displays pure grace reigning in the end
+                        <sup>6</sup>.</li>
+                    <li>John N. Darby highlights Christ as the Morning Star known to the watching church, distinct from His
+                        appearance as Sun of Righteousness to the world <sup>43</sup>.</li>
+                    <li>H.A. Ironside notes the blessing on those who read and keep Revelation's words, connecting 1:3 and
+                        22:7 <sup>30</sup>.</li>
+                    <li>The final warning echoes Deuteronomy and Proverbs on not altering God's word <sup>34</sup>.</li>
+                    <li>The Bible fittingly concludes with grace, contrasting the Old Testament's ending under the law <sup>16</sup>.</li>
+                    <li><sup>1</sup> <sup>2</sup> <sup>3</sup> <sup>4</sup> <sup>5</sup> <sup>6</sup> <sup>7</sup> <sup>8</sup> <sup>9</sup> <sup>10</sup> <sup>11</sup> <sup>12</sup> <sup>13</sup> <sup>14</sup> <sup>17</sup> <sup>18</sup> <sup>19</sup> <sup>20</sup> <sup>21</sup> <sup>22</sup> <sup>23</sup> <sup>24</sup> <sup>25</sup> <sup>26</sup> <sup>30</sup> <sup>32</sup> <sup>33</sup> <sup>36</sup> <sup>41</sup> <sup>42</sup> <sup>45</sup> <sup>46</sup> <sup>47</sup> Revelation 22 - William Kelly Major Works Commentary <a href="https://biblehub.com/commentaries/kelly/revelation/22.htm" target="_blank">https://biblehub.com/commentaries/kelly/revelation/22.htm</a></li>
+                    <li><sup>15</sup> <sup>16</sup> The Last Words of the Old and New Testaments <a href="https://biblehub.com/library/maclaren/expositions_of_holy_scripture_a/the_last_words_of_the.htm" target="_blank">https://biblehub.com/library/maclaren/expositions_of_holy_scripture_a/the_last_words_of_the.htm</a></li>
+                    <li><sup>27</sup> <sup>28</sup> <sup>29</sup> <sup>35</sup> <sup>39</sup> <sup>40</sup> <sup>43</sup> <sup>44</sup> Revelation 22 Darby's Bible Synopsis <a href="https://biblehub.com/commentaries/darby/revelation/22.htm" target="_blank">https://biblehub.com/commentaries/darby/revelation/22.htm</a></li>
+                    <li><sup>31</sup> Revelation - Ironside's Notes on Selected Books - Bible Commentaries <a href="https://www.studylight.org/commentaries/eng/isn/revelation.html" target="_blank">https://www.studylight.org/commentaries/eng/isn/revelation.html</a></li>
+                    <li><sup>34</sup> Revelation 22 - Ironside's Notes on Selected Books - Bible Commentaries - StudyLight.org <a href="https://www.studylight.org/commentaries/eng/isn/revelation-22.html" target="_blank">https://www.studylight.org/commentaries/eng/isn/revelation-22.html</a></li>
+                    <li><sup>37</sup> <sup>38</sup> Revelation 22 Commentary | Precept Austin <a href="https://www.preceptaustin.org/revelation-22-commentary" target="_blank">https://www.preceptaustin.org/revelation-22-commentary</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = scrollPercent + '%';
+            }
+        });
+
+        // Show the chapter page
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapterPage = document.getElementById('chapter22Page');
+            if (chapterPage) {
+                chapterPage.style.display = 'block';
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
