@@ -1,0 +1,35 @@
+{
+  "name": "revstudy",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Revelation Study: an in-depth study and commentary on the Book of Revelation, chapters 1 to 22.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build && node scripts/verify.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "node scripts/verify.mjs",
+    "og": "node scripts/og.mjs",
+    "map": "node scripts/map.mjs",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.8",
+    "linkedom": "^0.18.13",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "d3-geo": "^3.1.1",
+    "playwright-core": "^1.63.0",
+    "satori": "^0.33.5",
+    "sharp": "^0.35.5",
+    "wrangler": "^4.150.0"
+  }
+}

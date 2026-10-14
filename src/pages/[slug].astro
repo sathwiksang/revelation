@@ -1,0 +1,212 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import ProphecyChart from '../components/ProphecyChart.astro';
+import '../styles/study.css';
+import { chapters, type Chapter } from '../lib/study';
+import { loadFigures } from '../lib/figures';
+import { SITE } from '../site';
+import { firstPublished, lastModified } from '../lib/dates.mjs';
+
+export async function getStaticPaths() {
+  const list = chapters(await loadFigures());
+  return list.map((c) => ({ params: { slug: c.slug }, props: { n: c.n } }));
+}
+
+const all = chapters(await loadFigures());
+const i = all.findIndex((c) => c.n === Astro.props.n);
+const c = all[i] as Chapter;
+const prev = all[i - 1];
+const next = all[i + 1];
+const isTimeline = c.n === 0;
+
+const label = (x: Chapter) => (x.n === 0 ? 'The prophetic timeline' : `Revelation ${x.n}`);
+const name = isTimeline ? c.heading : `Revelation ${c.n}`;
+const title = isTimeline
+  ? `${c.heading} · ${SITE.name}`
+  : /commentary/i.test(c.title)
+    ? `Revelation ${c.n} — ${c.title} · ${SITE.name}`
+    : `Revelation ${c.n} Commentary — ${c.title} · ${SITE.name}`;
+
+// The search description: the chapter card's line, then the study's own opening words.
+const clip = (s: string, max: number) => (s.length <= max ? s : s.slice(0, s.lastIndexOf(' ', max - 1)).replace(/[,;:–—\s]+$/, '') + '…');
+const lead = c.description.replace(/\s*[.!]?$/, '.');
+const description = clip(`${lead} ${c.excerpt}`, 158);
+
+const canonical = new URL(c.href, SITE.url).href;
+const published = firstPublished(c.href);
+const modified = lastModified(c.href);
+const sections = c.toc.filter((t) => t.level === 2).length || c.toc.length;
+
+// On the timeline, the chart's labels open the matching sections (a missing one fails the build).
+const find = (start: string) => {
+  const t = c.toc.find((x) => x.text.startsWith(start));
+  if (!t) throw new Error(`timeline: no section starting "${start}"`);
+  return `#${t.id}`;
+};
+const chartLinks: Record<string, string> = isTimeline
+  ? {
+      rapture: find('The Rapture'),
+      seat: find('The Judgment Seat of Christ'),
+      tribulation: find('The Tribulation'),
+      appearing: find('The Second Coming'),
+      kingdom: find('The Millennial Kingdom'),
+      throne: find('The Great White Throne'),
+      eternal: find('The Eternal State'),
+    }
+  : {};
+
+const schema = [
+  {
+    '@type': 'Article',
+    '@id': `${canonical}#article`,
+    headline: isTimeline ? c.heading : `Revelation ${c.n}: ${c.title}`,
+    alternativeHeadline: c.subtitle,
+    description,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    image: new URL(`/og/${c.slug}.jpg`, SITE.url).href,
+    ...(published ? { datePublished: published } : {}),
+    ...(modified ? { dateModified: modified } : {}),
+    author: { '@id': `${SITE.authorUrl}/#person` },
+    publisher: { '@id': `${SITE.authorUrl}/#person` },
+    isPartOf: { '@id': `${SITE.url}/#study` },
+    articleSection: c.group.title,
+    about: isTimeline
+      ? [{ '@type': 'Thing', name: 'Biblical eschatology' }, { '@type': 'Thing', name: 'Dispensationalism' }]
+      : { '@type': 'CreativeWork', name: `Revelation ${c.n}`, isPartOf: { '@type': 'Book', name: 'The Book of Revelation' } },
+    wordCount: c.words,
+    timeRequired: `PT${c.minutes}M`,
+    inLanguage: 'en',
+    ...(c.citations.length ? { citation: c.citations.map((url) => ({ '@type': 'CreativeWork', url })) } : {}),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: SITE.name, item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name, item: canonical },
+    ],
+  },
+];
+---
+<Base
+  title={title}
+  description={description}
+  image={`/og/${c.slug}.jpg`}
+  imageAlt={`${name}: ${isTimeline ? c.description : c.title}`}
+  schema={schema}
+  accent={c.group.accent}
+  progress
+  ogType="article"
+>
+  <Fragment slot="head">
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+    <meta property="article:author" content={SITE.authorUrl} />
+    <meta property="article:section" content={c.group.title} />
+    {prev && <link rel="prev" href={prev.href} />}
+    {next && <link rel="next" href={next.href} />}
+  </Fragment>
+
+  <header class="opening">
+    <div class="opening-inner">
+      {isTimeline
+        ? <div class="numeral star-numeral leaf-star" aria-hidden="true"><Mark size={176} /></div>
+        : <div class="numeral leaf" aria-hidden="true">{c.n}</div>}
+      <div class="words">
+        <p class="crumb">
+          {isTimeline
+            ? <span class="eyebrow">Chapter 00 · Before the chapters</span>
+            : <>
+                <span class="eyebrow">Part {c.part.numeral}: {c.part.phrase}</span>
+                <span class="eyebrow">{c.group.title}</span>
+              </>}
+        </p>
+        <h1 data-source-header class:list={[{ long: isTimeline }]}>
+          {isTimeline
+            ? c.heading
+            : <><span class="kicker">{c.heading}</span>{c.title}</>}
+        </h1>
+        {c.subtitle !== c.title && <p class="subtitle" data-source-header>{c.subtitle}</p>}
+        <p class="lede">{c.description}</p>
+        <ul class="facts" aria-label="About this chapter">
+          <li>{c.minutes} min read</li>
+          <li>{c.words.toLocaleString('en-US')} words</li>
+          <li>{sections} {sections === 1 ? 'section' : 'sections'}</li>
+          {c.citations.length > 0 && <li>{c.citations.length} {c.citations.length === 1 ? 'source' : 'sources'} linked</li>}
+          {c.n === 1 && <li><a href="/revelation-1.pdf">The original PDF</a></li>}
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  {isTimeline && (
+    <div class="chart-band">
+      <ProphecyChart links={chartLinks} />
+    </div>
+  )}
+
+  <div class="reader">
+    {c.toc.length > 1 && (
+      <nav class="toc" aria-label="In this chapter">
+        <div class="toc-scroll">
+          <p class="eyebrow">In this {isTimeline ? 'study' : 'chapter'}</p>
+          <ol>
+            {c.toc.map((t) => (
+              <li class={`l${t.level}`}>
+                <a href={`#${t.id}`}>
+                  {t.ref && t.title ? <><span class="ref">{t.ref}</span>{t.title}</> : t.text}
+                </a>
+              </li>
+            ))}
+            {c.html.includes('id="sources"') && <li class="l2"><a href="#sources">Sources</a></li>}
+          </ol>
+        </div>
+      </nav>
+    )}
+
+    <article class:list={['study', { timeline: isTimeline }]} aria-labelledby="chapter-title">
+      <h2 id="chapter-title" class="sr">{name}{isTimeline ? '' : `: ${c.title}`}</h2>
+      {c.toc.length > 1 && (
+        <details class="toc-mobile">
+          <summary>
+            <span>In this {isTimeline ? 'study' : 'chapter'} · {c.toc.length}</span>
+            <svg width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 5 7.5 9 3.5" fill="none" stroke="currentColor" stroke-width="1.3" /></svg>
+          </summary>
+          <ol>
+            {c.toc.map((t) => (
+              <li><a href={`#${t.id}`}>{t.ref && t.title ? <><span class="ref">{t.ref}</span>{t.title}</> : t.text}</a></li>
+            ))}
+          </ol>
+        </details>
+      )}
+      <div class="body" data-source-body set:html={c.html} />
+    </article>
+  </div>
+
+  <nav class="onward" aria-label="More chapters">
+    {prev && (
+      <a class:list={['prev', { only: !next }]} href={prev.href} rel="prev">
+        <span class="dir">← Previous</span>
+        <span class="which">{label(prev)}</span>
+        <span class="what">{prev.n === 0 ? prev.description : prev.title}</span>
+      </a>
+    )}
+    {next && (
+      <a class:list={['next', { only: !prev }]} href={next.href} rel="next">
+        <span class="dir">Next →</span>
+        <span class="which">{label(next)}</span>
+        <span class="what">{next.title}</span>
+      </a>
+    )}
+  </nav>
+</Base>
+
+<style>
+  .leaf-star :global(.mark) { color: var(--gold); width: clamp(6rem, 4rem + 9vw, 11rem); height: auto; }
+  .chart-band {
+    max-width: 84rem;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter) 0;
+  }
+</style>

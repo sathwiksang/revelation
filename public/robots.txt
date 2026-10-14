@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://revstudy.sathwiksangeetham.com/sitemap-index.xml

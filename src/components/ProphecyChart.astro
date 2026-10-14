@@ -1,0 +1,139 @@
+---
+/**
+ * Things to come, drawn as two tracks — heaven and earth — in the manner of the old prophetic
+ * charts. From sathwiksangeetham.com (What I Believe), so the two sites teach one chart. The lines
+ * draw themselves when the chart comes into view (CSS only; still for reduced motion).
+ * Labels link to the timeline's sections when a matching section exists.
+ */
+interface Props { links?: Record<string, string> }
+const { links = {} } = Astro.props;
+---
+<figure class="prophecy" data-reveal aria-labelledby="prophecy-title" data-prophecy>
+<figcaption>
+  <p class="eyebrow">Figure · Things to come</p>
+  <h4 id="prophecy-title" class="title">From the cross to the eternal state</h4>
+  <p class="hint">Two tracks: what takes place in heaven, and what takes place on the earth.</p>
+</figcaption>
+
+  <div class="scroller" tabindex="0" role="group" aria-label="Prophetic chart. Scroll sideways on small screens.">
+    <svg viewBox="0 0 1200 430" role="img" aria-labelledby="prophecy-desc">
+      <desc id="prophecy-desc">
+        On earth: the cross, then Pentecost, then the present period of grace in which the assembly is gathered out.
+        The Lord comes to the air and the assembly is caught up to heaven, where the judgment-seat of Christ and the marriage of the Lamb take place.
+        Meanwhile on earth runs the tribulation, the seventieth week of Daniel, seven years, broken in the midst.
+        Then the Lord appears with His saints, and reigns on the earth a thousand years.
+        Satan is loosed for a little time, the great white throne follows, and then the eternal state: new heavens and a new earth.
+      </desc>
+      <defs>
+        <linearGradient id="eternal" x1="0" x2="1">
+          <stop offset="0" stop-color="#a8864b" stop-opacity="0.9" />
+          <stop offset="1" stop-color="#d9c08a" stop-opacity="0" />
+        </linearGradient>
+        <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="7" stroke="#8c2f2b" stroke-width="1.2" opacity="0.55" />
+        </pattern>
+      </defs>
+
+      <!-- Track labels -->
+      <text class="track" x="20" y="92">Heaven</text>
+      <text class="track" x="20" y="282">Earth</text>
+
+      <!-- Earth: the present period -->
+      <line pathLength="1" class="draw ink" x1="40" y1="300" x2="610" y2="300" />
+      <circle class="dot" cx="70" cy="300" r="5" />
+      <text class="lbl" x="70" y="335" text-anchor="middle">The cross</text>
+      <circle class="dot" cx="160" cy="300" r="5" />
+      <text class="lbl" x="160" y="335" text-anchor="middle">Pentecost</text>
+      <text class="era" x="385" y="282" text-anchor="middle">The present period of grace</text>
+      <text class="sub" x="385" y="335" text-anchor="middle">The assembly gathered out to His name</text>
+
+      <!-- The rapture -->
+      <path pathLength="1" class="draw gold arc" d="M610 300 C 618 210, 640 140, 670 110" />
+      <circle class="dot gold-fill" cx="610" cy="300" r="6" />
+      <a href={links.rapture}><text class="lbl strong" x="585" y="210" text-anchor="end">The Lord comes to the air</text></a>
+      <text class="sub" x="585" y="232" text-anchor="end">1 Thessalonians 4:16–17</text>
+
+      <!-- Heaven: judgment-seat and marriage -->
+      <line pathLength="1" class="draw gold" x1="670" y1="110" x2="870" y2="110" />
+      <a href={links.seat}><text class="lbl" x="770" y="92" text-anchor="middle">Judgment-seat of Christ</text></a>
+      <text class="lbl" x="770" y="140" text-anchor="middle">Marriage of the Lamb</text>
+
+      <!-- Earth: the tribulation -->
+      <rect x="640" y="292" width="260" height="16" fill="url(#hatch)" />
+      <line pathLength="1" class="draw rubric" x1="640" y1="300" x2="900" y2="300" />
+      <line class="tick" x1="770" y1="286" x2="770" y2="314" />
+      <a href={links.tribulation}><text class="era rubric-text" x="770" y="270" text-anchor="middle">The tribulation</text></a>
+      <text class="sub" x="770" y="335" text-anchor="middle">Daniel’s seventieth week · seven years</text>
+      <text class="sub" x="770" y="355" text-anchor="middle">broken “in the midst of the week”</text>
+
+      <!-- The appearing -->
+      <path pathLength="1" class="draw gold arc" d="M870 110 C 900 140, 922 210, 930 300" />
+      <circle class="dot gold-fill" cx="930" cy="300" r="6" />
+      <a href={links.appearing}><text class="lbl strong" x="948" y="190">He appears</text>
+      <text class="lbl strong" x="948" y="213">with His saints</text></a>
+      <text class="sub" x="948" y="236">Zechariah 14:4 · Jude 14</text>
+
+      <!-- The kingdom -->
+      <line pathLength="1" class="draw gold thick" x1="930" y1="300" x2="1080" y2="300" />
+      <a href={links.kingdom}><text class="era" x="1005" y="282" text-anchor="middle">The kingdom</text></a>
+      <text class="sub" x="1005" y="335" text-anchor="middle">A thousand years</text>
+
+      <!-- Satan loosed; the great white throne -->
+      <circle class="dot" cx="1088" cy="300" r="5" />
+      <a href={links.throne}><text class="sub" x="1088" y="378" text-anchor="middle">Satan loosed · the great white throne</text></a>
+      <line class="lead" x1="1088" y1="310" x2="1088" y2="360" />
+
+      <!-- The eternal state -->
+      <rect x="1096" y="80" width="104" height="250" fill="url(#eternal)" opacity="0.32" />
+      <a href={links.eternal}><text class="lbl strong" x="1148" y="200" text-anchor="middle">Eternal</text>
+      <text class="lbl strong" x="1148" y="222" text-anchor="middle">state</text></a>
+      <text class="sub" x="1148" y="246" text-anchor="middle">God all in all</text>
+    </svg>
+  </div>
+</figure>
+
+<style>
+  .prophecy { margin: 0; padding: clamp(1.5rem, 4vw, 3rem); background: var(--paper); border: 1px solid var(--hairline); border-radius: 18px; box-shadow: var(--shadow-1); }
+  figcaption { margin-bottom: 1.6rem; }
+  .title { font-family: var(--font-display); font-size: var(--step-2); font-weight: 400; margin-top: 0.4rem; }
+  .hint { color: var(--ink-3); font-size: 1rem; margin-top: 0.4rem; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .scroller { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--hairline) transparent; }
+  .scroller:focus-visible { outline-offset: 6px; }
+  svg { display: block; width: 100%; min-width: 58rem; height: auto; font-family: var(--font-text); }
+
+  line, path { fill: none; stroke-linecap: round; }
+  .ink { stroke: var(--ink); stroke-width: 1.4; }
+  .gold { stroke: var(--gold); stroke-width: 2; }
+  .gold.thick { stroke-width: 6; }
+  .rubric { stroke: var(--rubric); stroke-width: 2.4; }
+  .tick { stroke: var(--rubric); stroke-width: 1.2; }
+  .lead { stroke: var(--ink-3); stroke-width: 0.8; stroke-dasharray: 2 3; }
+  .dot { fill: var(--vellum); stroke: var(--ink); stroke-width: 1.2; }
+  .gold-fill { fill: var(--gold); stroke: var(--gold-ink); }
+
+  .track { font-size: 15px; font-variant-caps: all-small-caps; letter-spacing: 0.24em; fill: var(--gold-ink); font-weight: 500; }
+  .era { font-family: var(--font-display); font-size: 24px; font-style: italic; fill: var(--ink); }
+  .rubric-text { fill: var(--rubric); }
+  .lbl { font-size: 17px; fill: var(--ink); }
+  .lbl.strong { font-family: var(--font-display); font-size: 21px; font-weight: 500; }
+  .sub { font-size: 14px; fill: var(--ink-3); font-variant-numeric: lining-nums; }
+  svg a text { text-decoration: underline; text-decoration-color: color-mix(in oklab, var(--gold) 60%, transparent); text-underline-offset: 3px; }
+  svg a:hover text { fill: var(--gold-ink); }
+
+  /* The lines draw in, then the words appear. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .prophecy .draw { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s cubic-bezier(0.65, 0, 0.35, 1); }
+    :global(.js) .prophecy :is(text, .dot, rect, .tick, .lead) { opacity: 0; transition: opacity 0.9s ease; }
+    :global(.js) .prophecy.in .draw { stroke-dashoffset: 0; }
+    :global(.js) .prophecy.in :is(text, .dot, rect, .tick, .lead) { opacity: 1; transition-delay: 0.5s; }
+    :global(.js) .prophecy.in .draw:nth-of-type(2) { transition-delay: 0.15s; }
+    :global(.js) .prophecy.in .draw:nth-of-type(3) { transition-delay: 0.3s; }
+    :global(.js) .prophecy.in .draw:nth-of-type(4) { transition-delay: 0.45s; }
+    :global(.js) .prophecy.in .draw:nth-of-type(5) { transition-delay: 0.6s; }
+    :global(.js) .prophecy.in .draw:nth-of-type(6) { transition-delay: 0.75s; }
+    :global(.js) .prophecy.in .draw:nth-of-type(7) { transition-delay: 0.9s; }
+  }
+  /* The figure itself does not slide: only its lines and words. */
+  .prophecy[data-reveal] { opacity: 1 !important; transform: none !important; }
+</style>
