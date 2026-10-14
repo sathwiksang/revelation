@@ -3,12 +3,14 @@
 An in-depth study and commentary on the Book of Revelation, chapters 1 to 22, with a dispensational
 timeline from the Rapture to the Great White Throne.
 
-**Live:** https://revstudy.sathwiksangeetham.com · by [Sathwik Sangeetham](https://sathwiksangeetham.com)
+**Live:** https://revstudy.sathwiksangeetham.com (short address: https://rev.sathwiksangeetham.com) · compiled by [Sathwik Sangeetham](https://sathwiksangeetham.com)
 
 ## How it is built
 
-- `source/` holds the original pages, exactly as they were written. They are the **only** source of
-  the study's text: the site reads them at build time and never retypes a word.
+- `source/` holds the original pages, exactly as they were written (one typo fixed at the author's
+  request: the Revelation 18 card's "he collapse" now reads "The collapse"). They are the **only**
+  source of the study's text: the site reads them at build time and never retypes a word. The
+  original site as it was first published is kept under the tag `original-site`.
 - `src/lib/study.ts` turns each original page into a chapter: curly quotes and en dashes (one
   character for one character), verse-reference headings, "Personal Application" panels, the
   sources, and footnote numbers linked to the sources they name.

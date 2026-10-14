@@ -1,8 +1,10 @@
 // Edge entry point for revstudy.sathwiksangeetham.com.
-// Canonicalises every request to https://revstudy.sathwiksangeetham.com, sends the old page
-// addresses (from the original static site) to their new homes, then serves the built site
-// from the static assets binding (./dist).
+// Canonicalises every request to https://revstudy.sathwiksangeetham.com (the short address
+// rev.sathwiksangeetham.com forwards there, path and all), sends the old page addresses (from the
+// original static site) to their new homes, then serves the built site from the static assets
+// binding (./dist).
 const CANONICAL_HOST = 'revstudy.sathwiksangeetham.com';
+const ALIASES = new Set(['rev.sathwiksangeetham.com']);
 
 /** The original site's file names → the new addresses. */
 function legacy(pathname) {
@@ -25,6 +27,7 @@ export default {
 
     const moved = legacy(url.pathname);
     if (moved) return Response.redirect(`https://${CANONICAL_HOST}${moved}${url.search}`, 301);
+    if (ALIASES.has(url.hostname)) return Response.redirect(`https://${CANONICAL_HOST}${url.pathname}${url.search}`, 301);
 
     return env.ASSETS.fetch(request);
   },

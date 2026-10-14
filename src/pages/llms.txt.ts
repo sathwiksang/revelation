@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
 
 > ${SITE.description}
 
-By ${SITE.author} (${SITE.authorUrl}). Scripture in the study is quoted from the New King James Version unless noted.
+Compiled by ${SITE.author} (${SITE.authorUrl}). Scripture in the study is quoted from the New King James Version unless noted.
 
 ## The timeline
 
