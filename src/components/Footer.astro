@@ -1,0 +1,85 @@
+---
+import Mark from './Mark.astro';
+import { SITE, NKJV_NOTICE } from '../site';
+import { TRANSLATION, verseHtml } from '../lib/scripture';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="inner">
+    <div class="closing" data-reveal>
+      <Mark size={34} class="star" />
+      <blockquote>
+        <p set:html={verseHtml(22, 20)} />
+      </blockquote>
+      <p class="ref">Revelation 22:20 <span>· {TRANSLATION.abbreviation}</span></p>
+    </div>
+
+    <div class="cols">
+      <div class="col about">
+        <a class="brand" href="/"><Mark size={22} /><span>{SITE.name}</span></a>
+        <p>A verse-by-verse study of the Book of Revelation, compiled by <a href={SITE.authorUrl}>{SITE.author}</a>.</p>
+      </div>
+      <nav class="col" aria-label="Footer">
+        <h2 class="eyebrow">The study</h2>
+        <ul>
+          <li><a href="/">All chapters</a></li>
+          <li><a href="/timeline">The prophetic timeline</a></li>
+          <li><a href="/revelation-1">Begin with Revelation 1</a></li>
+        </ul>
+      </nav>
+      <div class="col">
+        <h2 class="eyebrow">Write to me</h2>
+        <ul>
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><a href={SITE.authorUrl}>sathwiksangeetham.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="colophon">
+      <p>{NKJV_NOTICE}</p>
+      <p>Verses framing these pages are quoted from <i>{TRANSLATION.name}</i> by {TRANSLATION.translator} ({TRANSLATION.year}), which is in the public domain. Works cited in the study belong to their authors and publishers and are linked at the foot of each chapter.</p>
+      <p class="copy">© {year} {SITE.author}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: clamp(5rem, 10vw, 9rem);
+    border-top: 1px solid var(--hairline);
+    background: color-mix(in oklab, var(--vellum-2) 70%, transparent);
+  }
+  .inner { max-width: 84rem; margin: 0 auto; padding: clamp(3.5rem, 8vw, 7rem) var(--gutter) 2.5rem; }
+  .closing { max-width: 48rem; margin: 0 auto clamp(3.5rem, 7vw, 6rem); text-align: center; }
+  .closing :global(.star) { margin: 0 auto 1.6rem; color: var(--gold); }
+  .closing blockquote p {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.12;
+    color: var(--ink);
+  }
+  .ref { margin-top: 1.2rem; font-variant-caps: all-small-caps; letter-spacing: 0.14em; color: var(--gold-ink); font-size: var(--step--1); }
+  .ref span { color: var(--ink-3); }
+
+  .cols {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+  @media (max-width: 48rem) { .cols { grid-template-columns: minmax(0, 1fr); } }
+  .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; text-decoration: none; color: var(--ink); margin-bottom: 0.8rem; }
+  .brand :global(.mark) { color: var(--gold); }
+  .about p { max-width: 26rem; color: var(--ink-2); }
+  h2.eyebrow { font-family: var(--font-text); font-size: 0.95rem; margin-bottom: 0.9rem; }
+  ul { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+  li a { text-decoration: none; overflow-wrap: anywhere; }
+  li a:hover { text-decoration: underline; }
+
+  .colophon { display: grid; gap: 0.8rem; padding-top: 2rem; font-size: 0.92rem; line-height: 1.55; color: var(--ink-2); max-width: 60rem; }
+  .copy { color: var(--ink-3); }
+</style>

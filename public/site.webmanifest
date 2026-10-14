@@ -1,0 +1,16 @@
+{
+  "name": "Revelation Study",
+  "short_name": "Revelation",
+  "description": "An in-depth study and commentary on the Book of Revelation, chapters 1 to 22.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#f7f4ee",
+  "lang": "en",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

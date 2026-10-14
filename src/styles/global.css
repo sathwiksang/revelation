@@ -1,0 +1,234 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   Revelation Study — tokens and base.
+   Vellum, ink and gold leaf, kin to sathwiksangeetham.com; each part of the book
+   carries its own accent, taken from the stones and metals of the book itself.
+   Light only, by design.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: only light;
+
+  --vellum: #f7f4ee;
+  --vellum-2: #efeae0;
+  --vellum-3: #e6dfd1;
+  --paper: #fbf9f4;
+  --hairline: #dad3c5;
+  --hairline-2: #cbc2b1;
+  --ink: #16140f;
+  --ink-2: #4a463e;
+  --ink-3: #5f5a50;
+  --gold: #a8864b;
+  --gold-ink: #7a5f2e;
+  --gold-light: #d9c08a;
+  --rubric: #8c2f2b;
+
+  /* Set per page from the part of the book it belongs to. */
+  --accent: var(--gold-ink);
+
+  --font-display: var(--ff-display, 'Cormorant Garamond', Georgia, serif);
+  --font-text: var(--ff-text, 'EB Garamond', Georgia, serif);
+
+  --measure: 37rem;
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --header-h: 4rem;
+
+  --step--2: clamp(0.78rem, 0.76rem + 0.08vw, 0.84rem);
+  --step--1: clamp(0.9rem, 0.88rem + 0.1vw, 0.97rem);
+  --step-0: clamp(1.14rem, 1.08rem + 0.25vw, 1.3rem);
+  --step-1: clamp(1.32rem, 1.22rem + 0.45vw, 1.6rem);
+  --step-2: clamp(1.65rem, 1.45rem + 0.9vw, 2.2rem);
+  --step-3: clamp(2.1rem, 1.7rem + 1.8vw, 3.3rem);
+  --step-4: clamp(2.7rem, 2rem + 3.4vw, 5.2rem);
+  --step-5: clamp(3.6rem, 2.2rem + 7vw, 9.5rem);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-1: 0 1px 2px rgb(40 30 10 / 0.05), 0 4px 14px rgb(40 30 10 / 0.06);
+  --shadow-2: 0 2px 6px rgb(40 30 10 / 0.06), 0 18px 48px rgb(40 30 10 / 0.12);
+}
+
+/* ── The reader's settings ─────────────────────────────────────────────────────
+   Chosen in the reading settings, kept in the browser, set on <html> before the first paint.
+   The reading text is sized from --read-size; its column is measured in its own ems. */
+:root {
+  --read-base: clamp(1.125rem, 0.95rem + 0.45vw, 1.45rem);
+  --read-scale: 1;
+  --read-face: var(--font-text);
+  --read-face-scale: 1;
+  --read-lead: 1.74;
+  --read-measure: 30em;
+  --read-size: calc(var(--read-base) * var(--read-scale) * var(--read-face-scale));
+}
+html[data-size='-2'] { --read-scale: 0.84; }
+html[data-size='-1'] { --read-scale: 0.92; }
+html[data-size='1'] { --read-scale: 1.09; }
+html[data-size='2'] { --read-scale: 1.19; }
+html[data-size='3'] { --read-scale: 1.3; }
+html[data-face='literata'] { --read-face: var(--ff-literata, 'Literata'), Georgia, serif; --read-face-scale: 0.88; }
+html[data-face='atkinson'] { --read-face: var(--ff-atkinson, 'Atkinson Hyperlegible Next'), system-ui, sans-serif; --read-face-scale: 0.88; }
+html[data-lead='compact'] { --read-lead: 1.56; }
+html[data-lead='airy'] { --read-lead: 1.94; }
+html[data-measure='narrow'] { --read-measure: 26em; }
+html[data-measure='wide'] { --read-measure: 35em; }
+html[data-face='literata'], html[data-face='atkinson'] { --read-measure: 31em; }
+html[data-face='literata'][data-measure='narrow'], html[data-face='atkinson'][data-measure='narrow'] { --read-measure: 27em; }
+html[data-face='literata'][data-measure='wide'], html[data-face='atkinson'][data-measure='wide'] { --read-measure: 36em; }
+
+/* Paper: three light papers. */
+html[data-paper='white'] {
+  --vellum: #fdfcfa;
+  --vellum-2: #f3f0ea;
+  --vellum-3: #e9e4da;
+  --paper: #ffffff;
+  --hairline: #dfd9cd;
+}
+html[data-paper='sepia'] {
+  --vellum: #f2e8d3;
+  --vellum-2: #e9dcc0;
+  --vellum-3: #dfcfae;
+  --paper: #f8f0de;
+  --hairline: #d5c49f;
+  --hairline-2: #c4b089;
+  --ink: #2a2015;
+  --ink-2: #4c3f2f;
+  --ink-3: #64553f;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  background: var(--vellum);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 100%;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+  hanging-punctuation: first allow-end last;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  min-height: 100svh;
+  background: var(--vellum);
+  transition: background-color 0.4s var(--ease);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+img, svg, picture { display: block; max-width: 100%; height: auto; }
+
+a { color: inherit; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; }
+a:hover { color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection { background: color-mix(in oklab, var(--gold-light) 55%, transparent); color: var(--ink); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  font-variant-numeric: lining-nums;
+}
+
+p, li, blockquote, figcaption { text-wrap: pretty; }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--step--1);
+  font-weight: 500;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  line-height: 1.3;
+}
+
+.sr {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: fixed;
+  left: 1rem; top: 1rem;
+  z-index: 200;
+  padding: 0.7rem 1rem;
+  background: var(--ink);
+  color: var(--vellum);
+  transform: translateY(-220%);
+  transition: transform 0.25s var(--ease);
+}
+.skip:focus { transform: none; color: var(--vellum); }
+
+/* Gold leaf, drawn rather than photographed: a warm metallic sweep for display numerals. */
+.leaf {
+  background: linear-gradient(115deg, #6f5223 0%, #a8864b 22%, #e2cb92 38%, #a8864b 52%, #7a5f2e 70%, #c9a866 88%, #8a6a2c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scripture in the site's own framing (JND): supplied words lighter, as the translator printed them. */
+.supplied { color: var(--ink-3); }
+
+/* Reveal on scroll (the class is added by script; without script everything simply shows). */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    transition-delay: var(--delay, 0s);
+  }
+  .js [data-reveal].in { opacity: 1; transform: none; }
+}
+
+/* A primary action, as on the original home page: an outlined pill that fills with gold. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.85em 1.7em 0.9em;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  font-family: var(--font-text);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-variant-caps: all-small-caps;
+  text-decoration: none;
+  color: var(--ink);
+  background: color-mix(in oklab, var(--paper) 70%, transparent);
+  transition: background 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--vellum);
+  border-color: var(--ink);
+  box-shadow: 0 10px 30px rgb(168 134 75 / 0.25);
+  transform: translateY(-1px);
+}
+.btn .arrow { transition: transform 0.35s var(--ease); }
+.btn:hover .arrow { transform: translateX(3px); }

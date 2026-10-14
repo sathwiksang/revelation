@@ -1,0 +1,195 @@
+---
+import Mark from './Mark.astro';
+import { SITE } from '../site';
+import { cards } from '../lib/study';
+
+interface Props {
+  /** The current page's path, to mark it in the menu. */
+  current?: string;
+  /** Show the reading-progress line (chapter pages). */
+  progress?: boolean;
+}
+const { current = '', progress = false } = Astro.props;
+const list = cards.map((c) => ({ ...c, href: c.number === '00' ? '/timeline' : `/revelation-${Number(c.number)}` }));
+---
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="/" aria-label={`${SITE.name}, home`}>
+      <Mark size={22} />
+      <span>{SITE.name}</span>
+    </a>
+    <nav aria-label="Main">
+      <button class="menu-btn" type="button" popovertarget="chapters-menu" aria-haspopup="dialog">
+        <span>Chapters</span>
+        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 5 7.5 9 3.5" fill="none" stroke="currentColor" stroke-width="1.3" /></svg>
+      </button>
+      <a href="/timeline" aria-current={current === '/timeline' ? 'page' : undefined}>Timeline</a>
+      {progress && (
+        <button class="aa-btn" type="button" popovertarget="reader-settings" aria-label="Reading settings" title="Reading settings">
+          <span aria-hidden="true">Aa</span>
+        </button>
+      )}
+    </nav>
+  </div>
+  {progress && <div class="progress" aria-hidden="true"><span></span></div>}
+</header>
+
+<div id="chapters-menu" popover class="chapters-menu" role="dialog" aria-label="All chapters">
+  <div class="menu-head">
+    <p class="eyebrow">The Book of Revelation</p>
+    <button type="button" popovertarget="chapters-menu" popovertargetaction="hide" class="close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.4" /></svg>
+    </button>
+  </div>
+  <ol class="menu-list">
+    {list.map((c) => (
+      <li>
+        <a href={c.href} aria-current={current === c.href ? 'page' : undefined}>
+          <span class="num">{c.number === '00' ? '✦' : Number(c.number)}</span>
+          <span class="t">{c.number === '00' ? 'Timeline' : `Revelation ${Number(c.number)}`}<small>{c.title}</small></span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--vellum) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid color-mix(in oklab, var(--hairline) 70%, transparent);
+  }
+  .bar {
+    max-width: 92rem;
+    margin: 0 auto;
+    height: var(--header-h);
+    padding: 0 var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .brand :global(.mark) { color: var(--gold); transition: transform 0.8s var(--ease); }
+  .brand:hover :global(.mark) { transform: rotate(45deg); }
+  nav { display: flex; align-items: center; gap: clamp(0.9rem, 3vw, 2rem); }
+  nav a, .menu-btn {
+    font: inherit;
+    font-size: var(--step--1);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-decoration: none;
+    background: none;
+    border: 0;
+    padding: 0.4rem 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  nav a:hover, .menu-btn:hover, nav a[aria-current='page'] { color: var(--ink); }
+  nav a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 0.4em; }
+
+  .aa-btn {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-right: -0.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--hairline);
+    background: color-mix(in oklab, var(--paper) 70%, transparent);
+    color: var(--ink);
+    cursor: pointer;
+    display: inline-grid;
+    place-items: center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .aa-btn:hover { background: var(--paper); border-color: var(--hairline-2); }
+  /* Below the wide layout the reading bar carries the settings button. */
+  @media (max-width: 79.99rem) { .aa-btn { display: none; } }
+  .aa-btn span { transform: translateY(-0.04em); }
+
+  /* In focus mode the header steps aside while you read down, and returns when you scroll up. */
+  .site-header { transition: transform 0.45s var(--ease), background-color 0.4s var(--ease); }
+  :global(html[data-focus='on']) .site-header:global(.tucked) { transform: translateY(-100%); }
+
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; overflow: hidden; }
+  .progress span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    transform-origin: 0 50%;
+    transform: scaleX(var(--read, 0));
+  }
+  @supports (animation-timeline: scroll()) {
+    .progress span { animation: read linear both; animation-timeline: scroll(root); }
+    @keyframes read { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+
+  /* The chapters menu: a native popover, no script needed. */
+  .chapters-menu {
+    margin: calc(var(--header-h) + 0.5rem) auto auto;
+    width: min(58rem, calc(100vw - 2rem));
+    max-height: calc(100svh - var(--header-h) - 2rem);
+    overflow: auto;
+    padding: clamp(1.2rem, 3vw, 2.2rem);
+    border: 1px solid var(--hairline);
+    border-radius: 18px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: var(--shadow-2);
+    overscroll-behavior: contain;
+  }
+  .chapters-menu::backdrop { background: rgb(22 20 15 / 0.18); backdrop-filter: blur(2px); }
+  @media (prefers-reduced-motion: no-preference) {
+    .chapters-menu { transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), display 0.3s allow-discrete, overlay 0.3s allow-discrete; }
+    .chapters-menu:popover-open { opacity: 1; transform: none; }
+    @starting-style { .chapters-menu:popover-open { opacity: 0; transform: translateY(-8px); } }
+    .chapters-menu:not(:popover-open) { opacity: 0; transform: translateY(-8px); }
+  }
+  .menu-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .close { background: none; border: 0; padding: 0.4rem; cursor: pointer; color: var(--ink-2); border-radius: 999px; }
+  .close:hover { color: var(--ink); background: var(--vellum-2); }
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+    gap: 0.15rem 1.2rem;
+  }
+  .menu-list a {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.55rem 0.6rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s;
+  }
+  .menu-list a:hover { background: var(--vellum-2); color: var(--ink); }
+  .menu-list a[aria-current='page'] { background: var(--vellum-2); }
+  .num { font-family: var(--font-display); font-size: 1.5rem; line-height: 1; color: var(--gold-ink); text-align: right; font-variant-numeric: lining-nums; }
+  .t { font-size: 1.02rem; line-height: 1.25; }
+  .t small { display: block; color: var(--ink-3); font-size: 0.86rem; line-height: 1.3; margin-top: 0.1rem; }
+</style>

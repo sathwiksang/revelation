@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site';
+import { verseHtml, TRANSLATION } from '../lib/scripture';
+---
+<Base title={`Page not found · ${SITE.name}`} description="This page could not be found." noindex>
+  <section class="nf">
+    <p class="eyebrow">404 · Page not found</p>
+    <h1>This door is not open.</h1>
+    <blockquote>
+      <p set:html={verseHtml(3, 8)} />
+      <footer>Revelation 3:8 · {TRANSLATION.abbreviation}</footer>
+    </blockquote>
+    <p class="go"><a class="btn" href="/">All chapters <span class="arrow" aria-hidden="true">→</span></a></p>
+  </section>
+</Base>
+
+<style>
+  .nf { max-width: 44rem; margin: 0 auto; padding: clamp(5rem, 14vw, 10rem) var(--gutter) 0; text-align: center; }
+  h1 { font-size: var(--step-4); font-weight: 300; margin-top: 1rem; }
+  blockquote { margin-top: 2rem; }
+  blockquote p { font-size: var(--step-1); font-style: italic; line-height: 1.5; color: var(--ink-2); }
+  footer { margin-top: 0.6rem; font-size: var(--step--1); font-variant-caps: all-small-caps; letter-spacing: 0.14em; color: var(--ink-3); }
+  .go { margin-top: 2.4rem; }
+</style>
