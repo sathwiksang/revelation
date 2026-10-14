@@ -77,6 +77,16 @@ const schema = [
           <a class="btn" href="/revelation-1">{home.cta} <span class="arrow" aria-hidden="true">→</span></a>
           <a class="text-link" href="#chapters">All 22 chapters</a>
         </div>
+        <!-- Shown by the reader script when this browser has a place saved in a chapter. -->
+        <a class="continue" href="/revelation-1" data-continue hidden>
+          <span class="mark" aria-hidden="true"></span>
+          <span class="cw">
+            <span class="eyebrow">Continue reading</span>
+            <span class="what" data-continue-what></span>
+            <span class="where" data-continue-where></span>
+          </span>
+          <span class="go" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -256,6 +266,30 @@ const schema = [
   .blessing p { font-size: var(--step-1); line-height: 1.45; font-style: italic; }
   .blessing footer, .outline footer { margin-top: 0.6rem; font-size: var(--step--1); font-variant-caps: all-small-caps; letter-spacing: 0.14em; color: var(--ink-3); }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.8rem; margin-top: 2.4rem; }
+  .continue {
+    display: inline-grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.6rem;
+    max-width: 30rem;
+    padding: 0.8rem 1.1rem 0.85rem 0.95rem;
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    background: color-mix(in oklab, var(--paper) 80%, transparent);
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.3s, box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .continue[hidden] { display: none; }
+  .continue:hover { border-color: var(--hairline-2); box-shadow: var(--shadow-1); transform: translateY(-1px); color: var(--ink); }
+  .continue .mark { width: 0.7rem; height: 0.7rem; background: var(--gold); clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%); }
+  .continue .cw { display: grid; min-width: 0; }
+  .continue .eyebrow { font-size: 0.8rem; }
+  .continue .what { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.15; }
+  .continue .where { font-size: 0.9rem; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .continue .go { color: var(--gold-ink); transition: transform 0.3s var(--ease); }
+  .continue:hover .go { transform: translateX(3px); }
   .text-link { font-size: var(--step--1); font-variant-caps: all-small-caps; letter-spacing: 0.14em; font-weight: 500; color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 0.45em; }
 
   /* ── Numbers ───────────────────────────────────────────────────────────── */

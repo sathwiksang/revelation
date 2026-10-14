@@ -45,6 +45,25 @@ export default defineConfig({
       subsets: ['latin', 'latin-ext'],
       fallbacks: ['Garamond', 'Georgia', 'serif'],
     },
+    // Two more faces a reader may choose in the reading settings; neither loads unless chosen.
+    {
+      provider: fontProviders.google(),
+      name: 'Literata',
+      cssVariable: '--ff-literata',
+      weights: ['400 700'],
+      styles: ['normal', 'italic'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['Georgia', 'serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Atkinson Hyperlegible Next',
+      cssVariable: '--ff-atkinson',
+      weights: ['400 700'],
+      styles: ['normal', 'italic'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
   ],
 
   security: {

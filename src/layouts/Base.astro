@@ -102,8 +102,11 @@ const graph = {
 
     <Font cssVariable="--ff-display" preload={[{ style: 'normal', weight: '400' }]} />
     <Font cssVariable="--ff-text" preload={[{ style: 'normal' }]} />
+    <Font cssVariable="--ff-literata" />
+    <Font cssVariable="--ff-atkinson" />
 
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <!-- The reader's own settings (size, face, spacing, width, paper), applied before the first paint. -->
+    <script is:inline>(function(){var d=document.documentElement;d.classList.add('js');try{var s=JSON.parse(localStorage.getItem('rs-reader')||'{}');for(var k in s)if(/^(size|face|lead|measure|paper|justify|notes|focus)$/.test(k)&&/^[\w-]{1,12}$/.test(String(s[k])))d.setAttribute('data-'+k,String(s[k]))}catch(e){}})();</script>
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
     <slot name="head" />
   </head>
@@ -116,6 +119,7 @@ const graph = {
     <Footer />
     <script>
       import '../scripts/site';
+      import '../scripts/reader';
     </script>
   </body>
 </html>

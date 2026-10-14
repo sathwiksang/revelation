@@ -24,6 +24,8 @@ export interface TocItem {
   ref?: string;
   /** The title part after the reference. */
   title?: string;
+  /** A heading's subtitle after a dash ("The Letter to Ephesus (Revelation 2:1–7) – “Thou Hast Left Thy First Love”"). */
+  sub?: string;
 }
 
 export interface Chapter {
@@ -192,30 +194,58 @@ function clean(root: Element) {
 const slugify = (s: string) =>
   s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 72).replace(/-+$/, '');
 
-const REF = /^((?:Revelation\s+(?:Chapter\s+)?\d+(?::\d+(?:[–-]\d+)?(?:,\s*\d+(?:[–-]\d+)?)*)?)|(?:Verses?\s+\d+(?:[–-]\d+)?(?:,\s*\d+(?:[–-]\d+)?)*))(?:(\s+[–-]\s+|:\s+)(.+))?$/;
+// A verse reference: "Revelation 4:2–3", "Revelation Chapter 7", "Verses 17b-19", "Verse 23 (continued)".
+const N = String.raw`\d+[ab]?`;
+const SPAN = String.raw`${N}(?:\s*[–-]\s*${N})?`;
+const LIST = String.raw`${SPAN}(?:,\s*${SPAN})*`;
+const REF_PART = String.raw`(?:Revelation\s+(?:Chapter\s+)?\d+(?::${LIST})?|Verses?\s+${LIST})(?:\s*\(continued\))?`;
+/** "Revelation 4:1 – A Door Open in Heaven", "Verses 1–2: Measuring…", "Verses 7–10 The Locusts’…". */
+const REF = new RegExp(String.raw`^(${REF_PART})(?:(\s*[–-]\s*|:\s+|\s+(?=[A-Z“‘]))(.+))?$`);
+/** "The Letter to Ephesus (Revelation 2:1–7) – “Thou Hast Left Thy First Love”". */
+const TITLE_REF = /^(.+?)(\s+\()(Revelation\s+\d+:[^)]+)(\))(?:(\s*[–-]\s*)(.+))?$/;
 
-function splitHeading(h: Element): { ref?: string; title?: string } {
+/**
+ * Sets a heading's parts apart — the verse reference, the title, a subtitle — by wrapping its own
+ * words in spans (the words and their order are unchanged). A closing colon is kept but not shown.
+ */
+function splitHeading(h: Element): { ref?: string; title?: string; sub?: string } {
   if (h.children.length) return {};
   const text = (h.textContent ?? '').trim();
-  const m = text.match(REF);
-  if (!m) return {};
-  const [, ref = '', sep = '', title = ''] = m;
   const doc = h.ownerDocument;
-  h.textContent = '';
-  const r = doc.createElement('span');
-  r.className = 'h-ref';
-  r.textContent = ref;
-  h.append(r);
-  if (title) {
-    const s = doc.createElement('span');
-    s.className = 'h-sep';
-    s.textContent = sep;
-    const t = doc.createElement('span');
-    t.className = 'h-title';
-    t.textContent = title;
-    h.append(s, t);
+  const span = (cls: string, t: string) => {
+    const el = doc.createElement('span');
+    el.className = cls;
+    if (/:$/.test(t) && cls !== 'h-sep' && cls !== 'h-paren') {
+      el.append(t.slice(0, -1));
+      const c = doc.createElement('span');
+      c.className = 'h-colon';
+      c.textContent = ':';
+      el.append(c);
+    } else el.textContent = t;
+    return el;
+  };
+  let m = text.match(REF);
+  if (m) {
+    const [, ref = '', sep = '', title = ''] = m;
+    h.textContent = '';
+    h.append(span('h-ref', ref));
+    if (title) h.append(span('h-sep', sep), span('h-title', title));
+    return { ref: ref.replace(/:$/, ''), title: title ? title.replace(/:$/, '') : undefined };
   }
-  return { ref, title: title || undefined };
+  m = text.match(TITLE_REF);
+  if (m) {
+    const [, title = '', open = '', ref = '', close = '', sep = '', sub = ''] = m;
+    h.textContent = '';
+    h.classList.add('h-split');
+    h.append(span('h-title', title), span('h-paren', open), span('h-ref', ref), span('h-paren', close));
+    if (sub) h.append(span('h-sep', sep), span('h-sub', sub));
+    return { ref, title, sub: sub ? sub.replace(/:$/, '') : undefined };
+  }
+  if (/:$/.test(text)) {
+    h.textContent = '';
+    h.append(text.slice(0, -1), span('h-colon', ':'));
+  }
+  return {};
 }
 
 const isSourcesHeading = (el: Element) => /^H[23]$/.test(el.tagName) && /^sources\b/i.test((el.textContent ?? '').trim());
@@ -224,7 +254,9 @@ const isApplication = (el: Element) =>
 
 /* ── Footnotes ───────────────────────────────────────────────────────────── */
 
-const NUMS = /^[\s\d,]+$/;
+const NUMS = /^[\s\d,[\]]+$/;
+/** A superscript that holds only note numbers: “14”, “11 12”, “[10]”. */
+const isNums = (s: string) => NUMS.test(s) && /\d/.test(s);
 const numbers = (s: string) => [...s.matchAll(/\d+/g)].map((m) => Number(m[0]));
 function expand(spec: string): number[] {
   const out: number[] = [];
@@ -246,6 +278,187 @@ function firstChild(el: Element): ChildNode | undefined {
 export interface FigureRender {
   /** Replace an image placeholder with real markup. Receives the placeholder's caption text. */
   (key: 'plate' | 'map', caption: string, alt?: string): string;
+}
+
+/* ── Verses and run-in heads ─────────────────────────────────────────────── */
+
+/** Text.splitText, which linkedom lacks: keeps the first `at` characters and returns the rest. */
+function splitText(t: Text, at: number): Text {
+  const rest = t.ownerDocument.createTextNode(t.data.slice(at));
+  t.data = t.data.slice(0, at);
+  t.after(rest);
+  return rest;
+}
+
+/**
+ * Wraps the part of `parent`'s text between two character offsets in a span, splitting text at
+ * the edges. Returns null (and changes nothing) when an edge falls inside a child element.
+ */
+function wrapText(parent: Element, start: number, end: number, cls: string): Element | null {
+  const cut = (at: number): boolean => {
+    let pos = 0;
+    for (const c of [...parent.childNodes]) {
+      const len = (c.textContent ?? '').length;
+      if (at === pos || at === pos + len) return true;
+      if (at > pos && at < pos + len) {
+        if (c.nodeType !== 3) return false;
+        splitText(c as Text, at - pos);
+        return true;
+      }
+      pos += len;
+    }
+    return at === pos;
+  };
+  if (end <= start) return null;
+  // Check both edges before splitting anything.
+  const edges = (at: number) => {
+    let pos = 0;
+    for (const c of parent.childNodes) {
+      const len = (c.textContent ?? '').length;
+      if (at > pos && at < pos + len && c.nodeType !== 3) return false;
+      pos += len;
+    }
+    return true;
+  };
+  if (!edges(start) || !edges(end) || !cut(start) || !cut(end)) return null;
+  const take: ChildNode[] = [];
+  let pos = 0;
+  for (const c of [...parent.childNodes]) {
+    const len = (c.textContent ?? '').length;
+    if (pos >= start && pos + len <= end && len > 0) take.push(c);
+    pos += len;
+  }
+  if (!take.length) return null;
+  const el = parent.ownerDocument.createElement('span');
+  el.className = cls;
+  take[0]!.before(el);
+  el.append(...take);
+  return el;
+}
+
+/** The index just past the quotation mark that closes the one opening at `i`, or -1. */
+function closeQuote(t: string, i: number): number {
+  let depth = 0;
+  for (let k = i; k < t.length; k++) {
+    if (t[k] === '“') depth++;
+    else if (t[k] === '”' && --depth === 0) return k + 1;
+  }
+  return -1;
+}
+
+/** "Revelation 2:7:", "Verse 1:", "Verses 5b-6:", "Revelation 12:4 (continued):", "Verses 14–16 (The Grain Harvest – …):", "Text:". */
+const VERSE_LABEL = new RegExp(String.raw`^(?:Revelation\s+\d+:${LIST}|Verses?\s+${LIST}|Text)(?:\s*\((?:continued|[^()]{3,60})\))?:`);
+/** A reference closing a quoted verse: " (21:2)", " (Revelation 13:1–2).", " (v. 4)". */
+const VERSE_CITE = /^\s*\((?:(?:Rev(?:elation)?\.?|vv?\.)\s*)?\d+(?::\d+)?[^()]{0,24}\)\.?/;
+
+/**
+ * Verse-by-verse paragraphs. Where the study marks a paragraph's opening — a verse label
+ * (“Revelation 2:7:”) and the verse it quotes, or the quoted verse alone — the label, the verse
+ * and the commentary are set apart: the label above, the verse as Scripture, the comment beneath.
+ * The paragraph's words are untouched; they are only grouped.
+ */
+function verseBlocks(body: Element, sources: Element | null) {
+  for (const p of [...body.querySelectorAll('p')]) {
+    if (sources?.contains(p)) continue;
+    const first = firstChild(p);
+    if (!first || first.nodeType !== 1 || !(first as Element).classList.contains('q')) continue;
+    const text = p.textContent ?? '';
+    const lead = text.length - text.trimStart().length;
+    const label = text.slice(lead).match(VERSE_LABEL);
+    let at = lead + (label ? label[0].length : 0);
+    at += text.slice(at).length - text.slice(at).trimStart().length;
+
+    // The verse: a quotation right at the start that ends a sentence (one that runs on into the
+    // writer's own sentence stays where it is).
+    let verse: [number, number, number] | null = null; // start, end of the words, end with reference
+    if (text[at] === '“') {
+      const end = closeQuote(text, at);
+      if (end > 0) {
+        const cite = text.slice(end).match(VERSE_CITE);
+        const stop = end + (cite ? cite[0].length : 0);
+        const next = text.slice(stop).trimStart()[0];
+        if (end - at > 24 && (!next || !/[a-z,;:]/.test(next))) verse = [at, end, stop];
+      }
+    }
+    if (!label && !verse) continue;
+
+    // The marked span is opened up so its words can be regrouped.
+    const s = first as Element;
+    s.replaceWith(...s.childNodes);
+    p.classList.add('vp');
+    if (label) {
+      const l = wrapText(p, lead, lead + label[0].length, 'v-label');
+      const last = l?.lastChild;
+      if (l && last?.nodeType === 3 && /:$/.test((last as Text).data)) {
+        const colon = splitText(last as Text, (last as Text).data.length - 1);
+        const c = p.ownerDocument.createElement('span');
+        c.className = 'v-colon';
+        colon.replaceWith(c);
+        c.append(colon);
+      }
+    }
+    if (verse) {
+      const [a, b, c] = verse;
+      const v = wrapText(p, a, c, 'v-text');
+      if (v && c > b) wrapText(v, b - a, c - a, 'v-cite');
+      if (v) {
+        const after = text.slice(c);
+        const dash = after.match(/^\s*[–—-]\s+/);
+        if (dash) wrapText(p, c, c + dash[0].length, 'v-dash');
+        // Nothing after the verse but its note numbers: the paragraph is the verse.
+        if (/^[\s\d[\],.]*$/.test(after)) p.classList.add('vp-only');
+      }
+    }
+  }
+}
+
+const SMALL = new Set('a an and as at but by for from in into is it its of on or the to with like has are be his her their not no than over under up upon will was were who shall'.split(' '));
+/** "Trust in God’s Justice", "The Lamb Will Stand on Zion", "Wall of Jasper". */
+const titleCase = (s: string) => {
+  const w = s.split(/\s+/);
+  return w.length <= 9 && /^[A-Z“‘(]/.test(w[0] ?? '') && w.every((x, i) => i === 0 || !/^[a-z]/.test(x) || SMALL.has(x.replace(/[^a-z]/g, '')));
+};
+/** Lead-ins the study uses for its own asides. */
+const ASIDE = /^(?:Personal\s+(?:[Aa]pplication|[Rr]eflection|lessons|encouragement and application)(?:\s*\([^)]*\))?|Application(?:\s+for us|\/Significance)?|Another (?:angle|reflection|layer|application|possible nuance|personal lesson|doctrinal point)|Spiritual (?:significance|condition)|Symbolic (?:note|significance)|Theological note|Plymouth Brethren perspective)$/;
+const APPLIED = /^(?:Personal\s+(?:[Aa]pplication|[Rr]eflection|lessons|encouragement)|Application(?![\w/])|Application for us|Another application)/;
+
+/**
+ * Run-in heads: a paragraph or list item that opens with a short title and a colon
+ * (“Doctrine:”, “Wall of Jasper:”) has that title set in the text's semibold. Paragraphs that
+ * open “Personal Application:” are set as the study's application notes.
+ */
+function runIns(body: Element, sources: Element | null) {
+  for (const el of [...body.querySelectorAll('p, li')]) {
+    if (sources?.contains(el) || el.classList.contains('vp')) continue;
+    const first = firstChild(el);
+    if (!first) continue;
+    if (first.nodeType === 1) {
+      // A marked reference used as the item's label (“1 Thessalonians 4:16–17 – …”, “Satan Bound: …”).
+      const f = first as Element;
+      const next = f.nextSibling;
+      if (f.classList.contains('q') && next?.nodeType === 3 && /^\s*(?::|[–-]\s)/.test((next as Text).data)) f.classList.add('runin');
+      continue;
+    }
+    const t = first as Text;
+    const lead = t.data.length - t.data.trimStart().length;
+    const m = t.data.slice(lead).match(/^([^:.!?“”;,]{2,60}):(?=\s)/);
+    if (!m) continue;
+    const phrase = m[1]!.trim();
+    const words = phrase.split(/\s+/).length;
+    if (phrase.startsWith('(') || !(ASIDE.test(phrase) || titleCase(phrase) || (el.tagName === 'LI' && words <= 8))) continue;
+    const head = lead ? splitText(t, lead) : t;
+    splitText(head, m[0].length);
+    const colon = splitText(head, m[0].length - 1);
+    const span = el.ownerDocument.createElement('span');
+    span.className = 'runin';
+    const c = el.ownerDocument.createElement('span');
+    c.className = 'r-colon';
+    head.replaceWith(span);
+    colon.replaceWith(c);
+    c.append(colon);
+    span.append(head, c);
+    if (el.tagName === 'P' && APPLIED.test(phrase) && !el.closest('.apply')) el.classList.add('applied');
+  }
 }
 
 /* ── The chapters ────────────────────────────────────────────────────────── */
@@ -294,6 +507,8 @@ function build(n: number, file: string, pageId: string, figures: FigureRender): 
 
   // Note definitions: list items or paragraphs in the sources that begin with their numbers.
   const defs = new Map<number, string>(); // number -> element id
+  // Numbers a note lists after its source (“… Darby's Bible Synopsis ³ ⁴ ⁸”): used when no note leads with them.
+  const more = new Map<number, string>();
   let k = 0;
   if (sources) {
     for (const item of [...sources.querySelectorAll('li, p')]) {
@@ -305,7 +520,7 @@ function build(n: number, file: string, pageId: string, figures: FigureRender): 
       if (el.tagName === 'SUP') {
         for (let c: ChildNode | null = el; c; c = c.nextSibling) {
           if (c.nodeType === 3 && !(c as Text).data.trim()) continue;
-          if (c.nodeType === 1 && (c as Element).tagName === 'SUP' && NUMS.test(c.textContent ?? '')) {
+          if (c.nodeType === 1 && (c as Element).tagName === 'SUP' && isNums(c.textContent ?? '')) {
             lead.push(c as Element);
             nums.push(...numbers(c.textContent ?? ''));
           } else break;
@@ -334,7 +549,13 @@ function build(n: number, file: string, pageId: string, figures: FigureRender): 
         }
       }
       for (const num of nums) if (!defs.has(num)) defs.set(num, id);
+      for (const s of [...item.querySelectorAll('sup')]) {
+        if (lead.includes(s) || !isNums(s.textContent ?? '')) continue;
+        s.classList.add('def-num', 'def-more');
+        for (const num of numbers(s.textContent ?? '')) if (!more.has(num)) more.set(num, id);
+      }
     }
+    for (const [num, id] of more) if (!defs.has(num)) defs.set(num, id);
     // Bare web addresses in the notes become links (the text stays exactly as written).
     const walker = document.createTreeWalker(sources, 4);
     const bare: Text[] = [];
@@ -348,22 +569,25 @@ function build(n: number, file: string, pageId: string, figures: FigureRender): 
 
   // Footnote markers in the text: each number links to the note that names it.
   for (const sup of [...body.querySelectorAll('sup')]) {
-    if (sup.classList.contains('def-num') || !NUMS.test(sup.textContent ?? '')) continue;
+    if (sup.classList.contains('def-num') || !isNums(sup.textContent ?? '')) continue;
     const text = sup.textContent ?? '';
-    sup.className = 'fn';
-    // The source puts a space before most note numbers; set inside the superscript it is
-    // narrower, so the number sits close to its word. The text is unchanged.
+    // Without a list of sources (Revelation 2 and 3) the numbers stay, quietly, as written.
+    sup.className = sources ? 'fn' : 'fn plain';
+    // The source puts a space before most note numbers. It stays in the text, inside the
+    // superscript and set without width, so the number sits on its word.
     const before = sup.previousSibling;
     let lead = '';
     if (before && before.nodeType === 3 && / $/.test((before as Text).data)) {
       (before as Text).data = (before as Text).data.replace(/ $/, '');
-      lead = ' ';
+      lead = '<span class="fn-gap"> </span>';
     }
+    // Brackets (“[10]”) are kept but not shown, so every chapter's numbers look alike.
+    const marks = text.replace(/[[\]]/g, (b) => `<span class="fn-br">${b}</span>`);
     if (!sources) {
-      sup.textContent = lead + text;
+      sup.innerHTML = lead + marks;
       continue;
     }
-    sup.innerHTML = lead + text.replace(/\d+/g, (d) => {
+    sup.innerHTML = lead + marks.replace(/\d+/g, (d) => {
       const id = defs.get(Number(d));
       return id ? `<a href="#${id}" data-n="${d}">${d}</a>` : `<a href="#sources" data-n="${d}" class="unmapped">${d}</a>`;
     });
@@ -379,8 +603,8 @@ function build(n: number, file: string, pageId: string, figures: FigureRender): 
     used.add(id);
     h.id = id;
     const inSources = !!sources?.contains(h);
-    const { ref, title } = inSources ? {} : splitHeading(h);
-    if (!inSources) toc.push({ id, level: h.tagName === 'H2' ? 2 : 3, text, ref, title });
+    const { ref, title, sub } = inSources ? {} : splitHeading(h);
+    if (!inSources) toc.push({ id, level: h.tagName === 'H2' ? 2 : 3, text, ref, title, sub });
     // A link to the section itself (site furniture, not the study's text: marked data-x).
     const a = document.createElement('a');
     a.className = 'anchor';
@@ -418,9 +642,13 @@ function build(n: number, file: string, pageId: string, figures: FigureRender): 
     if (current) current.append(el);
   }
 
-  // The chapter's first paragraph opens with a raised initial (unless it opens with a quotation mark).
+  verseBlocks(body, sources);
+  runIns(body, sources);
+
+  // The chapter's first paragraph opens with a raised initial (unless it opens with a quotation
+  // mark, or with a verse).
   const opener = [...body.querySelectorAll('p')].find((p) => !sources?.contains(p) && squash(p.textContent ?? '').length > 40);
-  if (opener && /^[\p{L}]/u.test(squash(opener.textContent ?? ''))) opener.classList.add('opener');
+  if (opener && !opener.classList.contains('vp') && !opener.querySelector('.runin') && /^[\p{L}]/u.test(squash(opener.textContent ?? ''))) opener.classList.add('opener');
 
   // Word count (the study itself, not its sources).
   const studyText = [...body.children].filter((el) => el !== sources).map((el) => el.textContent ?? '').join(' ');

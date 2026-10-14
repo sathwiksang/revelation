@@ -15,6 +15,12 @@ timeline from the Rapture to the Great White Throne.
 - `scripts/verify.mjs` runs after every build and proves that every word of every original page is
   on the built site, in order (241,674 words), that the home page carries every chapter card, and
   that every in-page link lands. A difference fails the build.
+- The reading page sets each verse the study quotes apart from its commentary, gives application
+  notes their own panel, and carries a reader: text size, typeface (Garamond, Literata, Atkinson
+  Hyperlegible Next), line spacing, line length, paper, justified text, note numbers and a focus
+  mode (`src/components/ReaderSettings.astro`, `src/scripts/reader.ts`). It shows the section you
+  are in and the time left, remembers your place, and turns the chapter with ← and →. The settings
+  and your place stay in your browser only.
 - `src/lib/parts.ts` groups the chapters after Revelation 1:19. Verses that frame the pages are quoted
   from J. N. Darby's translation (`src/data/jnd-revelation.json`, public domain), never typed by hand.
 

@@ -66,6 +66,83 @@ console.log(`QA (${engine}) ${base}`);
   ok(errors.length === 0, `phone ch4: no script errors ${errors.join(' | ')}`);
   await ctx.close();
 }
+{
+  // The reader: settings kept, focus, picking up where you left off, keys.
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const p = await ctx.newPage();
+  const errors = [];
+  p.on('pageerror', (e) => errors.push(e.message));
+  await p.goto(base + '/revelation-5', { waitUntil: 'networkidle' });
+  await p.click('.rail .tool >> nth=0');
+  await p.waitForTimeout(400);
+  ok(await p.locator('#reader-settings').isVisible(), 'reader: settings open from the rail');
+  await p.click('label:has(input[name=size][value="2"])');
+  await p.click('label:has(input[name=paper][value=white])');
+  ok((await p.evaluate(() => document.documentElement.dataset.size)) === '2', 'reader: a larger size applies at once');
+  await p.reload({ waitUntil: 'networkidle' });
+  const kept = await p.evaluate(() => [document.documentElement.dataset.size, document.documentElement.dataset.paper, document.querySelector('input[name=size][value="2"]').checked]);
+  ok(kept[0] === '2' && kept[1] === 'white' && kept[2] === true, `reader: settings kept after reload (${kept})`);
+  await p.click('.rail .tool >> nth=0');
+  await p.click('[data-reader-reset]');
+  ok(!(await p.evaluate(() => document.documentElement.hasAttribute('data-size') || document.documentElement.hasAttribute('data-paper'))), 'reader: restore the defaults');
+  await p.keyboard.press('Escape');
+  await p.waitForTimeout(300);
+  await p.click('.rail [data-focus-toggle]');
+  await p.waitForTimeout(500);
+  ok((await p.evaluate(() => document.documentElement.dataset.focus)) === 'on' && !(await p.locator('.reader > .toc').isVisible()) && (await p.locator('.readbar').isVisible()), 'reader: focus hides the side columns, the reading bar stays');
+  await p.keyboard.press('Escape');
+  await p.waitForTimeout(300);
+  ok(!(await p.evaluate(() => document.documentElement.hasAttribute('data-focus'))), 'reader: Escape leaves focus');
+  // Read halfway, come back.
+  await p.evaluate(() => { const b = document.querySelector('.study .body'); scrollTo(0, b.getBoundingClientRect().top + scrollY + b.offsetHeight * 0.5); });
+  await p.waitForTimeout(900);
+  const sec = await p.locator('.rail [data-sec]').innerText();
+  const left = await p.locator('.rail [data-left]').innerText();
+  ok(/min left/.test(left) && sec.length > 3, `reader: rail shows the section and time left (“${sec}”, ${left})`);
+  await p.goto(base + '/revelation-5', { waitUntil: 'networkidle' });
+  await p.waitForTimeout(300);
+  ok(await p.locator('[data-resume]').isVisible(), 'reader: offers to pick up where you left off');
+  await p.click('[data-resume-go]');
+  await p.waitForTimeout(500);
+  ok((await p.evaluate(() => scrollY)) > 2000, 'reader: continue returns to your place');
+  await p.goto(base + '/', { waitUntil: 'networkidle' });
+  ok(await p.locator('[data-continue]').isVisible() && (await p.locator('[data-continue]').getAttribute('href')) === '/revelation-5', 'home: continue reading card');
+  await p.goto(base + '/revelation-5', { waitUntil: 'networkidle' });
+  await p.keyboard.press('ArrowRight');
+  await p.waitForURL(/revelation-6/, { timeout: 5000 }).catch(() => {});
+  ok(/revelation-6$/.test(p.url()), 'reader: → turns to the next chapter');
+  await p.goto(base + '/revelation-14', { waitUntil: 'networkidle' });
+  const fn14 = p.locator('sup.fn a').first();
+  await fn14.scrollIntoViewIfNeeded();
+  const b14 = await fn14.boundingBox();
+  await p.mouse.move(b14.x + b14.width / 2, b14.y + b14.height / 2);
+  await p.waitForTimeout(500);
+  ok(/lists its sources together/.test(await p.locator('.note-card').innerText()) && (await p.locator('.note-card li').count()) > 2, 'ch14: a note card lists the chapter’s sources');
+  ok((await p.locator('.study .v-text').count()) >= 7, 'ch14: verses set apart');
+  ok(errors.length === 0, `reader: no script errors ${errors.join(' | ')}`);
+  await ctx.close();
+}
+{
+  const { p, ctx, errors } = await page('/revelation-2', { width: 390, height: 844 });
+  ok(await p.locator('.readbar').isVisible(), 'phone: reading bar shows');
+  await p.evaluate(() => scrollTo(0, 3000));
+  await p.waitForTimeout(150);
+  await p.evaluate(() => scrollTo(0, 3600));
+  await p.waitForTimeout(700);
+  ok(await p.locator('.readbar.away').count() === 1, 'phone: reading bar steps aside while reading down');
+  await p.evaluate(() => scrollTo(0, 3000));
+  await p.waitForTimeout(700);
+  ok(await p.locator('.readbar.away').count() === 0, 'phone: and returns on scrolling up');
+  await p.click('.readbar .rb-btn >> nth=0');
+  await p.waitForTimeout(500);
+  ok(await p.locator('#toc-sheet').isVisible(), 'phone: contents sheet opens');
+  await p.click('#toc-sheet a >> nth=2');
+  await p.waitForTimeout(900);
+  ok(!(await p.locator('#toc-sheet').isVisible()) && p.url().includes('#'), 'phone: choosing a section closes the sheet');
+  ok((await p.locator('.study .v-text').count()) >= 27, 'phone ch2: every verse set apart');
+  ok(errors.length === 0, `phone reader: no script errors ${errors.join(' | ')}`);
+  await ctx.close();
+}
 for (const path of ['/timeline', '/revelation-1', '/revelation-2', '/revelation-22', '/404']) {
   const { p, ctx, errors } = await page(path, { width: 390, height: 844 });
   const overflow = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
