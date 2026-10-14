@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revelation Study has moved</title>
+<script>
+  (function () {
+    var p = location.pathname, to = '/', m = p.match(/revelation_study_chapter(\d{1,2})\.html$/);
+    if (m && +m[1] >= 1 && +m[1] <= 22) to = '/revelation-' + (+m[1]);
+    else if (/timeline\.html$/.test(p)) to = '/timeline';
+    else if (/revelation_chapter1\.pdf$/.test(p)) to = '/revelation-1.pdf';
+    location.replace('https://revstudy.sathwiksangeetham.com' + to);
+  })();
+</script>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f7f4ee;color:#16140f;font:1.15rem/1.6 Georgia,serif;text-align:center;padding:1rem}a{color:#7a5f2e}</style>
+</head>
+<body>
+<p>Revelation Study has moved to<br><a href="https://revstudy.sathwiksangeetham.com/">revstudy.sathwiksangeetham.com</a></p>
+</body>
+</html>
